@@ -15,7 +15,7 @@ namespace Interactive_Character_Sheet_Core
     public class SkillList
     {
         private Edition edition;
-        public SkillList(Edition version, List<Ability> abilities)
+        public SkillList(Edition version)
         {
             edition = version;
 
