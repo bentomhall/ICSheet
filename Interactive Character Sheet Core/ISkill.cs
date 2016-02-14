@@ -21,8 +21,24 @@ namespace Interactive_Character_Sheet_Core
 
         }
 
-        private abstract void setSkillBonusFor(string skillName);
-        private abstract void setAllSkillBonuses(Dictionary<string, int> modifierMap);
+        private void setSkillBonusFor(string skillName, int taggedBonus = 0)
+        {
+            switch(edition){
+                case Edition.Fifth:
+                    skills[skillName] = new fifthEd.Skill5e(skillName, taggedBonus);
+                    break;
+                case Edition.Fourth:
+                    throw new NotImplementedException("4th edition not implemented yet");
+            }
+        }
+
+        public void setAllSkillBonuses(Dictionary<string, int> modifierMap)
+        {
+            foreach (KeyValuePair<string, int> entry in modifierMap)
+            {
+                setSkillBonusFor(entry.Key, entry.Value);
+            }
+        }
 
         public Dictionary<string, AbilityType> skillAbilityMap4e = new Dictionary<string, AbilityType>()
         {
@@ -85,9 +101,22 @@ namespace Interactive_Character_Sheet_Core
             return skills[skillName].bonus;
         }
 
+        public List<string> getSkillNames() 
+        { 
+            switch(edition)
+            {
+                case Edition.Fourth:
+                    return skillAbilityMap4e.Keys.ToList<string>();
+                case Edition.Fifth:
+                    return skillAbilityMap5e.Keys.ToList<string>();
+                default:
+                    throw new NotImplementedException("Only 4th and 5th editions allowed");
+            }
+        }
+
     }
 
-    interface ISkill
+    public interface ISkill
     {
         public string name { get; }
         public int bonus { get; }

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Interactive_Character_Sheet_Core
 {
+    
+
     public abstract class CharacterBase
     {
         //skills -- abstract
@@ -17,9 +19,12 @@ namespace Interactive_Character_Sheet_Core
         //-->New
         //-->From XML
 
+        protected DiceBag dice = new DiceBag();
+        protected string Race { get; set; }
+        protected Dictionary<string, int> CharacterClassLevels { get; set; }
+        protected string CharacterName { get; set; }
         #region Initiative
-        private DiceBag dice = new DiceBag();
-        private int initiativeModifier = 0;
+        protected int initiativeModifier = 0;
         public int initiative
         {
             get { return initiativeModifier; }
@@ -32,7 +37,7 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Abilities
-        private Dictionary<AbilityType, Ability> abilities = new Dictionary<AbilityType, Ability>()
+        protected Dictionary<AbilityType, Ability> abilities = new Dictionary<AbilityType, Ability>()
         {
             { AbilityType.Strength, new Ability(AbilityType.Strength, 10) },
             { AbilityType.Dexterity, new Ability(AbilityType.Dexterity, 10) },
@@ -54,8 +59,8 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Skills
-        private SkillList skills;
-        
+        protected SkillList skills;
+        abstract void setSkills(List<ISkill> taggedSkills);
         #endregion
     }
 }
