@@ -32,7 +32,7 @@ namespace ICSheet5e.Model
 
         public Character()
         {
-            skills = new SkillList(Edition.Fifth);
+            skills = new SkillList<Skill5e>(Edition.Fifth);
         }
 
         public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int Health)
@@ -43,12 +43,13 @@ namespace ICSheet5e.Model
             CharacterClassLevels = classLevels;
             int totalLevel = classLevels.Sum(x => x.Value);
             _proficiencyBonus = calculateProficiency(totalLevel);
-            skills = new SkillList(Edition.Fifth);
+            skills = new SkillList<Skill5e>(Edition.Fifth);
             MaxHealth = Health;
-            MaxCarryWeight = 5 * abilitySet[AbilityType.Strength].modifier;
+            inventory = new Inventory<Item>(abilitySet[AbilityType.Strength].score);
 
         }
 
+        private Inventory<Item> inventory;
         private List<IClassFeature> features = new List<IClassFeature>();
         private List<SpellCaster> spellBooks = new List<SpellCaster>();
         private int calculateProficiency(int level)
@@ -58,22 +59,21 @@ namespace ICSheet5e.Model
 
         void setSkills(List<string> taggedSkills)
         {
-            Dictionary<string, int> skillBonuses = new Dictionary<string, int>();
+            List<Skill5e> skillBonuses = new List<Skill5e>();
           
             foreach (string skillName in skills.getSkillNames())
             {
                 AbilityType associatedAbility = skills.abilityFor(skillName);
                 if (taggedSkills.Contains(skillName)) 
                 {
-                    skillBonuses[skillName] = _proficiencyBonus + abilities[associatedAbility].modifier;
+                    skillBonuses.Add( new Skill5e(skillName, _proficiencyBonus + abilities[associatedAbility].modifier));
                 }
                 else
                 {
-                    skillBonuses[skillName] = abilities[associatedAbility].modifier;
+                    skillBonuses.Add(new Skill5e(skillName, abilities[associatedAbility].modifier));
                 }
             }
-
-            skills.setAllSkillBonuses(skillBonuses);
+            this.skills.setAllSkillBonuses(skillBonuses);
         }
 
         void setSpellCasting()

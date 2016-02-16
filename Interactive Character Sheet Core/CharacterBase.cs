@@ -94,22 +94,5 @@ namespace Interactive_Character_Sheet_Core
 
         public int Movement { get; set; }
 
-        protected int MaxCarryWeight = 50;
-        private int _currentLoad = 0;
-        protected int CurrentLoad { get { return _currentLoad; } }
-        protected List<IItem> _inventory = new List<IItem>();
-        public List<IItem> Inventory { get { return _inventory; } }
-        public void AddItem(IItem newItem)
-        {
-            _inventory.Add(newItem);
-            _currentLoad += newItem.Weight;
-        }
-        public void RemoveItem(IItem item)
-        {
-            _inventory.Remove(item);
-            _currentLoad -= item.Weight;
-        }
-        public int currentGold = 0;
-        public Dictionary<ItemSlot, IItem> EquippedItems = new Dictionary<ItemSlot, IItem>();
     }
 }

@@ -12,7 +12,7 @@ namespace Interactive_Character_Sheet_Core
         Fifth,
     }
 
-    public class SkillList
+    public class SkillList<T> where T: ISkill
     {
         private Edition edition;
         public SkillList(Edition version)
@@ -21,22 +21,16 @@ namespace Interactive_Character_Sheet_Core
 
         }
 
-        private void setSkillBonusFor(string skillName, int taggedBonus = 0)
+        public void SetSkillBonusFor(T skill)
         {
-            switch(edition){
-                case Edition.Fifth:
-                    skills[skillName] = new fifthEd.Skill5e(skillName, taggedBonus);
-                    break;
-                case Edition.Fourth:
-                    throw new NotImplementedException("4th edition not implemented yet");
-            }
+            skills[skill.name] = skill;
         }
 
-        public void setAllSkillBonuses(Dictionary<string, int> modifierMap)
+        public void setAllSkillBonuses(List<T> skillList)
         {
-            foreach (KeyValuePair<string, int> entry in modifierMap)
+            foreach (T item in skillList)
             {
-                setSkillBonusFor(entry.Key, entry.Value);
+                skills[item.name] = item;
             }
         }
 
@@ -95,7 +89,7 @@ namespace Interactive_Character_Sheet_Core
                 }
         }
 
-        private Dictionary<string, ISkill> skills = new Dictionary<string,ISkill>();
+        private Dictionary<string, T> skills = new Dictionary<string, T>();
         public int skillBonusFor(string skillName)
         {
             return skills[skillName].bonus;

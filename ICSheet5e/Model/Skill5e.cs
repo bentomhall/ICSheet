@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Interactive_Character_Sheet_Core;
 
-namespace Interactive_Character_Sheet_5e
+namespace ICSheet5e.Model
 {
     class Skill5e: ISkill
     {
@@ -18,5 +18,6 @@ namespace Interactive_Character_Sheet_5e
             this.name = name;
             this._bonus = bonus;
         }
+
     }
 }

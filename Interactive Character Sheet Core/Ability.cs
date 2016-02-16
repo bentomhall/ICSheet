@@ -49,5 +49,10 @@ namespace Interactive_Character_Sheet_Core
             name = type;
             value = score;
         }
+
+        public int score
+        {
+            get { return value; }
+        }
     }
 }
