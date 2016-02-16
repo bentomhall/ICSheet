@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.Model
@@ -21,6 +18,20 @@ namespace ICSheet5e.Model
             CharacterClassType.Warlock,
             CharacterClassType.Wizard,
             CharacterClassType.EldritchKnight
+        };
+
+        private static Dictionary<CharacterClassType, AbilityType> castingAbilities = new Dictionary<CharacterClassType,AbilityType>()
+        {
+            {CharacterClassType.ArcaneTrickster, AbilityType.Intelligence},
+            {CharacterClassType.Bard, AbilityType.Charisma},
+            {CharacterClassType.Cleric, AbilityType.Wisdom},
+            {CharacterClassType.Druid, AbilityType.Wisdom},
+            {CharacterClassType.EldritchKnight, AbilityType.Intelligence},
+            {CharacterClassType.Paladin, AbilityType.Charisma},
+            {CharacterClassType.Ranger, AbilityType.Wisdom},
+            {CharacterClassType.Sorcerer, AbilityType.Charisma},
+            {CharacterClassType.Warlock, AbilityType.Charisma},
+            {CharacterClassType.Wizard, AbilityType.Intelligence}
         };
 
         private CharacterClasses CharacterClassLevels;
@@ -82,11 +93,48 @@ namespace ICSheet5e.Model
             {
                 if (castingClasses.Contains(entry.Key))
                 {
+                    var castingModifier = abilityModifierFor(castingAbilities[entry.Key]);
                     SpellCaster book = new SpellCaster(entry.Key, entry.Value);
-                    
+                    book.SpellAttackModifier = castingModifier + _proficiencyBonus;
+                    book.SpellDC = 8 + castingModifier + _proficiencyBonus;
                 }
             }
         }
+
+
+        //Public API starts here
+        //from base class:
+        //public void mutateAbilityScore(AbilityType ability, int newScore)
+        //public int abilityModifierFor(AbilityType ability)
+        //public int AbilityScoreFor(AbilityType ability)
+        //
+        //public int MaxHealth { get; protected set; }
+        //public int CurrentHealth { get { return _currentHealth; } }
+        //public void TakeDamage(IDamage damage)
+        //public void HealDamage(int amount)
+        //
+        //public VisionType Vision { get { return _vision; } }
+        //public int Movement { get; set; }
+
+        //TODO:
+        //public inventory management
+        //hooks for casting/managing spells
+        //hooks for basic attacks
+
+        public int AttackBonusWith(Item weapon)
+        {
+            var abilities = weapon.AssociatedAbilities;
+            var modifier = abilities.Max(x => abilityModifierFor(x));
+            
+            if (weapon.IsProficient)
+            {
+                return modifier + _proficiencyBonus;
+            } else
+            {
+                return modifier;
+            }
+        }
+
     }
 
     enum CharacterClassType

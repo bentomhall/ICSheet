@@ -133,6 +133,9 @@ namespace ICSheet5e.Model
             totalSpellSlots[ofLevel] += number;
             return;
         }
+
+        public int SpellAttackModifier { get; set; }
+        public int SpellDC { get; set; }
     }
 
     static class SpellSlotsByLevel

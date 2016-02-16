@@ -10,14 +10,6 @@ namespace Interactive_Character_Sheet_Core
 
     public abstract class CharacterBase
     {
-        //skills -- abstract
-        //feats -- abstract
-        //vision -- abstract
-        //movement -- abstract
-        //inventory (equipped) -- abstract
-        //constructors: (Factory?)
-        //-->New
-        //-->From XML
 
         protected DiceBag dice = new DiceBag();
         protected string Race { get; set; }
@@ -55,6 +47,12 @@ namespace Interactive_Character_Sheet_Core
         {
             return abilities[ability].modifier;
         }
+
+        public int AbilityScoreFor(AbilityType ability)
+        {
+            return abilities[ability].score;
+        }
+
         #endregion
 
         #region Skills
@@ -63,15 +61,15 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Health
-        protected int MaxHealth { get; protected set; }
+        public int MaxHealth { get; protected set; }
         protected int _currentHealth;
-        protected int CurrentHealth { get { return _currentHealth; } }
-        protected void TakeDamage(IDamage damage)
+        public int CurrentHealth { get { return _currentHealth; } }
+        public void TakeDamage(IDamage damage)
         {
             _currentHealth -= damage.Amount;
         }
 
-        protected void HealDamage(int amount)
+        public void HealDamage(int amount)
         {
             _currentHealth = Math.Min(MaxHealth, _currentHealth + amount);
         }
@@ -90,7 +88,7 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         protected VisionType _vision;
-        public VisionType Vision { get;}
+        public VisionType Vision { get { return _vision; } }
 
         public int Movement { get; set; }
 
