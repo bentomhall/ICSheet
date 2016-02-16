@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interactive_Character_Sheet_Core;
 
-namespace Interactive_Character_Sheet_Core.fifthEd
+namespace Interactive_Character_Sheet_5e
 {
     class Skill5e: ISkill
     {

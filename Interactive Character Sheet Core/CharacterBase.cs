@@ -21,7 +21,6 @@ namespace Interactive_Character_Sheet_Core
 
         protected DiceBag dice = new DiceBag();
         protected string Race { get; set; }
-        protected Dictionary<string, int> CharacterClassLevels { get; set; }
         protected string CharacterName { get; set; }
         #region Initiative
         protected int initiativeModifier = 0;
@@ -62,5 +61,55 @@ namespace Interactive_Character_Sheet_Core
         protected SkillList skills;
         abstract void setSkills(List<ISkill> taggedSkills);
         #endregion
+
+        #region Health
+        protected int MaxHealth { get; protected set; }
+        protected int _currentHealth;
+        protected int CurrentHealth { get { return _currentHealth; } }
+        protected void TakeDamage(IDamage damage)
+        {
+            _currentHealth -= damage.Amount;
+        }
+
+        protected void HealDamage(int amount)
+        {
+            _currentHealth = Math.Min(MaxHealth, _currentHealth + amount);
+        }
+        #endregion
+
+        #region Defenses
+        protected List<DamageType> Resistances { get; set; }
+        protected List<DamageType> Immunities { get; set; }
+        private List<Defense> _defenses = new List<Defense>();
+        protected List<Defense> Defenses { get { return _defenses; } }
+        public bool willHit(DefenseType type, int withAttack)
+        {
+            var d = _defenses.Single(s => s.type == type);
+            return d.willHit(withAttack);
+        }
+        #endregion
+
+        protected VisionType _vision;
+        public VisionType Vision { get;}
+
+        public int Movement { get; set; }
+
+        protected int MaxCarryWeight = 50;
+        private int _currentLoad = 0;
+        protected int CurrentLoad { get { return _currentLoad; } }
+        protected List<IItem> _inventory = new List<IItem>();
+        public List<IItem> Inventory { get { return _inventory; } }
+        public void AddItem(IItem newItem)
+        {
+            _inventory.Add(newItem);
+            _currentLoad += newItem.Weight;
+        }
+        public void RemoveItem(IItem item)
+        {
+            _inventory.Remove(item);
+            _currentLoad -= item.Weight;
+        }
+        public int currentGold = 0;
+        public Dictionary<ItemSlot, IItem> EquippedItems = new Dictionary<ItemSlot, IItem>();
     }
 }

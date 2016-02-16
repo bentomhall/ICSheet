@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interactive Character Sheet Core", "Interactive Character Sheet Core\Interactive Character Sheet Core.csproj", "{36B253A0-5A3E-4C5A-8259-B035DD3C9EBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSheet5e", "ICSheet5e\ICSheet5e.csproj", "{928C1878-5FB8-4F73-9227-D8847B8D5445}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{36B253A0-5A3E-4C5A-8259-B035DD3C9EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36B253A0-5A3E-4C5A-8259-B035DD3C9EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36B253A0-5A3E-4C5A-8259-B035DD3C9EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{928C1878-5FB8-4F73-9227-D8847B8D5445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{928C1878-5FB8-4F73-9227-D8847B8D5445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{928C1878-5FB8-4F73-9227-D8847B8D5445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{928C1878-5FB8-4F73-9227-D8847B8D5445}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

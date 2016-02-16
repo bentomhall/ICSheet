@@ -41,7 +41,7 @@ namespace Interactive_Character_Sheet_Core
 
         public int modifier
         {
-            get { return (int)Math.Truncate((value - 10.0) / 2.0); }
+            get { return (value - 10)/2; }
         }
 
         public Ability(AbilityType type, int score)
