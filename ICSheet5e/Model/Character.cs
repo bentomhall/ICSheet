@@ -97,6 +97,7 @@ namespace ICSheet5e.Model
                     SpellCaster book = new SpellCaster(entry.Key, entry.Value);
                     book.SpellAttackModifier = castingModifier + _proficiencyBonus;
                     book.SpellDC = 8 + castingModifier + _proficiencyBonus;
+                    spellBooks.Add(book);
                 }
             }
         }
@@ -133,6 +134,16 @@ namespace ICSheet5e.Model
             {
                 return modifier;
             }
+        }
+
+        public void CastSpell(Spell spell, int asLevel)
+        {
+            var book = spellBooks.FirstOrDefault(x => x.HasSpellPrepared(spell));
+            if (book != null && book.CanCastSpell(asLevel))
+            {
+                book.CastSpell(asLevel);
+            }
+            else { throw new System.ArgumentException("Can't cast that spell as that level."); }
         }
 
     }

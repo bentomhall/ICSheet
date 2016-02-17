@@ -46,31 +46,9 @@ namespace ICSheet5e.Model
         }
 
         #region slots
-        private Dictionary<int, int> totalSpellSlots = new Dictionary<int, int>()
-        {
-            {1, 2},
-            {2, 0},
-            {3, 0},
-            {4, 0},
-            {5, 0},
-            {6, 0},
-            {7, 0},
-            {8, 0},
-            {9, 0}
-        };
+        private List<int> totalSpellSlots = new List<int>();
 
-        private Dictionary<int, int> availableSpellSlots = new Dictionary<int, int>()
-        {
-            {1, 2},
-            {2, 0},
-            {3, 0},
-            {4, 0},
-            {5, 0},
-            {6, 0},
-            {7, 0},
-            {8, 0},
-            {9, 0}
-        };
+        private List<int> availableSpellSlots = new List<int>();
         #endregion
 
         static private Dictionary<CharacterClassType, Dictionary<int, List<int>>> spellSlotsByClass = new Dictionary<CharacterClassType, Dictionary<int, List<int>>>()
@@ -88,8 +66,10 @@ namespace ICSheet5e.Model
 
         private void SetSpellSlots(int level)
         {
-
+            totalSpellSlots = spellSlotsByClass[className][level];
+            availableSpellSlots = new List<int>(totalSpellSlots);
         }
+
         public bool CanCastSpell(int ofLevel)
         {
             return availableSpellSlots[ofLevel] > 0;
@@ -100,6 +80,11 @@ namespace ICSheet5e.Model
             if (availableSpellSlots[ofLevel] == 0) return;
             availableSpellSlots[ofLevel] -= 1;
             return;
+        }
+
+        public bool HasSpellPrepared(Spell spell)
+        {
+            return preparedSpells.Contains(spell);
         }
 
         public void RecoverSpellSlots(int ofLevel)
