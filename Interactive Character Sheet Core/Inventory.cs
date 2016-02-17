@@ -10,7 +10,7 @@ namespace Interactive_Character_Sheet_Core
     {
         public Inventory(int strengthMod)
         {
-            MaxCarryWeight = 5*strengthMod;
+            MaxCarryWeight = 15*strengthMod;
         }
 
         private int MaxCarryWeight = 50;
@@ -56,5 +56,13 @@ namespace Interactive_Character_Sheet_Core
         {
             return _currentLoad > 2 * MaxCarryWeight;
         }
+    }
+
+    public enum EncumbranceType
+    {
+        None,
+        Light,
+        Heavy,
+        Immobile
     }
 }

@@ -146,6 +146,39 @@ namespace ICSheet5e.Model
             else { throw new System.ArgumentException("Can't cast that spell as that level."); }
         }
 
+        public bool TryUseFeature(IClassFeature feature)
+        {
+            if (!features.Contains(feature)) { throw new System.ArgumentException(string.Format("This character does not have the {0} feature", feature.Name));}
+            return feature.TryUseFeature(); //sideEffects
+        }
+
+        public void DoGoldTransaction(int amount)
+        {
+            if (amount > 0) { inventory.Earn(amount); }
+            else 
+            { 
+                var success = inventory.Pay(amount);
+                if (!success) { throw new System.ArgumentException("Not enough gold for that transaction!"); }
+            }
+        }
+
+        public void Equip(Item item)
+        {
+            inventory.EquippedItems[item.Slot] = item;
+        }
+
+        public EncumbranceType AddItemToInventory(Item item)
+        {
+            inventory.AddItem(item);
+            if (inventory.IsEncumbered()) { return EncumbranceType.Light; }
+            else if (inventory.IsHeavyEncumbered()) { return EncumbranceType.Heavy; }
+            else { return EncumbranceType.None; }
+        }
+
+        public void RemoveItemFromInventory(Item item)
+        {
+            inventory.RemoveItem(item);
+        }
     }
 
     enum CharacterClassType

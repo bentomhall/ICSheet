@@ -115,12 +115,17 @@ namespace ICSheet5e.Model
 
         private void AddSlot(int ofLevel, int number=1)
         {
-            totalSpellSlots[ofLevel] += number;
+            totalSpellSlots[ofLevel + 1] += number; //spells are 1 indexed
             return;
         }
 
         public int SpellAttackModifier { get; set; }
         public int SpellDC { get; set; }
+
+        public bool TryUseFeature()
+        {
+            return true; //can always cast cantrips
+        }
     }
 
     static class SpellSlotsByLevel
