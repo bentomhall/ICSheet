@@ -19,8 +19,8 @@ namespace Interactive_Character_Sheet_Core
 
     public interface IRollable
     {
-        public int roll();
-        public int roll(int withModifier);
+        int roll();
+        int roll(int withModifier);
     }
 
     public class DiceBag
@@ -35,20 +35,21 @@ namespace Interactive_Character_Sheet_Core
         public int rollMany(DiceSet dice)
         {
             int sum = 0;
-            for (int i = 0; i < dice.number; i++) { sum += rollOne(dice.sides); }
+            for (int i = 0; i < dice.Number; i++) { sum += rollOne(dice.Sides); }
             return sum;
         }
     }
 
     public struct DiceSet
     {
-        public int number { get; set; }
-        public DiceSize sides { get; set; }
+        public int Number { get; set; }
+        public DiceSize Sides { get; set; }
 
-        public DiceSet(int number, DiceSize diceType)
+        public DiceSet(int number, DiceSize diceType) :this()
         {
-            this.number = number;
-            this.sides = diceType;
+
+            Number = number;
+            Sides = diceType;
         }
     }
 
@@ -73,7 +74,7 @@ namespace Interactive_Character_Sheet_Core
             var sum = 0;
             foreach (DiceSet die in dice)
             {
-                sum += (int)die.sides;
+                sum += (int)die.Sides;
             }
             if (additional.HasValue) {
                 sum += bag.rollMany(additional.Value);

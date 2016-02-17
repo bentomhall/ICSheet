@@ -15,7 +15,7 @@ namespace ICSheet5e.Model
         int _totalUses;
 
         public string Name { get { return _name; } }
-        public string Desciption { get { return _description; } }
+        public string Description { get { return _description; } }
         public string Uses { get { return _uses; } }
 
         public class UnuseableException: System.Exception
@@ -36,7 +36,7 @@ namespace ICSheet5e.Model
             ResetUses();
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return _description;
         }

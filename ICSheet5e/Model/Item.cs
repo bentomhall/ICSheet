@@ -7,7 +7,7 @@ using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.Model
 {
-    class Item: IItem
+    public class Item: IItem
     {
         private string properties;
         private string _name;
@@ -15,7 +15,7 @@ namespace ICSheet5e.Model
         private int _value;
         private ItemSlot _slot;
         private int _enhancement = 0;
-        private string description;
+        private string description = "";
         private bool _isProficient;
         private List<AbilityType> associatedAbility = new List<AbilityType>();
 
@@ -65,7 +65,7 @@ namespace ICSheet5e.Model
             return output.ToString();
         }
 
-        public string ToString() { return description; }
+        public override string ToString() { return description; }
 
     }
 }

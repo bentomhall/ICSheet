@@ -112,7 +112,7 @@ namespace Interactive_Character_Sheet_Core
 
     public interface ISkill
     {
-        public string name { get; }
-        public int bonus { get; }
+        string name { get; }
+        int bonus { get; }
     }
 }

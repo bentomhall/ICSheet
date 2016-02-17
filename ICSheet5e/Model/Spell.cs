@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ICSheet5e.Model
 {
-    class Spell
+    public class Spell
     {
     }
 }

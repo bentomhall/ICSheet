@@ -8,14 +8,14 @@ namespace Interactive_Character_Sheet_Core
 {
     public interface IItem
     {
-        public int Weight { get; }
-        public int Value { get; }
-        public string Name { get; }
-        public ItemSlot Slot { get; }
-        public string ToString();
-        public int EnhancementBonus;
-        public bool IsWeapon { get; }
-        public bool IsArmor { get; }
+        int Weight { get; }
+        int Value { get; }
+        string Name { get; }
+        ItemSlot Slot { get; }
+        string ToString();
+        int EnhancementBonus { get; }
+        bool IsWeapon { get; }
+        bool IsArmor { get; }
 
     }
 

@@ -36,6 +36,8 @@ namespace ICSheet5e.Model
 
         private CharacterClasses CharacterClassLevels;
         private int _proficiencyBonus = 2;
+        private SkillList<Skill5e> skills;
+
         public int Proficiency
         {
             get { return _proficiencyBonus; }
@@ -44,19 +46,28 @@ namespace ICSheet5e.Model
         public Character()
         {
             skills = new SkillList<Skill5e>(Edition.Fifth);
+            CharacterClassLevels = new CharacterClasses();
+            inventory = new Inventory<Item>(10);
+            CharacterName = "";
+            Race = "";
+            MaxHealth = 1;
+            SetSkills<Skill5e>(new List<Skill5e>());
+            setSpellCasting();
         }
 
-        public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int Health)
+        public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills )
         {
             CharacterName = characterName;
             Race = race;
-            this.abilities = abilitySet;
+            this.abilities = abilitySet; //set in base
             CharacterClassLevels = classLevels;
             int totalLevel = classLevels.Sum(x => x.Value);
             _proficiencyBonus = calculateProficiency(totalLevel);
             skills = new SkillList<Skill5e>(Edition.Fifth);
-            MaxHealth = Health;
+            SetSkills<Skill5e>(taggedSkills);
+            MaxHealth = health;
             inventory = new Inventory<Item>(abilitySet[AbilityType.Strength].score);
+            setSpellCasting();
 
         }
 
@@ -68,14 +79,14 @@ namespace ICSheet5e.Model
             return (level - 1) / 4 + 2; //integer division
         }
 
-        void setSkills(List<string> taggedSkills)
+        protected override void SetSkills<T>(List<T> taggedSkills) 
         {
             List<Skill5e> skillBonuses = new List<Skill5e>();
           
             foreach (string skillName in skills.getSkillNames())
             {
                 AbilityType associatedAbility = skills.abilityFor(skillName);
-                if (taggedSkills.Contains(skillName)) 
+                if (taggedSkills.Count(x => x.name == skillName) != 0) 
                 {
                     skillBonuses.Add( new Skill5e(skillName, _proficiencyBonus + abilities[associatedAbility].modifier));
                 }
@@ -179,9 +190,17 @@ namespace ICSheet5e.Model
         {
             inventory.RemoveItem(item);
         }
+
+        public void AddFeature(IClassFeature feature)
+        {
+            features.Add(feature);
+        }
+        
+        //hooks for serialization
+
     }
 
-    enum CharacterClassType
+    public enum CharacterClassType
     {
         Barbarian,
         Bard,

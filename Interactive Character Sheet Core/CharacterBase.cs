@@ -56,8 +56,7 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Skills
-        protected SkillList skills;
-        abstract void setSkills(List<ISkill> taggedSkills);
+        protected abstract void SetSkills<T>(List<T> taggedSkills) where T : ISkill;
         #endregion
 
         #region Health

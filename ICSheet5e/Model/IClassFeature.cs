@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ICSheet5e.Model
 {
-    interface IClassFeature
+    public interface IClassFeature
     {
-        public string Name { get; }
-        public string Uses { get; }
-        public string Description { get; }
-        public string ToString();
+        string Name { get; }
+        string Uses { get; }
+        string Description { get; }
+        string ToString();
 
-        public bool TryUseFeature();
-        public void ResetUses();
+        bool TryUseFeature();
+        void ResetUses();
     }
 }

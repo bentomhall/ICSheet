@@ -100,8 +100,13 @@ namespace ICSheet5e.Model
             }
         }
 
+        public void ResetUses()
+        {
+            RecoverAllSpellSlots();
+        }
+
         private List<Spell> spellBook = new List<Spell>();
-        private int maxPreparedSpells;
+        private int maxPreparedSpells = 10;
         private List<Spell> preparedSpells = new List<Spell>();
         public void AddSpell(Spell spell)
         {
@@ -110,6 +115,8 @@ namespace ICSheet5e.Model
 
         public void PrepareSpells(List<Spell> spells)
         {
+            if (spells.Count > maxPreparedSpells) { throw new System.ArgumentException("Too many spells to prepare!"); }
+            preparedSpells.Clear();
             preparedSpells.AddRange(spells);
         }
 

@@ -17,7 +17,7 @@ namespace Interactive_Character_Sheet_Core
         private int _currentLoad = 0;
         public int CurrentLoad { get { return _currentLoad; } }
         private List<T> _inventory = new List<T>();
-        public List<T> Inventory { get { return _inventory; } }
+        public List<T> InventoryContents { get { return _inventory; } }
         public void AddItem(T newItem)
         {
             _inventory.Add(newItem);
