@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace ICSheet5e.Model
 {
+    [DataContract]
     public class SpellCaster: IClassFeature
     {
         static private Dictionary<CharacterClassType, string> nameForClass = new Dictionary<CharacterClassType,string>()
@@ -37,7 +39,7 @@ namespace ICSheet5e.Model
             RecoverAllSpellSlots();
         }
 
-        private CharacterClassType className;
+        [DataMember] private CharacterClassType className;
         public string Name { get { return String.Format("Spell Caster: {0}", nameForClass[className]); } }
         public string Uses { get { return "Special (Spell Slots)"; } }
         public string Description
@@ -46,8 +48,10 @@ namespace ICSheet5e.Model
         }
 
         #region slots
+        [DataMember]
         private List<int> totalSpellSlots = new List<int>();
 
+        [DataMember]
         private List<int> availableSpellSlots = new List<int>();
         #endregion
 
@@ -104,9 +108,11 @@ namespace ICSheet5e.Model
         {
             RecoverAllSpellSlots();
         }
-
+        [DataMember] 
         private List<Spell> spellBook = new List<Spell>();
+        [DataMember]
         private int maxPreparedSpells = 10;
+        [DataMember]
         private List<Spell> preparedSpells = new List<Spell>();
         public void AddSpell(Spell spell)
         {
@@ -126,7 +132,9 @@ namespace ICSheet5e.Model
             return;
         }
 
+        [DataMember]
         public int SpellAttackModifier { get; set; }
+        [DataMember]
         public int SpellDC { get; set; }
 
         public bool TryUseFeature()

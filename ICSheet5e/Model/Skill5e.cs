@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interactive_Character_Sheet_Core;
+using System.Runtime.Serialization;
 
 namespace ICSheet5e.Model
 {
+    [DataContract]
     public class Skill5e: ISkill
     {
-        public string name { get; set; }
+        [DataMember] public string name { get; set; }
         public int bonus { get { return _bonus; } }
-        private int _bonus = 0;
+        [DataMember] private int _bonus = 0;
 
         public Skill5e(String name, int bonus) 
         {

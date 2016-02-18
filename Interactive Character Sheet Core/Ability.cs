@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Interactive_Character_Sheet_Core
 {
@@ -34,10 +35,11 @@ namespace Interactive_Character_Sheet_Core
         } 
     }
 
+    [DataContract]
     public class Ability
     {
-        private AbilityType name;
-        private int value;
+        [DataMember] private AbilityType name;
+        [DataMember] private int value;
 
         public int modifier
         {

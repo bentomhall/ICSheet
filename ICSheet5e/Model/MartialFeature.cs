@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace ICSheet5e.Model
 {
+    [DataContract]
     class MartialFeature: IClassFeature
     {
-        string _name;
-        string _description;
-        string _uses;
-        int _usesRemainingToday;
-        int _totalUses;
+        [DataMember] string _name;
+        [DataMember] string _description;
+        [DataMember] string _uses;
+        [DataMember] int _usesRemainingToday;
+        [DataMember] int _totalUses;
 
         public string Name { get { return _name; } }
         public string Description { get { return _description; } }

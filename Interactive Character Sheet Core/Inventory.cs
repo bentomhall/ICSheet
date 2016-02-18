@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Interactive_Character_Sheet_Core
 {
+    [DataContract]
     public class Inventory<T> where T: IItem
     {
         public Inventory(int strengthMod)
@@ -13,10 +15,10 @@ namespace Interactive_Character_Sheet_Core
             MaxCarryWeight = 15*strengthMod;
         }
 
-        private int MaxCarryWeight = 50;
-        private int _currentLoad = 0;
+        [DataMember] private int MaxCarryWeight = 50;
+        [DataMember] private int _currentLoad = 0;
         public int CurrentLoad { get { return _currentLoad; } }
-        private List<T> _inventory = new List<T>();
+        [DataMember] private List<T> _inventory = new List<T>();
         public List<T> InventoryContents { get { return _inventory; } }
         public void AddItem(T newItem)
         {
@@ -28,7 +30,7 @@ namespace Interactive_Character_Sheet_Core
             _inventory.Remove(item);
             _currentLoad -= item.Weight;
         }
-        public int CurrentGold { get; set; }
+        [DataMember] public int CurrentGold { get; set; }
         public void Earn(int gold)
         {
             CurrentGold += gold;
@@ -45,7 +47,7 @@ namespace Interactive_Character_Sheet_Core
                 return true;
             }
         }
-        public Dictionary<ItemSlot, T> EquippedItems = new Dictionary<ItemSlot, T>();
+        [DataMember] public Dictionary<ItemSlot, T> EquippedItems = new Dictionary<ItemSlot, T>();
 
         public bool IsEncumbered()
         {

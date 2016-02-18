@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace Interactive_Character_Sheet_Core
 {
-    
-
+    [DataContract]
     public abstract class CharacterBase
     {
 
         protected DiceBag dice = new DiceBag();
-        protected string Race { get; set; }
-        protected string CharacterName { get; set; }
+        [DataMember] protected string Race { get; set; }
+        [DataMember] protected string CharacterName { get; set; }
         #region Initiative
-        protected int initiativeModifier = 0;
+        [DataMember] protected int initiativeModifier = 0;
         public int initiative
         {
             get { return initiativeModifier; }
@@ -60,8 +62,8 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Health
-        public int MaxHealth { get; protected set; }
-        protected int _currentHealth;
+        [DataMember] public int MaxHealth { get; protected set; }
+        [DataMember] protected int _currentHealth;
         public int CurrentHealth { get { return _currentHealth; } }
         public void TakeDamage(IDamage damage)
         {
@@ -75,9 +77,9 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Defenses
-        protected List<DamageType> Resistances { get; set; }
-        protected List<DamageType> Immunities { get; set; }
-        private List<Defense> _defenses = new List<Defense>();
+        [DataMember] protected List<DamageType> Resistances { get; set; }
+        [DataMember] protected List<DamageType> Immunities { get; set; }
+        [DataMember] private List<Defense> _defenses = new List<Defense>();
         protected List<Defense> Defenses { get { return _defenses; } }
         public bool willHit(DefenseType type, int withAttack)
         {
@@ -86,10 +88,10 @@ namespace Interactive_Character_Sheet_Core
         }
         #endregion
 
-        protected VisionType _vision;
+        [DataMember] protected VisionType _vision;
         public VisionType Vision { get { return _vision; } }
 
-        public int Movement { get; set; }
+        [DataMember] public int Movement { get; set; }
 
     }
 }

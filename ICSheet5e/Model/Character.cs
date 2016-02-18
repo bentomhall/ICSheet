@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.Model
 {
     using CharacterClasses = Dictionary<CharacterClassType, int>;
+    [DataContract]
     public class Character: CharacterBase
     {
         private static List<CharacterClassType> castingClasses = new List<CharacterClassType>()
@@ -34,9 +36,9 @@ namespace ICSheet5e.Model
             {CharacterClassType.Wizard, AbilityType.Intelligence}
         };
 
-        private CharacterClasses CharacterClassLevels;
-        private int _proficiencyBonus = 2;
-        private SkillList<Skill5e> skills;
+        [DataMember] private CharacterClasses CharacterClassLevels;
+        [DataMember] private int _proficiencyBonus = 2;
+        [DataMember] private SkillList<Skill5e> skills;
 
         public int Proficiency
         {
@@ -71,9 +73,9 @@ namespace ICSheet5e.Model
 
         }
 
-        private Inventory<Item> inventory;
-        private List<IClassFeature> features = new List<IClassFeature>();
-        private List<SpellCaster> spellBooks = new List<SpellCaster>();
+        [DataMember] private Inventory<Item> inventory;
+        [DataMember] private List<IClassFeature> features = new List<IClassFeature>();
+        [DataMember] private List<SpellCaster> spellBooks = new List<SpellCaster>();
         private int calculateProficiency(int level)
         {
             return (level - 1) / 4 + 2; //integer division
