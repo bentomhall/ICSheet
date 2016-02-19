@@ -31,11 +31,8 @@ namespace ICSheet5e.Model
         public SpellCaster(CharacterClassType type, int level)
         {
             className = type;
-            List<int> _slots = spellSlotsByClass[type][level];
-            for (int i=0; i < 9; i++)
-            {
-                AddSlot(i + 1, _slots[i]);
-            }
+            SetSpellSlots(level);
+            
             RecoverAllSpellSlots();
         }
 
@@ -93,14 +90,14 @@ namespace ICSheet5e.Model
 
         public void RecoverSpellSlots(int ofLevel)
         {
-            availableSpellSlots[ofLevel] = totalSpellSlots[ofLevel];
+            availableSpellSlots[ofLevel] = totalSpellSlots[ofLevel]; //levels are 1 indexed
         }
 
         public void RecoverAllSpellSlots()
         {
-            for (int i=0; i < 10; i++)
+            for (int i=1; i < 10; i++)
             {
-                RecoverSpellSlots(i);
+                RecoverSpellSlots(i - 1);
             }
         }
 

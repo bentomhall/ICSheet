@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Interactive_Character_Sheet_Core
 {
@@ -12,9 +13,10 @@ namespace Interactive_Character_Sheet_Core
         Fifth,
     }
 
+    [DataContract]
     public class SkillList<T> where T: ISkill
     {
-        private Edition edition;
+        [DataMember] private Edition edition;
         public SkillList(Edition version)
         {
             edition = version;
@@ -89,7 +91,7 @@ namespace Interactive_Character_Sheet_Core
                 }
         }
 
-        private Dictionary<string, T> skills = new Dictionary<string, T>();
+        [DataMember] private Dictionary<string, T> skills = new Dictionary<string, T>();
         public int skillBonusFor(string skillName)
         {
             return skills[skillName].bonus;

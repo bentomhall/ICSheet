@@ -53,8 +53,14 @@ namespace ICSheet5e.Model
             CharacterName = "";
             Race = "";
             MaxHealth = 1;
+            _currentHealth = 1;
+            Resistances = new List<DamageType>();
+            Immunities = new List<DamageType>();
+            _proficiencyBonus = 2;
+            skills = new SkillList<Skill5e>(Edition.Fifth);
             SetSkills<Skill5e>(new List<Skill5e>());
             setSpellCasting();
+            inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
 
         public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills )
@@ -68,7 +74,12 @@ namespace ICSheet5e.Model
             skills = new SkillList<Skill5e>(Edition.Fifth);
             SetSkills<Skill5e>(taggedSkills);
             MaxHealth = health;
-            inventory = new Inventory<Item>(abilitySet[AbilityType.Strength].score);
+            _currentHealth = health;
+            initiativeModifier = abilityModifierFor(AbilityType.Dexterity);
+            Resistances = new List<DamageType>();
+            Immunities = new List<DamageType>();
+
+            inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
             setSpellCasting();
 
         }

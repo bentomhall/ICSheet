@@ -13,7 +13,18 @@ namespace Interactive_Character_Sheet_Core
     public abstract class CharacterBase
     {
 
-        protected DiceBag dice = new DiceBag();
+        private DiceBag dice = new DiceBag();
+        public DiceBag Dice
+        {
+            get
+            {
+                if (dice == null)
+                {
+                    dice = new DiceBag();
+                }
+                return dice;
+            }
+        }
         [DataMember] protected string Race { get; set; }
         [DataMember] protected string CharacterName { get; set; }
         #region Initiative
@@ -30,6 +41,7 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Abilities
+        [DataMember]
         protected Dictionary<AbilityType, Ability> abilities = new Dictionary<AbilityType, Ability>()
         {
             { AbilityType.Strength, new Ability(AbilityType.Strength, 10) },
@@ -79,7 +91,7 @@ namespace Interactive_Character_Sheet_Core
         #region Defenses
         [DataMember] protected List<DamageType> Resistances { get; set; }
         [DataMember] protected List<DamageType> Immunities { get; set; }
-        [DataMember] private List<Defense> _defenses = new List<Defense>();
+        [DataMember] protected List<Defense> _defenses = new List<Defense>();
         protected List<Defense> Defenses { get { return _defenses; } }
         public bool willHit(DefenseType type, int withAttack)
         {

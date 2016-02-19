@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.Serialization;
+using System.IO;
+using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e
 {
@@ -24,5 +27,6 @@ namespace ICSheet5e
         {
             InitializeComponent();
         }
+
     }
 }
