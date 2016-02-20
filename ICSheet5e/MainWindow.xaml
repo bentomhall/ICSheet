@@ -2,8 +2,34 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New"
+                        Executed="NewCommandBinding_Executed"
+                        CanExecute="NewCommandBinding_CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="OpenCommandExecuted"
+                        CanExecute="OpenCommandCanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        Executed="SaveCommandExecuted"
+                        CanExecute="SaveCommandCanExecute"/>
+    </Window.CommandBindings>
     <Grid>
-        
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="457*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="304*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Header="_File" Margin="0" Width="56">
+                <MenuItem Command="ApplicationCommands.New"/>
+                <MenuItem Command="ApplicationCommands.Open"/>
+                <MenuItem Command="ApplicationCommands.Save"/>
+            </MenuItem>
+            
+        </Menu>
+
     </Grid>
 </Window>
