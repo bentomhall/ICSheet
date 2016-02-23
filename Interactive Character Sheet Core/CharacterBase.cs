@@ -25,8 +25,8 @@ namespace Interactive_Character_Sheet_Core
                 return dice;
             }
         }
-        [DataMember] protected string Race { get; set; }
-        [DataMember] protected string CharacterName { get; set; }
+        [DataMember] public string Race { get; set; }
+        [DataMember] public string CharacterName { get; set; }
         #region Initiative
         [DataMember] protected int initiativeModifier = 0;
         public int initiative
@@ -51,6 +51,8 @@ namespace Interactive_Character_Sheet_Core
             { AbilityType.Wisdom, new Ability(AbilityType.Wisdom, 10) },
             { AbilityType.Charisma, new Ability(AbilityType.Charisma, 10) }
         };
+
+        public Dictionary<AbilityType, Ability> Abilities { get { return abilities; } }
 
         public void mutateAbilityScore(AbilityType ability, int newScore)
         {
