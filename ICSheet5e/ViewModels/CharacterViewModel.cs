@@ -21,13 +21,7 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        private AttributeBoxViewModel attributeModel = null;
-        public AttributeBoxViewModel AttributeModel
-        {
-            get { return (attributeModel) ?? new AttributeBoxViewModel(character.Abilities); }
-        }
-        private ObservableCollection<string> tabs = new ObservableCollection<string>() { "Sheet", "Inventory", "Features" };
-        public ObservableCollection<string> Tabs { get { return tabs; } }
+        
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;

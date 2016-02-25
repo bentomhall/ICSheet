@@ -23,39 +23,11 @@ namespace ICSheet5e
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool characterInitialized = false;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void NewCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private void NewCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void OpenCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-           
-        }
-
-        private void OpenCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-        private void SaveCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        private void SaveCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = characterInitialized;
-        }
+        
     }
 }
