@@ -18,7 +18,7 @@
                 <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open"/>
                 <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save"/>
             </MenuItem>
-            <MenuItem Header="_Edit" IsCheckable="True"/>
+            <MenuItem Header="_Edit" IsCheckable="True" Command="{Binding Path=ToggleEditingCommand}" IsChecked="{Binding Path=IsEditingModeEnabled}"/>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left" 
                     Style="{StaticResource SheetTabControlItem}"

@@ -12,6 +12,7 @@ namespace ICSheet5e.ViewModels
     public class ApplicationModel
     {
         Model.Character currentCharacter = null;
+        public bool IsEditingModeEnabled { get; set; }
 
         ObservableCollection<object> tabItemViewModels;
 
@@ -37,6 +38,11 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(SaveCommandExecuted, SaveCommandCanExecute); }
         }
 
+        public ICommand ToggleEditingCommand
+        {
+            get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
+        }
+
         public void NewCharacterCommandExecuted(object sender)
         {
             Console.WriteLine("New Character Command Executed");
@@ -56,6 +62,12 @@ namespace ICSheet5e.ViewModels
         public bool SaveCommandCanExecute(object sender)
         {
             return (currentCharacter == null);
+        }
+
+        public void ToggleEditingCommandExecuted(object sender)
+        {
+            IsEditingModeEnabled = !IsEditingModeEnabled;
+            return;
         }
 
     }
