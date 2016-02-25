@@ -71,16 +71,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AttributeBlock.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="AttributeBlock.xaml.cs">
-      <DependentUpon>AttributeBlock.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

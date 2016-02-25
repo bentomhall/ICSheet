@@ -60,7 +60,17 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
+    <Compile Include="ViewModels\SkillViewModel.cs" />
+    <Compile Include="Views\AttributeBlock.xaml.cs">
+      <DependentUpon>AttributeBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DelegateCommand.cs" />
+    <Compile Include="Views\MainSheetControl.xaml.cs">
+      <DependentUpon>MainSheetControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SkillsControl.xaml.cs">
+      <DependentUpon>SkillsControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +84,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PageStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AttributeBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainSheetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SkillsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
