@@ -23,83 +23,113 @@ namespace ICSheet5e.ViewModels
         }
         #endregion
 
+        public bool IsEditing { get; set; }
         private int strength = 10;
-        public int StrengthScore
+        public int Strength
         {
-            get { return strength; }
+            get
+            {
+                if (IsEditing) return strength;
+                else return ModifierFor(strength);
+            }
+
             set
             {
                 strength = value;
                 NotifyPropertyChanged();
             }
         }
-        public int StrengthModifier
-        {
-            get { return ModifierFor(strength); }
-        }
 
         private int dexterity = 10;
-        public int DexterityScore
+        public int Dexterity
         {
-            get { return dexterity; }
+            get
+            {
+                if (IsEditing) return dexterity;
+                else return ModifierFor(dexterity);
+            }
             set
             {
                 dexterity = value;
                 NotifyPropertyChanged();
             }
         }
-        public int DexterityModifier { get { return ModifierFor(dexterity); } }
 
         private int constitution = 10;
-        public int ConstitutionScore
+        public int Constitution
         {
-            get { return constitution; }
+            get
+            {
+                if (IsEditing) return constitution;
+                else return ModifierFor(constitution);
+            }
+
             set
             {
                 constitution = value;
                 NotifyPropertyChanged();
             }
         }
-        public int ConstitutionModifier { get { return ModifierFor(constitution); } }
 
         private int intelligence = 10;
-        public int IntelligenceScore
+        public int Intelligence
         {
-            get { return intelligence; }
-            set
+            get
             {
+                if (IsEditing) return intelligence;
+                else return ModifierFor(intelligence);
+            }
+
+            set 
+            { 
                 intelligence = value;
                 NotifyPropertyChanged();
             }
         }
-        public int IntelligenceModifier { get { return ModifierFor(intelligence); } }
 
         private int wisdom = 10;
-        public int WisdomScore
+        public int Wisdom
         {
-            get { return wisdom; }
-            set { wisdom = value; NotifyPropertyChanged(); }
+            get
+            {
+                if (IsEditing) return wisdom;
+                else return ModifierFor(wisdom);
+            }
+            set
+            {
+                wisdom = value;
+                NotifyPropertyChanged();
+            }
         }
-        public int WisdomModifier { get { return ModifierFor(wisdom); } }
 
         private int charisma = 10;
-        public int CharismaScore
+        public int Charisma
         {
-            get { return charisma; }
-            set { charisma = value; NotifyPropertyChanged(); }
+            get
+            {
+                if (IsEditing) return charisma;
+                else return ModifierFor(charisma);
+            }
+            set
+            {
+                charisma = value;
+                NotifyPropertyChanged();
+            }
         }
-        public int CharismaModifier { get { return ModifierFor(charisma); } }
 
-
-
-        public AttributeBoxViewModel(Dictionary<AbilityType, Ability> attributes)
+        public void SetAllAbilityScores(Dictionary<AbilityType, Ability> attributes)
         {
-            StrengthScore = attributes[AbilityType.Strength].score;
-            DexterityScore = attributes[AbilityType.Dexterity].score;
-            ConstitutionScore = attributes[AbilityType.Constitution].score;
-            IntelligenceScore = attributes[AbilityType.Intelligence].score;
-            WisdomScore = attributes[AbilityType.Wisdom].score;
-            CharismaScore = attributes[AbilityType.Charisma].score;
+            Strength = attributes[AbilityType.Strength].score;
+            Dexterity = attributes[AbilityType.Dexterity].score;
+            Constitution = attributes[AbilityType.Constitution].score;
+            Intelligence = attributes[AbilityType.Intelligence].score;
+            Wisdom = attributes[AbilityType.Wisdom].score;
+            Charisma = attributes[AbilityType.Charisma].score;
+        }
+
+        public AttributeBoxViewModel()
+        {
+            IsEditing = false;
         }
 
         private int ModifierFor(int attributeScore)

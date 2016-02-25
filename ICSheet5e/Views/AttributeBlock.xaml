@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xc="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:ICSheet5e.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <vm:AttributeBoxViewModel/>
+    </UserControl.DataContext>
     <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="White" CornerRadius="15">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -26,13 +30,12 @@
             <Label Grid.Row="3" Margin="10" FontWeight="Bold" FontSize="14">Intelligence</Label>
             <Label Grid.Row="4" Margin="10" FontWeight="Bold" FontSize="14">Wisdom</Label>
             <Label Grid.Row="5" Margin="10" FontWeight="Bold" FontSize="14">Charisma</Label>
-            <!--
-            <xc:IntegerUpDown Value="0" Grid.Column="1"></xc:IntegerUpDown>
-            <xc:IntegerUpDown Value="0" Grid.Column="1" Grid.Row="1"></xc:IntegerUpDown>
-            <xc:IntegerUpDown Value="0" Grid.Column="1" Grid.Row="2"></xc:IntegerUpDown>
-            <xc:IntegerUpDown Value="0" Grid.Column="1" Grid.Row="3"></xc:IntegerUpDown>
-            <xc:IntegerUpDown Value="0" Grid.Column="1" Grid.Row="4"></xc:IntegerUpDown>
-            <xc:IntegerUpDown Value="0" Grid.Column="1" Grid.Row="5"></xc:IntegerUpDown> -->
+            <xctk:IntegerUpDown Grid.Column="1" Value="{Binding Path=Strength}" IsEnabled="{Binding Path=IsEditing}"></xctk:IntegerUpDown>
+            <xctk:IntegerUpDown Value="{Binding Path=Dexterity}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="1"></xctk:IntegerUpDown>
+            <xctk:IntegerUpDown Value="{Binding Path=Constitution}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="2"></xctk:IntegerUpDown>
+            <xctk:IntegerUpDown Value="{Binding Path=Intelligence}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="3"></xctk:IntegerUpDown>
+            <xctk:IntegerUpDown Value="{Binding Path=Wisdom}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="4"></xctk:IntegerUpDown>
+            <xctk:IntegerUpDown Value="{Binding Path=Charisma}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="5"></xctk:IntegerUpDown>
         </Grid>
     </Border>
 </UserControl>
