@@ -6,7 +6,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:vm="clr-namespace:ICSheet5e.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="200" d:DesignWidth="200">
     <UserControl.DataContext>
         <vm:AttributeBoxViewModel/>
     </UserControl.DataContext>
@@ -24,12 +24,12 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Margin="10" FontWeight="Bold" FontSize="14">Strength</Label>
-            <Label Grid.Row="1" Margin="10" FontWeight="Bold" FontSize="14">Dexterity</Label>
-            <Label Grid.Row="2" Margin="10" FontWeight="Bold" FontSize="14">Constitution</Label>
-            <Label Grid.Row="3" Margin="10" FontWeight="Bold" FontSize="14">Intelligence</Label>
-            <Label Grid.Row="4" Margin="10" FontWeight="Bold" FontSize="14">Wisdom</Label>
-            <Label Grid.Row="5" Margin="10" FontWeight="Bold" FontSize="14">Charisma</Label>
+            <Label Grid.Column="0" Grid.Row="0" Margin="4" FontWeight="Bold" FontSize="11">Strength</Label>
+            <Label Grid.Row="1" Margin="4" FontWeight="Bold" FontSize="11">Dexterity</Label>
+            <Label Grid.Row="2" Margin="4" FontWeight="Bold" FontSize="11">Constitution</Label>
+            <Label Grid.Row="3" Margin="4" FontWeight="Bold" FontSize="11">Intelligence</Label>
+            <Label Grid.Row="4" Margin="4" FontWeight="Bold" FontSize="11">Wisdom</Label>
+            <Label Grid.Row="5" Margin="4" FontWeight="Bold" FontSize="11">Charisma</Label>
             <xctk:IntegerUpDown Grid.Column="1" Value="{Binding Path=Strength}" IsEnabled="{Binding Path=IsEditing}"></xctk:IntegerUpDown>
             <xctk:IntegerUpDown Value="{Binding Path=Dexterity}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="1"></xctk:IntegerUpDown>
             <xctk:IntegerUpDown Value="{Binding Path=Constitution}" IsEnabled="{Binding Path=IsEditing}" Grid.Column="1" Grid.Row="2"></xctk:IntegerUpDown>

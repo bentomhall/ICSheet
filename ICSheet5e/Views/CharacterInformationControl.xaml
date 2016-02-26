@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ICSheet5e.Views.CharacterInformationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:ICSheet5e.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:ClassInformationViewModel/>
+    </UserControl.DataContext>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="White" CornerRadius="15">
+        <StackPanel Orientation="Horizontal">
+            <Label FontWeight="Bold" FontSize="24" VerticalAlignment="Center">Name:</Label>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Name}" Margin="20,0,20,0"/>
+            <Label FontWeight="Bold" FontSize="24" VerticalAlignment="Center">Classes:</Label>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Levels}" Margin="20,0,20,0"/>
+            <Label FontWeight="Bold" FontSize="24" VerticalAlignment="Center">Race:</Label>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Race}" Margin="20,0,20,0"/>
+            <Label FontWeight="Bold" FontSize="24" VerticalAlignment="Center">XP:</Label>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Path=Experience}" Margin="20,0,20,0"/>
+        </StackPanel>
+    </Border>
+</UserControl>

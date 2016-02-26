@@ -5,20 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:ICSheet5e.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="800" d:DesignWidth="200">
     <UserControl.DataContext>
        <vm:SkillViewModel/>
     </UserControl.DataContext>
-    <ListView>
-        <ListView.View>
-            <GridView>
-                <GridViewColumn Width="50">
-                    
-                </GridViewColumn>
-                <GridViewColumn Width="100"></GridViewColumn>
-                <GridViewColumn Width="150"></GridViewColumn>
-            </GridView>
-        </ListView.View>
-    </ListView>
+    <UserControl.Resources>
+        <DataTemplate x:Key="SkillViewItem">
+            <DockPanel>
+                <CheckBox IsChecked="{Binding Path=IsProficient}"/>
+                <Label Content="{Binding Path=Bonus}"/>
+                <Label Content="{Binding Path=Name}"/>
+            </DockPanel>
+        </DataTemplate>
 
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="White" CornerRadius="15">
+        <ListView ItemsSource="{Binding Path=Skills}">
+            <GridView>
+                <GridViewColumn CellTemplate="{StaticResource SkillViewItem}" Width="200"/>
+            </GridView>
+        </ListView>
+    </Border>
 </UserControl>

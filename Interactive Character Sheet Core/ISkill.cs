@@ -97,6 +97,11 @@ namespace Interactive_Character_Sheet_Core
             return skills[skillName].bonus;
         }
 
+        public bool IsSkillTagged(string skillName)
+        {
+            return skills[skillName].IsTagged;
+        }
+
         public List<string> getSkillNames() 
         { 
             switch(edition)
@@ -116,5 +121,6 @@ namespace Interactive_Character_Sheet_Core
     {
         string name { get; }
         int bonus { get; }
+        bool IsTagged { get; }
     }
 }

@@ -14,11 +14,14 @@ namespace ICSheet5e.Model
         [DataMember] public string name { get; set; }
         public int bonus { get { return _bonus; } }
         [DataMember] private int _bonus = 0;
+        [DataMember]
+        public bool IsTagged { get; set; }
 
-        public Skill5e(String name, int bonus) 
+        public Skill5e(String name, int bonus, bool isTagged) 
         {
             this.name = name;
             this._bonus = bonus;
+            IsTagged = isTagged;
         }
 
     }

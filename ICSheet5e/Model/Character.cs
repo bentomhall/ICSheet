@@ -39,6 +39,7 @@ namespace ICSheet5e.Model
         [DataMember] private CharacterClasses CharacterClassLevels;
         [DataMember] private int _proficiencyBonus = 2;
         [DataMember] private SkillList<Skill5e> skills;
+        public SkillList<Skill5e> Skills { get { return skills; } }
 
         public int Proficiency
         {
@@ -101,11 +102,11 @@ namespace ICSheet5e.Model
                 AbilityType associatedAbility = skills.abilityFor(skillName);
                 if (taggedSkills.Count(x => x.name == skillName) != 0) 
                 {
-                    skillBonuses.Add( new Skill5e(skillName, _proficiencyBonus + abilities[associatedAbility].modifier));
+                    skillBonuses.Add( new Skill5e(skillName, _proficiencyBonus + abilities[associatedAbility].modifier, true));
                 }
                 else
                 {
-                    skillBonuses.Add(new Skill5e(skillName, abilities[associatedAbility].modifier));
+                    skillBonuses.Add(new Skill5e(skillName, abilities[associatedAbility].modifier, false));
                 }
             }
             this.skills.setAllSkillBonuses(skillBonuses);
