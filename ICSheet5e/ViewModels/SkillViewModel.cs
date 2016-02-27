@@ -20,6 +20,7 @@ namespace ICSheet5e.ViewModels
         public void SetAllSkills(SkillList<Model.Skill5e> skills)
         {
             var names = skills.getSkillNames();
+            Skills = new ObservableCollection<IndividualSkillViewModel>();
             foreach (var name in names)
             {
                 IndividualSkillViewModel skill = new IndividualSkillViewModel();

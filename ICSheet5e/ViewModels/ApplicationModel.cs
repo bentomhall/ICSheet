@@ -6,21 +6,68 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace ICSheet5e.ViewModels
 {
-    public class ApplicationModel
+    public class ApplicationModel: INotifyPropertyChanged
     {
         Model.Character currentCharacter = null;
-        public bool IsEditingModeEnabled { get; set; }
+        public bool IsEditingModeEnabled
+        {
+            get { return canEdit; }
+            set
+            {
+                canEdit = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public bool IsCharacterInitialized 
+        {
+            get { return isInitialized; }
+            set
+            {
+                isInitialized = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public Control CharacterSheetView
+        {
+            get { return characterSheetView; }
+            set
+            {
+                characterSheetView = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public bool CanCastSpells
+        {
+            get { return canCastSpells; }
+            set
+            {
+                canCastSpells = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-        ObservableCollection<object> tabItemViewModels;
-
-        public ObservableCollection<object> TabItemViewModels { get { return tabItemViewModels; } }
+        private bool canCastSpells = false;
+        private Control characterSheetView;
+        private CharacterViewModel characterVM;
+        private bool canEdit = false;
+        private bool isInitialized = false;
+        
 
         public ApplicationModel()
         {
-
+            if (currentCharacter == null)
+            {
+                IsCharacterInitialized = false;
+                var view = new Label();
+                view.Content = "Open or load a character to begin";
+                CharacterSheetView = view;
+            }
+            
         }
 
         public ICommand NewCharacterCommand
@@ -45,7 +92,14 @@ namespace ICSheet5e.ViewModels
 
         public void NewCharacterCommandExecuted(object sender)
         {
-            Console.WriteLine("New Character Command Executed");
+            currentCharacter = new Model.Character(); //not complete...need to open dialog to get name, race, and classes/levels.
+            characterVM = new CharacterViewModel(currentCharacter);
+            var view = new Views.MainSheetControl();
+            view.DataContext = characterVM;
+            CharacterSheetView = view;
+            IsCharacterInitialized = true;
+            IsEditingModeEnabled = true;
+            CanCastSpells = false;
         }
 
         public void OpenCommandExecute(object sender)
@@ -66,9 +120,20 @@ namespace ICSheet5e.ViewModels
 
         public void ToggleEditingCommandExecuted(object sender)
         {
-            IsEditingModeEnabled = !IsEditingModeEnabled;
+            IsEditingModeEnabled = !canEdit;
             return;
         }
 
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
     }
 }

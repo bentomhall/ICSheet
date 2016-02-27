@@ -29,7 +29,7 @@ namespace Interactive_Character_Sheet_Core
         [DataMember] public string CharacterName { get; set; }
         #region Initiative
         [DataMember] protected int initiativeModifier = 0;
-        public int initiative
+        public int Initiative
         {
             get { return initiativeModifier; }
         }

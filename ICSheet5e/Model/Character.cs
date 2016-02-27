@@ -39,12 +39,17 @@ namespace ICSheet5e.Model
         [DataMember] private CharacterClasses CharacterClassLevels;
         [DataMember] private int _proficiencyBonus = 2;
         [DataMember] private SkillList<Skill5e> skills;
-        public SkillList<Skill5e> Skills { get { return skills; } }
-
-        public int Proficiency
+        [DataMember]
+        public int ArmorClass 
         {
-            get { return _proficiencyBonus; }
+            get { return Defenses.Single(x => x.type == DefenseType.Armor).value; }
+            set
+            {
+                Defenses.Remove(Defenses.Single(x => x.type==DefenseType.Armor));
+                Defenses.Add(new Defense(value, DefenseType.Armor));
+            }
         }
+        public SkillList<Skill5e> Skills { get { return skills; } }
 
         public Character()
         {
@@ -62,6 +67,7 @@ namespace ICSheet5e.Model
             SetSkills<Skill5e>(new List<Skill5e>());
             setSpellCasting();
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
+            Defenses.Add(new Defense(10, DefenseType.Armor));
         }
 
         public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills )
@@ -209,6 +215,24 @@ namespace ICSheet5e.Model
         {
             features.Add(feature);
         }
+
+        public int Proficiency
+        {
+            get { return _proficiencyBonus; }
+        }
+
+        public void AddLevel(CharacterClasses type)
+        {
+
+        }
+
+        public CharacterClasses Levels
+        {
+            get { return CharacterClassLevels; }
+        }
+
+        [DataMember]
+        public int Experience { get; set; }
         
         //hooks for serialization
 

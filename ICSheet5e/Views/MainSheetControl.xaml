@@ -24,37 +24,37 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <views:CharacterInformationControl Grid.Row="0" Grid.ColumnSpan="8"/>
-        <views:AttributeBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <views:SkillsControl Grid.Row="3" Grid.ColumnSpan="2"/>
+        <views:CharacterInformationControl Grid.Row="0" Grid.ColumnSpan="8" DataContext="{Binding ClassInfoVM}"/>
+        <views:AttributeBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" DataContext="{Binding AbilitiesVM}"/>
+        <views:SkillsControl Grid.Row="3" Grid.ColumnSpan="2" DataContext="{Binding SkillsVM}"/>
         <Border Grid.Column="3" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Armor Class</Label>
-                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48">10</Label>
+                <TextBox VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" IsEnabled="{Binding CanEdit}" Text="{Binding ArmorClass}"></TextBox>
             </StackPanel>
         </Border>
         <Border Grid.Column="4" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Initiative</Label>
-                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48">+0</Label>
+                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" Content="{Binding Initiative}"></Label>
             </StackPanel>
         </Border>
         <Border Grid.Column="5" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Speed</Label>
-                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48">30</Label>
+                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" Content="{Binding Movement}"></Label>
             </StackPanel>
         </Border>
         <Border Grid.Column="6" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Proficiency</Label>
-                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48">2</Label>
+                <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" Content="{Binding Proficiency}"></Label>
             </StackPanel>
         </Border>
         <Border Grid.Column="7" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Hit Dice</Label>
-                <Label VerticalAlignment="Center" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="45" Content="1d8"/>
+                <Label VerticalAlignment="Center" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="45" Content="N/A"/>
             </StackPanel>
         </Border>
     </Grid>
