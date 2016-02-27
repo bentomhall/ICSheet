@@ -82,6 +82,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EventCoordinator\IChangeNotificationReceiver.cs" />
+    <Compile Include="EventCoordinator\MulticastEventCoordinator.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
