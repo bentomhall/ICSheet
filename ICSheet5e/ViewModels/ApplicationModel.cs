@@ -93,7 +93,7 @@ namespace ICSheet5e.ViewModels
         public void NewCharacterCommandExecuted(object sender)
         {
             currentCharacter = new Model.Character(); //not complete...need to open dialog to get name, race, and classes/levels.
-            characterVM = new CharacterViewModel(currentCharacter);
+            characterVM = new CharacterViewModel(currentCharacter, this);
             var view = new Views.MainSheetControl();
             view.DataContext = characterVM;
             CharacterSheetView = view;

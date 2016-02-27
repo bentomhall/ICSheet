@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.ViewModels
 {
@@ -13,25 +14,109 @@ namespace ICSheet5e.ViewModels
     {
         private Model.Character character;
         private bool canEdit = false;
-        private AttributeBoxViewModel attributes = new AttributeBoxViewModel();
-        private ClassInformationViewModel info = new ClassInformationViewModel();
-        private SkillViewModel skills = new SkillViewModel();
-
-
-        public AttributeBoxViewModel AbilitiesVM
+        #region Attributes
+        public int Strength
         {
-            get { return attributes; }
+            get
+            {
+                if (canEdit) return character.AbilityScoreFor(AbilityType.Strength);
+                else return character.abilityModifierFor(AbilityType.Strength);
+            }
+            set
+            {
+                character.mutateAbilityScore(AbilityType.Strength, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public int Dexterity
+        {
+            get
+            {
+                if (canEdit) return character.AbilityScoreFor(AbilityType.Dexterity);
+                else return character.abilityModifierFor(AbilityType.Dexterity);
+            }
+            set
+            {
+                character.mutateAbilityScore(AbilityType.Dexterity, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public int Constitution
+        {
+            get
+            {
+                if (canEdit) return character.AbilityScoreFor(AbilityType.Constitution);
+                else return character.abilityModifierFor(AbilityType.Constitution);
+            }
+            set
+            {
+                character.mutateAbilityScore(AbilityType.Constitution, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public int Intelligence
+        {
+            get
+            {
+                if (canEdit) return character.AbilityScoreFor(AbilityType.Intelligence);
+                else return character.abilityModifierFor(AbilityType.Intelligence);
+            }
+            set
+            {
+                character.mutateAbilityScore(AbilityType.Intelligence, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public int Wisdom
+        {
+            get
+            {
+                if (canEdit) return character.AbilityScoreFor(AbilityType.Wisdom);
+                else return character.abilityModifierFor(AbilityType.Wisdom);
+            }
+            set
+            {
+                character.mutateAbilityScore(AbilityType.Wisdom, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public int Charisma
+        {
+            get
+            {
+                if (canEdit) return character.AbilityScoreFor(AbilityType.Charisma);
+                else return character.abilityModifierFor(AbilityType.Charisma);
+            }
+            set
+            {
+                character.mutateAbilityScore(AbilityType.Charisma, value);
+                NotifyPropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Defenses
+        public int ArmorClass
+        {
+            get { return character.ArmorClass; }
+            set
+            {
+                character.ArmorClass = value;
+                NotifyPropertyChanged();
+            }
         }
 
-        public ClassInformationViewModel ClassInfoVM
+        public List<Defense> Defenses
         {
-            get { return info; }
+            get { return character.Defenses; }
         }
 
-        public SkillViewModel SkillsVM
+        public List<bool> ProficientDefenses 
         {
-            get { return skills; }
+            get { return character.ProficientDefenses; }
         }
+
+        #endregion
         public bool CanEdit
         {
             get { return canEdit; }
@@ -51,15 +136,7 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public int ArmorClass
-        {
-            get { return character.ArmorClass; }
-            set
-            {
-                character.ArmorClass = value;
-                NotifyPropertyChanged();
-            }
-        }
+
         public int Proficiency
         {
             get { return character.Proficiency; }
@@ -75,15 +152,10 @@ namespace ICSheet5e.ViewModels
 
         public CharacterViewModel() { }
 
-        public CharacterViewModel(Model.Character c)
+        public CharacterViewModel(Model.Character c, INotifyPropertyChanged parent)
         {
             character = c;
-            attributes.SetAllAbilityScores(c.Abilities);
-            info.Name = c.CharacterName;
-            info.initializeLevels(c.Levels);
-            info.Race = c.Race;
-            info.Experience = c.Experience;
-            skills.SetAllSkills(c.Skills);
+            parent.PropertyChanged += ParentEditingPropertyChanged;
         }
 
         public void NotifyEditingEnded()
@@ -92,6 +164,7 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("Proficiency");
             NotifyPropertyChanged("Movement");
             NotifyPropertyChanged("Initiative");
+            NotifyPropertyChanged("ProficientDefenses");
         }
 
 
@@ -103,6 +176,13 @@ namespace ICSheet5e.ViewModels
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsEditingModeEnabled")
+            {
+                CanEdit = !canEdit;
             }
         }
         #endregion

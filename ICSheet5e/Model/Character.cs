@@ -5,7 +5,7 @@ using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.Model
 {
-    using CharacterClasses = Dictionary<CharacterClassType, int>;
+    using CharacterClasses = List<System.Tuple<CharacterClassType, int>>;
     [DataContract]
     public class Character: CharacterBase
     {
@@ -67,7 +67,7 @@ namespace ICSheet5e.Model
             SetSkills<Skill5e>(new List<Skill5e>());
             setSpellCasting();
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
-            Defenses.Add(new Defense(10, DefenseType.Armor));
+            InitializeDefenses();
         }
 
         public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills )
@@ -76,7 +76,7 @@ namespace ICSheet5e.Model
             Race = race;
             this.abilities = abilitySet; //set in base
             CharacterClassLevels = classLevels;
-            int totalLevel = classLevels.Sum(x => x.Value);
+            int totalLevel = classLevels.Sum(x => x.Item2);
             _proficiencyBonus = calculateProficiency(totalLevel);
             skills = new SkillList<Skill5e>(Edition.Fifth);
             SetSkills<Skill5e>(taggedSkills);
@@ -88,6 +88,7 @@ namespace ICSheet5e.Model
 
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
             setSpellCasting();
+            InitializeDefenses();
 
         }
 
@@ -97,6 +98,38 @@ namespace ICSheet5e.Model
         private int calculateProficiency(int level)
         {
             return (level - 1) / 4 + 2; //integer division
+        }
+
+        private void InitializeDefenses()
+        {
+            int ac = (10 + abilityModifierFor(AbilityType.Dexterity));
+            Defenses.Add(new Defense(ac, DefenseType.Armor));
+
+            int str = (10 + abilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
+            Defenses.Add(new Defense(str, DefenseType.Strength));
+            proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Strength));
+
+            int dex = (10 + abilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0);
+            Defenses.Add(new Defense(dex, DefenseType.Dexterity));
+            proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Dexterity));
+
+            int con = (10 + abilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0);
+            Defenses.Add(new Defense(con, DefenseType.Constitution));
+            proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Constitution));
+
+            int intel = (10 + abilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0);
+            Defenses.Add(new Defense(intel, DefenseType.Intelligence));
+            proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Intelligence));
+
+            int wis = (10 + abilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
+            Defenses.Add(new Defense(con, DefenseType.Wisdom));
+            proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Wisdom));
+
+            int cha = (10 + abilityModifierFor(AbilityType.Charisma)) +(HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
+            Defenses.Add(new Defense(cha, DefenseType.Charisma));
+            proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Charisma));
+
+
         }
 
         protected override void SetSkills<T>(List<T> taggedSkills) 
@@ -120,12 +153,12 @@ namespace ICSheet5e.Model
 
         void setSpellCasting()
         {
-            foreach (KeyValuePair<CharacterClassType, int> entry in CharacterClassLevels)
+            foreach (System.Tuple<CharacterClassType, int> entry in CharacterClassLevels)
             {
-                if (castingClasses.Contains(entry.Key))
+                if (castingClasses.Contains(entry.Item1))
                 {
-                    var castingModifier = abilityModifierFor(castingAbilities[entry.Key]);
-                    SpellCaster book = new SpellCaster(entry.Key, entry.Value);
+                    var castingModifier = abilityModifierFor(castingAbilities[entry.Item1]);
+                    SpellCaster book = new SpellCaster(entry.Item1, entry.Item2);
                     book.SpellAttackModifier = castingModifier + _proficiencyBonus;
                     book.SpellDC = 8 + castingModifier + _proficiencyBonus;
                     spellBooks.Add(book);
@@ -235,6 +268,46 @@ namespace ICSheet5e.Model
         public int Experience { get; set; }
         
         //hooks for serialization
+
+        private Dictionary<CharacterClassType, List<DefenseType>> _proficientDefenses = new Dictionary<CharacterClassType, List<DefenseType>>()
+        {
+            {CharacterClassType.ArcaneTrickster, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
+            {CharacterClassType.Barbarian, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
+            {CharacterClassType.Bard, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Charisma}},
+            {CharacterClassType.Cleric, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
+            {CharacterClassType.Druid, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}},
+            {CharacterClassType.Fighter, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
+            {CharacterClassType.EldritchKnight, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
+            {CharacterClassType.Rogue, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
+            {CharacterClassType.Paladin, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
+            {CharacterClassType.Monk, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
+            {CharacterClassType.Ranger, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
+            {CharacterClassType.Sorcerer, new List<DefenseType>() {DefenseType.Charisma, DefenseType.Constitution}},
+            {CharacterClassType.Warlock, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
+            {CharacterClassType.Wizard, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}}
+        };
+
+        private bool HasProficiencyIn(DefenseType d)
+        {
+            try
+            {
+                return _proficientDefenses[CharacterClassLevels[0].Item1].Contains(d);
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                return false; //no classes have been set yet
+            }
+            
+        }
+
+        private List<bool> proficientDefensesForCharacter = new List<bool>();
+        public List<bool> ProficientDefenses 
+        { 
+            get 
+            {
+                return proficientDefensesForCharacter;
+            } 
+        }
 
     }
 

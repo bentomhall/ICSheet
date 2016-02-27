@@ -94,7 +94,7 @@ namespace Interactive_Character_Sheet_Core
         [DataMember] protected List<DamageType> Resistances { get; set; }
         [DataMember] protected List<DamageType> Immunities { get; set; }
         [DataMember] protected List<Defense> _defenses = new List<Defense>();
-        protected List<Defense> Defenses { get { return _defenses; } }
+        public List<Defense> Defenses { get { return _defenses; } }
         public bool willHit(DefenseType type, int withAttack)
         {
             var d = _defenses.Single(s => s.type == type);
