@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewmodels="clr-namespace:ICSheet5e.ViewModels"
              xmlns:views="clr-namespace:ICSheet5e.Views"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900">
     <Grid Background="Black">
@@ -23,35 +24,117 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <views:CharacterInformationControl Grid.Row="0" Grid.ColumnSpan="8" DataContext="{Binding ClassInfoVM}"/>
-        <views:AttributeBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" DataContext="{Binding AbilitiesVM}"/>
-        <views:SkillsControl Grid.Row="3" Grid.ColumnSpan="2" DataContext="{Binding SkillsVM}"/>
-        <Border Grid.Column="3" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.ColumnSpan="9" Background="GhostWhite" CornerRadius="15,15,0,0" BorderBrush="Black" BorderThickness="2">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Label>Name:</Label>
+                    <Label Content="{Binding Name}" FontSize="48" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="300" Margin="0,0,10,0"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label>Race:</Label>
+                    <Label Content="{Binding Race}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="150" Margin="0,0,10,0"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label>Classes and Levels:</Label>
+                    <Label Content="{Binding Levels}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="250" Margin="0,0,10,0"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label>XP:</Label>
+                    <Label Content="{Binding Experience}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="150" Margin="0,0,10,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Background="White" CornerRadius="15" Margin="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label BorderBrush="Black" BorderThickness="0,0,2,2" FontSize="16">Strength</Label>
+                <Label BorderBrush="Black" BorderThickness="0,0,2,2" FontSize="16" Grid.Row="1">Dexterity</Label>
+                <Label BorderBrush="Black" BorderThickness="0,0,2,2" FontSize="16" Grid.Row="2">Constitution</Label>
+                <Label BorderBrush="Black" BorderThickness="0,0,2,2" FontSize="16" Grid.Row="3">Intelligence</Label>
+                <Label BorderBrush="Black" BorderThickness="0,0,2,2" FontSize="16" Grid.Row="4">Wisdom</Label>
+                <Label BorderBrush="Black" BorderThickness="0,0,2,0" FontSize="16" Grid.Row="5">Charisma</Label>
+                
+                <xctk:IntegerUpDown Grid.Column="1" Value="{Binding Path=Strength}" IsEnabled="{Binding CanEdit}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Value="{Binding Path=Dexterity}" IsEnabled="{Binding CanEdit}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="2" Value="{Binding Path=Constitution}" IsEnabled="{Binding CanEdit}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="3" Value="{Binding Path=Intelligence}" IsEnabled="{Binding CanEdit}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="4" Value="{Binding Path=Wisdom}" IsEnabled="{Binding CanEdit}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="5" Value="{Binding Path=Charisma}" IsEnabled="{Binding CanEdit}"></xctk:IntegerUpDown>
+            </Grid>
+        </Border>
+        <Border Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="White" CornerRadius="15" Margin="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="{Binding CanEdit}"></CheckBox>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="{Binding CanEdit}"></CheckBox>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="{Binding CanEdit}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="{Binding CanEdit}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="{Binding CanEdit}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="{Binding CanEdit}"/>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding StrSave}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding DexSave}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding ConSave}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding IntSave}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding WisSave}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding ChaSave}"></Label>
+                <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16">Strength</Label>
+                <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1">Dexterity</Label>
+                <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2">Constitution</Label>
+                <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3">Intelligence</Label>
+                <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4">Wisdom</Label>
+                <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5">Charisma</Label>
+            </Grid>
+        </Border>
+        <Border Grid.Column="4" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Armor Class</Label>
                 <TextBox VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" IsEnabled="{Binding CanEdit}" Text="{Binding ArmorClass}"></TextBox>
             </StackPanel>
         </Border>
-        <Border Grid.Column="4" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Column="5" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Initiative</Label>
                 <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" Content="{Binding Initiative}"></Label>
             </StackPanel>
         </Border>
-        <Border Grid.Column="5" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Column="6" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Speed</Label>
                 <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" Content="{Binding Movement}"></Label>
             </StackPanel>
         </Border>
-        <Border Grid.Column="6" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Column="7" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Proficiency</Label>
                 <Label VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" Content="{Binding Proficiency}"></Label>
             </StackPanel>
         </Border>
-        <Border Grid.Column="7" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Column="8" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Hit Dice</Label>
                 <Label VerticalAlignment="Center" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="45" Content="N/A"/>

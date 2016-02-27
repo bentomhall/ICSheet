@@ -8,6 +8,6 @@ namespace ICSheet5e.EventCoordinator
 {
     interface IChangeNotificationReceiver
     {
-        public void OnChangeNotificationReceived(object sender, EventArgs e);
+        void OnChangeNotificationReceived(object sender, EventArgs e);
     }
 }

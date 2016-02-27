@@ -12,7 +12,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
     <DockPanel >
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">
