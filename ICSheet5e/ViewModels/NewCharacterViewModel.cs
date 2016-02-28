@@ -8,7 +8,7 @@ using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.ViewModels
 {
-    public class NewCharacterViewModel
+    public class NewCharacterViewModel:BaseViewModel
     {
         public string CharacterName { get; set; }
         public string Race { get; set; }

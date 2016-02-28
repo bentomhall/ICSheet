@@ -10,7 +10,7 @@ using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.ViewModels
 {
-    public class CharacterViewModel : INotifyPropertyChanged
+    public class CharacterViewModel : BaseViewModel
     {
         private Model.Character character;
         private bool canEdit = false;
@@ -166,26 +166,6 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("Initiative");
             NotifyPropertyChanged("ProficientDefenses");
         }
-
-
-
-        #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsEditingModeEnabled")
-            {
-                CanEdit = !canEdit;
-            }
-        }
-        #endregion
 
     }
 }

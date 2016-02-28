@@ -86,6 +86,7 @@
     <Compile Include="EventCoordinator\MulticastEventCoordinator.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\ClassInformationViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />

@@ -11,7 +11,7 @@ using System.ComponentModel;
 
 namespace ICSheet5e.ViewModels
 {
-    public class ApplicationModel: INotifyPropertyChanged
+    public class ApplicationModel: BaseViewModel
     {
         Model.Character currentCharacter = null;
         public bool IsEditingModeEnabled
@@ -32,8 +32,16 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public CharacterViewModel CharacterVM { get; set; }
-        public NewCharacterViewModel CharacterCreationVM { get; set; }
+
+        public List<BaseViewModel> ViewModels
+        {
+            get { return _viewModels; }
+            set
+            {
+                _viewModels = value;
+                NotifyPropertyChanged();
+            }
+        }
         public bool HasCharacterCreationStarted
         {
             get { return hasCharacterCreationStarted; }
@@ -58,15 +66,14 @@ namespace ICSheet5e.ViewModels
         private bool canCastSpells = false;
         private bool canEdit = false;
         private bool isInitialized = false;
-        
+        private List<BaseViewModel> _viewModels = new List<BaseViewModel>();
 
         public ApplicationModel()
         {
             if (currentCharacter == null)
             {
                 IsCharacterInitialized = false;
-            }
-            
+            }  
         }
 
         public ICommand NewCharacterCommand
@@ -90,7 +97,7 @@ namespace ICSheet5e.ViewModels
         public void NewCharacterInformationReceived(string name, string race, List<System.Tuple<Model.CharacterClassType, int>> classes)
         {
             currentCharacter = new Model.Character(name, classes, race);
-            CharacterVM = new CharacterViewModel(currentCharacter, this);
+            ViewModels[0] = new CharacterViewModel(currentCharacter, this);
             HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
             IsEditingModeEnabled = true;
@@ -101,7 +108,7 @@ namespace ICSheet5e.ViewModels
         {
             var vm = new NewCharacterViewModel();
             vm.delegateAction = NewCharacterInformationReceived;
-            CharacterCreationVM = vm;
+            ViewModels[0] = vm;
             HasCharacterCreationStarted = true;
         }
 
@@ -126,16 +133,5 @@ namespace ICSheet5e.ViewModels
             IsEditingModeEnabled = !canEdit;
             return;
         }
-
-        #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
     }
 }
