@@ -167,5 +167,14 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("ProficientDefenses");
         }
 
+        private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsEditingModeEnabled")
+            {
+                CanEdit = !canEdit;
+                if (!canEdit) NotifyEditingEnded();
+            }
+        }
+
     }
 }
