@@ -66,7 +66,7 @@ namespace ICSheet5e.ViewModels
         private bool canCastSpells = false;
         private bool canEdit = false;
         private bool isInitialized = false;
-        private List<BaseViewModel> _viewModels = new List<BaseViewModel>();
+        private List<BaseViewModel> _viewModels = new List<BaseViewModel>() { new BaseViewModel(), new BaseViewModel(), new BaseViewModel(), new BaseViewModel() };
 
         public ApplicationModel()
         {
