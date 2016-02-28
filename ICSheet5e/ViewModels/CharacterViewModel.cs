@@ -10,7 +10,7 @@ using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.ViewModels
 {
-    class CharacterViewModel : INotifyPropertyChanged
+    public class CharacterViewModel : INotifyPropertyChanged
     {
         private Model.Character character;
         private bool canEdit = false;

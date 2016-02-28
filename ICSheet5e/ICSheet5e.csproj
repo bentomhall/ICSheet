@@ -89,6 +89,7 @@
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\ClassInformationViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
+    <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="Views\AttributeBlock.xaml.cs">
       <DependentUpon>AttributeBlock.xaml</DependentUpon>
@@ -100,9 +101,13 @@
     <Compile Include="Views\MainSheetControl.xaml.cs">
       <DependentUpon>MainSheetControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NewCharacterCreationView.xaml.cs">
+      <DependentUpon>NewCharacterCreationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SkillsControl.xaml.cs">
       <DependentUpon>SkillsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TabItemDataTemplateSelector.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -128,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainSheetControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewCharacterCreationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

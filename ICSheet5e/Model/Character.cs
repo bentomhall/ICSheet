@@ -89,7 +89,13 @@ namespace ICSheet5e.Model
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
             setSpellCasting();
             InitializeDefenses();
+        }
 
+        public Character(string characterName, CharacterClasses levels, string race) : this()
+        {
+            CharacterClassLevels = levels;
+            CharacterName = characterName;
+            Race = race;
         }
 
         [DataMember] private Inventory<Item> inventory;

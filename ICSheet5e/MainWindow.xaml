@@ -10,6 +10,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="PageStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="InitialTemplate">
+                <Label>Start new character or open existing character to begin.</Label>
+            </DataTemplate>
+            <DataTemplate x:Key="NewCharacterTemplate">
+                <views:NewCharacterCreationView/>
+            </DataTemplate>
+            <DataTemplate x:Key="LoadedCharacterTemplate">
+                <views:MainSheetControl/>
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel >
@@ -22,7 +31,22 @@
             <MenuItem Header="_Edit" IsCheckable="True" Command="{Binding Path=ToggleEditingCommand}" IsChecked="{Binding Path=IsEditingModeEnabled}"/>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
-            <TabItem Name="Overview" Header="Overview" Content="{Binding CharacterSheetView}"/>
+            <TabItem Name="Overview" Header="Overview">
+                <TabItem.Style>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="ContentTemplate" Value="{StaticResource InitialTemplate}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasCharacterCreationStarted}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource NewCharacterTemplate}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsCharacterInitialized}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource LoadedCharacterTemplate}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+            </TabItem>
+
             <TabItem Header="Inventory" IsEnabled="{Binding IsCharacterInitialized}">
                 
             </TabItem>

@@ -32,15 +32,18 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public Control CharacterSheetView
+        public CharacterViewModel CharacterVM { get; set; }
+        public NewCharacterViewModel CharacterCreationVM { get; set; }
+        public bool HasCharacterCreationStarted
         {
-            get { return characterSheetView; }
+            get { return hasCharacterCreationStarted; }
             set
             {
-                characterSheetView = value;
+                hasCharacterCreationStarted = value;
                 NotifyPropertyChanged();
             }
         }
+
         public bool CanCastSpells
         {
             get { return canCastSpells; }
@@ -51,9 +54,8 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        private bool hasCharacterCreationStarted = false;
         private bool canCastSpells = false;
-        private Control characterSheetView;
-        private CharacterViewModel characterVM;
         private bool canEdit = false;
         private bool isInitialized = false;
         
@@ -63,9 +65,6 @@ namespace ICSheet5e.ViewModels
             if (currentCharacter == null)
             {
                 IsCharacterInitialized = false;
-                var view = new Label();
-                view.Content = "Open or load a character to begin";
-                CharacterSheetView = view;
             }
             
         }
@@ -79,27 +78,31 @@ namespace ICSheet5e.ViewModels
         {
             get { return new Views.DelegateCommand<object>(OpenCommandExecute); }
         }
-
         public ICommand SaveCharacterCommand
         {
             get { return new Views.DelegateCommand<object>(SaveCommandExecuted, SaveCommandCanExecute); }
         }
-
         public ICommand ToggleEditingCommand
         {
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterCommandExecuted(object sender)
+        public void NewCharacterInformationReceived(string name, string race, List<System.Tuple<Model.CharacterClassType, int>> classes)
         {
-            currentCharacter = new Model.Character(); //not complete...need to open dialog to get name, race, and classes/levels.
-            characterVM = new CharacterViewModel(currentCharacter, this);
-            var view = new Views.MainSheetControl();
-            view.DataContext = characterVM;
-            CharacterSheetView = view;
+            currentCharacter = new Model.Character(name, classes, race);
+            CharacterVM = new CharacterViewModel(currentCharacter, this);
+            HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
             IsEditingModeEnabled = true;
-            CanCastSpells = false;
+            CanCastSpells = false; //not implemented
+        }
+
+        public void NewCharacterCommandExecuted(object sender)
+        {
+            var vm = new NewCharacterViewModel();
+            vm.delegateAction = NewCharacterInformationReceived;
+            CharacterCreationVM = vm;
+            HasCharacterCreationStarted = true;
         }
 
         public void OpenCommandExecute(object sender)
@@ -123,7 +126,6 @@ namespace ICSheet5e.ViewModels
             IsEditingModeEnabled = !canEdit;
             return;
         }
-
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
