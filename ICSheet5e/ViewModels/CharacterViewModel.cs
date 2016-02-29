@@ -152,10 +152,11 @@ namespace ICSheet5e.ViewModels
 
         public CharacterViewModel() { }
 
-        public CharacterViewModel(Model.Character c, INotifyPropertyChanged parent)
+        public CharacterViewModel(Model.Character c, ApplicationModel parent)
         {
             character = c;
-            parent.PropertyChanged += ParentEditingPropertyChanged;
+            Parent = parent;
+            Parent.PropertyChanged += ParentEditingPropertyChanged;
         }
 
         public void NotifyEditingEnded()

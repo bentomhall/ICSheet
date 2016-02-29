@@ -35,7 +35,11 @@ namespace ICSheet5e.ViewModels
 
         public List<BaseViewModel> ViewModels
         {
-            get { return _viewModels; }
+            get 
+            {
+                Console.WriteLine("Accessing view model list");
+                return _viewModels; 
+            }
             set
             {
                 _viewModels = value;
@@ -66,14 +70,23 @@ namespace ICSheet5e.ViewModels
         private bool canCastSpells = false;
         private bool canEdit = false;
         private bool isInitialized = false;
-        private List<BaseViewModel> _viewModels = new List<BaseViewModel>() { new BaseViewModel(), new BaseViewModel(), new BaseViewModel(), new BaseViewModel() };
+        private List<BaseViewModel> _viewModels = new List<BaseViewModel>();
 
         public ApplicationModel()
         {
             if (currentCharacter == null)
             {
                 IsCharacterInitialized = false;
-            }  
+            }
+            var noCharacterModel = new NoCharacterViewModel();
+            noCharacterModel.Parent = this;
+            _viewModels.Add(noCharacterModel);
+            for (int ii = 1; ii < 4; ii++)
+            {
+                var subModel = new BaseViewModel();
+                subModel.Parent = this;
+                _viewModels.Add(subModel);
+            }
         }
 
         public ICommand NewCharacterCommand
@@ -108,7 +121,9 @@ namespace ICSheet5e.ViewModels
         {
             var vm = new NewCharacterViewModel();
             vm.delegateAction = NewCharacterInformationReceived;
+            vm.Parent = this;
             ViewModels[0] = vm;
+            NotifyPropertyChanged("ViewModels");
             HasCharacterCreationStarted = true;
         }
 

@@ -21,5 +21,8 @@ namespace ICSheet5e.ViewModels
             }
         }
         #endregion
+
+
+        public ViewModels.ApplicationModel Parent { get; set; }
     }
 }
