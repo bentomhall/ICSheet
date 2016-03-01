@@ -90,12 +90,12 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="{Binding CanEdit}" IsChecked="{Binding Path=ProficientDefenses[0]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="{Binding CanEdit}" IsChecked="{Binding Path=ProficientDefenses[1]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="{Binding CanEdit}" IsChecked="{Binding Path=ProficientDefenses[2]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="{Binding CanEdit}" IsChecked="{Binding Path=ProficientDefenses[3]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="{Binding CanEdit}" IsChecked="{Binding Path=ProficientDefenses[4]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="{Binding CanEdit}" IsChecked="{Binding Path=ProficientDefenses[5]}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[0]}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[1]}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[2]}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[3]}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[4]}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[5]}"/>
                 <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[1].value}"></Label> <!--defense 0 is AC -->
                 <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Defenses[2].value}"></Label>
                 <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Defenses[3].value}"></Label>

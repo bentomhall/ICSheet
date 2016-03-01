@@ -63,9 +63,9 @@ namespace ICSheet5e.Model
             Resistances = new List<DamageType>();
             Immunities = new List<DamageType>();
             _proficiencyBonus = 2;
-            skills = new SkillList<Skill5e>(Edition.Fifth);
             SetSkills<Skill5e>(new List<Skill5e>());
             setSpellCasting();
+
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
 
@@ -81,7 +81,7 @@ namespace ICSheet5e.Model
             SetSkills<Skill5e>(taggedSkills);
             MaxHealth = health;
             _currentHealth = health;
-            initiativeModifier = abilityModifierFor(AbilityType.Dexterity);
+            initiativeModifier = calculateInitiative();
             Resistances = new List<DamageType>();
             Immunities = new List<DamageType>();
 
@@ -96,6 +96,9 @@ namespace ICSheet5e.Model
             CharacterName = characterName;
             Race = race;
             InitializeDefenses();
+            int totalLevel = levels.Sum(x => x.Item2);
+            _proficiencyBonus = calculateProficiency(totalLevel);
+            initiativeModifier = calculateInitiative();
         }
 
         [DataMember] private Inventory<Item> inventory;
@@ -106,8 +109,13 @@ namespace ICSheet5e.Model
             return (level - 1) / 4 + 2; //integer division
         }
 
-        private void InitializeDefenses()
+        private void InitializeDefenses(bool resetAll=false)
         {
+            if (resetAll)
+            {
+                _defenses.Clear();
+                proficientDefensesForCharacter.Clear();
+            }
             int ac = (10 + abilityModifierFor(AbilityType.Dexterity));
             Defenses.Add(new Defense(ac, DefenseType.Armor));
 
@@ -305,7 +313,7 @@ namespace ICSheet5e.Model
             }
             
         }
-
+        [DataMember]
         private List<bool> proficientDefensesForCharacter = new List<bool>();
         public List<bool> ProficientDefenses 
         { 
@@ -313,6 +321,22 @@ namespace ICSheet5e.Model
             {
                 return proficientDefensesForCharacter;
             } 
+        }
+
+        private int calculateInitiative()
+        {
+            var bonus = abilityModifierFor(AbilityType.Dexterity);
+            if (CharacterClassLevels.Where(x => (x.Item1 == CharacterClassType.Bard && x.Item2 > 2)).Count() > 0)
+            {
+                bonus += _proficiencyBonus / 2;
+            }
+            return bonus;
+        }
+
+        public void RecalculateDependentBonuses()
+        {
+            InitializeDefenses(true);
+            initiativeModifier = calculateInitiative();
         }
 
     }

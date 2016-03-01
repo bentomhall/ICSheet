@@ -13,6 +13,16 @@ namespace ICSheet5e.ViewModels
     public class CharacterViewModel : BaseViewModel
     {
         private Model.Character character;
+        private string FormatLevels()
+        {
+            var builder = new StringBuilder();
+            foreach (var entry in character.Levels)
+            {
+                builder.AppendFormat("{0} {1}", entry.Item1, entry.Item2);
+                builder.Append(Environment.NewLine);
+            }
+            return builder.ToString();
+        }
         private bool canEdit = false;
         #region Attributes
         public int Strength
@@ -117,6 +127,87 @@ namespace ICSheet5e.ViewModels
         }
 
         #endregion
+        #region Skills
+        private ObservableCollection<bool> _proficientSkills = new ObservableCollection<bool>();
+        public ObservableCollection<bool> ProficientSkills
+        {
+            get { return _proficientSkills; }
+            set
+            {
+                _proficientSkills = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ObservableCollection<IndividualSkillViewModel> _skills = new ObservableCollection<IndividualSkillViewModel>();
+        public ObservableCollection<IndividualSkillViewModel> Skills
+        {
+            get { return _skills; }
+            set
+            {
+                _skills = value;
+            }
+        }
+
+        public void SkillProficiencyChanged(string name, bool isProficient)
+        {
+            var skillVM = _skills.Single(x => x.Name == name);
+            var newBonus = skillVM.Bonus;
+            if (isProficient)
+            {
+                newBonus += Proficiency;
+            }
+            else
+            {
+                newBonus -= Proficiency;
+            }
+            var skill = new Model.Skill5e(name, newBonus, true);
+            skillVM.Bonus = newBonus;
+            character.Skills.SetSkillBonusFor(skill);
+        }
+
+        private void _setSkills(SkillList<Model.Skill5e> skills)
+        {
+            var names = skills.getSkillNames();
+            Skills = new ObservableCollection<IndividualSkillViewModel>();
+            foreach (var name in names)
+            {
+                IndividualSkillViewModel skill = new IndividualSkillViewModel();
+                skill.Bonus = skills.skillBonusFor(name);
+                skill.Name = name;
+                skill.IsProficient = skills.IsSkillTagged(name);
+                skill.delegateProficiencyChanged = SkillProficiencyChanged;
+                Skills.Add(skill);
+            }
+            NotifyPropertyChanged("Skills");
+        }
+        #endregion
+
+        public string Name
+        {
+            get { return character.CharacterName; }
+        }
+
+        public string Race
+        {
+            get { return character.Race; }
+        }
+
+        private string _levels = "";
+        public string Levels
+        {
+            get { return _levels; }
+        }
+
+        public int Experience
+        {
+            get { return character.Experience; }
+            set
+            {
+                character.Experience = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public bool CanEdit
         {
             get { return canEdit; }
@@ -125,6 +216,7 @@ namespace ICSheet5e.ViewModels
                 canEdit = value;
                 NotifyPropertyChanged();
                 if (!canEdit) NotifyEditingEnded(); //raise property changed notifications for directly bound properties
+                if (canEdit) NotifyEditingBegan();
             }
         }
         public Model.Character Character 
@@ -155,17 +247,32 @@ namespace ICSheet5e.ViewModels
         public CharacterViewModel(Model.Character c, ApplicationModel parent)
         {
             character = c;
+            _setSkills(c.Skills);
+            _levels = FormatLevels();
             Parent = parent;
             Parent.PropertyChanged += ParentEditingPropertyChanged;
         }
 
+        public void NotifyEditingBegan()
+        {
+            NotifyPropertyChanged("Strength");
+            NotifyPropertyChanged("Dexterity");
+            NotifyPropertyChanged("Constitution");
+            NotifyPropertyChanged("Intelligence");
+            NotifyPropertyChanged("Wisdom");
+            NotifyPropertyChanged("Charisma");
+        }
+
         public void NotifyEditingEnded()
         {
+            character.RecalculateDependentBonuses();
             NotifyPropertyChanged("ArmorClass");
             NotifyPropertyChanged("Proficiency");
             NotifyPropertyChanged("Movement");
             NotifyPropertyChanged("Initiative");
+            NotifyPropertyChanged("Defenses");
             NotifyPropertyChanged("ProficientDefenses");
+            
         }
 
         private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -12,6 +12,10 @@ namespace ICSheet5e.Views {
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            if (item == null)
+            {
+                return base.SelectTemplate(item, container);
+            }
             ViewModels.BaseViewModel vm = item as ViewModels.BaseViewModel;
             Window window = Application.Current.MainWindow;
 
@@ -28,7 +32,7 @@ namespace ICSheet5e.Views {
             }
             else
             {
-                return null;
+                return base.SelectTemplate(item, container);
             }
         }
     }

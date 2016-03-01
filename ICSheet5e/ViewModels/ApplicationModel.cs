@@ -113,7 +113,7 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("ViewModels");
             HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
-            IsEditingModeEnabled = true;
+            canEdit = true;
             CanCastSpells = false; //not implemented
         }
 

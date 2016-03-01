@@ -32,17 +32,17 @@
                 <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open"/>
                 <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save"/>
             </MenuItem>
-            <MenuItem Header="_Edit" IsCheckable="True" Command="{Binding Path=ToggleEditingCommand}" IsChecked="{Binding Path=IsEditingModeEnabled}"/>
+            <MenuItem Header="_Edit" IsCheckable="True" IsChecked="{Binding Path=IsEditingModeEnabled, Mode=TwoWay}"/>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
             <TabItem Name="Overview" Header="Overview" Content="{Binding Path=ViewModels[0]}" ContentTemplateSelector="{StaticResource TabContentSelector}">
             </TabItem>
 
-            <TabItem Header="Inventory" IsEnabled="{Binding Path=Parent.IsCharacterInitialized}" Content="{Binding Path=ViewModels[1]}">
+            <TabItem Header="Inventory" IsEnabled="{Binding Path=IsCharacterInitialized}" Content="{Binding Path=ViewModels[1]}">
                 
             </TabItem>
-            <TabItem Header="Features" IsEnabled="{Binding Path=Parent.IsCharacterInitialized}" Content="{Binding Path=ViewModels[2]}"></TabItem>
-            <TabItem Header="Spells" IsEnabled="{Binding Path=Parent.CanCastSpells}" Content="{Binding Path=ViewModels[3]}"/>
+            <TabItem Header="Features" IsEnabled="{Binding Path=IsCharacterInitialized}" Content="{Binding Path=ViewModels[2]}"></TabItem>
+            <TabItem Header="Spells" IsEnabled="{Binding Path=CanCastSpells}" Content="{Binding Path=ViewModels[3]}"/>
         </TabControl>
     </DockPanel>
 
