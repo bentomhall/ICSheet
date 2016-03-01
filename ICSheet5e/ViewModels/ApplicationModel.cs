@@ -37,7 +37,6 @@ namespace ICSheet5e.ViewModels
         {
             get 
             {
-                Console.WriteLine("Accessing view model list");
                 return _viewModels; 
             }
             set
@@ -111,6 +110,7 @@ namespace ICSheet5e.ViewModels
         {
             currentCharacter = new Model.Character(name, classes, race);
             ViewModels[0] = new CharacterViewModel(currentCharacter, this);
+            NotifyPropertyChanged("ViewModels");
             HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
             IsEditingModeEnabled = true;

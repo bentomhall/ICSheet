@@ -67,7 +67,6 @@ namespace ICSheet5e.Model
             SetSkills<Skill5e>(new List<Skill5e>());
             setSpellCasting();
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
-            InitializeDefenses();
         }
 
         public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills )
@@ -96,6 +95,7 @@ namespace ICSheet5e.Model
             CharacterClassLevels = levels;
             CharacterName = characterName;
             Race = race;
+            InitializeDefenses();
         }
 
         [DataMember] private Inventory<Item> inventory;
@@ -128,7 +128,7 @@ namespace ICSheet5e.Model
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Intelligence));
 
             int wis = (10 + abilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
-            Defenses.Add(new Defense(con, DefenseType.Wisdom));
+            Defenses.Add(new Defense(wis, DefenseType.Wisdom));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Wisdom));
 
             int cha = (10 + abilityModifierFor(AbilityType.Charisma)) +(HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
