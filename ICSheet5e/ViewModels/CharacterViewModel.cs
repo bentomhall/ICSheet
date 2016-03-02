@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using Interactive_Character_Sheet_Core;
+using System.Windows.Input;
+using System.Windows;
 
 namespace ICSheet5e.ViewModels
 {
@@ -186,12 +188,10 @@ namespace ICSheet5e.ViewModels
         {
             get { return character.CharacterName; }
         }
-
         public string Race
         {
             get { return character.Race; }
         }
-
         private string _levels = "";
         public string Levels
         {
@@ -205,6 +205,85 @@ namespace ICSheet5e.ViewModels
             {
                 character.Experience = value;
                 NotifyPropertyChanged();
+            }
+        }
+
+        public int MaxHealth
+        {
+            get { return character.MaxHealth; }
+            set
+            {
+                character.MaxHealth = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int CurrentHealth
+        {
+            get { return character.CurrentHealth; }
+        }
+
+        public int TemporaryHP
+        {
+            get { return character.TemporaryHP; }
+        }
+
+        public ICommand TakeDamageCommand 
+        {
+            get { return new Views.DelegateCommand<object>(TakeDamageCommandExecuted); }
+        }
+
+        private void TakeDamageCommandExecuted(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand HealDamageCommand
+        {
+            get { return new Views.DelegateCommand<object>(HealDamageCommandExecuted); }
+        }
+
+        private void HealDamageCommandExecuted(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool HealDamageCommandCanExecute(object obj)
+        {
+            return (CurrentHealth < MaxHealth);
+        }
+
+        public ICommand AddTemporaryHealthCommand
+        {
+            get { return new Views.DelegateCommand<object>(AddTHPCommandExecuted); }
+        }
+
+        private void AddTHPCommandExecuted(object obj)
+        {
+            var type = HealthChangeViewModel.HealthChangeType.Temporary;
+            DisplayModalDialog(type);
+        }
+
+        private void DisplayModalDialog(HealthChangeViewModel.HealthChangeType type)
+        {
+            Views.HealthChangeWindow dlg = new Views.HealthChangeWindow();
+            dlg.Owner = Application.Current.MainWindow;
+            var vm = new HealthChangeViewModel(type);
+            dlg.DataContext = vm;
+            dlg.ShowDialog();
+            if (dlg.DialogResult == true)
+            {
+                HandleHealthChange(dlg.DataContext as HealthChangeViewModel);
+            }
+
+        }
+
+        private void HandleHealthChange(HealthChangeViewModel vm)
+        {
+            switch(vm.Type)
+            {
+                case HealthChangeViewModel.HealthChangeType.Damage:
+                    character.TakeDamage()
             }
         }
 

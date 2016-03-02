@@ -12,9 +12,14 @@ namespace ICSheet5e.Views {
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            if ((bool)(System.ComponentModel.DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue))
+            {
+                //design mode check
+                return null;
+            }
             if (item == null)
             {
-                return base.SelectTemplate(item, container);
+                return null;
             }
             ViewModels.BaseViewModel vm = item as ViewModels.BaseViewModel;
             Window window = Application.Current.MainWindow;
@@ -32,6 +37,7 @@ namespace ICSheet5e.Views {
             }
             else
             {
+
                 return base.SelectTemplate(item, container);
             }
         }
