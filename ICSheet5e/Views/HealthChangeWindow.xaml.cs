@@ -24,12 +24,12 @@ namespace ICSheet5e.Views
             InitializeComponent();
         }
 
-        public ICommand DoHealthChangeCommand
-        {
-            get { return new Views.DelegateCommand<object>(DoHealthChangeCommandExecuted); }
-        }
+        //public ICommand DoHealthChangeCommand
+        //{
+        //    get { return new Views.DelegateCommand<object>(DoHealthChangeCommandExecuted); }
+        //}
 
-        private void DoHealthChangeCommandExecuted(object obj)
+        private void DoHealthChangeCommandExecuted(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }

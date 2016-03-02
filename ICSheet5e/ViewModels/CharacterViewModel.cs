@@ -235,7 +235,8 @@ namespace ICSheet5e.ViewModels
 
         private void TakeDamageCommandExecuted(object obj)
         {
-            throw new NotImplementedException();
+            var type = HealthChangeViewModel.HealthChangeType.Damage;
+            DisplayModalDialog(type);
         }
 
         public ICommand HealDamageCommand
@@ -245,7 +246,8 @@ namespace ICSheet5e.ViewModels
 
         private void HealDamageCommandExecuted(object obj)
         {
-            throw new NotImplementedException();
+            var type = HealthChangeViewModel.HealthChangeType.Healing;
+            DisplayModalDialog(type); 
         }
 
         private bool HealDamageCommandCanExecute(object obj)
@@ -275,7 +277,7 @@ namespace ICSheet5e.ViewModels
             {
                 HandleHealthChange(dlg.DataContext as HealthChangeViewModel);
             }
-
+            return;
         }
 
         private void HandleHealthChange(HealthChangeViewModel vm)
@@ -292,10 +294,13 @@ namespace ICSheet5e.ViewModels
                     break;
                 case HealthChangeViewModel.HealthChangeType.Temporary:
                     character.AddTHP(vm.Amount);
+                    
                     break;
                 default:
                     break;
             }
+            NotifyPropertyChanged("CurrentHealth");
+            NotifyPropertyChanged("TemporaryHP");
             return;
         }
 
