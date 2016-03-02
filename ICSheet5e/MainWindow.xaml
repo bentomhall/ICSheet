@@ -10,13 +10,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="PageStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate x:Key="InitialTemplate">
+            <DataTemplate DataType="ViewModels:BaseViewModel">
                 <Label>Start new character or open existing character to begin.</Label>
             </DataTemplate>
-            <DataTemplate x:Key="NewCharacterTemplate">
+            <!--<DataTemplate DataType="ViewModels:NewCharacterViewModel">
                 <views:NewCharacterCreationView/>
-            </DataTemplate>
-            <DataTemplate x:Key="LoadedCharacterTemplate">
+            </DataTemplate> -->
+            <DataTemplate DataType="ViewModels:CharacterViewModel">
                 <views:MainSheetControl/>
             </DataTemplate>
         </ResourceDictionary>
@@ -31,20 +31,7 @@
             <MenuItem Header="_Edit" IsCheckable="True" Command="{Binding Path=ToggleEditingCommand}" IsChecked="{Binding Path=IsEditingModeEnabled}"/>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
-            <TabItem Name="Overview" Header="Overview">
-                <TabItem.Style>
-                    <Style TargetType="{x:Type TabItem}">
-                        <Setter Property="ContentTemplate" Value="{StaticResource InitialTemplate}" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding HasCharacterCreationStarted}" Value="True">
-                                <Setter Property="ContentTemplate" Value="{StaticResource NewCharacterTemplate}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsCharacterInitialized}" Value="True">
-                                <Setter Property="ContentTemplate" Value="{StaticResource LoadedCharacterTemplate}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TabItem.Style>
+            <TabItem Name="Overview" Header="Overview" DataContext="{Binding Path=ViewModels[0]}">
             </TabItem>
 
             <TabItem Header="Inventory" IsEnabled="{Binding IsCharacterInitialized}">
