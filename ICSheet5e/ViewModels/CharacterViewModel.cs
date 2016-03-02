@@ -7,12 +7,24 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using Interactive_Character_Sheet_Core;
+using System.Windows.Input;
+using System.Windows;
 
 namespace ICSheet5e.ViewModels
 {
     public class CharacterViewModel : BaseViewModel
     {
         private Model.Character character;
+        private string FormatLevels()
+        {
+            var builder = new StringBuilder();
+            foreach (var entry in character.Levels)
+            {
+                builder.AppendFormat("{0} {1}", entry.Item1, entry.Item2);
+                builder.Append(Environment.NewLine);
+            }
+            return builder.ToString();
+        }
         private bool canEdit = false;
         #region Attributes
         public int Strength
@@ -117,6 +129,181 @@ namespace ICSheet5e.ViewModels
         }
 
         #endregion
+        #region Skills
+        private ObservableCollection<bool> _proficientSkills = new ObservableCollection<bool>();
+        public ObservableCollection<bool> ProficientSkills
+        {
+            get { return _proficientSkills; }
+            set
+            {
+                _proficientSkills = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ObservableCollection<IndividualSkillViewModel> _skills = new ObservableCollection<IndividualSkillViewModel>();
+        public ObservableCollection<IndividualSkillViewModel> Skills
+        {
+            get { return _skills; }
+            set
+            {
+                _skills = value;
+            }
+        }
+
+        public void SkillProficiencyChanged(string name, bool isProficient)
+        {
+            var skillVM = _skills.Single(x => x.Name == name);
+            var newBonus = skillVM.Bonus;
+            if (isProficient)
+            {
+                newBonus += Proficiency;
+            }
+            else
+            {
+                newBonus -= Proficiency;
+            }
+            var skill = new Model.Skill5e(name, newBonus, true);
+            skillVM.Bonus = newBonus;
+            character.Skills.SetSkillBonusFor(skill);
+        }
+
+        private void _setSkills(SkillList<Model.Skill5e> skills)
+        {
+            var names = skills.getSkillNames();
+            Skills = new ObservableCollection<IndividualSkillViewModel>();
+            foreach (var name in names)
+            {
+                IndividualSkillViewModel skill = new IndividualSkillViewModel();
+                skill.Bonus = skills.skillBonusFor(name);
+                skill.Name = name;
+                skill.IsProficient = skills.IsSkillTagged(name);
+                skill.delegateProficiencyChanged = SkillProficiencyChanged;
+                Skills.Add(skill);
+            }
+            NotifyPropertyChanged("Skills");
+        }
+        #endregion
+
+        public string Name
+        {
+            get { return character.CharacterName; }
+        }
+        public string Race
+        {
+            get { return character.Race; }
+        }
+        private string _levels = "";
+        public string Levels
+        {
+            get { return _levels; }
+        }
+
+        public int Experience
+        {
+            get { return character.Experience; }
+            set
+            {
+                character.Experience = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int MaxHealth
+        {
+            get { return character.MaxHealth; }
+            set
+            {
+                character.MaxHealth = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int CurrentHealth
+        {
+            get { return character.CurrentHealth; }
+        }
+
+        public int TemporaryHP
+        {
+            get { return character.TemporaryHP; }
+        }
+
+        public ICommand TakeDamageCommand 
+        {
+            get { return new Views.DelegateCommand<object>(TakeDamageCommandExecuted); }
+        }
+
+        private void TakeDamageCommandExecuted(object obj)
+        {
+            var type = HealthChangeViewModel.HealthChangeType.Damage;
+            DisplayModalDialog(type);
+        }
+
+        public ICommand HealDamageCommand
+        {
+            get { return new Views.DelegateCommand<object>(HealDamageCommandExecuted); }
+        }
+
+        private void HealDamageCommandExecuted(object obj)
+        {
+            var type = HealthChangeViewModel.HealthChangeType.Healing;
+            DisplayModalDialog(type); 
+        }
+
+        private bool HealDamageCommandCanExecute(object obj)
+        {
+            return (CurrentHealth < MaxHealth);
+        }
+
+        public ICommand AddTemporaryHealthCommand
+        {
+            get { return new Views.DelegateCommand<object>(AddTHPCommandExecuted); }
+        }
+
+        private void AddTHPCommandExecuted(object obj)
+        {
+            var type = HealthChangeViewModel.HealthChangeType.Temporary;
+            DisplayModalDialog(type);
+        }
+
+        private void DisplayModalDialog(HealthChangeViewModel.HealthChangeType type)
+        {
+            Views.HealthChangeWindow dlg = new Views.HealthChangeWindow();
+            dlg.Owner = Application.Current.MainWindow;
+            var vm = new HealthChangeViewModel(type);
+            dlg.DataContext = vm;
+            dlg.ShowDialog();
+            if (dlg.DialogResult == true)
+            {
+                HandleHealthChange(dlg.DataContext as HealthChangeViewModel);
+            }
+            return;
+        }
+
+        private void HandleHealthChange(HealthChangeViewModel vm)
+        {
+            switch(vm.Type)
+            {
+                case HealthChangeViewModel.HealthChangeType.Damage:
+                    var dmg = new DamageBase();
+                    dmg.Amount = vm.Amount;
+                    character.TakeDamage(dmg);
+                    break;
+                case HealthChangeViewModel.HealthChangeType.Healing:
+                    character.HealDamage(vm.Amount);
+                    break;
+                case HealthChangeViewModel.HealthChangeType.Temporary:
+                    character.AddTHP(vm.Amount);
+                    
+                    break;
+                default:
+                    break;
+            }
+            NotifyPropertyChanged("CurrentHealth");
+            NotifyPropertyChanged("TemporaryHP");
+            return;
+        }
+
         public bool CanEdit
         {
             get { return canEdit; }
@@ -125,6 +312,7 @@ namespace ICSheet5e.ViewModels
                 canEdit = value;
                 NotifyPropertyChanged();
                 if (!canEdit) NotifyEditingEnded(); //raise property changed notifications for directly bound properties
+                if (canEdit) NotifyEditingBegan();
             }
         }
         public Model.Character Character 
@@ -152,19 +340,44 @@ namespace ICSheet5e.ViewModels
 
         public CharacterViewModel() { }
 
-        public CharacterViewModel(Model.Character c, INotifyPropertyChanged parent)
+        public CharacterViewModel(Model.Character c, ApplicationModel parent)
         {
             character = c;
-            parent.PropertyChanged += ParentEditingPropertyChanged;
+            _setSkills(c.Skills);
+            _levels = FormatLevels();
+            Parent = parent;
+            Parent.PropertyChanged += ParentEditingPropertyChanged;
+        }
+
+        public void NotifyEditingBegan()
+        {
+            NotifyPropertyChanged("Strength");
+            NotifyPropertyChanged("Dexterity");
+            NotifyPropertyChanged("Constitution");
+            NotifyPropertyChanged("Intelligence");
+            NotifyPropertyChanged("Wisdom");
+            NotifyPropertyChanged("Charisma");
         }
 
         public void NotifyEditingEnded()
         {
+            character.RecalculateDependentBonuses();
             NotifyPropertyChanged("ArmorClass");
             NotifyPropertyChanged("Proficiency");
             NotifyPropertyChanged("Movement");
             NotifyPropertyChanged("Initiative");
+            NotifyPropertyChanged("Defenses");
             NotifyPropertyChanged("ProficientDefenses");
+            
+        }
+
+        private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsEditingModeEnabled")
+            {
+                CanEdit = !canEdit;
+                if (!canEdit) NotifyEditingEnded();
+            }
         }
 
     }

@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -51,7 +52,9 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
       <Private>True</Private>
@@ -89,8 +92,10 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\ClassInformationViewModel.cs" />
+    <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
+    <Compile Include="ViewModels\NoCharacterViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="Views\AttributeBlock.xaml.cs">
       <DependentUpon>AttributeBlock.xaml</DependentUpon>
@@ -99,12 +104,19 @@
       <DependentUpon>CharacterInformationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DelegateCommand.cs" />
+    <Compile Include="Views\HealthBarView.xaml.cs">
+      <DependentUpon>HealthBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HealthChangeWindow.xaml.cs">
+      <DependentUpon>HealthChangeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainSheetControl.xaml.cs">
       <DependentUpon>MainSheetControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NewCharacterCreationView.xaml.cs">
       <DependentUpon>NewCharacterCreationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PopupBehavior.cs" />
     <Compile Include="Views\SkillsControl.xaml.cs">
       <DependentUpon>SkillsControl.xaml</DependentUpon>
     </Compile>
@@ -130,6 +142,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CharacterInformationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HealthBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HealthChangeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

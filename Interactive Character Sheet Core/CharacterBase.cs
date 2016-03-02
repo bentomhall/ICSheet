@@ -76,17 +76,39 @@ namespace Interactive_Character_Sheet_Core
         #endregion
 
         #region Health
-        [DataMember] public int MaxHealth { get; protected set; }
+        [DataMember] public int MaxHealth { get; set; }
         [DataMember] protected int _currentHealth;
         public int CurrentHealth { get { return _currentHealth; } }
-        public void TakeDamage(IDamage damage)
+        public virtual void TakeDamage(IDamage damage)
         {
-            _currentHealth -= damage.Amount;
+            if (_temporaryHP > damage.Amount)
+            {
+                _temporaryHP -= damage.Amount;
+            }
+            else if (_temporaryHP > 0)
+            {
+                _currentHealth -= damage.Amount - _temporaryHP;
+                _temporaryHP = 0;
+            }
+            else
+            {
+                _currentHealth -= damage.Amount;
+            }
+            _currentHealth = Math.Max(_currentHealth, 0); //no negative health
         }
 
-        public void HealDamage(int amount)
+        public virtual void HealDamage(int amount)
         {
+            if (_currentHealth < 0) { _currentHealth = 0; }
             _currentHealth = Math.Min(MaxHealth, _currentHealth + amount);
+        }
+
+        [DataMember]
+        public  int _temporaryHP = 0;
+        public int TemporaryHP { get { return _temporaryHP; } }
+        public void AddTHP(int amount)
+        {
+            if (amount > _temporaryHP) { _temporaryHP = amount; } //does not stack
         }
         #endregion
 

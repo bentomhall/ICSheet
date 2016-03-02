@@ -55,26 +55,90 @@ namespace ICSheet5e.ViewModels
 
         private List<Tuple<Model.CharacterClassType, int>> levels =  new List<Tuple<Model.CharacterClassType,int>>();
 
-        private List<string> classesChosen = new List<string>() { "", "", "" };
-        public List<string> ClassesChosen { get { return classesChosen; } }
+        private string _class1 = "";
+        private string _class2 = "";
+        private string _class3 = "";
+        private int _levels1 = 0;
+        private int _levels2 = 0;
+        private int _levels3 = 0;
 
-        private List<int> levelsOfClasses = new List<int>() { 0, 0, 0 };
-        public List<int> LevelsOfClasses { get { return levelsOfClasses; } }
+        public string Class1
+        {
+            get { return _class1; }
+            set
+            {
+                _class1 = value;
+                NotifyPropertyChanged();
+                UpdateNewCharacterCommandCanExecute();
+            }
+        }
+        public string Class2
+        {
+            get { return _class2; }
+            set
+            {
+                _class2 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Class3
+        {
+            get { return _class3; }
+            set
+            {
+                _class3 = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int Levels1
+        {
+            get { return _levels1; }
+            set
+            {
+                _levels1 = value;
+                NotifyPropertyChanged();
+                UpdateNewCharacterCommandCanExecute();
+            }
+        }
+        public int Levels2
+        {
+            get { return _levels2; }
+            set
+            {
+                _levels2 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public int Levels3
+        {
+            get { return _levels3; }
+            set
+            {
+                _levels3 = value;
+                NotifyPropertyChanged();
+            }
+        }
+
 
         public ICommand StartNewCharacterCommand
         {
-            get { return new Views.DelegateCommand<object>(StartNewCharacterCommandExecuted, StartNewCharacterCommandCanExecute); }
+            get { return new Views.DelegateCommand<object>(StartNewCharacterCommandExecuted); }
         }
 
         private void StartNewCharacterCommandExecuted(object sender)
         {
-            for (int ii = 0; ii < 3; ii++)
+            var c1 = new Tuple<Model.CharacterClassType, int>(classMap[_class1], _levels1);
+            levels.Add(c1);
+            if (_class2 != "" && _levels2 != 0)
+            { 
+                var c2 = new Tuple<Model.CharacterClassType, int>(classMap[_class2], _levels2);
+                levels.Add(c2);
+            }
+            if (_class3 != "" && _levels3 != 0)
             {
-                if (levelsOfClasses[ii] != 0 && classesChosen[ii] != "") 
-                {
-                    var cl = new Tuple<Model.CharacterClassType, int>(classMap[classesChosen[ii]], levelsOfClasses[ii]);
-                    levels.Add(cl);
-                }       
+                var c3 = new Tuple<Model.CharacterClassType, int>(classMap[_class3], _levels3);
+                levels.Add(c3);
             }
 
             if (delegateAction != null)
@@ -84,14 +148,28 @@ namespace ICSheet5e.ViewModels
 
         }
 
-        private bool StartNewCharacterCommandCanExecute(object sender)
+        public bool CanExecute
+        {
+            get
+            {
+                return _canExecute;
+            }
+            set
+            {
+                _canExecute = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _canExecute = false;
+        private void UpdateNewCharacterCommandCanExecute()
         {
             bool canExecute = true;
             canExecute = canExecute && (CharacterName != null);
             canExecute = canExecute && (Race != null);
-            canExecute = canExecute && (levelsOfClasses[0] != 0);
-            canExecute = canExecute && (classesChosen[0] != "");
-            return canExecute;
+            canExecute = canExecute && (_levels1 != 0);
+            canExecute = canExecute && (_class1 != "");
+            CanExecute = canExecute;
         }
 
         public Action<string, string, List<Tuple<Model.CharacterClassType, int>>> delegateAction { get; set; }
