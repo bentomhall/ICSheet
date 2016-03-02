@@ -283,8 +283,20 @@ namespace ICSheet5e.ViewModels
             switch(vm.Type)
             {
                 case HealthChangeViewModel.HealthChangeType.Damage:
-                    character.TakeDamage()
+                    var dmg = new DamageBase();
+                    dmg.Amount = vm.Amount;
+                    character.TakeDamage(dmg);
+                    break;
+                case HealthChangeViewModel.HealthChangeType.Healing:
+                    character.HealDamage(vm.Amount);
+                    break;
+                case HealthChangeViewModel.HealthChangeType.Temporary:
+                    character.AddTHP(vm.Amount);
+                    break;
+                default:
+                    break;
             }
+            return;
         }
 
         public bool CanEdit

@@ -31,4 +31,26 @@ namespace Interactive_Character_Sheet_Core
         Piercing,
         Bludgeoning
     }
+
+    public class DamageBase : IDamage
+    {
+        public int Amount
+        {
+            get;
+            set;
+        }
+
+        public DamageType type { get { return DamageType.Untyped; } }
+
+        public bool isResistedBy(ResistanceType type)
+        {
+            return false;
+        }
+
+        public bool triggersVulnerability(ResistanceType type)
+        {
+            return false;
+        }
+    }
+
 }
