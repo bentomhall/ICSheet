@@ -4,8 +4,8 @@
         Title="HealthChangeWindow" Height="100" Width="250">
     <StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-            <Label Content="{Binding Path=ChangeTypeDescription}" Width="150"/>
-            <TextBox Width="90" Text="{Binding Path=Amount, Mode=TwoWay}"></TextBox>
+            <Label Content="{Binding Path=ChangeTypeDescription}" Width="170"/>
+            <TextBox Width="70" Text="{Binding Path=Amount, Mode=TwoWay}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Click="DoHealthChangeCommandExecuted" IsDefault="True" Margin="0,0,8,0">OK</Button>

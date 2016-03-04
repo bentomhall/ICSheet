@@ -282,7 +282,7 @@ namespace ICSheet5e.Model
         public int Experience { get; set; }
         
         //hooks for serialization
-
+        [DataMember]
         private Dictionary<CharacterClassType, List<DefenseType>> _proficientDefenses = new Dictionary<CharacterClassType, List<DefenseType>>()
         {
             {CharacterClassType.ArcaneTrickster, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},

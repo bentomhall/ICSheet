@@ -94,6 +94,7 @@
     <Compile Include="ViewModels\ClassInformationViewModel.cs" />
     <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
@@ -121,6 +122,7 @@
       <DependentUpon>SkillsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabItemDataTemplateSelector.cs" />
+    <Compile Include="Views\WindowManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

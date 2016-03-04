@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Interactive_Character_Sheet_Core
 {
+    [DataContract]
     public class Defense
     {
         public Defense(int value, DefenseType type)
@@ -13,7 +15,9 @@ namespace Interactive_Character_Sheet_Core
             _value = value;
             _type = type;
         }
+        [DataMember]
         private int _value = 10;
+        [DataMember]
         private DefenseType _type;
 
         public int value { get { return _value; } }

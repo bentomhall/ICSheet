@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace ICSheet5e.ViewModels
 {
-    public class BaseViewModel: INotifyPropertyChanged
+    public class BaseViewModel: INotifyPropertyChanged, ICSheet5e.ViewModels.IViewModel
     {
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;

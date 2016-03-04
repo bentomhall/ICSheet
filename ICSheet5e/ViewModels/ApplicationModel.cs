@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace ICSheet5e.ViewModels
 {
@@ -30,6 +31,7 @@ namespace ICSheet5e.ViewModels
             {
                 isInitialized = value;
                 NotifyPropertyChanged();
+                if (isInitialized) (SaveCharacterCommand as Views.DelegateCommand<object>).RaiseCanExecuteChanged();
             }
         }
 
@@ -99,7 +101,7 @@ namespace ICSheet5e.ViewModels
         }
         public ICommand SaveCharacterCommand
         {
-            get { return new Views.DelegateCommand<object>(SaveCommandExecuted, SaveCommandCanExecute); }
+            get { return new Views.DelegateCommand<object>(SaveCommandExecuted); }
         }
         public ICommand ToggleEditingCommand
         {
@@ -129,18 +131,36 @@ namespace ICSheet5e.ViewModels
 
         public void OpenCommandExecute(object sender)
         {
-            Console.WriteLine("Open Character Command executed");
+            var location = Views.WindowManager.SelectExistingFile();
+            if (location == null) { return; } //user canceled open dialog
+            var serializer = new DataContractSerializer(typeof(Model.Character));
+            System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
+            var c = (Model.Character)serializer.ReadObject(reader);
+            reader.Close();
+            currentCharacter = c;
+            ViewModels[0] = new CharacterViewModel(currentCharacter, this);
+            NotifyPropertyChanged("ViewModels");
+            HasCharacterCreationStarted = false;
+            IsCharacterInitialized = true;
+            canEdit = true;
+            CanCastSpells = false; //not implemented
         }
 
         
         public void SaveCommandExecuted(object sender)
         {
-
+            if (!IsCharacterInitialized) return;
+            var saveLocation = Views.WindowManager.SelectSaveLocation();
+            if (saveLocation == null) { return; } //user canceled save dialog
+            var serializer = new DataContractSerializer(typeof(Model.Character));
+            System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
+            serializer.WriteObject(stream, currentCharacter);
+            stream.Close();
         }
 
         public bool SaveCommandCanExecute(object sender)
         {
-            return (currentCharacter == null);
+            return IsCharacterInitialized;
         }
 
         public void ToggleEditingCommandExecuted(object sender)
@@ -148,5 +168,7 @@ namespace ICSheet5e.ViewModels
             IsEditingModeEnabled = !canEdit;
             return;
         }
+
+
     }
 }

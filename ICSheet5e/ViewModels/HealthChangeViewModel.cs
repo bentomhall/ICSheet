@@ -19,17 +19,13 @@ namespace ICSheet5e.ViewModels
             
         }
 
-        public HealthChangeViewModel(HealthChangeType type)
-        {
-            _type = type;
-        }
-
         private HealthChangeType _type;
 
         public int Amount { get; set; }
         public HealthChangeType Type
         {
             get { return _type; }
+            set { _type = value; }
         }
 
         

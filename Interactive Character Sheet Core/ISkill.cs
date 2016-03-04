@@ -36,6 +36,7 @@ namespace Interactive_Character_Sheet_Core
             }
         }
 
+        [DataMember]
         public Dictionary<string, AbilityType> skillAbilityMap4e = new Dictionary<string, AbilityType>()
         {
              { "Acrobatics", AbilityType.Dexterity },
@@ -57,6 +58,7 @@ namespace Interactive_Character_Sheet_Core
              { "Thievery", AbilityType.Dexterity }
         };
 
+        [DataMember]
         public Dictionary<string, AbilityType> skillAbilityMap5e = new Dictionary<string, AbilityType>()
         {
             { "Acrobatics", AbilityType.Dexterity },

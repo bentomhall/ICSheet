@@ -236,7 +236,7 @@ namespace ICSheet5e.ViewModels
         private void TakeDamageCommandExecuted(object obj)
         {
             var type = HealthChangeViewModel.HealthChangeType.Damage;
-            DisplayModalDialog(type);
+            DisplayModalHealthDialog(type);
         }
 
         public ICommand HealDamageCommand
@@ -247,7 +247,7 @@ namespace ICSheet5e.ViewModels
         private void HealDamageCommandExecuted(object obj)
         {
             var type = HealthChangeViewModel.HealthChangeType.Healing;
-            DisplayModalDialog(type); 
+            DisplayModalHealthDialog(type); 
         }
 
         private bool HealDamageCommandCanExecute(object obj)
@@ -263,37 +263,32 @@ namespace ICSheet5e.ViewModels
         private void AddTHPCommandExecuted(object obj)
         {
             var type = HealthChangeViewModel.HealthChangeType.Temporary;
-            DisplayModalDialog(type);
+            DisplayModalHealthDialog(type);
         }
 
-        private void DisplayModalDialog(HealthChangeViewModel.HealthChangeType type)
+        private void DisplayModalHealthDialog(HealthChangeViewModel.HealthChangeType type)
         {
-            Views.HealthChangeWindow dlg = new Views.HealthChangeWindow();
-            dlg.Owner = Application.Current.MainWindow;
-            var vm = new HealthChangeViewModel(type);
-            dlg.DataContext = vm;
-            dlg.ShowDialog();
-            if (dlg.DialogResult == true)
-            {
-                HandleHealthChange(dlg.DataContext as HealthChangeViewModel);
-            }
-            return;
+
+            var vm = new HealthChangeViewModel();
+            vm.Type = type;
+            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.HealthDialog, vm,HandleHealthChange);
         }
 
-        private void HandleHealthChange(HealthChangeViewModel vm)
+        private void HandleHealthChange(IViewModel vm)
         {
-            switch(vm.Type)
+            var model = vm as HealthChangeViewModel;
+            switch(model.Type)
             {
                 case HealthChangeViewModel.HealthChangeType.Damage:
                     var dmg = new DamageBase();
-                    dmg.Amount = vm.Amount;
+                    dmg.Amount = model.Amount;
                     character.TakeDamage(dmg);
                     break;
                 case HealthChangeViewModel.HealthChangeType.Healing:
-                    character.HealDamage(vm.Amount);
+                    character.HealDamage(model.Amount);
                     break;
                 case HealthChangeViewModel.HealthChangeType.Temporary:
-                    character.AddTHP(vm.Amount);
+                    character.AddTHP(model.Amount);
                     
                     break;
                 default:
