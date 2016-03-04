@@ -12,7 +12,7 @@ namespace ICSheet5e.Model
     public class Skill5e: ISkill
     {
         [DataMember] public string name { get; set; }
-        public int bonus { get { return _bonus; } }
+        public int bonus { get { return _bonus; } set { _bonus = value; } }
         [DataMember] private int _bonus = 0;
         [DataMember]
         public bool IsTagged { get; set; }

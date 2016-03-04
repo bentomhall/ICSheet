@@ -143,5 +143,8 @@
         <Border Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
             <views:HealthBarView BorderThickness="2"/>
         </Border>
+        <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
+            <views:SkillsControl/>
+        </Border>
     </Grid>
 </UserControl>

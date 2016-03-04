@@ -8,31 +8,30 @@ namespace ICSheet5e.ViewModels
 {
     public class IndividualSkillViewModel: BaseViewModel
     {
-        private bool _isProficient = false;
         public bool IsProficient 
         {
-            get { return _isProficient; }
+            get { return Skill.IsTagged; }
             set
             {
-                if (value != _isProficient) { delegateProficiencyChanged(Name, value); }
-                _isProficient = value;
+                Skill.IsTagged = value;
+                delegateProficiencyChanged(Skill);
                 NotifyPropertyChanged();
 
             }
         }
-        public string Name { get; set; }
+        public string Name { get { return Skill.name; } }
 
-        private int _bonus = 0;
         public int Bonus
         {
-            get { return _bonus; }
+            get { return Skill.bonus; }
             set
             {
-                _bonus = value;
+                Skill.bonus = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public Action<string, bool> delegateProficiencyChanged;
+        public Model.Skill5e Skill { get; set; }
+        public Action<Model.Skill5e> delegateProficiencyChanged;
     }
 }

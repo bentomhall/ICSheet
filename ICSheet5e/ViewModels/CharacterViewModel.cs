@@ -150,21 +150,19 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public void SkillProficiencyChanged(string name, bool isProficient)
+        public void SkillProficiencyChanged(Model.Skill5e skill)
         {
-            var skillVM = _skills.Single(x => x.Name == name);
-            var newBonus = skillVM.Bonus;
-            if (isProficient)
+            var skillVM = _skills.Single(x => x.Skill == skill);
+            if (skillVM.IsProficient)
             {
-                newBonus += Proficiency;
+                skillVM.Bonus += Proficiency;
             }
             else
             {
-                newBonus -= Proficiency;
+                skillVM.Bonus -= Proficiency;
             }
-            var skill = new Model.Skill5e(name, newBonus, true);
-            skillVM.Bonus = newBonus;
             character.Skills.SetSkillBonusFor(skill);
+            NotifyPropertyChanged("Skills");
         }
 
         private void _setSkills(SkillList<Model.Skill5e> skills)
@@ -173,12 +171,11 @@ namespace ICSheet5e.ViewModels
             Skills = new ObservableCollection<IndividualSkillViewModel>();
             foreach (var name in names)
             {
-                IndividualSkillViewModel skill = new IndividualSkillViewModel();
-                skill.Bonus = skills.skillBonusFor(name);
-                skill.Name = name;
-                skill.IsProficient = skills.IsSkillTagged(name);
-                skill.delegateProficiencyChanged = SkillProficiencyChanged;
-                Skills.Add(skill);
+                IndividualSkillViewModel skillVM = new IndividualSkillViewModel();
+                skillVM.Skill = skills.SkillForName(name);
+                skillVM.delegateProficiencyChanged = SkillProficiencyChanged;
+                skillVM.Parent = this.Parent;
+                Skills.Add(skillVM);
             }
             NotifyPropertyChanged("Skills");
         }
@@ -356,13 +353,22 @@ namespace ICSheet5e.ViewModels
 
         public void NotifyEditingEnded()
         {
+            List<Model.Skill5e> newSkills = new List<Model.Skill5e>();
+            foreach (var vm in Skills)
+            {
+                var skill = new Model.Skill5e(vm.Name, vm.Bonus, vm.IsProficient);
+                newSkills.Add(skill);
+            }
             character.RecalculateDependentBonuses();
+            character.RecalculateSkillsAfterAbilityScoreChange(newSkills);
             NotifyPropertyChanged("ArmorClass");
             NotifyPropertyChanged("Proficiency");
             NotifyPropertyChanged("Movement");
             NotifyPropertyChanged("Initiative");
             NotifyPropertyChanged("Defenses");
             NotifyPropertyChanged("ProficientDefenses");
+            _setSkills(character.Skills);
+            NotifyPropertyChanged("Skills");
             
         }
 
@@ -371,7 +377,6 @@ namespace ICSheet5e.ViewModels
             if (e.PropertyName == "IsEditingModeEnabled")
             {
                 CanEdit = !canEdit;
-                if (!canEdit) NotifyEditingEnded();
             }
         }
 

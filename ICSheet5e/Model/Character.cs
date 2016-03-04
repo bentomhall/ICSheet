@@ -150,19 +150,19 @@ namespace ICSheet5e.Model
         {
             List<Skill5e> skillBonuses = new List<Skill5e>();
           
-            foreach (string skillName in skills.getSkillNames())
+            foreach (var s in taggedSkills)
             {
-                AbilityType associatedAbility = skills.abilityFor(skillName);
-                if (taggedSkills.Count(x => x.name == skillName) != 0) 
+                AbilityType associatedAbility = skills.abilityFor(s.name);
+                if (s.IsTagged)
                 {
-                    skillBonuses.Add( new Skill5e(skillName, _proficiencyBonus + abilities[associatedAbility].modifier, true));
+                    s.bonus = abilityModifierFor(associatedAbility) + Proficiency;
                 }
                 else
                 {
-                    skillBonuses.Add(new Skill5e(skillName, abilities[associatedAbility].modifier, false));
+                    s.bonus = abilityModifierFor(associatedAbility);
                 }
             }
-            this.skills.setAllSkillBonuses(skillBonuses);
+            this.skills.setAllSkillBonuses(taggedSkills as List<Skill5e>);
         }
 
         void setSpellCasting()
@@ -337,6 +337,11 @@ namespace ICSheet5e.Model
         {
             InitializeDefenses(true);
             initiativeModifier = calculateInitiative();
+        }
+
+        public void RecalculateSkillsAfterAbilityScoreChange(List<Skill5e> skills)
+        {
+            SetSkills<Skill5e>(skills);
         }
 
     }

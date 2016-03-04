@@ -97,7 +97,6 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
-    <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="Views\AttributeBlock.xaml.cs">
       <DependentUpon>AttributeBlock.xaml</DependentUpon>
     </Compile>

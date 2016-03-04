@@ -36,6 +36,11 @@ namespace Interactive_Character_Sheet_Core
             }
         }
 
+        public T SkillForName(string name)
+        {
+            return skills[name];
+        }
+
         [DataMember]
         public Dictionary<string, AbilityType> skillAbilityMap4e = new Dictionary<string, AbilityType>()
         {
@@ -122,7 +127,7 @@ namespace Interactive_Character_Sheet_Core
     public interface ISkill
     {
         string name { get; }
-        int bonus { get; }
-        bool IsTagged { get; }
+        int bonus { get; set; }
+        bool IsTagged { get; set; }
     }
 }

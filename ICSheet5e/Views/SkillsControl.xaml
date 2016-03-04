@@ -5,25 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:ICSheet5e.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="200">
-    <UserControl.DataContext>
-       <vm:SkillViewModel/>
-    </UserControl.DataContext>
+             d:DesignHeight="514" d:DesignWidth="200">
     <UserControl.Resources>
-        <DataTemplate x:Key="SkillViewItem">
-            <DockPanel>
-                <CheckBox IsChecked="{Binding Path=IsProficient}" DockPanel.Dock="Left"/>
-                <Label Content="{Binding Path=Bonus}" DockPanel.Dock="Left"/>
-                <Label Content="{Binding Path=Name}" DockPanel.Dock="Left"/>
-            </DockPanel>
+        <DataTemplate x:Key="SkillItemTemplate">
+            <Border BorderBrush="Black" BorderThickness="0,1,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Width="20" IsChecked="{Binding Path=IsProficient}" Margin="0,7,0,0"/>
+                    <Label Width="60" Content="{Binding Path=Bonus}" HorizontalContentAlignment="Center"/>
+                    <Label Width="120" Content="{Binding Path=Name}"/>
+                </StackPanel>
+            </Border>
         </DataTemplate>
-
     </UserControl.Resources>
-    <Border BorderBrush="Black" BorderThickness="2,2,2,2" Background="White" CornerRadius="15">
-        <ListView>
-            <GridView>
-                <GridViewColumn CellTemplate="{StaticResource SkillViewItem}" Width="200"/>
-            </GridView>
-        </ListView>
-    </Border>
+    <Grid>
+        <ListBox ItemsSource="{Binding Path=Skills}" ItemTemplate="{StaticResource SkillItemTemplate}" HorizontalContentAlignment="Stretch">
+        </ListBox>
+    </Grid>
 </UserControl>
