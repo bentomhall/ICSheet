@@ -28,11 +28,11 @@ namespace ICSheet5e.Model
             { CharacterClassType.ArcaneTrickster, "Arcane Trickster"}
         };
 
-        public SpellCaster(CharacterClassType type, int level)
+        public SpellCaster(CharacterClassType type, int level, Model.SpellManager spellDB)
         {
             className = type;
             SetSpellSlots(level);
-            
+            spellBook = new SpellBook(spellDB, type);
             RecoverAllSpellSlots();
         }
 
@@ -85,7 +85,7 @@ namespace ICSheet5e.Model
 
         public bool HasSpellPrepared(Spell spell)
         {
-            return preparedSpells.Contains(spell);
+            return spell.IsPrepared;
         }
 
         public void RecoverSpellSlots(int ofLevel)
@@ -105,22 +105,34 @@ namespace ICSheet5e.Model
         {
             RecoverAllSpellSlots();
         }
-        [DataMember] 
-        private List<Spell> spellBook = new List<Spell>();
+        [DataMember]
+        private SpellBook spellBook;
         [DataMember]
         private int maxPreparedSpells = 10;
         [DataMember]
-        private List<Spell> preparedSpells = new List<Spell>();
+        private int currentPrepared = 0;
+
         public void AddSpell(Spell spell)
         {
-            spellBook.Add(spell);
+            spellBook.AddKnownSpell(spell);
         }
 
         public void PrepareSpells(List<Spell> spells)
         {
             if (spells.Count > maxPreparedSpells) { throw new System.ArgumentException("Too many spells to prepare!"); }
-            preparedSpells.Clear();
-            preparedSpells.AddRange(spells);
+            spellBook.UnprepareAllSpells();
+            foreach (var spell in spells)
+            {
+                spellBook.ToggleSpellPreparation(spell);
+                currentPrepared += 1;
+            }
+        }
+
+        public bool PrepareSpell(Spell spell)
+        {
+            if (currentPrepared == maxPreparedSpells) { return false; }
+            spellBook.ToggleSpellPreparation(spell);
+            return true;
         }
 
         private void AddSlot(int ofLevel, int number=1)

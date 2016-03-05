@@ -16,6 +16,7 @@ namespace ICSheet5e.ViewModels
     {
         Model.Character currentCharacter = null;
         Model.ItemDataBase itemDB = new Model.ItemDataBase();
+        Model.SpellManager spellDB = new Model.SpellManager();
         public bool IsEditingModeEnabled
         {
             get { return canEdit; }
@@ -60,16 +61,13 @@ namespace ICSheet5e.ViewModels
 
         public bool CanCastSpells
         {
-            get { return canCastSpells; }
-            set
+            get 
             {
-                canCastSpells = value;
-                NotifyPropertyChanged();
+                return currentCharacter.Spellcasting.Count > 0;
             }
         }
 
         private bool hasCharacterCreationStarted = false;
-        private bool canCastSpells = false;
         private bool canEdit = false;
         private bool isInitialized = false;
         private List<BaseViewModel> _viewModels = new List<BaseViewModel>();
@@ -112,12 +110,13 @@ namespace ICSheet5e.ViewModels
         public void NewCharacterInformationReceived(string name, string race, List<System.Tuple<Model.CharacterClassType, int>> classes)
         {
             currentCharacter = new Model.Character(name, classes, race);
+            currentCharacter.ItemDB = itemDB;
+            currentCharacter.SpellDB = spellDB;
             ViewModels[0] = new CharacterViewModel(currentCharacter, this);
             NotifyPropertyChanged("ViewModels");
             HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
             canEdit = true;
-            CanCastSpells = false; //not implemented
         }
 
         public void NewCharacterCommandExecuted(object sender)
@@ -144,7 +143,6 @@ namespace ICSheet5e.ViewModels
             HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
             canEdit = true;
-            CanCastSpells = false; //not implemented
         }
 
         

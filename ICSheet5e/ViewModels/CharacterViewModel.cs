@@ -181,6 +181,11 @@ namespace ICSheet5e.ViewModels
         }
         #endregion
 
+        public bool CanCastSpells 
+        {
+            get { return character.Spellcasting.Count > 0; }
+        }
+
         public string Name
         {
             get { return character.CharacterName; }

@@ -172,7 +172,7 @@
         "Components": "V, S, M (a miniature platinum sword with a grip and pommel of copper and zinc, worth 250 gp)",
         "Casting Time": "1 action",
         "text": "You create a sword-shaped plane of force that hovers within range. It lasts for the duration.When the sword appears, you make a melee spell attack against a target of your choice within 5 feet of the sword. On a hit, the target takes 3d10 force damage. Until the spell ends, you can use a bonus action on each of your turns to move the sword up to 20 feet to a spot you can see and repeat this attack against the same target or a different one.",
-        "level": "7"
+        "level": "7",
 		"Castable By": ["Bard", "Wizard"]
     },
     {
@@ -216,7 +216,7 @@
         "Components": "V, S, M (an agate worth at least 1,000 gp, which the spell consumes)",
         "Casting Time": "8 hours",
         "text": "After spending the casting time tracing magical pathways within a precious gemstone, you touch a Huge or smaller beast or plant. The target must have either no Intelligence score or an Intelligence of 3 or less. The target gains an Intelligence of 10. The target also gains the ability to speak one language you know. If the target is a plant, it gains the ability to move its limbs, roots, vines, creepers, and so forth, and it gains senses similar to a human's. Your GM chooses statistics appropriate for the awakened plant, such as the statistics for the awakened shrub or the awakened tree.The awakened beast or plant is charmed by you for 30 days or until you or your companions do anything harmful to it. When the charmed condition ends, the awakened creature chooses whether to remain friendly to you, based on how you treated it while it was charmed.",
-        "level": "5"
+        "level": "5",
 		"Castable By": ["Bard", "Druid"]
     },
     {
@@ -227,7 +227,7 @@
         "Components": "V, S, M (a drop of blood)",
         "Casting Time": "1 action",
         "text": "Up to three creatures of your choice that you can see within range must make Charisma saving throws.Whenever a target that fails this saving throw makes an attack roll or a saving throw before the spell ends, the target must roll a d4 and subtract the number rolled from the attack roll or saving throw.At Higher Levels: When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st.",
-        "level": "1"
+        "level": "1",
 		"Castable By": ["Cleric"]
     },
     {
@@ -238,7 +238,7 @@
         "Components": "V, S, M (an item distasteful to the target)",
         "Casting Time": "1 action",
         "text": "You attempt to send one creature that you can see within range to another plane of existence. The target must succeed on a Charisma saving throw or be banished.If the target is native to the plane of existence you're on, you banish the target to a harmless demiplane. While there, the target is incapacitated. The target remains there until the spell ends, at which point the target reappears in the space it left or in the nearest unoccupied space if that space is occupied.If the target is native to a different plane of existence than the one you're on, the target is banished with a faint popping noise, returning to its home plane. If the spell ends before 1 minute has passed, the target reappears in the space it left or in the nearest unoccupied space if that space is occupied. Otherwise, the target doesn't return.At Higher Levels: When you cast this spell using a spell slot of 5th level or higher, you can target one additional creature for each slot level above 4th.",
-        "level": "4"
+        "level": "4",
 		"Castable By": ["Cleric", "Sorcerer", "Wizard", "Paladin", "Warlock"]
     },
     {
@@ -260,7 +260,7 @@
         "Components": "V, S",
         "Casting Time": "1 action",
         "text": "This spell bestows hope and vitality. Choose any number of creatures within range. For the duration, each target has advantage on Wisdom saving throws and death saving throws, and regains the maximum number of hit points possible from any healing.",
-        "level": "3"
+        "level": "3",
 		"Castable By": ["Cleric"]
     },
     {
@@ -414,7 +414,7 @@
         "Components": "V, S",
         "Casting Time": "1 action",
         "text": "You create a ghostly, skeletal hand in the space of a creature within range. Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes 1d8 necrotic damage, and it can't regain hit points until the start of your next turn. Until then, the hand clings to the target.If you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn.This spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-        "level": 0,
+        "level": "0",
 		"Castable By": ["Sorcerer", "Wizard"]
     },
     {
@@ -2452,7 +2452,7 @@
         "Components": "V, S",
         "Casting Time": "1 action",
         "text": "Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover for this saving throw.The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-        "level": 0
+        "level": "0""
     },
     {
         "Range": "30 feet",
@@ -2582,7 +2582,7 @@
         "Components": "V, S, M (mistletoe, a shamrock leaf, and a club or quarterstaff)",
         "Casting Time": "1 bonus action",
         "text": "The wood of a club or quarterstaff you are holding is imbued with nature's power. For the duration, you can use your spellcasting ability instead of Strength for the attack and damage rolls of melee attacks using that weapon, and the weapon's damage die becomes a d8. The weapon also becomes magical, if it isn't already. The spell ends if you cast it again or if you let go of the weapon.",
-        "level": 0
+        "level": "0""
     },
     {
         "Range": "Touch",
@@ -2592,7 +2592,7 @@
         "Components": "V, S",
         "Casting Time": "1 action",
         "text": "Lightning springs from your hand to deliver a shock to a creature you try to touch. Make a melee spell attack against the target. You have advantage on the attack roll if the target is wearing armor made of metal. On a hit, the target takes 1d8 lightning damage, and it can't take reactions until the start of its next turn.The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-        "level": 0
+        "level": "0"
     },
     {
         "Range": "120 feet",
@@ -2852,7 +2852,7 @@
         "Components": "V",
         "Casting Time": "1 action",
         "text": "You manifest a minor wonder, a sign of supernatural power, within range. You create one of the following magical effects within range:Your voice booms up to three times as loud as normal for 1 minute.You cause flames to flicker, brighten, dim, or change color for 1 minute.You cause harmless tremors in the ground for 1 minute.You create an instantaneous sound that originates from a point of your choice within range, such as a rumble of thunder, the cry of a raven, or ominous whispers.You instantaneously cause an unlocked door or window to fly open or slam shut.You alter the appearance of your eyes for 1 minute.If you cast this spell multiple times, you can have up to three of its 1-minute effects active at a time, and you can dismiss such an effect as an action.",
-        "level": 0
+        "level": "0"
     },
     {
         "Range": "Self (15-foot cube)",
@@ -2952,7 +2952,7 @@
         "Components": "S",
         "Casting Time": "1 action",
         "text": "You extend your hand and point a finger at a target in range. Your magic grants you a brief insight into the target's defenses. On your next turn, you gain advantage on your first attack roll against the target, provided that this spell hasn't ended.",
-        "level": 0
+        "level": "0"
     },
     {
         "Range": "60 feet",

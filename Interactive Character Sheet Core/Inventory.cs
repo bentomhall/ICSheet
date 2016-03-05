@@ -15,9 +15,9 @@ namespace Interactive_Character_Sheet_Core
             MaxCarryWeight = 15*strengthMod;
         }
 
-        [DataMember] private int MaxCarryWeight = 50;
-        [DataMember] private int _currentLoad = 0;
-        public int CurrentLoad { get { return _currentLoad; } }
+        [DataMember] private double MaxCarryWeight = 50.0;
+        [DataMember] private double _currentLoad = 0.0;
+        public double CurrentLoad { get { return _currentLoad; } }
         [DataMember] private List<T> _inventory = new List<T>();
         public List<T> InventoryContents { get { return _inventory; } }
         public List<T> FilterContentsBy(Func<T, bool> criteria)

@@ -12,7 +12,7 @@ using Interactive_Character_Sheet_Core;
 namespace ICSheet5e.Model
 {
     [DataContract]
-    class ItemDataBase
+    public class ItemDataBase
     {
         [DataMember]
         private List<ArmorItem> _armors;
@@ -85,8 +85,8 @@ namespace ICSheet5e.Model
             foreach (var weapon in doc.Descendants("Weapon"))
             {
                 var name = weapon.Attribute("Name").Value;
-                var weight = int.Parse(weapon.Element("Weight").Value);
-                var value = int.Parse(weapon.Element("Cost").Value);
+                var weight = double.Parse(weapon.Element("Weight").Value);
+                var value = double.Parse(weapon.Element("Cost").Value);
                 var properties = weapon.Element("Properties").Value;
                 var damage = weapon.Element("Damage").Value;
                 var dType = weapon.Element("DamageType").Value;

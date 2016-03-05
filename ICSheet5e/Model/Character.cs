@@ -9,6 +9,8 @@ namespace ICSheet5e.Model
     [DataContract]
     public class Character: CharacterBase
     {
+        public Model.SpellManager SpellDB { get; set; }
+        public Model.ItemDataBase ItemDB { get; set; }
         private static List<CharacterClassType> castingClasses = new List<CharacterClassType>()
         {
             CharacterClassType.Bard,
@@ -169,20 +171,22 @@ namespace ICSheet5e.Model
             this.skills.setAllSkillBonuses(taggedSkills as List<Skill5e>);
         }
 
-        void setSpellCasting()
+        public void setSpellCasting()
         {
             foreach (System.Tuple<CharacterClassType, int> entry in CharacterClassLevels)
             {
                 if (castingClasses.Contains(entry.Item1))
                 {
                     var castingModifier = abilityModifierFor(castingAbilities[entry.Item1]);
-                    SpellCaster book = new SpellCaster(entry.Item1, entry.Item2);
+                    SpellCaster book = new SpellCaster(entry.Item1, entry.Item2, SpellDB);
                     book.SpellAttackModifier = castingModifier + _proficiencyBonus;
                     book.SpellDC = 8 + castingModifier + _proficiencyBonus;
                     spellBooks.Add(book);
                 }
             }
         }
+
+        public List<SpellCaster> Spellcasting { get { return spellBooks; } }
 
 
         //Public API starts here

@@ -14,7 +14,7 @@ namespace ICSheet5e.Model
         [DataMember]
         public WeaponCategory Category { get; protected set; }
         public DamageType Damage { get; set; }
-        public WeaponItem(string name, int weight, int value, ItemSlot slot, bool proficient, string properties, WeaponCategory type, int bonus=0): base(name, weight, value, slot, proficient, properties, bonus)
+        public WeaponItem(string name, double weight, double value, ItemSlot slot, bool proficient, string properties, WeaponCategory type, int bonus=0): base(name, weight, value, slot, proficient, properties, bonus)
         {
             Category = type;
         }

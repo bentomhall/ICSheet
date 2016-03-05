@@ -8,8 +8,8 @@ namespace Interactive_Character_Sheet_Core
 {
     public interface IItem
     {
-        int Weight { get; }
-        int Value { get; }
+        double Weight { get; }
+        double Value { get; }
         string Name { get; }
         ItemSlot Slot { get; }
         string ToString();

@@ -19,7 +19,7 @@ namespace ICSheet5e.Model
         {
             get { return int.Parse(BaseEffect); }
         }
-        public ArmorItem(string name, int weight, int value, bool proficient, string properties, ArmorType type, int bonus=0): base(name, weight, value, ItemSlot.Armor, proficient, properties, bonus)
+        public ArmorItem(string name, double weight, double value, bool proficient, string properties, ArmorType type, int bonus=0): base(name, weight, value, ItemSlot.Armor, proficient, properties, bonus)
         {
             ArmorClassType = type;
             switch(type)

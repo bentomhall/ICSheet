@@ -33,5 +33,8 @@ namespace ICSheet5e.Model
 
         [DataMember]
         public string CastTime { get; set; }
+
+        [DataMember]
+        public bool IsPrepared { get; set; }
     }
 }

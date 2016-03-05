@@ -13,8 +13,8 @@ namespace ICSheet5e.Model
     {
         [DataMember] private string properties;
         [DataMember] private string _name;
-        [DataMember] private int _weight;
-        [DataMember] private int _value;
+        [DataMember] private double _weight;
+        [DataMember] private double _value;
         [DataMember] private ItemSlot _slot;
         [DataMember] private int _enhancement = 0;
         [DataMember] private string description = "";
@@ -24,15 +24,15 @@ namespace ICSheet5e.Model
         public List<AbilityType> AssociatedAbilities { get { return associatedAbility; } }
         public string Name { get { return _name; } }
         public bool IsProficient { get { return _isProficient; } }
-        public int Weight { get { return _weight; } }
-        public int Value { get { return _value; } }
+        public double Weight { get { return _weight; } }
+        public double Value { get { return _value; } }
         public ItemSlot Slot { get { return _slot; } }
         public int EnhancementBonus { get { return _enhancement; } }
         public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
         public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }
         public string BaseEffect { get; set; }
         [DataMember] public bool isRanged { get; set; }
-        public Item(string name, int weight, int value, ItemSlot slot, bool proficient, string properties, int bonus=0)
+        public Item(string name, double weight, double value, ItemSlot slot, bool proficient, string properties, int bonus=0)
         {
             _name = name;
             _weight = weight;
