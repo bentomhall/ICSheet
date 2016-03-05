@@ -111,6 +111,31 @@ namespace ICSheet5e.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;SpellList&gt;
+        ///&lt;CastingClass Name=&quot;bard&quot;&gt;
+        ///&lt;Spell Name=&quot;Animal Friendship&quot;/&gt;
+        ///&lt;Spell Name=&quot;Animal Messenger&quot;/&gt;
+        ///&lt;Spell Name=&quot;Animate Objects&quot;/&gt;
+        ///&lt;Spell Name=&quot;Awaken&quot;/&gt;
+        ///&lt;Spell Name=&quot;Bane&quot;/&gt;
+        ///&lt;Spell Name=&quot;Bestow Curse&quot;/&gt;
+        ///&lt;Spell Name=&quot;Blade Ward&quot;/&gt;
+        ///&lt;Spell Name=&quot;Blindness/Deafness&quot;/&gt;
+        ///&lt;Spell Name=&quot;Calm Emotions&quot;/&gt;
+        ///&lt;Spell Name=&quot;Charm Person&quot;/&gt;
+        ///&lt;Spell Name=&quot;Clairvoyance&quot;/&gt;
+        ///&lt;Spell Name=&quot;Cloud of Daggers&quot;/&gt;
+        ///&lt;Spell Name=&quot;Comprehend Languages&quot;/&gt;
+        ///&lt;Spell Name=&quot;Compulsion&quot;/ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string spell_list {
+            get {
+                return ResourceManager.GetString("spell_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [
         ///    {
         ///        &quot;Range&quot;: &quot;90 feet&quot;,

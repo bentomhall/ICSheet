@@ -93,6 +93,7 @@
     <Compile Include="EventCoordinator\MulticastEventCoordinator.cs" />
     <Compile Include="Model\ArmorItem.cs" />
     <Compile Include="Model\ItemDataBase.cs" />
+    <Compile Include="Model\SpellManager.cs" />
     <Compile Include="Model\WeaponItem.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
@@ -221,6 +222,9 @@
   <ItemGroup>
     <Resource Include="Resources\BasicArmors.xml" />
     <Resource Include="Resources\BasicWeapons.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\spell_list.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

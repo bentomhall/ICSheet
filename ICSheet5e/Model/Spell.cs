@@ -17,7 +17,7 @@ namespace ICSheet5e.Model
         public string Description { get; set; }
 
         [DataMember]
-        public int Range { get; set; }
+        public string Range { get; set; }
 
         [DataMember]
         public string Components { get; set; }
@@ -30,5 +30,8 @@ namespace ICSheet5e.Model
 
         [DataMember]
         public string School { get; set; }
+
+        [DataMember]
+        public string CastTime { get; set; }
     }
 }
