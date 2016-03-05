@@ -20,6 +20,21 @@ namespace Interactive_Character_Sheet_Core
         public int CurrentLoad { get { return _currentLoad; } }
         [DataMember] private List<T> _inventory = new List<T>();
         public List<T> InventoryContents { get { return _inventory; } }
+        public List<T> FilterContentsBy(Func<T, bool> criteria)
+        {
+            return _inventory.Where(criteria) as List<T>;
+        }
+
+        public void EquipItem(T item)
+        {
+            if (!_inventory.Contains(item)) { AddItem(item); }
+            if (item.Slot == ItemSlot.None) { return; } //non-slot items cannot be equipped. They should still be added to inventory.
+            if (item.Slot == ItemSlot.TwoHanded) { EquippedItems.Remove(ItemSlot.Offhand); }
+            EquippedItems[item.Slot] = item; //only one item per slot
+            var eventArgs = new EquipmentChangedEventArgs();
+            eventArgs.Items = EquippedItems.Values.ToList<T>() as List<IItem>;
+            OnEquipmentChanged(eventArgs);
+        }
         public void AddItem(T newItem)
         {
             _inventory.Add(newItem);
@@ -58,6 +73,22 @@ namespace Interactive_Character_Sheet_Core
         {
             return _currentLoad > 2 * MaxCarryWeight;
         }
+
+        public event EventHandler<EquipmentChangedEventArgs> EquipmentChanged;
+
+        protected virtual void OnEquipmentChanged(EquipmentChangedEventArgs e)
+        {
+            var handler = EquipmentChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+    }
+
+    public class EquipmentChangedEventArgs: EventArgs
+    {
+        public List<IItem> Items { get; set; }
     }
 
     public enum EncumbranceType

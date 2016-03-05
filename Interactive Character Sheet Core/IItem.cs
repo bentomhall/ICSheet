@@ -16,6 +16,7 @@ namespace Interactive_Character_Sheet_Core
         int EnhancementBonus { get; }
         bool IsWeapon { get; }
         bool IsArmor { get; }
+        string BaseEffect { get; }
 
     }
 
@@ -27,6 +28,7 @@ namespace Interactive_Character_Sheet_Core
         Armor,
         Mainhand,
         Offhand,
+        TwoHanded,
         Waist,
         Feet,
         None

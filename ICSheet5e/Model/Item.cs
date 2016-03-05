@@ -28,10 +28,11 @@ namespace ICSheet5e.Model
         public int Value { get { return _value; } }
         public ItemSlot Slot { get { return _slot; } }
         public int EnhancementBonus { get { return _enhancement; } }
-        public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand); } }
+        public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
         public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }
+        public string BaseEffect { get; set; }
         [DataMember] public bool isRanged { get; set; }
-        Item(string name, int weight, int value, ItemSlot slot, bool proficient, string properties, int bonus=0)
+        public Item(string name, int weight, int value, ItemSlot slot, bool proficient, string properties, int bonus=0)
         {
             _name = name;
             _weight = weight;

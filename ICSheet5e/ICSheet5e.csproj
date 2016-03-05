@@ -38,6 +38,10 @@
     <StartupObject>ICSheet5e.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -87,6 +91,9 @@
     </ApplicationDefinition>
     <Compile Include="EventCoordinator\IChangeNotificationReceiver.cs" />
     <Compile Include="EventCoordinator\MulticastEventCoordinator.cs" />
+    <Compile Include="Model\ArmorItem.cs" />
+    <Compile Include="Model\ItemDataBase.cs" />
+    <Compile Include="Model\WeaponItem.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -208,7 +215,13 @@
       <Name>Interactive Character Sheet Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\SpellList5e.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BasicArmors.xml" />
+    <Resource Include="Resources\BasicWeapons.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

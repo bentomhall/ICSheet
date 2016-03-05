@@ -15,6 +15,7 @@ namespace ICSheet5e.ViewModels
     public class ApplicationModel: BaseViewModel
     {
         Model.Character currentCharacter = null;
+        Model.ItemDataBase itemDB = new Model.ItemDataBase();
         public bool IsEditingModeEnabled
         {
             get { return canEdit; }

@@ -56,6 +56,7 @@ namespace ICSheet5e.Model
             skills = new SkillList<Skill5e>(Edition.Fifth);
             CharacterClassLevels = new CharacterClasses();
             inventory = new Inventory<Item>(10);
+            inventory.EquipmentChanged += EquipmentChangeHandler;
             CharacterName = "";
             Race = "";
             MaxHealth = 1;
@@ -142,7 +143,10 @@ namespace ICSheet5e.Model
             int cha = (10 + abilityModifierFor(AbilityType.Charisma)) +(HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(cha, DefenseType.Charisma));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Charisma));
+        }
 
+        public void EquipmentChangeHandler(object sender, EquipmentChangedEventArgs e)
+        {
 
         }
 
