@@ -63,6 +63,7 @@ namespace ICSheet5e.ViewModels
         {
             get 
             {
+                if (currentCharacter == null) return false;
                 return currentCharacter.Spellcasting.Count > 0;
             }
         }
@@ -112,11 +113,7 @@ namespace ICSheet5e.ViewModels
             currentCharacter = new Model.Character(name, classes, race);
             currentCharacter.ItemDB = itemDB;
             currentCharacter.SpellDB = spellDB;
-            ViewModels[0] = new CharacterViewModel(currentCharacter, this);
-            NotifyPropertyChanged("ViewModels");
-            HasCharacterCreationStarted = false;
-            IsCharacterInitialized = true;
-            canEdit = true;
+            setViewModels();
         }
 
         public void NewCharacterCommandExecuted(object sender)
@@ -129,6 +126,16 @@ namespace ICSheet5e.ViewModels
             HasCharacterCreationStarted = true;
         }
 
+        private void setViewModels()
+        {
+            ViewModels[0] = new CharacterViewModel(currentCharacter, this);
+            ViewModels[1] = new InventoryViewModel(currentCharacter, this);
+            NotifyPropertyChanged("ViewModels");
+            HasCharacterCreationStarted = false;
+            IsCharacterInitialized = true;
+            canEdit = true;
+        }
+
         public void OpenCommandExecute(object sender)
         {
             var location = Views.WindowManager.SelectExistingFile();
@@ -138,11 +145,7 @@ namespace ICSheet5e.ViewModels
             var c = (Model.Character)serializer.ReadObject(reader);
             reader.Close();
             currentCharacter = c;
-            ViewModels[0] = new CharacterViewModel(currentCharacter, this);
-            NotifyPropertyChanged("ViewModels");
-            HasCharacterCreationStarted = false;
-            IsCharacterInitialized = true;
-            canEdit = true;
+            setViewModels();
         }
 
         

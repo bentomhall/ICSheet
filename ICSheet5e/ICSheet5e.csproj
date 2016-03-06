@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
@@ -103,6 +104,7 @@
     <Compile Include="ViewModels\ClassInformationViewModel.cs" />
     <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
+    <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
@@ -119,6 +121,10 @@
     <Compile Include="Views\HealthChangeWindow.xaml.cs">
       <DependentUpon>HealthChangeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InventoryView.xaml.cs">
+      <DependentUpon>InventoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemNameConverter.cs" />
     <Compile Include="Views\MainSheetControl.xaml.cs">
       <DependentUpon>MainSheetControl.xaml</DependentUpon>
     </Compile>
@@ -160,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HealthChangeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,6 +236,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\spell_list.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tall-human-silhouette.png" />
+    <Content Include="Resources\tall-human-silhouette.svg" />
+    <Resource Include="credits.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

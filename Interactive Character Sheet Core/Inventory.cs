@@ -22,7 +22,13 @@ namespace Interactive_Character_Sheet_Core
         public List<T> InventoryContents { get { return _inventory; } }
         public List<T> FilterContentsBy(Func<T, bool> criteria)
         {
-            return _inventory.Where(criteria) as List<T>;
+            var items = _inventory.Where(criteria).ToList<T>();
+            return items;
+        }
+
+        private bool isSlotOccupied(T item)
+        {
+            return EquippedItems.Keys.Contains(item.Slot);
         }
 
         public void EquipItem(T item)
@@ -30,6 +36,7 @@ namespace Interactive_Character_Sheet_Core
             if (!_inventory.Contains(item)) { AddItem(item); }
             if (item.Slot == ItemSlot.None) { return; } //non-slot items cannot be equipped. They should still be added to inventory.
             if (item.Slot == ItemSlot.TwoHanded) { EquippedItems.Remove(ItemSlot.Offhand); }
+            if (isSlotOccupied(item) && EquippedItems[item.Slot].Name == item.Name) { EquippedItems.Remove(item.Slot); } //toggles equipped status
             EquippedItems[item.Slot] = item; //only one item per slot
             var eventArgs = new EquipmentChangedEventArgs();
             eventArgs.Items = EquippedItems.Values.ToList<T>() as List<IItem>;

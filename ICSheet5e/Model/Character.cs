@@ -149,7 +149,7 @@ namespace ICSheet5e.Model
 
         public void EquipmentChangeHandler(object sender, EquipmentChangedEventArgs e)
         {
-
+            System.Console.WriteLine(e.Items.ToString());
         }
 
         protected override void SetSkills<T>(List<T> taggedSkills) 
@@ -250,7 +250,12 @@ namespace ICSheet5e.Model
 
         public void Equip(Item item)
         {
-            inventory.EquippedItems[item.Slot] = item;
+            inventory.EquipItem(item);
+            if (item.IsEquipped) { item.IsEquipped = false; }
+            else {item.IsEquipped = true;}
+//            var args = new EquipmentChangedEventArgs();
+//            args.Items = new List<IItem>() { item };
+//            EquipmentChangeHandler(this, args);
         }
 
         public EncumbranceType AddItemToInventory(Item item)
@@ -264,6 +269,16 @@ namespace ICSheet5e.Model
         public void RemoveItemFromInventory(Item item)
         {
             inventory.RemoveItem(item);
+        }
+
+        public List<Item> AllCarriedItems
+        {
+            get { return inventory.FilterContentsBy(x => true); }
+        }
+
+        public List<Item> ItemsMatching(System.Func<Item, bool> predicate)
+        {
+            return inventory.FilterContentsBy(predicate);
         }
 
         public void AddFeature(IClassFeature feature)

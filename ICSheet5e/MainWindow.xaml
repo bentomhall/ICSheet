@@ -22,6 +22,9 @@
             <DataTemplate x:Key="CharacterTemplate" DataType="ViewModels:CharacterViewModel">
                 <views:MainSheetControl/>
             </DataTemplate>
+            <DataTemplate x:Key="InventoryTemplate" DataType="ViewModels:InventoryViewModel">
+                <views:InventoryView/>
+            </DataTemplate>
             <views:TabItemDataTemplateSelector x:Key="TabContentSelector"/>
         </ResourceDictionary>
     </Window.Resources>
@@ -38,7 +41,7 @@
             <TabItem Name="Overview" Header="Overview" Content="{Binding Path=ViewModels[0]}" ContentTemplateSelector="{StaticResource TabContentSelector}">
             </TabItem>
 
-            <TabItem Header="Inventory" IsEnabled="{Binding Path=IsCharacterInitialized}" Content="{Binding Path=ViewModels[1]}">
+            <TabItem Header="Inventory" IsEnabled="{Binding Path=IsCharacterInitialized}" Content="{Binding Path=ViewModels[1]}" ContentTemplateSelector="{StaticResource TabContentSelector}">
                 
             </TabItem>
             <TabItem Header="Features" IsEnabled="{Binding Path=IsCharacterInitialized}" Content="{Binding Path=ViewModels[2]}"></TabItem>

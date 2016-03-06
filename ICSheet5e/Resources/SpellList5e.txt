@@ -144,7 +144,7 @@
     },
     {
         "Range": "120 feet",
-        "name": "Arcane Hand",
+        "name": "Bigsby's Hand",
         "school": "evocation",
         "Duration": "Concentration, up to 1 minute",
         "Components": "V, S, M (an eggshell and a snakeskin glove)",
@@ -166,7 +166,7 @@
     },
     {
         "Range": "60 feet",
-        "name": "Arcane Sword",
+        "name": "Mordenkainen's Sword",
         "school": "evocation",
         "Duration": "Concentration, up to 1 minute",
         "Components": "V, S, M (a miniature platinum sword with a grip and pommel of copper and zinc, worth 250 gp)",
@@ -1906,7 +1906,7 @@
     },
     {
         "Range": "300 feet",
-        "name": "Magnificent Mansion",
+        "name": "Mordenkainen's Magnificent Mansion",
         "school": "conjuration",
         "Duration": "24 hours",
         "Components": "V, S, M (a miniature portal carved from ivory, a small piece of polished marble, and a tiny silver spoon, each item worth at least 5 gp)",
@@ -2266,7 +2266,7 @@
     },
     {
         "Range": "120 feet",
-        "name": "Private Sanctum",
+        "name": "Mordenkainen's Private Sanctum",
         "school": "abjuration",
         "Duration": "24 hours",
         "Components": "V, S, M (a thin sheet of lead, a piece of opaque glass, a wad of cotton or cloth, and powdered chrysolite)",
@@ -2452,7 +2452,7 @@
         "Components": "V, S",
         "Casting Time": "1 action",
         "text": "Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover for this saving throw.The spell's damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-        "level": "0""
+        "level": "0"
     },
     {
         "Range": "30 feet",
@@ -2486,7 +2486,7 @@
     },
     {
         "Range": "Touch",
-        "name": "Secret Chest",
+        "name": "Leomund's Secret Chest",
         "school": "conjuration",
         "Duration": "Instantaneous",
         "Components": "V, S, M (an exquisite chest, 3 feet by 2 feet by 2 feet, constructed from rare materials worth at least 5,000 gp, and a Tiny replica made from the same materials worth at least 50 gp)",
@@ -2582,7 +2582,7 @@
         "Components": "V, S, M (mistletoe, a shamrock leaf, and a club or quarterstaff)",
         "Casting Time": "1 bonus action",
         "text": "The wood of a club or quarterstaff you are holding is imbued with nature's power. For the duration, you can use your spellcasting ability instead of Strength for the attack and damage rolls of melee attacks using that weapon, and the weapon's damage die becomes a d8. The weapon also becomes magical, if it isn't already. The spell ends if you cast it again or if you let go of the weapon.",
-        "level": "0""
+        "level": "0"
     },
     {
         "Range": "Touch",
@@ -2876,7 +2876,7 @@
     },
     {
         "Range": "Self (10-foot-radius hemisphere) ",
-        "name": "Tiny Hut",
+        "name": "Leomund's Tiny Hut",
         "school": "evocation (ritual)",
         "Duration": "8 hours",
         "Components": "V, S, M (a small crystal bead) ",
