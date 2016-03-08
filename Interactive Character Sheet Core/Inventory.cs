@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace Interactive_Character_Sheet_Core
 {
@@ -44,20 +46,37 @@ namespace Interactive_Character_Sheet_Core
         }
         public void AddItem(T newItem)
         {
-            _inventory.Add(newItem);
+            var matchingItem = _inventory.SingleOrDefault(x => x.Name == newItem.Name);
+            if ( matchingItem != null)
+            {
+                matchingItem.Count += 1;
+            }
+            else { _inventory.Add(newItem); }
             _currentLoad += newItem.Weight;
         }
         public void RemoveItem(T item)
         {
-            _inventory.Remove(item);
+            var matchingItem = _inventory.SingleOrDefault(x => x.Name == item.Name);
+            if (matchingItem != null && matchingItem.Count > 1)
+            {
+
+                matchingItem.Count -= 1;
+            }
+            else { _inventory.Remove(item); }
             _currentLoad -= item.Weight;
         }
-        [DataMember] public int CurrentGold { get; set; }
-        public void Earn(int gold)
+
+        public void DropItemStack(T item)
+        {
+            _inventory.Remove(item);
+            _currentLoad -= item.Weight * item.Count;
+        }
+        [DataMember] public double CurrentGold { get; set; }
+        public void Earn(double gold)
         {
             CurrentGold += gold;
         }
-        public bool Pay(int gold)
+        public bool Pay(double gold)
         {
             if (CurrentGold < gold)
             {
@@ -65,7 +84,7 @@ namespace Interactive_Character_Sheet_Core
             }
             else
             {
-                CurrentGold -= gold;
+                CurrentGold += gold; //adding a negative amount
                 return true;
             }
         }
@@ -91,6 +110,17 @@ namespace Interactive_Character_Sheet_Core
                 handler(this, e);
             }
         }
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
     }
 
     public class EquipmentChangedEventArgs: EventArgs

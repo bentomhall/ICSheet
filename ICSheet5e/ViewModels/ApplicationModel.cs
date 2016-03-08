@@ -145,6 +145,8 @@ namespace ICSheet5e.ViewModels
             var c = (Model.Character)serializer.ReadObject(reader);
             reader.Close();
             currentCharacter = c;
+            currentCharacter.ItemDB = itemDB;
+            currentCharacter.SpellDB = spellDB;
             setViewModels();
         }
 

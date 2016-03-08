@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Interactive_Character_Sheet_Core;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace ICSheet5e.Model
 {
+
     [DataContract]
     public class Item: IItem
     {
@@ -34,7 +37,7 @@ namespace ICSheet5e.Model
         public int EnhancementBonus { get { return _enhancement; } }
         public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
         public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }
-        public int Count { get { return _stackSize; } }
+        public int Count { get { return _stackSize; } set { _stackSize = value; NotifyPropertyChanged(); } }
         [DataMember] public string BaseEffect { get; set; }
         [DataMember] public bool IsEquipped 
         {
@@ -42,6 +45,7 @@ namespace ICSheet5e.Model
             set
             {
                 _isEquipped = value;
+                NotifyPropertyChanged();
             }
         }
         [DataMember] public bool isRanged { get; set; }
@@ -82,6 +86,17 @@ namespace ICSheet5e.Model
         }
 
         public override string ToString() { return description; }
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
 
     }
 }

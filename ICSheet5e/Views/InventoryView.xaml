@@ -6,12 +6,19 @@
              xmlns:vm="clr-namespace:ICSheet5e.ViewModels"
              xmlns:res="clr-namespace:ICSheet5e.Properties"
              xmlns:v="clr-namespace:ICSheet5e.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900">
     <UserControl.Resources>
         <ImageBrush x:Key="HumanImageSource" ImageSource="../Resources/tall-human-silhouette.png"/>
         <v:ItemNameConverter x:Key="ItemNameConverter"/>
- 
+        <!--<ObjectDataProvider MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            x:Key="ItemSlot">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ItemSlot"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider> -->
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -22,7 +29,7 @@
             <ColumnDefinition Width="119*"/>
             <ColumnDefinition Width="181*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="InventoryListView" Grid.RowSpan="1" ItemsSource="{Binding Path=Items}">
+        <ListView x:Name="InventoryListView" Grid.RowSpan="1" ItemsSource="{Binding Path=Items}" SelectedItem="{Binding Path=SelectedItem}">
             <ListView.Resources>
                 <ContextMenu x:Key="EquipmentContextMenu">
                     <MenuItem Header="Toggle Equipped" Command="{Binding Path=DataContext.EquipItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
@@ -37,13 +44,13 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="Name" Width="210" DisplayMemberBinding="{Binding Name}">
-                        
+
                         </GridViewColumn>
-                        <GridViewColumn Header="Count" Width="80" DisplayMemberBinding="{Binding Path=Count}"></GridViewColumn>
+                        <GridViewColumn Header="Count" Width="80" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
                         <GridViewColumn Header="Equipped">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Path=IsEquipped, Mode=TwoWay}"/>
+                                    <CheckBox IsChecked="{Binding IsEquipped, Mode=TwoWay}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -51,18 +58,35 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Canvas Grid.Column="1" >
-            <Canvas.Background>
+        <Grid Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="128*"/>
+                <ColumnDefinition Width="96*"/>
+                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="58*"/>
+                <ColumnDefinition Width="166*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="54*"/>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="96*"/>
+                <RowDefinition Height="85*"/>
+                <RowDefinition Height="58*"/>
+                <RowDefinition Height="182*"/>
+                <RowDefinition Height="61*"/>
+            </Grid.RowDefinitions>
+            <Grid.Background>
                 <ImageBrush ImageSource="../Resources/tall-human-silhouette.png"/>
-            </Canvas.Background>
-            <Label Width="100" Canvas.Left="222" Canvas.Top="10" Content="{Binding Path=EquippedItems[0]}" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" ></Label>
-            <ComboBox Width="100" Canvas.Left="222" Canvas.Top="106"></ComboBox>
-            <ComboBox Width="100" Canvas.Left="74" Canvas.Top="340"></ComboBox>
-            <ComboBox Width="100" Canvas.Left="375" Canvas.Top="340"></ComboBox>
-            <ComboBox Width="100" Canvas.Left="222" Canvas.Top="187"></ComboBox>
-            <ComboBox Width="100" Canvas.Left="222" Canvas.Top="340"></ComboBox>
-            <ComboBox Width="100" Canvas.Left="222" Canvas.Top="517"></ComboBox>
-        </Canvas>
+            </Grid.Background>
+            <Label Content="{Binding Path=HeadItemName}" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Label Content="{Binding Path=NeckItemName}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Label Content="{Binding Path=MainWeaponName}" Grid.Row="3" VerticalAlignment="Center"/>
+            <Label Content="{Binding Path=OffhandWeaponName}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center"/>
+            <Label Content="{Binding Path=HandItemName}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" />
+            <Label Content="{Binding Path=ArmorItemName}" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" />
+            <Label Content="{Binding Path=WaistItemName}" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="2" Grid.Row="4" VerticalAlignment="Bottom" />
+            <Label Content="{Binding Path=FeetItemName}" Grid.Column="1" Grid.Row="6" VerticalAlignment="Top"/>
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80*"/>
@@ -74,14 +98,16 @@
                 <ColumnDefinition Width="119*"/>
                 <ColumnDefinition Width="119*"/>
             </Grid.ColumnDefinitions>
-            <Button>Increase Quantity</Button>
-            <Button Grid.Column="1">Decrease Quantity</Button>
-            <Button Grid.Column="2">Drop</Button>
+            <Button Command="{Binding Path=ModifyItemCountCommand}" CommandParameter="+">Increase Quantity</Button>
+            <Button Grid.Column="1" Command="{Binding Path=ModifyItemCountCommand}" CommandParameter="-">Decrease Quantity</Button>
+            <Button Grid.Column="2" Command="{Binding Path=ModifyItemCountCommand}" CommandParameter="Drop">Drop</Button>
             <Label Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Gold</Label>
-            <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">100</Label>
-            <StackPanel Grid.Row="1" Grid.Column="2">
-                <Button Height="40" Background="Red">Pay</Button>
-                <Button Height="40" Background="Green">Gain</Button>
+            <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Gold}"></Label>
+            <Label Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Amount</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding TransactionAmount}"></TextBox>
+            <StackPanel Grid.Row="2" Grid.Column="2">
+                <Button Height="40" Background="Red" Command="{Binding GoldTransactionCommand}" CommandParameter="Pay">Pay</Button>
+                <Button Height="40" Background="Green" Command="{Binding GoldTransactionCommand}" CommandParameter="Gain">Gain</Button>
             </StackPanel>
 
         </Grid>
@@ -98,7 +124,7 @@
                 <ColumnDefinition Width="412*"/>
             </Grid.ColumnDefinitions>
             <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Item Name</Label>
-            <TextBox Grid.Column="1" Background="BlanchedAlmond"></TextBox>
+            <TextBox Grid.Column="1" Background="BlanchedAlmond" Text="{Binding Path=NewItemModel.Name}"></TextBox>
             <Label Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Item Properties</Label>
             <Grid Grid.Column="1" Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -112,23 +138,23 @@
                     <RowDefinition Height="26*"/>
                 </Grid.RowDefinitions>
                 <Label>Weight (lbs)</Label>
-                <TextBox Grid.Row="1"></TextBox>
+                <TextBox Grid.Row="1" Text="{Binding Path=NewItemModel.Weight}"></TextBox>
                 <Label Grid.Column="1">Value (gp)</Label>
-                <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=NewItemModel.Value}"></TextBox>
                 <Label Grid.Column="2">Slot</Label>
-                <ComboBox Grid.Column="2" Grid.Row="1"></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Path=SlotNames}" SelectedItem="{Binding Path=NewItemModel.SlotName, Mode=TwoWay}"></ComboBox>
             </Grid>
             <Label Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Base Item</Label>
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-                <ComboBox Width="235"></ComboBox>
+                <ComboBox Width="235" ItemsSource="{Binding Path=NewItemModel.BaseItems}" SelectedItem="{Binding Path=NewItemModel.SelectedItemName, Mode=TwoWay}"></ComboBox>
                 <Label Margin="10,0,0,0" VerticalContentAlignment="Center">Enhancement</Label>
-                <TextBox Width="80"></TextBox>
+                <TextBox Width="80" Text="{Binding Path=NewItemModel.Enhancement}"></TextBox>
             </StackPanel>
             <Label Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Properties:</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Path=NewItemModel.Properties}"></TextBox>
             <StackPanel Orientation="Horizontal" Grid.Row="4">
-                <Button Width="66" Command="{Binding AddItemCommand}">Add</Button>
-                <Button Width="66">Clear</Button>
+                <Button Width="66" Command="{Binding Path=NewItemModel.CreateNewItemCommand}">Add</Button>
+                <Button Width="66" Command="{Binding Path=NewItemModel.ClearItemCommand}">Clear</Button>
             </StackPanel>
         </Grid>
     </Grid>

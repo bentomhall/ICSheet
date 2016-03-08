@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using Interactive_Character_Sheet_Core;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
+using System;
 
 namespace ICSheet5e.Model
 {
@@ -52,6 +55,8 @@ namespace ICSheet5e.Model
             }
         }
         public SkillList<Skill5e> Skills { get { return skills; } }
+
+        public double Gold { get { return inventory.CurrentGold; } }
 
         public Character()
         {
@@ -238,10 +243,10 @@ namespace ICSheet5e.Model
             return feature.TryUseFeature(); //sideEffects
         }
 
-        public void DoGoldTransaction(int amount)
+        public void DoGoldTransaction(double amount)
         {
             if (amount > 0) { inventory.Earn(amount); }
-            else 
+            else
             { 
                 var success = inventory.Pay(amount);
                 if (!success) { throw new System.ArgumentException("Not enough gold for that transaction!"); }
@@ -253,9 +258,6 @@ namespace ICSheet5e.Model
             inventory.EquipItem(item);
             if (item.IsEquipped) { item.IsEquipped = false; }
             else {item.IsEquipped = true;}
-//            var args = new EquipmentChangedEventArgs();
-//            args.Items = new List<IItem>() { item };
-//            EquipmentChangeHandler(this, args);
         }
 
         public EncumbranceType AddItemToInventory(Item item)
@@ -269,6 +271,11 @@ namespace ICSheet5e.Model
         public void RemoveItemFromInventory(Item item)
         {
             inventory.RemoveItem(item);
+        }
+
+        public void DropItem(Item item)
+        {
+            inventory.DropItemStack(item);
         }
 
         public List<Item> AllCarriedItems
@@ -366,6 +373,17 @@ namespace ICSheet5e.Model
         {
             SetSkills<Skill5e>(skills);
         }
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
 
     }
 

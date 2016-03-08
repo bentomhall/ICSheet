@@ -17,6 +17,7 @@ namespace Interactive_Character_Sheet_Core
         bool IsWeapon { get; }
         bool IsArmor { get; }
         string BaseEffect { get; }
+        int Count { get; set; }
 
     }
 
