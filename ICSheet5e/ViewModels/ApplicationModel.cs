@@ -135,6 +135,7 @@ namespace ICSheet5e.ViewModels
                 ViewModels[1].PropertyChanged += (ViewModels[0] as CharacterViewModel).OnEquipmentChanged;
             }
             NotifyPropertyChanged("ViewModels");
+            NotifyPropertyChanged("CanCastSpells");
             HasCharacterCreationStarted = false;
             IsCharacterInitialized = true;
             canEdit = true;

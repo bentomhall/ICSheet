@@ -12,7 +12,9 @@ namespace ICSheet5e.Model
     [DataContract]
     public class Character: CharacterBase
     {
-        public Model.SpellManager SpellDB { get; set; }
+        public Model.SpellManager SpellDB { get { return _spellDB; } set { _spellDB = value; setSpellCasting(); } }
+        private Model.SpellManager _spellDB;
+
         public Model.ItemDataBase ItemDB { get; set; }
         private static List<CharacterClassType> castingClasses = new List<CharacterClassType>()
         {
@@ -73,7 +75,7 @@ namespace ICSheet5e.Model
             Immunities = new List<DamageType>();
             _proficiencyBonus = 2;
             SetSkills<Skill5e>(new List<Skill5e>());
-            setSpellCasting();
+            
 
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
@@ -95,7 +97,6 @@ namespace ICSheet5e.Model
             Immunities = new List<DamageType>();
 
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
-            setSpellCasting();
             InitializeDefenses();
         }
 
