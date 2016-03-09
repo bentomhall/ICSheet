@@ -38,7 +38,13 @@ namespace Interactive_Character_Sheet_Core
 
         public T SkillForName(string name)
         {
-            return skills[name];
+            if (skills.ContainsKey(name)){
+                return skills[name];
+            }
+            else
+            {
+                return default(T);
+            }
         }
 
         [DataMember]

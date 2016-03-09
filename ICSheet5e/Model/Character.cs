@@ -160,6 +160,14 @@ namespace ICSheet5e.Model
         protected override void SetSkills<T>(List<T> taggedSkills) 
         {
             List<Skill5e> skillBonuses = new List<Skill5e>();
+
+            foreach (var name in Skills.getSkillNames())
+            {
+                if (skills.SkillForName(name) == null)
+                {
+                    Skills.SetSkillBonusFor(new Skill5e(name, 0, false));
+                }
+            }
           
             foreach (var s in taggedSkills)
             {
@@ -242,9 +250,16 @@ namespace ICSheet5e.Model
 
         public void RecalculateArmorClass()
         {
-            var armor = inventory.EquippedItems[ItemSlot.Armor] as ArmorItem;
-            var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(abilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
-            ArmorClass = armorBonus;
+            var armor = EquippedItemForSlot(ItemSlot.Armor) as ArmorItem;
+            if (armor != null)
+            {
+                var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(abilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
+                ArmorClass = armorBonus;
+            }
+            else
+            {
+                ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity);
+            }
         }
 
         public Item EquippedItemForSlot(ItemSlot slot)
