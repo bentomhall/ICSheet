@@ -12,7 +12,7 @@ namespace ICSheet5e.Model
     public class ArmorItem : Item
     {
         [DataMember]
-        public int MaxDexBonus { get; protected set; }
+        public int MaxDexBonus { get; set; }
         [DataMember]
         public ArmorType ArmorClassType { get; set; }
         public int ArmorBonus

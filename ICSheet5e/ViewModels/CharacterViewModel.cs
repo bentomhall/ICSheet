@@ -181,6 +181,46 @@ namespace ICSheet5e.ViewModels
         }
         #endregion
 
+        #region Attacks
+        public ObservableCollection<AttackViewModel> Attacks { get; set; }
+        AttackViewModel attackModelFor(Model.Item item)
+        {
+            var weapon = item as Model.WeaponItem;
+            if (weapon == null) { return AttackViewModel.DefaultModel(character.abilityModifierFor(AbilityType.Strength)); }
+            var vm = new AttackViewModel();
+            vm.Name = weapon.Name;
+            vm.AttackBonus = character.AttackBonusWith(item);
+            vm.BaseDamage = weapon.BaseEffect;
+            vm.StaticBonus = character.DamageBonusWith(item);
+            return vm;
+        }
+        #endregion
+
+        public void OnEquipmentChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "EquippedItems")
+            {
+                var mh = character.EquippedItemForSlot(ItemSlot.Mainhand);
+                var oh = character.EquippedItemForSlot(ItemSlot.Offhand);
+                var th = character.EquippedItemForSlot(ItemSlot.TwoHanded);
+                if ( th != null)
+                {
+                    Attacks.Clear();
+                    Attacks.Add(attackModelFor(th));
+                }
+                else if (mh != null)
+                {
+                    Attacks.Clear();
+                    Attacks.Add(attackModelFor(th));
+                    if (oh != null)
+                    {
+                        Attacks.Add(attackModelFor(oh));
+                    }
+                }
+                NotifyPropertyChanged("Attacks");
+            }
+        }
+
         public bool CanCastSpells 
         {
             get { return character.Spellcasting.Count > 0; }
@@ -344,6 +384,8 @@ namespace ICSheet5e.ViewModels
             _levels = FormatLevels();
             Parent = parent;
             Parent.PropertyChanged += ParentEditingPropertyChanged;
+            Attacks = new ObservableCollection<AttackViewModel>();
+            Attacks.Add(attackModelFor(null));
         }
 
         public void NotifyEditingBegan()
@@ -374,6 +416,9 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("ProficientDefenses");
             _setSkills(character.Skills);
             NotifyPropertyChanged("Skills");
+            var args = new PropertyChangedEventArgs("EquippedItems");
+            OnEquipmentChanged(this, args);
+
             
         }
 

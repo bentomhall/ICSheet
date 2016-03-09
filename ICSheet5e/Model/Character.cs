@@ -50,7 +50,8 @@ namespace ICSheet5e.Model
             get { return Defenses.Single(x => x.type == DefenseType.Armor).value; }
             set
             {
-                Defenses.Remove(Defenses.Single(x => x.type==DefenseType.Armor));
+                var ac = Defenses.SingleOrDefault(x => x.type==DefenseType.Armor);
+                if (ac != null) { Defenses.Remove(ac); }
                 Defenses.Add(new Defense(value, DefenseType.Armor));
             }
         }
@@ -124,8 +125,7 @@ namespace ICSheet5e.Model
                 _defenses.Clear();
                 proficientDefensesForCharacter.Clear();
             }
-            int ac = (10 + abilityModifierFor(AbilityType.Dexterity));
-            Defenses.Add(new Defense(ac, DefenseType.Armor));
+            RecalculateArmorClass();
 
             int str = (10 + abilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(str, DefenseType.Strength));
@@ -227,6 +227,38 @@ namespace ICSheet5e.Model
             }
         }
 
+        public int DamageBonusWith(Item weapon)
+        {
+            var abilities = weapon.AssociatedAbilities;
+            if (weapon.Slot == ItemSlot.Mainhand)
+            {
+                return abilities.Max(x => abilityModifierFor(x)) + weapon.EnhancementBonus;
+            }
+            else
+            {
+                return weapon.EnhancementBonus;
+            }
+        }
+
+        public void RecalculateArmorClass()
+        {
+            var armor = inventory.EquippedItems[ItemSlot.Armor] as ArmorItem;
+            var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(abilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
+            ArmorClass = armorBonus;
+        }
+
+        public Item EquippedItemForSlot(ItemSlot slot)
+        {
+            try
+            {
+                return inventory.EquippedItems[slot];
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
+        }
+
         public void CastSpell(Spell spell, int asLevel)
         {
             var book = spellBooks.FirstOrDefault(x => x.HasSpellPrepared(spell));
@@ -256,6 +288,7 @@ namespace ICSheet5e.Model
         public void Equip(Item item)
         {
             inventory.EquipItem(item);
+            if (item.Slot == ItemSlot.Armor) { RecalculateArmorClass(); }
             if (item.IsEquipped) { item.IsEquipped = false; }
             else {item.IsEquipped = true;}
         }

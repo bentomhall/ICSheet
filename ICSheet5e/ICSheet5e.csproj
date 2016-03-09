@@ -98,6 +98,7 @@
     <Compile Include="Model\SpellManager.cs" />
     <Compile Include="Model\WeaponItem.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
+    <Compile Include="ViewModels\AttackViewModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
@@ -108,6 +109,9 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
+    <Compile Include="Views\AttacksView.xaml.cs">
+      <DependentUpon>AttacksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AttributeBlock.xaml.cs">
       <DependentUpon>AttributeBlock.xaml</DependentUpon>
     </Compile>
@@ -150,6 +154,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PageStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AttacksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -103,15 +103,15 @@ namespace ICSheet5e.ViewModels
 
         public ICommand EquipItemCommand
         {
-            get { return new Views.DelegateCommand<Item>(EquipItemCommandExecuted); }
+            get { return new Views.DelegateCommand<int>(EquipItemCommandExecuted); }
         }
 
-        private void EquipItemCommandExecuted(Item item)
+        private void EquipItemCommandExecuted(int index)
         {
-            if (item == null) { return; }
-            var name = item.IsEquipped ? "Nothing Equipped" : item.Name;
-            currentCharacter.Equip(item);
-            switch (item.Slot)
+            var newItem = Items[index];
+            var name = newItem.IsEquipped ? "Nothing Equipped" : newItem.Name;
+            currentCharacter.Equip(newItem);
+            switch (newItem.Slot)
             {
                 case ItemSlot.Head:
                     HeadItemName = name;
@@ -223,8 +223,13 @@ namespace ICSheet5e.ViewModels
         ItemSlot slot;
         List<WeaponItem> weapons;
         List<ArmorItem> armors;
+        int count;
         
-
+        public int Count
+        {
+            get { return count; }
+            set { count = value; NotifyPropertyChanged(); }
+        }
 
         Item ItemWithName(string name)
         {
@@ -232,6 +237,16 @@ namespace ICSheet5e.ViewModels
             var w = weapons.SingleOrDefault(x => x.Name == name);
             var a = armors.SingleOrDefault(x => x.Name == name);
             return w as Item ?? a as Item; //returns null if both are null
+        }
+
+        ArmorItem ArmorWithName(string name)
+        {
+            return armors.SingleOrDefault(x => x.Name == name);
+        }
+
+        WeaponItem WeaponWithName(string name)
+        {
+            return weapons.SingleOrDefault(x => x.Name == name);
         }
 
         void SetValuesFromItem(Item item)
@@ -244,6 +259,7 @@ namespace ICSheet5e.ViewModels
                 Properties = "";
                 Value = 0.0;
                 Weight = 0.0;
+                Count = 1;
             }
             else
             {
@@ -252,6 +268,7 @@ namespace ICSheet5e.ViewModels
                 Properties = "";
                 Value = item.Value;
                 Weight = item.Weight;
+                Count = item.Count;
             }
             PropertyChanged += OnBaseItemChanged;
             return;
@@ -354,17 +371,35 @@ namespace ICSheet5e.ViewModels
         private void CreateItemCommandExecuted(object obj)
         {
             if (name == "") { return; }
-            Item newItem;
-            newItem = new Item(Name, Weight, Value, Slot, false, Properties, Enhancement);
-            delegateAddItem(newItem);
+            
+            if (Slot == ItemSlot.Armor)
+            {
+                var baseItem = ArmorWithName(SelectedItemName);
+                var armor = new ArmorItem(Name, Weight, Value, false, Properties, baseItem.ArmorClassType, Enhancement);
+                armor.Count = Count;
+                delegateAddItem(armor);
+            }
+            else if (Slot == ItemSlot.Mainhand || Slot == ItemSlot.Offhand || Slot == ItemSlot.TwoHanded)
+            {
+                var baseItem = WeaponWithName(SelectedItemName);
+                var weapon = new WeaponItem(Name, Weight, Value, Slot, true, Properties, baseItem.Category, Enhancement);
+                weapon.Count = Count;
+                weapon.Damage = baseItem.Damage;
+                delegateAddItem(weapon);
+            }
+            else
+            {
+                var newItem = new Item(Name, Weight, Value, Slot, false, Properties, Enhancement);
+                newItem.Count = Count;
+                delegateAddItem(newItem);
+            }
+            
         }
 
         public ICommand ClearItemCommand
         {
             get { return new Views.DelegateCommand<object>(x => this.SetValuesFromItem(null)); }
         }
-
-
     }
 }
 

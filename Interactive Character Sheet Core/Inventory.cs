@@ -40,9 +40,10 @@ namespace Interactive_Character_Sheet_Core
             if (item.Slot == ItemSlot.TwoHanded) { EquippedItems.Remove(ItemSlot.Offhand); }
             if (isSlotOccupied(item) && EquippedItems[item.Slot].Name == item.Name) { EquippedItems.Remove(item.Slot); } //toggles equipped status
             EquippedItems[item.Slot] = item; //only one item per slot
-            var eventArgs = new EquipmentChangedEventArgs();
-            eventArgs.Items = EquippedItems.Values.ToList<T>() as List<IItem>;
-            OnEquipmentChanged(eventArgs);
+
+            //var eventArgs = new EquipmentChangedEventArgs();
+            //eventArgs.Items = EquippedItems.Values.ToList<T>() as List<IItem>;
+            //OnEquipmentChanged(eventArgs);
         }
         public void AddItem(T newItem)
         {
