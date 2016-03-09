@@ -72,4 +72,10 @@
     <Weight>65</Weight>
     <Properties>Disadvantage on Stealth checks. Requires 15 STR.</Properties>
   </Armor>
+  <Armor Name="Shield" ArmorType="Light">
+    <Cost>10</Cost>
+    <ArmorClass>2</ArmorClass>
+    <Weight>6</Weight>
+    <Properties></Properties>
+  </Armor>
 </BasicArmors>

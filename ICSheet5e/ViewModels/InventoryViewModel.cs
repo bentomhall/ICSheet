@@ -371,11 +371,15 @@ namespace ICSheet5e.ViewModels
         private void CreateItemCommandExecuted(object obj)
         {
             if (name == "") { return; }
+
+
             
-            if (Slot == ItemSlot.Armor)
+            if (Slot == ItemSlot.Armor || (name.Contains("Shield") && Slot == ItemSlot.Offhand))
             {
                 var baseItem = ArmorWithName(SelectedItemName);
-                var armor = new ArmorItem(Name, Weight, Value, false, Properties, baseItem.ArmorClassType, Enhancement);
+                var armor = new ArmorItem(Name, Weight, Value, true, Properties, baseItem.ArmorClassType, Enhancement);
+                armor.Slot = slot;
+                armor.BaseEffect = baseItem.BaseEffect;
                 armor.Count = Count;
                 delegateAddItem(armor);
             }
@@ -383,6 +387,7 @@ namespace ICSheet5e.ViewModels
             {
                 var baseItem = WeaponWithName(SelectedItemName);
                 var weapon = new WeaponItem(Name, Weight, Value, Slot, true, Properties, baseItem.Category, Enhancement);
+                weapon.BaseEffect = baseItem.BaseEffect;
                 weapon.Count = Count;
                 weapon.Damage = baseItem.Damage;
                 delegateAddItem(weapon);

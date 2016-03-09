@@ -11,7 +11,7 @@ using System.ComponentModel;
 namespace ICSheet5e.Model
 {
 
-    [DataContract]
+    [DataContract, KnownType(typeof(ArmorItem)), KnownType(typeof(WeaponItem))]
     public class Item: IItem
     {
         [DataMember] private string properties;
@@ -33,7 +33,7 @@ namespace ICSheet5e.Model
         public bool IsProficient { get { return _isProficient; } }
         public double Weight { get { return _weight; } }
         public double Value { get { return _value; } }
-        public ItemSlot Slot { get { return _slot; } }
+        public ItemSlot Slot { get { return _slot; } set { _slot = value; NotifyPropertyChanged(); } }
         public int EnhancementBonus { get { return _enhancement; } }
         public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
         public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }

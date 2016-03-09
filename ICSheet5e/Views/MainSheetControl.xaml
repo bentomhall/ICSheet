@@ -42,7 +42,7 @@
                 </StackPanel>
                 <StackPanel>
                     <Label>XP:</Label>
-                    <Label Content="{Binding Experience}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="150" Margin="0,0,10,0"/>
+                    <TextBox Text="{Binding Experience}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="150" Margin="0,0,10,0"/>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -96,12 +96,12 @@
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[3]}"/>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[4]}"/>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[5]}"/>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[1].value}"></Label> <!--defense 0 is AC -->
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Defenses[2].value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Defenses[3].value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Defenses[4].value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding Defenses[5].value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding Defenses[6].value}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[0].value}"></Label> <!--defense 0 is AC -->
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Defenses[1].value}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Defenses[2].value}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Defenses[3].value}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding Defenses[4].value}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding Defenses[5].value}"></Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16">Strength</Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1">Dexterity</Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2">Constitution</Label>

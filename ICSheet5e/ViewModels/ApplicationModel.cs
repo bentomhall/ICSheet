@@ -160,6 +160,7 @@ namespace ICSheet5e.ViewModels
             if (!IsCharacterInitialized) return;
             var saveLocation = Views.WindowManager.SelectSaveLocation();
             if (saveLocation == null) { return; } //user canceled save dialog
+            List<Type> knownTypes = new List<Type>() { typeof(Model.ArmorItem), typeof(Model.WeaponItem) };
             var serializer = new DataContractSerializer(typeof(Model.Character));
             System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
             serializer.WriteObject(stream, currentCharacter);

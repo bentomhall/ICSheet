@@ -104,9 +104,11 @@ namespace ICSheet5e.Model
             CharacterClassLevels = levels;
             CharacterName = characterName;
             Race = race;
-            InitializeDefenses();
             int totalLevel = levels.Sum(x => x.Item2);
             _proficiencyBonus = calculateProficiency(totalLevel);
+            InitializeDefenses();
+            InitializeMovement();
+            
             initiativeModifier = calculateInitiative();
         }
 
@@ -125,31 +127,32 @@ namespace ICSheet5e.Model
                 _defenses.Clear();
                 proficientDefensesForCharacter.Clear();
             }
-            RecalculateArmorClass();
 
-            int str = (10 + abilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
+            int str = (abilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(str, DefenseType.Strength));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Strength));
 
-            int dex = (10 + abilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0);
+            int dex = (abilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(dex, DefenseType.Dexterity));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Dexterity));
 
-            int con = (10 + abilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0);
+            int con = (abilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(con, DefenseType.Constitution));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Constitution));
 
-            int intel = (10 + abilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0);
+            int intel = (abilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(intel, DefenseType.Intelligence));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Intelligence));
 
-            int wis = (10 + abilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
+            int wis = (abilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(wis, DefenseType.Wisdom));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Wisdom));
 
-            int cha = (10 + abilityModifierFor(AbilityType.Charisma)) +(HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
+            int cha = (abilityModifierFor(AbilityType.Charisma)) +(HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(cha, DefenseType.Charisma));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Charisma));
+
+            RecalculateArmorClass();
         }
 
         public void EquipmentChangeHandler(object sender, EquipmentChangedEventArgs e)
@@ -251,6 +254,7 @@ namespace ICSheet5e.Model
         public void RecalculateArmorClass()
         {
             var armor = EquippedItemForSlot(ItemSlot.Armor) as ArmorItem;
+            var shield = EquippedItemForSlot(ItemSlot.Offhand) as ArmorItem;
             if (armor != null)
             {
                 var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(abilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
@@ -259,6 +263,10 @@ namespace ICSheet5e.Model
             else
             {
                 ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity);
+            }
+            if (shield != null)
+            {
+                ArmorClass += 2 + shield.EnhancementBonus;
             }
         }
 
@@ -303,9 +311,21 @@ namespace ICSheet5e.Model
         public void Equip(Item item)
         {
             inventory.EquipItem(item);
-            if (item.Slot == ItemSlot.Armor) { RecalculateArmorClass(); }
+            if (item.Slot == ItemSlot.Armor || (item.Name.Contains("Shield") && item.Slot == ItemSlot.Offhand)) { RecalculateArmorClass(); }
             if (item.IsEquipped) { item.IsEquipped = false; }
             else {item.IsEquipped = true;}
+        }
+
+        private void InitializeMovement()
+        {
+            if (Race.Contains("Dwarf"))
+            {
+                Movement = 25;
+            }
+            else
+            {
+                Movement = 30;
+            }
         }
 
         public EncumbranceType AddItemToInventory(Item item)
