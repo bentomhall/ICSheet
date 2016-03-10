@@ -183,15 +183,15 @@ namespace ICSheet5e.ViewModels
 
         #region Attacks
         public ObservableCollection<AttackViewModel> Attacks { get; set; }
-        AttackViewModel attackModelFor(Model.Item item)
+        AttackViewModel attackModelFor(IItem item)
         {
             var weapon = item as Model.WeaponItem;
             if (weapon == null) { return AttackViewModel.DefaultModel(character.abilityModifierFor(AbilityType.Strength)); }
             var vm = new AttackViewModel();
             vm.Name = weapon.Name;
-            vm.AttackBonus = character.AttackBonusWith(item);
+            vm.AttackBonus = character.AttackBonusWith(weapon);
             vm.BaseDamage = weapon.BaseEffect;
-            vm.StaticBonus = character.DamageBonusWith(item);
+            vm.StaticBonus = character.DamageBonusWith(weapon);
             return vm;
         }
         #endregion
@@ -211,7 +211,7 @@ namespace ICSheet5e.ViewModels
                 else if (mh != null)
                 {
                     Attacks.Clear();
-                    Attacks.Add(attackModelFor(th));
+                    Attacks.Add(attackModelFor(mh));
                     if (oh != null)
                     {
                         Attacks.Add(attackModelFor(oh));
