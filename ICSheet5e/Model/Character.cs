@@ -227,16 +227,28 @@ namespace ICSheet5e.Model
                 return modifier;
             }
         }
-
+        #region Spells
         public void CastSpell(Spell spell, int asLevel)
         {
             var book = spellBooks.FirstOrDefault(x => x.HasSpellPrepared(spell));
             if (book != null && book.CanCastSpell(asLevel))
             {
                 book.CastSpell(asLevel);
+                NotifyPropertyChanged("SpellSlots");
             }
             else { throw new System.ArgumentException("Can't cast that spell as that level."); }
         }
+
+        public Tuple<List<int>, List<int>> SpellSlots
+        {
+            get
+            {
+                if (spellBooks.Count == 0) { return SpellCaster.Empty; }
+                return spellBooks[0].Slots;
+            }
+        }
+
+        #endregion
 
         public int DamageBonusWith(Item weapon)
         {

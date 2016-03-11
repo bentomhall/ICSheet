@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace ICSheet5e.Model
 {
+    [DataContract]
     public class SpellBook
     {
+        [DataMember]
         private Model.SpellManager dB;
+        [DataMember]
         private List<Spell> _allSpells = new List<Spell>();
+        [DataMember]
         private List<Spell> _knownSpells = new List<Spell>();
+        [DataMember]
         private CharacterClassType classType;
         public SpellBook(Model.SpellManager spellDB, CharacterClassType className)
         {

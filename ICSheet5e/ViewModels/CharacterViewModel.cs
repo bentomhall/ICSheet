@@ -226,6 +226,37 @@ namespace ICSheet5e.ViewModels
             get { return character.Spellcasting.Count > 0; }
         }
 
+        public string AvailableSpellSlots
+        {
+            get { return slotListAsString(character.SpellSlots.Item2); }
+        }
+
+        private string slotListAsString(List<int> slots)
+        {
+            var builder = new StringBuilder();
+            for (var i = 0; i < 9; i++)
+            {
+                if (i == 0)
+                {
+                    builder.Append(String.Format("{0} /", slots[i]));
+                }
+                else if (i % 3 == 0 && i != 0)
+                {
+                    builder.AppendLine();
+                    builder.Append(String.Format("{0} /", slots[i]));
+                }
+                else if (i % 3 == 1)
+                {
+                    builder.Append(String.Format(" {0} /", slots[i]));
+                }
+                else
+                {
+                    builder.Append(String.Format(" {0}", slots[i]));
+                }
+            }
+            return builder.ToString();
+        }
+
         public string Name
         {
             get { return character.CharacterName; }

@@ -149,5 +149,11 @@
         <Border Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
             <views:AttacksView/>
         </Border>
+        <Border Grid.Column="8" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
+            <StackPanel>
+                <Label HorizontalContentAlignment="Center">Available Slots</Label>
+                <TextBlock Text="{Binding Path=AvailableSpellSlots}" TextAlignment="Center" FontSize="14" />
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

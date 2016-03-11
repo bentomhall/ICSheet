@@ -10,6 +10,14 @@ namespace ICSheet5e.Model
     [DataContract]
     public class SpellCaster: IClassFeature
     {
+        static public Tuple<List<int>,List<int>> Empty
+        {
+            get
+            {
+                return new Tuple<List<int>, List<int>>(new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+            }
+        }
+
         static private Dictionary<CharacterClassType, string> nameForClass = new Dictionary<CharacterClassType,string>()
         {
             { CharacterClassType.Barbarian, "Barbarian" },
@@ -74,6 +82,11 @@ namespace ICSheet5e.Model
         public bool CanCastSpell(int ofLevel)
         {
             return availableSpellSlots[ofLevel] > 0;
+        }
+
+        public Tuple<List<int>, List<int>> Slots
+        {
+            get { return new Tuple<List<int>, List<int>>(totalSpellSlots, availableSpellSlots); }
         }
 
         public void CastSpell(int ofLevel)
