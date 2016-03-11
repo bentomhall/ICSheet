@@ -69,5 +69,10 @@ namespace ICSheet5e.Model
                 spell.IsPrepared = false;
             }
         }
+
+        public bool IsSpellKnown(Spell spell)
+        {
+            return _knownSpells.Contains(spell);
+        }
     }
 }

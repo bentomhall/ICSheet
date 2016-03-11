@@ -39,6 +39,10 @@ namespace ICSheet5e.Views {
             {
                 return window.FindResource("InventoryTemplate") as DataTemplate;
             }
+            else if (vm as ViewModels.SpellBookViewModel != null)
+            {
+                return window.FindResource("SpellTemplate") as DataTemplate;
+            }
             else
             {
 

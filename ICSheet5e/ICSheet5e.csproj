@@ -109,6 +109,8 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
+    <Compile Include="ViewModels\SpellBookViewModel.cs" />
+    <Compile Include="ViewModels\SpellViewModel.cs" />
     <Compile Include="Views\AttacksView.xaml.cs">
       <DependentUpon>AttacksView.xaml</DependentUpon>
     </Compile>
@@ -138,6 +140,9 @@
     <Compile Include="Views\PopupBehavior.cs" />
     <Compile Include="Views\SkillsControl.xaml.cs">
       <DependentUpon>SkillsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpellCastingPane.xaml.cs">
+      <DependentUpon>SpellCastingPane.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabItemDataTemplateSelector.cs" />
     <Compile Include="Views\WindowManager.cs" />
@@ -190,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SkillsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SpellCastingPane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

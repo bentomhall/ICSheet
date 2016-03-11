@@ -130,6 +130,16 @@ namespace ICSheet5e.Model
             spellBook.AddKnownSpell(spell);
         }
 
+        public List<Spell> AllSpellsForLevel(int level)
+        {
+            return spellBook.AllSpellsFor(level);
+        }
+
+        public bool IsSpellKnown(Spell spell)
+        {
+            return spellBook.IsSpellKnown(spell);
+        }
+
         public void PrepareSpells(List<Spell> spells)
         {
             if (spells.Count > maxPreparedSpells) { throw new System.ArgumentException("Too many spells to prepare!"); }
