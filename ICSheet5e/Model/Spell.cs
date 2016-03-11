@@ -37,5 +37,8 @@ namespace ICSheet5e.Model
 
         [DataMember]
         public bool IsPrepared { get; set; }
+
+        [DataMember]
+        public string Duration { get; set; }
     }
 }

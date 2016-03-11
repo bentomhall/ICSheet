@@ -72,6 +72,7 @@ namespace ICSheet5e.Model
                 spell.Components = (string)element["Components"];
                 spell.CastTime = (string)element["Casting Time"];
                 spell.IsPrepared = false;
+                spell.Duration = (string)element["Duration"];
                 foreach (var caster in castingClasses)
                 {
                     var type = classNameClassTypeMap[caster];

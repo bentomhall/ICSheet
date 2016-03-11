@@ -88,7 +88,18 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged("AllSpells");
             }
         }
-        public SpellViewModel SelectedSpell { get; set; }
+
+        private SpellViewModel _selectedSpell;
+        public SpellViewModel SelectedSpell
+        {
+            get { return _selectedSpell; }
+            set
+            {
+                _selectedSpell = value;
+                NotifyPropertyChanged();
+                SpellLevel = _selectedLevel;
+            }
+        }
 
         public ICommand ToggleSpellPreparation
         {
@@ -113,6 +124,35 @@ namespace ICSheet5e.ViewModels
             var spell = SelectedSpell.Spell;
             _caster.AddSpell(spell);
             NotifyPropertyChanged("SpellKnown");
+        }
+
+        public ICommand CastSpellCommand
+        {
+            get { return new Views.DelegateCommand<object>(CastSpellCommandExecuted); }
+        }
+
+        private void CastSpellCommandExecuted(object obj)
+        {
+            if (_selectedLevel == 0)
+            {
+                return; //casting these does nothing
+            }
+            else if (_caster.CanCastSpell(SpellLevel))
+            {
+                _caster.CastSpell(SpellLevel);
+                NotifyPropertyChanged("AvailableSpellSlots");
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public int SpellLevel { get; set; }
+
+        public string AvailableSpellSlots
+        {
+            get { return ""; }
         }
 
 

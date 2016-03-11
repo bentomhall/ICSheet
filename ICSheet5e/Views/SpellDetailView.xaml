@@ -4,22 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="300" Padding="3">
     <UserControl.Background>
         <SolidColorBrush Color="White"/>
     </UserControl.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="107*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="427*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="33*"/>
+            <RowDefinition Height="376*"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding Path=SelectedSpell.Name}" Grid.ColumnSpan="2" FontWeight="Bold"></Label>
         <Label Grid.Row="1" Content="{Binding Path=SelectedSpell.Level}"/>
@@ -30,7 +31,9 @@
         <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedSpell.Range}" TextWrapping="Wrap"/>
         <Label Grid.Row="4" VerticalContentAlignment="Center">Duration:</Label>
         <Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=SelectedSpell.Duration}"/>
-        <Label Grid.Row="5" VerticalContentAlignment="Top">Text:</Label>
-        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=SelectedSpell.Text}" IsHyphenationEnabled="True" TextWrapping="Wrap"/>
+        <Label Grid.Row="5">Components:</Label>
+        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=SelectedSpell.Components}" TextWrapping="Wrap"/>
+        <Label Grid.Row="6" VerticalContentAlignment="Top">Text:</Label>
+        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=SelectedSpell.Text}" IsHyphenationEnabled="True" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

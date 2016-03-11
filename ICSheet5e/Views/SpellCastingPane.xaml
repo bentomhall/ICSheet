@@ -3,19 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:ICSheet5e.Views"
+             xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="900">
+             d:DesignHeight="900" d:DesignWidth="900" Background="White">
+    <UserControl.Resources>
+        <views:BooleanStrikethroughConverter x:Key="BooleanStrikethroughConverter"/>
+        <!--<Style x:Key="StrikethroughStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Grid>
+                            <Border Name="Border" Padding="2" SnapsToDevicePixels="True" Background="Transparent"></Border>
+                            <TextBlock Name="_Text" Padding="3" IsHitTestVisible="False" TextDecorations="None" Text="{Binding}"></TextBlock>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrush}}"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Path=SelectedSpell.IsKnown}" Value="True">
+                                <Setter TargetName="_Text" Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style> -->
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="11*"/>
-            <RowDefinition Height="139*"/>
+            <RowDefinition/>
+            <RowDefinition Height="29*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="112*"/>
             <ColumnDefinition Width="113*"/>
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
-        <ListView Grid.Row="1" ItemsSource="{Binding AllSpells}">
+        <ListView Grid.Row="1" ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}">
+            <ListView.Resources>
+                <ContextMenu x:Key="SpellContextMenu">
+                    <MenuItem Header="Toggle Prepared" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
+                    <MenuItem Header="Learn Spell" Command="{Binding Path=DataContext.LearnSpellCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ContextMenu" Value="{StaticResource SpellContextMenu}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Spell Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
@@ -23,5 +59,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <Button Content="Cast" Background="Green" Command="{Binding CastSpellCommand}" Margin="0,0,10,0"/>
+            <xtk:IntegerUpDown DefaultValue="{Binding Path=SelectedSpell.Level}" Maximum="9" Minimum="{Binding Path=SelectedSpell.Level}" Value="{Binding Path=SpellLevel}" Width="66" DisplayDefaultValueOnEmptyText="True"/>
+            <TextBlock Text="{Binding Path=AvailableSpellSlots}" Width="200"/>
+        </StackPanel>
+        <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+            <views:SpellDetailView />
+        </Border>
     </Grid>
 </UserControl>

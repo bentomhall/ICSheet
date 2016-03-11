@@ -81,7 +81,7 @@ namespace ICSheet5e.Model
 
         public bool CanCastSpell(int ofLevel)
         {
-            return availableSpellSlots[ofLevel] > 0;
+            return availableSpellSlots[ofLevel - 1] > 0;
         }
 
         public Tuple<List<int>, List<int>> Slots
@@ -91,8 +91,8 @@ namespace ICSheet5e.Model
 
         public void CastSpell(int ofLevel)
         {
-            if (availableSpellSlots[ofLevel] == 0) return;
-            availableSpellSlots[ofLevel] -= 1;
+            if (availableSpellSlots[ofLevel - 1 ] == 0) return;
+            availableSpellSlots[ofLevel - 1] -= 1;
             return;
         }
 
