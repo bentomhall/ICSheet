@@ -144,6 +144,9 @@
     <Compile Include="Views\SpellCastingPane.xaml.cs">
       <DependentUpon>SpellCastingPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SpellDetailView.xaml.cs">
+      <DependentUpon>SpellDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TabItemDataTemplateSelector.cs" />
     <Compile Include="Views\WindowManager.cs" />
     <Page Include="MainWindow.xaml">
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SpellCastingPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SpellDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
