@@ -148,6 +148,7 @@
       <DependentUpon>SpellDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabItemDataTemplateSelector.cs" />
+    <Compile Include="Views\TrueStrikethroughConverter.cs" />
     <Compile Include="Views\WindowManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
