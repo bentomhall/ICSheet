@@ -37,6 +37,11 @@ namespace ICSheet5e.ViewModels
         public string CastTime { get { return _spell.CastTime; } }
         public string Duration { get { return _spell.Duration; } }
         public string Range { get { return _spell.Range; } }
+
+        public void PrepareSpell()
+        {
+            NotifyPropertyChanged("IsPrepared");
+        }
         
     }
 }

@@ -72,7 +72,7 @@ namespace ICSheet5e.Model
 
         public bool IsSpellKnown(Spell spell)
         {
-            return _knownSpells.Contains(spell);
+            return ((_knownSpells.SingleOrDefault(x => x.Name == spell.Name) != null) ? true : false);
         }
     }
 }

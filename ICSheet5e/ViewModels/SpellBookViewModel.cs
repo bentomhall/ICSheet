@@ -109,9 +109,9 @@ namespace ICSheet5e.ViewModels
         private void ToggleSpellPreparationExecuted(object obj)
         {
             var spell = SelectedSpell.Spell;
-            if (_caster.IsSpellKnown(spell)) { return; }
+            if (!_caster.IsSpellKnown(spell)) { return; }
             _caster.PrepareSpell(spell);
-            NotifyPropertyChanged("IsPrepared");
+            SelectedSpell.PrepareSpell();
         }
 
         public ICommand LearnSpellCommand
@@ -123,6 +123,7 @@ namespace ICSheet5e.ViewModels
         {
             var spell = SelectedSpell.Spell;
             _caster.AddSpell(spell);
+            SelectedSpell.SpellKnown = true;
             NotifyPropertyChanged("SpellKnown");
         }
 
