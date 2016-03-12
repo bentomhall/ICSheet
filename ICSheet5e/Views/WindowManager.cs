@@ -20,6 +20,7 @@ namespace ICSheet5e.Views
         public enum DialogType
         {
             HealthDialog,
+            LevelUpDialog
         }
 
         public static void DisplayDialog(DialogType type, IViewModel model, Action<IViewModel> completionHandler)
@@ -29,6 +30,9 @@ namespace ICSheet5e.Views
             {
                 case DialogType.HealthDialog:
                     dlg = new HealthChangeWindow();
+                    break;
+                case DialogType.LevelUpDialog:
+                    dlg = new LevelUpWindow();
                     break;
                 default:
                     throw new NotImplementedException("OOPs!, wrong dialog type");
@@ -79,5 +83,6 @@ namespace ICSheet5e.Views
                 return null;
             }
         }
+ 
     }
 }

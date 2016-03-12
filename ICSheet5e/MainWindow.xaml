@@ -38,7 +38,11 @@
                 <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open"/>
                 <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save"/>
             </MenuItem>
-            <MenuItem Header="_Edit" IsCheckable="True" IsChecked="{Binding Path=IsEditingModeEnabled, Mode=TwoWay}"/>
+            <MenuItem Header="_Edit" IsCheckable="True" IsChecked="{Binding Path=IsEditingModeEnabled, Mode=TwoWay}" Width="56"/>
+            <MenuItem Header="_Character">
+                <MenuItem Header="Long _Rest" Command="{Binding Path=DoLongRestCommand}" />
+                <MenuItem Header="_Level Up" Command="{Binding Path=LevelUpCommand}"/>
+            </MenuItem>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
             <TabItem Name="Overview" Header="Overview" Content="{Binding Path=ViewModels[0]}" ContentTemplateSelector="{StaticResource TabContentSelector}"/>

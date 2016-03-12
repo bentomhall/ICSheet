@@ -476,6 +476,28 @@ namespace ICSheet5e.Model
                 Movement = 30;
             }
         }
+
+        public void TakeLongRest()
+        {
+            _currentHealth = MaxHealth;
+            if (spellBooks.Count > 0)
+            {
+                foreach (var book in spellBooks)
+                {
+                    book.RecoverAllSpellSlots();
+                }
+            }
+            NotifyPropertyChanged("CurrentHealth");
+            NotifyPropertyChanged("AvailableSpellSlots");
+        }
+
+        public void DoLevelUp(List<Tuple<CharacterClassType, int>> newLevels)
+        {
+            CharacterClassLevels = newLevels;
+            RecalculateDependentBonuses();
+            setSpellCasting();
+            NotifyPropertyChanged("Levels");
+        }
         #region INotifyPropertyChanged Implementation
 
         public event PropertyChangedEventHandler PropertyChanged;

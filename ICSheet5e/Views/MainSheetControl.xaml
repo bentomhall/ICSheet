@@ -155,5 +155,21 @@
                 <TextBlock Text="{Binding Path=AvailableSpellSlots}" TextAlignment="Center" FontSize="14" />
             </StackPanel>
         </Border>
+        <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding CastSpellCommand}" Background="Green" Margin="0, 0, 15, 0">Cast Spell</Button>
+                    <xctk:IntegerUpDown DefaultValue="1" Maximum="9" Minimum="1"  Value="{Binding Path=SelectedSpellLevel}" Width="100" DisplayDefaultValueOnEmptyText="True"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="0,0,12,0">Spell Attack Bonus:</Label>
+                    <TextBlock Text="{Binding Path=SpellAttackBonus}" VerticalAlignment="Center" TextAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="0,0,65,0">Spell DC:</Label>
+                    <TextBlock Text="{Binding Path=SpellDC}" VerticalAlignment="Center" TextAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

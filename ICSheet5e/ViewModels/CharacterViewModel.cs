@@ -26,6 +26,8 @@ namespace ICSheet5e.ViewModels
             return builder.ToString();
         }
         private bool canEdit = false;
+        private string _levels = "";
+        
         #region Attributes
         public int Strength
         {
@@ -221,6 +223,12 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        public int SelectedSpellLevel
+        {
+            get;
+            set;
+        }
+
         public bool CanCastSpells 
         {
             get { return character.Spellcasting.Count > 0; }
@@ -265,10 +273,10 @@ namespace ICSheet5e.ViewModels
         {
             get { return character.Race; }
         }
-        private string _levels = "";
+        
         public string Levels
         {
-            get { return _levels; }
+            get { return FormatLevels(); }
         }
 
         public int Experience
@@ -299,6 +307,24 @@ namespace ICSheet5e.ViewModels
         public int TemporaryHP
         {
             get { return character.TemporaryHP; }
+        }
+
+        public int SpellAttackBonus
+        {
+            get
+            {
+                if (CanCastSpells) { return character.Spellcasting[0].SpellAttackModifier; }
+                else { return 0; }
+            }
+        }
+
+        public int SpellDC
+        {
+            get
+            {
+                if (CanCastSpells) { return character.Spellcasting[0].SpellDC; }
+                else { return 0; }
+            }
         }
 
         public ICommand TakeDamageCommand 
@@ -337,6 +363,16 @@ namespace ICSheet5e.ViewModels
         {
             var type = HealthChangeViewModel.HealthChangeType.Temporary;
             DisplayModalHealthDialog(type);
+        }
+
+        public ICommand CastSpellCommand
+        {
+            get { return new Views.DelegateCommand<object>(CastSpellCommandExecuted); }
+        }
+
+        private void CastSpellCommandExecuted(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void DisplayModalHealthDialog(HealthChangeViewModel.HealthChangeType type)
@@ -449,6 +485,8 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("Skills");
             var args = new PropertyChangedEventArgs("EquippedItems");
             OnEquipmentChanged(this, args);
+            NotifyPropertyChanged("SpellAttackBonus");
+            NotifyPropertyChanged("SpellDC");
 
             
         }

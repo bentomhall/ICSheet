@@ -181,6 +181,39 @@ namespace ICSheet5e.ViewModels
             return;
         }
 
+        public ICommand DoLongRestCommand
+        {
+            get { return new Views.DelegateCommand<object>(LongRestCommandExecuted); }
+        }
+
+        private void LongRestCommandExecuted(object obj)
+        {
+            if (currentCharacter != null)
+            {
+                currentCharacter.TakeLongRest();
+            }
+        }
+
+        public ICommand LevelUpCommand
+        {
+            get { return new Views.DelegateCommand<object>(DoLevelUpCommandExecuted); }
+        }
+
+        private void DoLevelUpCommandExecuted(object obj)
+        {
+            if (currentCharacter == null) { return; }
+            var vm = new LevelUpViewModel(currentCharacter.Levels);
+            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.LevelUpDialog, vm, OnLevelUpCompleted);
+        }
+
+        private void OnLevelUpCompleted(IViewModel obj)
+        {
+            var vm = obj as LevelUpViewModel;
+            if (vm == null) { return; }
+            var newLevels = vm.ChosenClassLevels;
+            currentCharacter.DoLevelUp(newLevels);
+        }
+
 
     }
 }

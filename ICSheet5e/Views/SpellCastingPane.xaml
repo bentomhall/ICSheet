@@ -7,29 +7,6 @@
              xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900" Background="White">
-    <UserControl.Resources>
-        <views:BooleanStrikethroughConverter x:Key="BooleanStrikethroughConverter"/>
-        <!--<Style x:Key="StrikethroughStyle" TargetType="{x:Type ListViewItem}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                        <Grid>
-                            <Border Name="Border" Padding="2" SnapsToDevicePixels="True" Background="Transparent"></Border>
-                            <TextBlock Name="_Text" Padding="3" IsHitTestVisible="False" TextDecorations="None" Text="{Binding}"></TextBlock>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrush}}"/>
-                            </Trigger>
-                            <DataTrigger Binding="{Binding Path=SelectedSpell.IsKnown}" Value="True">
-                                <Setter TargetName="_Text" Property="IsEnabled" Value="False" />
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style> -->
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

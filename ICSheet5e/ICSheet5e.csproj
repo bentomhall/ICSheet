@@ -107,6 +107,7 @@
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="ViewModels\LevelUpViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
     <Compile Include="ViewModels\SpellBookViewModel.cs" />
@@ -131,6 +132,9 @@
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemNameConverter.cs" />
+    <Compile Include="Views\LevelUpWindow.xaml.cs">
+      <DependentUpon>LevelUpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainSheetControl.xaml.cs">
       <DependentUpon>MainSheetControl.xaml</DependentUpon>
     </Compile>
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LevelUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
