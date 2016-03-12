@@ -151,9 +151,15 @@ namespace ICSheet5e.ViewModels
 
         public int SpellLevel { get; set; }
 
+        private string formatSpellSlots()
+        {
+            var slots = _caster.Slots.Item2;
+            return String.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
+        }
+
         public string AvailableSpellSlots
         {
-            get { return ""; }
+            get { return formatSpellSlots(); }
         }
 
 

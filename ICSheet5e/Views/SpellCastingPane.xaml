@@ -71,7 +71,7 @@
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button Content="Cast" Background="Green" Command="{Binding CastSpellCommand}" Margin="0,0,10,0"/>
             <xtk:IntegerUpDown DefaultValue="{Binding Path=SelectedSpell.Level}" Maximum="9" Minimum="{Binding Path=SelectedSpell.Level}" Value="{Binding Path=SpellLevel}" Width="66" DisplayDefaultValueOnEmptyText="True"/>
-            <TextBlock Text="{Binding Path=AvailableSpellSlots}" Width="200"/>
+            <TextBlock Text="{Binding Path=AvailableSpellSlots}" Width="200" TextAlignment="Center"/>
         </StackPanel>
         <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="2">
             <views:SpellDetailView />
