@@ -212,6 +212,15 @@ namespace ICSheet5e.ViewModels
             if (vm == null) { return; }
             var newLevels = vm.ChosenClassLevels;
             currentCharacter.DoLevelUp(newLevels);
+            if (currentCharacter.Spellcasting.Count > 0)
+            {
+                NotifyPropertyChanged("CanCastSpells");
+                if (ViewModels[3] is BaseViewModel && CanCastSpells) //change enabled spellcasting
+                {
+                    ViewModels[3] = new SpellBookViewModel(currentCharacter.Spellcasting[0]);
+                    NotifyPropertyChanged("ViewModels");
+                }
+            }
         }
 
 

@@ -52,6 +52,11 @@ namespace ICSheet5e.Model
             get { return String.Format("Casts spells as a {0}",className); }
         }
 
+        public void AdjustLevel(int newLevel)
+        {
+            SetSpellSlots(newLevel);
+        }
+
         #region slots
         [DataMember]
         private List<int> totalSpellSlots = new List<int>();

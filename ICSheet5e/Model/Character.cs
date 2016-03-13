@@ -293,14 +293,12 @@ namespace ICSheet5e.Model
 
         public Item EquippedItemForSlot(ItemSlot slot)
         {
-            try
+            if (inventory.EquippedItems.Keys.Contains(slot))
             {
                 return inventory.EquippedItems[slot];
             }
-            catch (KeyNotFoundException)
-            {
-                return null;
-            }
+            return null;
+                
         }
 
         public List<Item> ItemsMatching(System.Func<Item, bool> predicate)
@@ -360,7 +358,15 @@ namespace ICSheet5e.Model
         {
             foreach (System.Tuple<CharacterClassType, int> entry in CharacterClassLevels)
             {
-                if (castingClasses.Contains(entry.Item1))
+                var matchingEntry = spellBooks.SingleOrDefault(x => x.Name == System.Enum.GetName(typeof(CharacterClassType), entry.Item1));
+                if (matchingEntry != null) //replace
+                {
+                    matchingEntry.AdjustLevel(entry.Item2);
+                    var castingModifier = abilityModifierFor(castingAbilities[entry.Item1]);
+                    matchingEntry.SpellAttackModifier = castingModifier + _proficiencyBonus;
+                    matchingEntry.SpellDC = 8 + castingModifier + _proficiencyBonus;
+                }
+                else if (castingClasses.Contains(entry.Item1) )
                 {
                     var castingModifier = abilityModifierFor(castingAbilities[entry.Item1]);
                     SpellCaster book = new SpellCaster(entry.Item1, entry.Item2, SpellDB);

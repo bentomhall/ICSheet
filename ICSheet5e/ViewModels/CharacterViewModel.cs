@@ -453,6 +453,7 @@ namespace ICSheet5e.ViewModels
             Parent.PropertyChanged += ParentEditingPropertyChanged;
             Attacks = new ObservableCollection<AttackViewModel>();
             Attacks.Add(attackModelFor(null));
+            character.PropertyChanged += ParentEditingPropertyChanged;
         }
 
         public void NotifyEditingBegan()
@@ -497,6 +498,17 @@ namespace ICSheet5e.ViewModels
             {
                 CanEdit = !canEdit;
             }
+            else if (e.PropertyName == "Levels")
+            {
+                if (CanCastSpells)
+                {
+                    NotifyPropertyChanged("CanCastSpells");
+                    NotifyPropertyChanged("SpellAttackBonus");
+                    NotifyPropertyChanged("SpellDC");
+                    NotifyPropertyChanged("AvailableSpellSlots");
+                }
+            }
+            NotifyPropertyChanged(e.PropertyName);
         }
 
     }
