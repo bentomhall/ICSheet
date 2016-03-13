@@ -101,6 +101,9 @@ namespace ICSheet5e.Model
         [DataMember]
         private List<SpellCaster> spellBooks = new List<SpellCaster>();
 
+        [DataMember]
+        public string Notes { get; set; }
+
         public Character()
         {
             skills = new SkillList<Skill5e>(Edition.Fifth);
@@ -207,10 +210,6 @@ namespace ICSheet5e.Model
             if (inventory.IsEncumbered()) { return EncumbranceType.Light; }
             else if (inventory.IsHeavyEncumbered()) { return EncumbranceType.Heavy; }
             else { return EncumbranceType.None; }
-        }
-
-        public void AddLevel(CharacterClasses type)
-        {
         }
 
         public int AttackBonusWith(Item weapon)
@@ -482,6 +481,8 @@ namespace ICSheet5e.Model
                 Movement = 30;
             }
         }
+
+        public List<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
 
         public void TakeLongRest()
         {

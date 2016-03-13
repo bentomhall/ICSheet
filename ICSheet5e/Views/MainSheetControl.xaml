@@ -28,22 +28,22 @@
         </Grid.ColumnDefinitions>
         <Border Grid.ColumnSpan="9" Background="GhostWhite" CornerRadius="15,15,0,0" BorderBrush="Black" BorderThickness="2">
             <StackPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical">
-                    <Label>Name:</Label>
-                    <Label Content="{Binding Name}" FontSize="48" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="300" Margin="0,0,10,0"/>
-                </StackPanel>
-                <StackPanel>
-                    <Label>Race:</Label>
-                    <Label Content="{Binding Race}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="150" Margin="0,0,10,0"/>
-                </StackPanel>
-                <StackPanel>
-                    <Label>Classes and Levels:</Label>
-                    <Label Content="{Binding Levels}" FontSize="20" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="250" Margin="0,0,10,0"/>
-                </StackPanel>
-                <StackPanel>
-                    <Label>XP:</Label>
-                    <TextBox Text="{Binding Experience}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom" MinWidth="150" Margin="0,0,10,0"/>
-                </StackPanel>
+                <DockPanel>
+                    <Label DockPanel.Dock="Top">Name:</Label>
+                    <Label DockPanel.Dock="Top" Content="{Binding Name}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Top" MinWidth="300" Margin="0,0,10,0"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label DockPanel.Dock="Top">Race:</Label>
+                    <Label DockPanel.Dock="Top" Content="{Binding Race}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Top" MinWidth="150" Margin="0,0,10,0"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label DockPanel.Dock="Top">Classes and Levels:</Label>
+                    <TextBlock DockPanel.Dock="Top" Text="{Binding Levels}" FontSize="20" VerticalAlignment="Stretch" MinWidth="250" Margin="0,0,10,0" TextWrapping="Wrap"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label DockPanel.Dock="Top">XP:</Label>
+                    <TextBox DockPanel.Dock="Top" Text="{Binding Experience}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="150" Margin="0,0,10,0"/>
+                </DockPanel>
             </StackPanel>
         </Border>
         <Border Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Background="White" CornerRadius="15" Margin="3">
@@ -149,17 +149,15 @@
         <Border Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
             <views:AttacksView/>
         </Border>
-        <Border Grid.Column="8" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
-            <StackPanel>
-                <Label HorizontalContentAlignment="Center">Available Slots</Label>
-                <TextBlock Text="{Binding Path=AvailableSpellSlots}" TextAlignment="Center" FontSize="14" />
-            </StackPanel>
-        </Border>
         <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button Command="{Binding CastSpellCommand}" Background="Green" Margin="0, 0, 15, 0">Cast Spell</Button>
                     <xctk:IntegerUpDown DefaultValue="1" Maximum="9" Minimum="1"  Value="{Binding Path=SelectedSpellLevel}" Width="100" DisplayDefaultValueOnEmptyText="True"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label HorizontalContentAlignment="Center">Available Slots</Label>
+                    <TextBlock Text="{Binding Path=AvailableSpellSlots}" TextAlignment="Center" FontSize="14" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="0,0,12,0">Spell Attack Bonus:</Label>
@@ -169,7 +167,20 @@
                     <Label Margin="0,0,65,0">Spell DC:</Label>
                     <TextBlock Text="{Binding Path=SpellDC}" VerticalAlignment="Center" TextAlignment="Center"/>
                 </StackPanel>
+                <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
+                <ListBox ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" />
             </StackPanel>
+        </Border>
+        <Border Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
+            <DockPanel>
+                <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="18">Campaign Notes</Label>
+                <TextBox DockPanel.Dock="Top" Text="{Binding Path=Notes}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="8" Grid.ColumnSpan="1" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White"></Border>
+            <!--Put gold here -->
+        <Border Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
+            <!--put features here -->
         </Border>
     </Grid>
 </UserControl>

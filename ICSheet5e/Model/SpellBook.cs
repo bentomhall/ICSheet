@@ -52,6 +52,12 @@ namespace ICSheet5e.Model
             return _allSpells.Where(x => x.Level == spellLevel).ToList<Spell>();
         }
 
+        public List<Spell> AllPreparedSpells
+        {
+            get { return _knownSpells.Where(x => x.IsPrepared).ToList<Spell>(); }
+        }
+
+
         public void AddKnownSpell(Spell spell)
         {
             if (!_knownSpells.Contains(spell)) { _knownSpells.Add(spell); }

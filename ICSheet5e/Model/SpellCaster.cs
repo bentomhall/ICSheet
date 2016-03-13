@@ -178,6 +178,12 @@ namespace ICSheet5e.Model
         {
             return true; //can always cast cantrips
         }
+
+        public List<Spell> PreparedSpells
+        {
+            get { return spellBook.AllPreparedSpells; }
+        }
+
     }
 
     static class SpellSlotsByLevel

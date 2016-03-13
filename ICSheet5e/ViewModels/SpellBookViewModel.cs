@@ -112,6 +112,7 @@ namespace ICSheet5e.ViewModels
             if (!_caster.IsSpellKnown(spell)) { return; }
             _caster.PrepareSpell(spell);
             SelectedSpell.PrepareSpell();
+            NotifyPropertyChanged("PreparedSpells");
         }
 
         public ICommand LearnSpellCommand

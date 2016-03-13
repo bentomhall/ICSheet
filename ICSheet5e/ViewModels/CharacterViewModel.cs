@@ -20,8 +20,7 @@ namespace ICSheet5e.ViewModels
             var builder = new StringBuilder();
             foreach (var entry in character.Levels)
             {
-                builder.AppendFormat("{0} {1}", entry.Item1, entry.Item2);
-                builder.Append(Environment.NewLine);
+                builder.AppendFormat("{0} {1} ", entry.Item1, entry.Item2);
             }
             return builder.ToString();
         }
@@ -241,28 +240,17 @@ namespace ICSheet5e.ViewModels
 
         private string slotListAsString(List<int> slots)
         {
-            var builder = new StringBuilder();
-            for (var i = 0; i < 9; i++)
+            return String.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
+        }
+
+        public string Notes
+        {
+            get { return character.Notes; }
+            set
             {
-                if (i == 0)
-                {
-                    builder.Append(String.Format("{0} /", slots[i]));
-                }
-                else if (i % 3 == 0 && i != 0)
-                {
-                    builder.AppendLine();
-                    builder.Append(String.Format("{0} /", slots[i]));
-                }
-                else if (i % 3 == 1)
-                {
-                    builder.Append(String.Format(" {0} /", slots[i]));
-                }
-                else
-                {
-                    builder.Append(String.Format(" {0}", slots[i]));
-                }
+                character.Notes = value;
+                NotifyPropertyChanged();
             }
-            return builder.ToString();
         }
 
         public string Name
@@ -372,7 +360,9 @@ namespace ICSheet5e.ViewModels
 
         private void CastSpellCommandExecuted(object obj)
         {
-            throw new NotImplementedException();
+            if (SelectedPreparedSpell == null || SelectedSpellLevel < SelectedPreparedSpell.Level) { return; }
+            character.CastSpell(SelectedPreparedSpell, SelectedSpellLevel);
+            NotifyPropertyChanged("AvailableSpellSlots");
         }
 
         private void DisplayModalHealthDialog(HealthChangeViewModel.HealthChangeType type)
@@ -442,6 +432,17 @@ namespace ICSheet5e.ViewModels
             get { return character.Initiative; }
         }
 
+        public List<Model.Spell> PreparedSpells
+        {
+            get { return character.PreparedSpells; }
+        }
+
+        public Model.Spell SelectedPreparedSpell
+        {
+            get;
+            set;
+        }
+
         public CharacterViewModel() { }
 
         public CharacterViewModel(Model.Character c, ApplicationModel parent)
@@ -488,8 +489,6 @@ namespace ICSheet5e.ViewModels
             OnEquipmentChanged(this, args);
             NotifyPropertyChanged("SpellAttackBonus");
             NotifyPropertyChanged("SpellDC");
-
-            
         }
 
         private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)
