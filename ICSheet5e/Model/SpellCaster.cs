@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.Model
 {
@@ -48,23 +49,37 @@ namespace ICSheet5e.Model
             RecoverAllSpellSlots();
         }
 
-        public static SpellCaster Construct(List<Tuple<CharacterClassType, int>> levels, Model.SpellManager spellDB)
+        public static SpellCaster Construct(List<Tuple<CharacterClassType, int>> levels, Character source, Model.SpellManager spellDB)
         {
-            if (levels.Count == 1)
+            var numberOfCastingClasses = levels.Count(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
+            if (numberOfCastingClasses == 0)
             {
-                return new SpellCaster(levels[0].Item1, levels[0].Item2, spellDB);
+                var sp = new SpellCaster(levels[0].Item1, levels[0].Item2, spellDB);
+                sp.SpellAttackModifier = 0;
+                sp.SpellDC = 0;
+                return sp;
+            }
+            
+            else if (numberOfCastingClasses == 1)
+            {
+                var type = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None).First();
+                var sp = new SpellCaster(type.Item1, type.Item2, spellDB);
+                var abilityMod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(levels[0].Item1));
+                sp.SpellAttackModifier = source.Proficiency + abilityMod;
+                sp.SpellDC = 8 + source.Proficiency + abilityMod;
+                return sp;
             }
             else
             {
-                var numberOfCastingClasses = levels.Count(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
-                if (numberOfCastingClasses == 1) { return new SpellCaster(levels[0].Item1, levels[0].Item2, spellDB); }
-                else
-                {
-                    var type = CharacterClassType.MultiClassCaster;
-                    var subTypes = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
-                    var level = castingLevel(levels);
-                    return new SpellCaster(type, level, spellDB, subTypes.Select(x => x.Item1));
-                }
+                var type = CharacterClassType.MultiClassCaster;
+                var subTypes = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
+                var typeWithHighestLevel = levels.OrderByDescending(x =>x.Item2).First();
+                var level = castingLevel(levels);
+                var sp = new SpellCaster(type, level, spellDB, subTypes.Select(x => x.Item1));
+                var abilityMod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(typeWithHighestLevel.Item1));
+                sp.SpellDC = 8 + source.Proficiency + abilityMod;
+                sp.SpellAttackModifier = source.Proficiency + abilityMod;
+                return sp;
             }
         }
 
@@ -99,8 +114,9 @@ namespace ICSheet5e.Model
             get { return String.Format("Casts spells as a {0}", className); }
         }
 
-        public void AdjustLevel(int newLevel)
+        public void AdjustLevel(List<Tuple<CharacterClassType,int>> newLevels)
         {
+            var newLevel = castingLevel(newLevels);
             SetSpellSlots(newLevel);
         }
 
@@ -369,6 +385,32 @@ namespace ICSheet5e.Model
             Martial,
             Warlock,
             None
+        }
+
+        private static Dictionary<CharacterClassType, AbilityType> CastingAbilities = new Dictionary<CharacterClassType, AbilityType>()
+        {
+            {CharacterClassType.ArcaneTrickster, AbilityType.Intelligence},
+            {CharacterClassType.Bard, AbilityType.Charisma},
+            {CharacterClassType.Cleric, AbilityType.Wisdom},
+            {CharacterClassType.Druid, AbilityType.Wisdom},
+            {CharacterClassType.EldritchKnight, AbilityType.Intelligence},
+            {CharacterClassType.Paladin, AbilityType.Charisma},
+            {CharacterClassType.Ranger, AbilityType.Wisdom},
+            {CharacterClassType.Sorcerer, AbilityType.Charisma},
+            {CharacterClassType.Warlock, AbilityType.Charisma},
+            {CharacterClassType.Wizard, AbilityType.Intelligence}
+        };
+
+        public static AbilityType CastingAbilityFor(CharacterClassType type)
+        {
+            if (CastingAbilities.Keys.Contains(type))
+            {
+                return CastingAbilities[type];
+            }
+            else
+            {
+                return AbilityType.None;
+            }
         }
     }
 }

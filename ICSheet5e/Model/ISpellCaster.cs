@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace ICSheet5e.Model
 {
     interface ISpellCaster
     {
         void AddSpell(Spell spell);
-        void AdjustLevel(int newLevel);
+        void AdjustLevel(List<Tuple<CharacterClassType, int>> newLevels);
         System.Collections.Generic.List<Spell> AllSpellsForLevel(int level);
         bool CanCastSpell(int ofLevel);
         void CastSpell(int ofLevel);

@@ -33,19 +33,6 @@ namespace ICSheet5e.Model
     public class Character : CharacterBase
     {
         #region CasterDictionaries
-        private static Dictionary<CharacterClassType, AbilityType> castingAbilities = new Dictionary<CharacterClassType, AbilityType>()
-        {
-            {CharacterClassType.ArcaneTrickster, AbilityType.Intelligence},
-            {CharacterClassType.Bard, AbilityType.Charisma},
-            {CharacterClassType.Cleric, AbilityType.Wisdom},
-            {CharacterClassType.Druid, AbilityType.Wisdom},
-            {CharacterClassType.EldritchKnight, AbilityType.Intelligence},
-            {CharacterClassType.Paladin, AbilityType.Charisma},
-            {CharacterClassType.Ranger, AbilityType.Wisdom},
-            {CharacterClassType.Sorcerer, AbilityType.Charisma},
-            {CharacterClassType.Warlock, AbilityType.Charisma},
-            {CharacterClassType.Wizard, AbilityType.Intelligence}
-        };
 
         private static List<CharacterClassType> castingClasses = new List<CharacterClassType>()
         {
@@ -356,25 +343,7 @@ namespace ICSheet5e.Model
 
         public void setSpellCasting() //update to support multiclassing
         {
-            foreach (System.Tuple<CharacterClassType, int> entry in CharacterClassLevels)
-            {
-                var matchingEntry = spellBooks.SingleOrDefault(x => x.Name == System.Enum.GetName(typeof(CharacterClassType), entry.Item1));
-                if (matchingEntry != null) //replace
-                {
-                    matchingEntry.AdjustLevel(entry.Item2);
-                    var castingModifier = abilityModifierFor(castingAbilities[entry.Item1]);
-                    matchingEntry.SpellAttackModifier = castingModifier + _proficiencyBonus;
-                    matchingEntry.SpellDC = 8 + castingModifier + _proficiencyBonus;
-                }
-                else if (castingClasses.Contains(entry.Item1) )
-                {
-                    var castingModifier = abilityModifierFor(castingAbilities[entry.Item1]);
-                    SpellCaster book = new SpellCaster(entry.Item1, entry.Item2, SpellDB);
-                    book.SpellAttackModifier = castingModifier + _proficiencyBonus;
-                    book.SpellDC = 8 + castingModifier + _proficiencyBonus;
-                    spellBooks.Add(book);
-                }
-            }
+            spellBooks.Add(SpellCaster.Construct(CharacterClassLevels, this, SpellDB));
         }
 
         public bool TryUseFeature(IClassFeature feature)

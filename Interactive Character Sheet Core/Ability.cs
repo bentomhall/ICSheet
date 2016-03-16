@@ -14,7 +14,8 @@ namespace Interactive_Character_Sheet_Core
         Constitution,
         Intelligence,
         Wisdom,
-        Charisma
+        Charisma,
+        None
     };
 
     public static class AbilityTypeExtension
