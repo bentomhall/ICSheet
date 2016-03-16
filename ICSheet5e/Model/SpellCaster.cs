@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace ICSheet5e.Model
 {
     [DataContract]
-    public class SpellCaster: IClassFeature
+    public class SpellCaster: IClassFeature, ICSheet5e.Model.ISpellCaster
     {
         static public Tuple<List<int>,List<int>> Empty
         {
@@ -36,12 +36,59 @@ namespace ICSheet5e.Model
             { CharacterClassType.ArcaneTrickster, "Arcane Trickster"}
         };
 
-        public SpellCaster(CharacterClassType type, int level, Model.SpellManager spellDB)
+        [DataMember]
+        private List<CharacterClassType> subTypes;
+
+        public SpellCaster(CharacterClassType type, int level, Model.SpellManager spellDB, IEnumerable<CharacterClassType> subTypes = null)
         {
             className = type;
             SetSpellSlots(level);
-            spellBook = new SpellBook(spellDB, type);
+            if (subTypes != null) { this.subTypes = subTypes.ToList<CharacterClassType>(); }
+            spellBook = new SpellBook(spellDB, type, this.subTypes);
             RecoverAllSpellSlots();
+        }
+
+        public static SpellCaster Construct(List<Tuple<CharacterClassType, int>> levels, Model.SpellManager spellDB)
+        {
+            if (levels.Count == 1)
+            {
+                return new SpellCaster(levels[0].Item1, levels[0].Item2, spellDB);
+            }
+            else
+            {
+                var numberOfCastingClasses = levels.Count(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
+                if (numberOfCastingClasses == 1) { return new SpellCaster(levels[0].Item1, levels[0].Item2, spellDB); }
+                else
+                {
+                    var type = CharacterClassType.MultiClassCaster;
+                    var subTypes = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
+                    var level = castingLevel(levels);
+                    return new SpellCaster(type, level, spellDB, subTypes.Select(x => x.Item1));
+                }
+            }
+        }
+
+        static private int castingLevel(List<Tuple<CharacterClassType, int>> levels)
+        {
+            var output = 0;
+            foreach (var item in levels)
+            {
+                switch (SpellSlotsByLevel.CastingTypeForClassType[item.Item1])
+                {
+                    case SpellSlotsByLevel.CastingType.Full:
+                        output += item.Item2;
+                        break;
+                    case SpellSlotsByLevel.CastingType.Half:
+                        output += item.Item2 / 2;
+                        break;
+                    case SpellSlotsByLevel.CastingType.Martial:
+                        output += item.Item2 / 3;
+                        break;
+                    default:
+                        break; //warlock levels don't advance caster level
+                }
+            }
+            return output;
         }
 
         [DataMember] private CharacterClassType className;
@@ -49,7 +96,7 @@ namespace ICSheet5e.Model
         public string Uses { get { return "Special (Spell Slots)"; } }
         public string Description
         {
-            get { return String.Format("Casts spells as a {0}",className); }
+            get { return String.Format("Casts spells as a {0}", className); }
         }
 
         public void AdjustLevel(int newLevel)
@@ -65,22 +112,9 @@ namespace ICSheet5e.Model
         private List<int> availableSpellSlots = new List<int>();
         #endregion
 
-        static private Dictionary<CharacterClassType, Dictionary<int, List<int>>> spellSlotsByClass = new Dictionary<CharacterClassType, Dictionary<int, List<int>>>()
-        {
-            { CharacterClassType.Bard, SpellSlotsByLevel.FullCaster },
-            { CharacterClassType.Cleric, SpellSlotsByLevel.FullCaster },
-            { CharacterClassType.Druid, SpellSlotsByLevel.FullCaster },
-            { CharacterClassType.EldritchKnight, SpellSlotsByLevel.Martial },
-            { CharacterClassType.Paladin, SpellSlotsByLevel.HalfCaster },
-            { CharacterClassType.Sorcerer, SpellSlotsByLevel.FullCaster },
-            { CharacterClassType.Warlock, SpellSlotsByLevel.Warlock },
-            { CharacterClassType.Wizard, SpellSlotsByLevel.FullCaster },
-            { CharacterClassType.ArcaneTrickster, SpellSlotsByLevel.Martial }
-        };
-
         private void SetSpellSlots(int level)
         {
-            totalSpellSlots = spellSlotsByClass[className][level];
+            totalSpellSlots = SpellSlotsByLevel.SlotsForClassAndLevel(className, level);
             availableSpellSlots = new List<int>(totalSpellSlots);
         }
 
@@ -176,7 +210,7 @@ namespace ICSheet5e.Model
 
         public bool TryUseFeature()
         {
-            return true; //can always cast cantrips
+            return SpellSlotsByLevel.CastingTypeForClassType[className] != SpellSlotsByLevel.CastingType.None;
         }
 
         public List<Spell> PreparedSpells
@@ -283,5 +317,58 @@ namespace ICSheet5e.Model
             { 19, new List<int>() { 4, 3, 3, 1, 0, 0, 0, 0, 0 }},
             { 20, new List<int>() { 4, 3, 3, 1, 0, 0, 0, 0, 0 }}
         };
+
+        static private Dictionary<CharacterClassType, Dictionary<int, List<int>>> spellSlotsByClass = new Dictionary<CharacterClassType, Dictionary<int, List<int>>>()
+        {
+            { CharacterClassType.Bard, SpellSlotsByLevel.FullCaster },
+            { CharacterClassType.Cleric, SpellSlotsByLevel.FullCaster },
+            { CharacterClassType.Druid, SpellSlotsByLevel.FullCaster },
+            { CharacterClassType.EldritchKnight, SpellSlotsByLevel.Martial },
+            { CharacterClassType.Paladin, SpellSlotsByLevel.HalfCaster },
+            { CharacterClassType.Sorcerer, SpellSlotsByLevel.FullCaster },
+            { CharacterClassType.Warlock, SpellSlotsByLevel.Warlock },
+            { CharacterClassType.Wizard, SpellSlotsByLevel.FullCaster },
+            { CharacterClassType.ArcaneTrickster, SpellSlotsByLevel.Martial },
+            { CharacterClassType.MultiClassCaster, FullCaster}
+        };
+
+        static public Dictionary<CharacterClassType, CastingType> CastingTypeForClassType = new Dictionary<CharacterClassType, CastingType>()
+        {
+            { CharacterClassType.ArcaneTrickster, CastingType.Martial },
+            { CharacterClassType.Bard, CastingType.Full },
+            { CharacterClassType.Cleric, CastingType.Full },
+            { CharacterClassType.Druid, CastingType.Full },
+            { CharacterClassType.EldritchKnight, CastingType.Martial },
+            { CharacterClassType.Paladin, CastingType.Half },
+            { CharacterClassType.Ranger, CastingType.Half },
+            { CharacterClassType.Rogue, CastingType.None },
+            { CharacterClassType.Sorcerer, CastingType.Full },
+            { CharacterClassType.Warlock, CastingType.Warlock },
+            { CharacterClassType.Wizard, CastingType.Full },
+            { CharacterClassType.Barbarian, CastingType.None },
+            { CharacterClassType.Fighter, CastingType.None },
+            { CharacterClassType.MultiClassCaster, CastingType.Full}
+        };
+
+        static public List<int> SlotsForClassAndLevel(CharacterClassType type, int level)
+        {
+            if (CastingTypeForClassType[type] != CastingType.None)
+            {
+                return spellSlotsByClass[type][level];
+            }
+            else
+            {
+                return new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            }
+        }
+
+        public enum CastingType
+        {
+            Full,
+            Half,
+            Martial,
+            Warlock,
+            None
+        }
     }
 }

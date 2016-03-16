@@ -19,12 +19,23 @@ namespace ICSheet5e.Model
         private List<Spell> _knownSpells = new List<Spell>();
         [DataMember]
         private CharacterClassType classType;
-        public SpellBook(Model.SpellManager spellDB, CharacterClassType className)
+        public SpellBook(Model.SpellManager spellDB, CharacterClassType className, List<CharacterClassType> subClasses = null)
         {
             dB = spellDB;
+            if (subClasses != null)
+            {
+                loadSpells(subClasses);
+            }
+            else { loadSpells(className); }
             classType = className;
-            loadSpells(className);
+        }
 
+        private void loadSpells(List<CharacterClassType> types)
+        {
+            foreach (var type in types)
+            {
+                loadSpells(type);
+            }
         }
 
         private void loadSpells(CharacterClassType className)

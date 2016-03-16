@@ -26,6 +26,7 @@ namespace ICSheet5e.Model
         Wizard,
         EldritchKnight,
         ArcaneTrickster,
+        MultiClassCaster
     }
 
     [DataContract]
@@ -353,7 +354,7 @@ namespace ICSheet5e.Model
             inventory.RemoveItem(item);
         }
 
-        public void setSpellCasting()
+        public void setSpellCasting() //update to support multiclassing
         {
             foreach (System.Tuple<CharacterClassType, int> entry in CharacterClassLevels)
             {
