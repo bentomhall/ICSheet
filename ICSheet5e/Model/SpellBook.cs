@@ -44,17 +44,26 @@ namespace ICSheet5e.Model
             foreach (var name in spellNames)
             {
                 var spell = dB.SpellDetailsFor(name);
-                _allSpells.Add(spell);
+                if (!IsSpellAlreadyAddedToList(spell)) { _allSpells.Add(spell); };
             }
             switch(className)
             {
                 case CharacterClassType.Cleric:
                 case CharacterClassType.Druid:
                 case CharacterClassType.Paladin:
-                    _knownSpells = new List<Spell>(_allSpells); //these classes know all their spells
+                    setKnownSpells(_allSpells); //these classes know all their spells
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void setKnownSpells(List<Spell> spells)
+        {
+            if (_knownSpells == null) { _knownSpells = new List<Spell>(); }
+            foreach (var spell in spells)
+            {
+                if (!IsSpellKnown(spell)) { _knownSpells.Add(spell); }
             }
         }
 
@@ -76,12 +85,12 @@ namespace ICSheet5e.Model
 
         public void AddKnownSpell(Spell spell)
         {
-            if (!_knownSpells.Contains(spell)) { _knownSpells.Add(spell); }
+            if (!IsSpellKnown(spell)) { _knownSpells.Add(spell); }
         }
 
         public void ToggleSpellPreparation(Spell spell)
         {
-            if (_knownSpells.Contains(spell)) { spell.IsPrepared = (!spell.IsPrepared); }
+            if (IsSpellKnown(spell)) { spell.IsPrepared = (!spell.IsPrepared); }
         }
 
         public void UnprepareAllSpells()
@@ -94,7 +103,12 @@ namespace ICSheet5e.Model
 
         public bool IsSpellKnown(Spell spell)
         {
-            return ((_knownSpells.SingleOrDefault(x => x.Name == spell.Name) != null) ? true : false);
+            return (_knownSpells.SingleOrDefault(x => x.Name == spell.Name) != null);
+        }
+
+        private bool IsSpellAlreadyAddedToList(Spell spell)
+        {
+            return _allSpells.SingleOrDefault(x => x.Name == spell.Name) != null;
         }
     }
 }

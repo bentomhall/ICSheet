@@ -86,8 +86,8 @@ namespace ICSheet5e.Model
         static public SpellCaster ConstructFromExisting(SpellCaster caster, Character source, List<Tuple<CharacterClassType, int>> levels, SpellManager spellDB)
         {
             var castingClasses = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
-            if (castingClasses.Count() == 1) { return caster; } //no change
-            if (castingClasses.Count() > 1 && caster.className != CharacterClassType.MultiClassCaster)
+            if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] != SpellSlotsByLevel.CastingType.None) { return caster; } //no change
+            else if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] == SpellSlotsByLevel.CastingType.None)
             {
                 return SpellCaster.Construct(levels, source, spellDB); //no known spells to worry about
             }
