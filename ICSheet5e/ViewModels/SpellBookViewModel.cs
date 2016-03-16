@@ -56,9 +56,12 @@ namespace ICSheet5e.ViewModels
             return new ObservableCollection<SpellViewModel>(_allSpellModels.Where(x => x.Level == level));
         }
 
-        public SpellBookViewModel(SpellCaster caster)
+        private SpellManager _dB;
+
+        public SpellBookViewModel(SpellCaster caster, SpellManager dB)
         {
             this._caster = caster;
+            _dB = dB;
             LoadAllSpells();
             _spellsForSelectedLevel = spellViewModelsForLevel(0);
         }
@@ -161,6 +164,32 @@ namespace ICSheet5e.ViewModels
         public string AvailableSpellSlots
         {
             get { return formatSpellSlots(); }
+        }
+
+        public ICommand LearnNewSpellCommand
+        {
+            get { return new Views.DelegateCommand<object>(LearnNewSpellCommandExecuted); }
+        }
+
+        private void LearnNewSpellCommandExecuted(object obj)
+        {
+            var type = Views.WindowManager.DialogType.AddNewSpellsDialog;
+            var model = new AddNewSpellViewModel(_dB);
+            Views.WindowManager.DisplayDialog(type, model, AddNewSpellDelegate);
+        }
+
+        public void AddNewSpellDelegate(IViewModel model)
+        {
+            if (model is AddNewSpellViewModel)
+            {
+                var spell = (model as AddNewSpellViewModel).SpellToLearn;
+                _caster.AddSpell(spell);
+                var vm = new SpellViewModel(spell);
+                vm.SpellKnown = true;
+                _allSpellModels.Add(vm);
+                _allSpells.Add(spell);
+                NotifyPropertyChanged("AllSpells");
+            }
         }
 
 

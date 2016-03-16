@@ -17,7 +17,8 @@
             <ColumnDefinition Width="113*"/>
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
-        <ListView Grid.Row="1" ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}">
+        <StackPanel Grid.Row="1">
+        <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" MinHeight="600">
             <ListView.Resources>
                 <ContextMenu x:Key="SpellContextMenu">
                     <MenuItem Header="Toggle Prepared" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
@@ -45,6 +46,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+            <Button Command="{Binding Path=LearnNewSpellCommand}">Add Other</Button>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button Content="Cast" Background="Green" Command="{Binding CastSpellCommand}" Margin="0,0,10,0"/>
             <xtk:IntegerUpDown DefaultValue="{Binding Path=SelectedSpell.Level}" Maximum="9" Minimum="{Binding Path=SelectedSpell.Level}" Value="{Binding Path=SpellLevel}" Width="66" DisplayDefaultValueOnEmptyText="True"/>

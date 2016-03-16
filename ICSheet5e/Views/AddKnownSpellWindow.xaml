@@ -1,0 +1,18 @@
+﻿<Window x:Class="ICSheet5e.Views.AddKnownSpellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddKnownSpellWindow" Height="300" Width="300">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <TextBox Width="230" Margin="2,2,5,2" Text="{Binding Path=SearchString}"></TextBox>
+            <Button Width="50" Command="{Binding Path=FindMatchingSpellsCommand}" IsDefault="True">Search</Button>
+        </StackPanel>
+        <ListBox Height="200" Margin="2,5,2,2" DockPanel.Dock="Top" ItemsSource="{Binding Path=MatchingSpells}" SelectedItem="{Binding Path=SpellToLearn}">
+            
+        </ListBox>
+        <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <Button IsCancel="True">Cancel</Button>
+            <Button Margin="10,0,0,0" Click="Button_Click" >Learn Spell</Button>
+        </StackPanel>
+    </DockPanel>
+</Window>
