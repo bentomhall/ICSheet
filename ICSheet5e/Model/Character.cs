@@ -343,7 +343,16 @@ namespace ICSheet5e.Model
 
         public void setSpellCasting() //update to support multiclassing
         {
-            spellBooks.Add(SpellCaster.Construct(CharacterClassLevels, this, SpellDB));
+            if (spellBooks.Count > 0)
+            {
+                var current = spellBooks[0];
+                spellBooks.Clear();
+                spellBooks.Add(SpellCaster.ConstructFromExisting(current, this, CharacterClassLevels, SpellDB));
+            } //update existing model
+            else
+            {
+                spellBooks.Add(SpellCaster.Construct(CharacterClassLevels, this, SpellDB));
+            }
         }
 
         public bool TryUseFeature(IClassFeature feature)

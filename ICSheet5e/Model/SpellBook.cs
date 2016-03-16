@@ -68,6 +68,11 @@ namespace ICSheet5e.Model
             get { return _knownSpells.Where(x => x.IsPrepared).ToList<Spell>(); }
         }
 
+        public List<Spell> AllKnownSpells
+        {
+            get { return _knownSpells; }
+        }
+
 
         public void AddKnownSpell(Spell spell)
         {

@@ -61,11 +61,13 @@ namespace Interactive_Character_Sheet_Core
 
         public int abilityModifierFor(AbilityType ability)
         {
+            if (ability == AbilityType.None) { return 0; }
             return abilities[ability].modifier;
         }
 
         public int AbilityScoreFor(AbilityType ability)
         {
+            if (ability == AbilityType.None) { return 10; }
             return abilities[ability].score;
         }
 

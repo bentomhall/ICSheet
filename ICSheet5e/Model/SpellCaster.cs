@@ -83,6 +83,25 @@ namespace ICSheet5e.Model
             }
         }
 
+        static public SpellCaster ConstructFromExisting(SpellCaster caster, Character source, List<Tuple<CharacterClassType, int>> levels, SpellManager spellDB)
+        {
+            var castingClasses = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
+            if (castingClasses.Count() == 1) { return caster; } //no change
+            if (castingClasses.Count() > 1 && caster.className != CharacterClassType.MultiClassCaster)
+            {
+                return SpellCaster.Construct(levels, source, spellDB); //no known spells to worry about
+            }
+            else
+            {
+                var sc = SpellCaster.Construct(levels, source, spellDB);
+                foreach (var spell in caster.spellBook.AllKnownSpells)
+                {
+                    sc.AddSpell(spell);
+                }
+                return sc;
+            }
+        }
+
         static private int castingLevel(List<Tuple<CharacterClassType, int>> levels)
         {
             var output = 0;
