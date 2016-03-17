@@ -8,6 +8,15 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900">
+    <UserControl.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="ToolTip">
+                <Setter.Value>
+                    <TextBlock Text="{Binding Path=FullDescription}" TextWrapping="Wrap" IsHyphenationEnabled="True" MaxWidth="200"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -169,7 +178,6 @@
                 </StackPanel>
                 <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
                 <ListBox ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
-
                     
                 </ListBox>
             </StackPanel>

@@ -33,5 +33,10 @@ namespace ICSheet5e.ViewModels
 
         public Model.Skill5e Skill { get; set; }
         public Action<Model.Skill5e> delegateProficiencyChanged;
+
+        public string FullDescription
+        {
+            get { return Name; }
+        }
     }
 }

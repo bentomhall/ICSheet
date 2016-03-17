@@ -456,10 +456,12 @@ namespace ICSheet5e.ViewModels
             get { return character.PreparedSpells; }
         }
 
+        private Model.Spell _selectedSpell;
+
         public Model.Spell SelectedPreparedSpell
         {
-            get;
-            set;
+            get { return _selectedSpell; }
+            set { _selectedSpell = value; NotifyPropertyChanged(); SelectedSpellLevel = value.Level; NotifyPropertyChanged("SelectedSpellLevel"); }
         }
 
         public CharacterViewModel() { }

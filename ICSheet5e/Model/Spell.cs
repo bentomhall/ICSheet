@@ -50,7 +50,7 @@ namespace ICSheet5e.Model
         {
             get
             {
-                return String.Format("Level: {0}\r\nCast Time: {1}\r\nRange: {2}\r\nDuration: {3}\r\n{4}", Level, CastTime, Range, Duration, Description);
+                return String.Format("Level: {0}\r\nCast Time: {1}\r\nRange: {2}\r\n{3}", Level, CastTime, Range, Description);
             }
         }
     }
