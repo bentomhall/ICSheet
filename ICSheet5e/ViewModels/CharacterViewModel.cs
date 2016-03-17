@@ -26,7 +26,26 @@ namespace ICSheet5e.ViewModels
         }
         private bool canEdit = false;
         private string _levels = "";
-        
+
+        public ObservableCollection<int> Gold
+        {
+            get { return ParseGold(character.Gold); }
+        }
+
+        private ObservableCollection<int> ParseGold(double gold)
+        {
+            var goldList = new ObservableCollection<int>();
+            var temp = gold;
+            int g = (int)Math.Truncate(temp);
+            temp = (temp - (double)g) * 100;
+            int s = (int)Math.Truncate(temp);
+            temp = (temp - (double)s) * 100;
+            int c = (int)Math.Truncate(temp);
+            goldList.Add(g);
+            goldList.Add(s);
+            goldList.Add(c);
+            return goldList;
+        }
         #region Attributes
         public int Strength
         {

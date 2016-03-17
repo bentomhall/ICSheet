@@ -42,6 +42,8 @@ namespace ICSheet5e.ViewModels
         {
             NotifyPropertyChanged("IsPrepared");
         }
+
+        
         
     }
 }

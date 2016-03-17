@@ -45,5 +45,13 @@ namespace ICSheet5e.Model
         {
             return Name;
         }
+
+        public string FullDescription
+        {
+            get
+            {
+                return String.Format("Level: {0}\r\nCast Time: {1}\r\nRange: {2}\r\nDuration: {3}\r\n{4}", Level, CastTime, Range, Duration, Description);
+            }
+        }
     }
 }

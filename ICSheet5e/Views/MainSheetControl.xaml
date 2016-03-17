@@ -168,7 +168,10 @@
                     <TextBlock Text="{Binding Path=SpellDC}" VerticalAlignment="Center" TextAlignment="Center"/>
                 </StackPanel>
                 <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
-                <ListBox ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" />
+                <ListBox ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
+
+                    
+                </ListBox>
             </StackPanel>
         </Border>
         <Border Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
@@ -177,8 +180,16 @@
                 <TextBox DockPanel.Dock="Top" Text="{Binding Path=Notes}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"></TextBox>
             </DockPanel>
         </Border>
-        <Border Grid.Column="8" Grid.ColumnSpan="1" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White"></Border>
-            <!--Put gold here -->
+        <Border Grid.Column="8" Grid.ColumnSpan="1" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
+            <UniformGrid Rows="3" Columns="2">
+                <Label Height="25" Margin="0,0,4,0" VerticalContentAlignment="Center">Gold:</Label>
+                <TextBlock Text="{Binding Path=Gold[0]}" VerticalAlignment="Center" MinWidth="50"/>
+                <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Silver:</Label>
+                <TextBlock Text="{Binding Path=Gold[1]}" VerticalAlignment="Center" MinWidth="50"/>
+                <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Copper</Label>
+                <TextBlock Text="{Binding Path=Gold[2]}" VerticalAlignment="Center" MinWidth="50"/>
+            </UniformGrid>
+        </Border>
         <Border Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
             <!--put features here -->
         </Border>
