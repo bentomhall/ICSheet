@@ -19,9 +19,9 @@ namespace ICSheet5e.Model
             var doc = XDocument.Parse(_raceFeaturesXML);
             var subRaceName = forRace.ToString();
             string raceName = null;
-            if (forRace.superType != null)
+            if (forRace.SuperType != null)
             {
-                raceName = new Race(forRace.superType.Value).ToString(); //ugh
+                raceName = new Race(forRace.SuperType.Value).ToString(); //ugh
             }
             else
             {

@@ -74,7 +74,10 @@ namespace ICSheet5e.Model
 
         public List<Spell> AllPreparedSpells
         {
-            get { return _knownSpells.Where(x => x.IsPrepared).ToList<Spell>(); }
+            get 
+            {
+                return _knownSpells.Where(x => x.IsPrepared).ToList<Spell>(); 
+            }
         }
 
         public List<Spell> AllKnownSpells
@@ -90,7 +93,11 @@ namespace ICSheet5e.Model
 
         public void ToggleSpellPreparation(Spell spell)
         {
-            if (IsSpellKnown(spell)) { spell.IsPrepared = (!spell.IsPrepared); }
+            if (IsSpellKnown(spell)) 
+            {
+                var sp = _knownSpells.SingleOrDefault(x => x.Name == spell.Name);
+                sp.IsPrepared = (!sp.IsPrepared); 
+            }
         }
 
         public void UnprepareAllSpells()

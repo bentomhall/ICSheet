@@ -128,9 +128,14 @@ namespace ICSheet5e.ViewModels
 
         private void setViewModels()
         {
-            ViewModels[0] = new CharacterViewModel(currentCharacter, this);
+            var cvm = new CharacterViewModel(currentCharacter, this);
+            ViewModels[0] = cvm;
             ViewModels[1] = new InventoryViewModel(currentCharacter, this);
-            if (CanCastSpells) { ViewModels[3] = new SpellBookViewModel(currentCharacter.Spellcasting[0], spellDB); }
+            if (CanCastSpells) { 
+                var sp = new SpellBookViewModel(currentCharacter.Spellcasting[0], spellDB);
+                sp.PropertyChanged += cvm.OnEquipmentChanged;
+                ViewModels[3] = sp;
+            }
             
             if (ViewModels[0] as CharacterViewModel != null)
             {

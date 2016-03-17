@@ -41,6 +41,7 @@
     <Compile Include="IDefense.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="IRace.cs" />
     <Compile Include="ISkill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisionType.cs" />

@@ -92,6 +92,9 @@ namespace ICSheet5e.Model
         [DataMember]
         public string Notes { get; set; }
 
+        [DataMember]
+        public Race CharacterRace { get; set; }
+
         public Character()
         {
             skills = new SkillList<Skill5e>(Edition.Fifth);
@@ -99,7 +102,7 @@ namespace ICSheet5e.Model
             inventory = new Inventory<Item>(10);
             inventory.EquipmentChanged += EquipmentChangeHandler;
             CharacterName = "";
-            Race = "";
+            CharacterRace = new Race(Model.Race.RaceType.Human);
             MaxHealth = 1;
             _currentHealth = 1;
             Resistances = new List<DamageType>();
@@ -110,10 +113,10 @@ namespace ICSheet5e.Model
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
 
-        public Character(string characterName, CharacterClasses classLevels, string race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills)
+        public Character(string characterName, CharacterClasses classLevels, Race race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills)
         {
             CharacterName = characterName;
-            Race = race;
+            CharacterRace = race;
             this.abilities = abilitySet; //set in base
             CharacterClassLevels = classLevels;
             int totalLevel = classLevels.Sum(x => x.Item2);
@@ -135,7 +138,7 @@ namespace ICSheet5e.Model
         {
             CharacterClassLevels = levels;
             CharacterName = characterName;
-            Race = race;
+            CharacterRace = race;
             int totalLevel = levels.Sum(x => x.Item2);
             _proficiencyBonus = calculateProficiency(totalLevel);
             InitializeDefenses();
@@ -451,9 +454,15 @@ namespace ICSheet5e.Model
         }
         private void InitializeMovement()
         {
-            if (Race.Contains("Dwarf"))
+            if (CharacterRace.Value == Race.RaceType.Dwarf || CharacterRace.SuperType == Race.RaceType.Dwarf || 
+                CharacterRace.SuperType == Race.RaceType.Halfling || CharacterRace.Value == Race.RaceType.Halfling || 
+                CharacterRace.Value == Race.RaceType.Gnome || CharacterRace.SuperType == Race.RaceType.Gnome)
             {
                 Movement = 25;
+            }
+            else if (CharacterRace.Value == Race.RaceType.WoodElf)
+            {
+                Movement = 35;
             }
             else
             {

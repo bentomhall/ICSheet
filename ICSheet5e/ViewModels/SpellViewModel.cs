@@ -40,6 +40,7 @@ namespace ICSheet5e.ViewModels
 
         public void PrepareSpell()
         {
+            _spell.IsPrepared = (!_spell.IsPrepared);
             NotifyPropertyChanged("IsPrepared");
         }
 

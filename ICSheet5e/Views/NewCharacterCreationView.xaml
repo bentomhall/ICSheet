@@ -15,7 +15,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Race:</Label>
-            <ComboBox DockPanel.Dock="Top" Width="700" Height="50" HorizontalAlignment="Right" ItemsSource="{Binding Race}" SelectedItem="{Binding Path=CharacterRace}"></ComboBox>
+            <ComboBox DockPanel.Dock="Top" Width="700" Height="50" HorizontalAlignment="Right" ItemsSource="{Binding Path=RaceList}" SelectedItem="{Binding Path=CharacterRace}"></ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Class 1:</Label>

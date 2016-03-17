@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using Interactive_Character_Sheet_Core;
 
 namespace ICSheet5e.Model
 {
-    class Race
+    [DataContract]
+    public class Race
     {
         public enum RaceType
         {
@@ -31,6 +34,7 @@ namespace ICSheet5e.Model
             Tiefling
         }
 
+        [DataMember]
         private Dictionary<RaceType, string> _raceNameMap = new Dictionary<RaceType, string>()
         {
             { RaceType.DarkElf, "Dark Elf"},
@@ -54,7 +58,7 @@ namespace ICSheet5e.Model
             { RaceType.WoodElf, "Wood Elf"},
         };
 
-        public Nullable<RaceType> superType
+        public Nullable<RaceType> SuperType
         {
             get
             {
@@ -82,6 +86,7 @@ namespace ICSheet5e.Model
             }
         }
 
+        [DataMember]
         public RaceType Value { get; private set; }
 
         public override string ToString()

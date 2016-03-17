@@ -11,6 +11,7 @@ namespace ICSheet5e.Model
     [DataContract]
     public class SpellCaster: IClassFeature, ICSheet5e.Model.ISpellCaster
     {
+        public void Clear() { spellBook.UnprepareAllSpells(); }
         public void AddDescriptionText(string newText) { return; }
         static public Tuple<List<int>,List<int>> Empty
         {
@@ -196,7 +197,7 @@ namespace ICSheet5e.Model
         [DataMember]
         private SpellBook spellBook;
         [DataMember]
-        private int maxPreparedSpells = 10;
+        private int maxPreparedSpells = 99; //fake, not currently working
         [DataMember]
         private int currentPrepared = 0;
 

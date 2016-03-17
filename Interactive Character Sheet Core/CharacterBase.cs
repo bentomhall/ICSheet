@@ -25,7 +25,6 @@ namespace Interactive_Character_Sheet_Core
                 return dice;
             }
         }
-        [DataMember] public string Race { get; set; }
         [DataMember] public string CharacterName { get; set; }
         #region Initiative
         [DataMember] protected int initiativeModifier = 0;

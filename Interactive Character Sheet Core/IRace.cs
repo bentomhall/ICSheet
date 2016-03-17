@@ -1,9 +1,14 @@
 ﻿using System;
-namespace ICSheet5e.Model
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Interactive_Character_Sheet_Core
 {
-    interface IRace
+    public interface IRace
     {
         string ToString();
-        Race.RaceType Value { get; }
+        Enum Value { get; }
     }
 }

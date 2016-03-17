@@ -276,9 +276,9 @@ namespace ICSheet5e.ViewModels
         {
             get { return character.CharacterName; }
         }
-        public string Race
+        public Model.Race Race
         {
-            get { return character.Race; }
+            get { return character.CharacterRace; }
         }
         
         public string Levels
@@ -453,7 +453,10 @@ namespace ICSheet5e.ViewModels
 
         public List<Model.Spell> PreparedSpells
         {
-            get { return character.PreparedSpells; }
+            get 
+            {
+                return character.PreparedSpells; 
+            }
         }
 
         private Model.Spell _selectedSpell;
