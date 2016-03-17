@@ -108,7 +108,7 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterInformationReceived(string name, string race, List<System.Tuple<Model.CharacterClassType, int>> classes)
+        public void NewCharacterInformationReceived(string name, Model.Race race, List<System.Tuple<Model.CharacterClassType, int>> classes)
         {
             currentCharacter = new Model.Character(name, classes, race);
             currentCharacter.ItemDB = itemDB;

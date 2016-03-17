@@ -10,8 +10,17 @@ namespace ICSheet5e.ViewModels
 {
     public class NewCharacterViewModel:BaseViewModel
     {
+        public NewCharacterViewModel():base()
+        {
+            RaceList = new List<Model.Race>();
+            foreach (var rtype in _allRaceTypes)
+            {
+                RaceList.Add(new Model.Race(rtype));
+            }
+        }
+
         public string CharacterName { get; set; }
-        public string Race { get; set; }
+        public Model.Race CharacterRace { get; set; }
         public List<string> Classes
         {
             get { return classes; }
@@ -52,6 +61,31 @@ namespace ICSheet5e.ViewModels
             {"Eldritch Knight*", Model.CharacterClassType.EldritchKnight},
             {"Arcane Trickster*", Model.CharacterClassType.ArcaneTrickster}
         };
+
+        private List<Model.Race.RaceType> _allRaceTypes = new List<Model.Race.RaceType>()
+        {
+            Model.Race.RaceType.DarkElf,
+            Model.Race.RaceType.Dragonborn,
+            Model.Race.RaceType.Dwarf,
+            Model.Race.RaceType.Elf,
+            Model.Race.RaceType.ForestGnome,
+            Model.Race.RaceType.Gnome,
+            Model.Race.RaceType.HalfElf,
+            Model.Race.RaceType.Halfling,
+            Model.Race.RaceType.HalfOrc,
+            Model.Race.RaceType.HighElf,
+            Model.Race.RaceType.HillDwarf,
+            Model.Race.RaceType.Human,
+            Model.Race.RaceType.Lightheart,
+            Model.Race.RaceType.MountainDwarf,
+            Model.Race.RaceType.RockGnome,
+            Model.Race.RaceType.Stout,
+            Model.Race.RaceType.Tiefling,
+            Model.Race.RaceType.VariantHuman,
+            Model.Race.RaceType.WoodElf
+        };
+
+        public List<Model.Race> RaceList { get; set; }
 
         private List<Tuple<Model.CharacterClassType, int>> levels =  new List<Tuple<Model.CharacterClassType,int>>();
 
@@ -143,7 +177,7 @@ namespace ICSheet5e.ViewModels
 
             if (delegateAction != null)
             {
-                delegateAction(CharacterName, Race, levels);
+                delegateAction(CharacterName, CharacterRace, levels);
             }
 
         }
@@ -166,12 +200,12 @@ namespace ICSheet5e.ViewModels
         {
             bool canExecute = true;
             canExecute = canExecute && (CharacterName != null);
-            canExecute = canExecute && (Race != null);
+            canExecute = canExecute && (CharacterRace != null);
             canExecute = canExecute && (_levels1 != 0);
             canExecute = canExecute && (_class1 != "");
             CanExecute = canExecute;
         }
 
-        public Action<string, string, List<Tuple<Model.CharacterClassType, int>>> delegateAction { get; set; }
+        public Action<string, Model.Race, List<Tuple<Model.CharacterClassType, int>>> delegateAction { get; set; }
     }
 }

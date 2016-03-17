@@ -130,7 +130,7 @@ namespace ICSheet5e.Model
             InitializeDefenses();
         }
 
-        public Character(string characterName, CharacterClasses levels, string race)
+        public Character(string characterName, CharacterClasses levels, Race race)
             : this()
         {
             CharacterClassLevels = levels;
