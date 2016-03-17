@@ -11,6 +11,7 @@ namespace ICSheet5e.Model
     [DataContract]
     public class SpellCaster: IClassFeature, ICSheet5e.Model.ISpellCaster
     {
+        public void AddDescriptionText(string newText) { return; }
         static public Tuple<List<int>,List<int>> Empty
         {
             get

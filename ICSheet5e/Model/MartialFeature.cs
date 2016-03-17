@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace ICSheet5e.Model
 {
     [DataContract]
-    class MartialFeature: IClassFeature
+    public class MartialFeature: IClassFeature
     {
         [DataMember] string _name;
         [DataMember] string _description;
@@ -29,7 +29,7 @@ namespace ICSheet5e.Model
             public UnuseableException(string message, Exception inner) : base(message, inner) { }
         }
 
-        MartialFeature(string name, string description, string uses)
+        public MartialFeature(string name, string description, string uses)
         {
             _name = name;
             _description = description;
@@ -41,6 +41,11 @@ namespace ICSheet5e.Model
         public override string ToString()
         {
             return String.Format("{0}: {1}",_name, _description);
+        }
+
+        public void AddDescriptionText(string newText)
+        {
+            _description += String.Format(" {0}", newText);
         }
 
         public bool TryUseFeature()

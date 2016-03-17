@@ -122,6 +122,22 @@ namespace ICSheet5e.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;FeatureSet&gt;
+        ///  &lt;Race Name=&quot;Dwarf&quot;&gt;
+        ///    &lt;Feature Name=&quot;Ability Bonus&quot;&gt;+2 CON&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Speed&quot;&gt;Your speed is not reduced by wearing heavy armor.&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Vision&quot;&gt;Darkvision: 60ft&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Dwarven Resilience&quot;&gt;Advantage on saves vs poison and resistance to poison damage.&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Dwarven Combat Training&quot;&gt;You have proficiency with battleaxe, handaxe, light hammer, and warhammer.&lt;/Feature&gt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string RacialFeatures {
+            get {
+                return ResourceManager.GetString("RacialFeatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;SpellList&gt;
         ///&lt;CastingClass Name=&quot;bard&quot;&gt;
         ///&lt;Spell Name=&quot;Animal Friendship&quot;/&gt;

@@ -12,6 +12,8 @@ namespace ICSheet5e.Model
         string Uses { get; }
         string Description { get; }
         string ToString();
+        
+        void AddDescriptionText(string newText);
 
         bool TryUseFeature();
         void ResetUses();

@@ -54,14 +54,42 @@ namespace ICSheet5e.Model
             { RaceType.WoodElf, "Wood Elf"},
         };
 
-        public RaceType Race { get; private set; }
+        public Nullable<RaceType> superType
+        {
+            get
+            {
+                switch (Value)
+                {
+                    case RaceType.DarkElf:
+                    case RaceType.HighElf:
+                    case RaceType.WoodElf:
+                        return RaceType.Elf;
+                    case RaceType.ForestGnome:
+                    case RaceType.RockGnome:
+                        return RaceType.Gnome;
+                    case RaceType.MountainDwarf:
+                    case RaceType.HillDwarf:
+                        return RaceType.Dwarf;
+                    case RaceType.Lightheart:
+                    case RaceType.Stout:
+                        return RaceType.Halfling;
+                    case RaceType.VariantHuman:
+                        return RaceType.Human;
+                    default:
+                        return null;
+                    
+                }
+            }
+        }
+
+        public RaceType Value { get; private set; }
 
         public override string ToString()
         {
-            if (_raceNameMap.Keys.Contains(this.Race)) { return _raceNameMap[this.Race]; }
+            if (_raceNameMap.Keys.Contains(this.Value)) { return _raceNameMap[this.Value]; }
             else { return "Unknown Race"; }
         }
 
-        public Race(RaceType race) { this.Race = race; }
+        public Race(RaceType race) { this.Value = race; }
     }
 }
