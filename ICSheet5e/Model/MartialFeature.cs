@@ -40,7 +40,7 @@ namespace ICSheet5e.Model
 
         public override string ToString()
         {
-            return _description;
+            return String.Format("{0}: {1}",_name, _description);
         }
 
         public bool TryUseFeature()

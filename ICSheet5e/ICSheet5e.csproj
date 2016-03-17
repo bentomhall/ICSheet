@@ -95,9 +95,11 @@
     <Compile Include="Model\ArmorItem.cs" />
     <Compile Include="Model\ISpellCaster.cs" />
     <Compile Include="Model\ItemDataBase.cs" />
+    <Compile Include="Model\Race.cs" />
     <Compile Include="Model\SpellBook.cs" />
     <Compile Include="Model\SpellManager.cs" />
     <Compile Include="Model\WeaponItem.cs" />
+    <Compile Include="Model\XMLFeatureFactory.cs" />
     <Compile Include="ViewModels\AddNewSpellViewModel.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttackViewModel.cs" />
@@ -280,6 +282,7 @@
     <Resource Include="Resources\spell_list.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\RacialFeatures.xml" />
     <Resource Include="Resources\tall-human-silhouette.png" />
     <Content Include="Resources\tall-human-silhouette.svg" />
     <Resource Include="credits.txt" />
