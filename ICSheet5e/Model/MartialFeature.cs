@@ -15,10 +15,13 @@ namespace ICSheet5e.Model
         [DataMember] string _uses;
         [DataMember] int _usesRemainingToday;
         [DataMember] int _totalUses;
+        [DataMember]
+        int _minimumLevel = 1;
 
         public string Name { get { return _name; } }
         public string Description { get { return _description; } }
         public string Uses { get { return _uses; } }
+        public int MinimumLevel { get { return _minimumLevel; } set { _minimumLevel = value; } }
 
         public class UnuseableException: System.Exception
         {

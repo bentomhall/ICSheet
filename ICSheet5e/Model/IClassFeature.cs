@@ -11,6 +11,7 @@ namespace ICSheet5e.Model
         string Name { get; }
         string Uses { get; }
         string Description { get; }
+        int MinimumLevel { get; }
         string ToString();
         
         void AddDescriptionText(string newText);

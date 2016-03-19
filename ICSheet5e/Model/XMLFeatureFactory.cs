@@ -12,7 +12,7 @@ namespace ICSheet5e.Model
     class XMLFeatureFactory
     {
         private string _raceFeaturesXML = ICSheet5e.Properties.Resources.RacialFeatures;
-        private string _classFeaturesXMLPath;
+        private string _classFeaturesXMLPath = ICSheet5e.Properties.Resources.ClassFeatures;
 
         public List<IClassFeature> RacialFeatures(Race forRace)
         {
@@ -26,25 +26,21 @@ namespace ICSheet5e.Model
             else
             {
                 raceName = subRaceName;
+                subRaceName = null;
             }
-            var racialElement = doc.Elements("Race").SingleOrDefault(x => x.Attribute("Name").Value == raceName);
+            var racialElement = doc.Descendants("Race").SingleOrDefault(x => x.Attribute("Name").Value == raceName);
             return ExtractRacialFeatures(racialElement, subRaceName);
-        }
-
-        public List<IClassFeature> ClassFeatures(CharacterClassType classType)
-        {
-            throw new NotImplementedException();
         }
 
         private List<IClassFeature> ExtractRacialFeatures(XElement e, string subRaceName)
         {
             List<IClassFeature> features = new List<IClassFeature>();
-            foreach (var node in e.Descendants("Feature"))
+            foreach (var node in e.Elements("Feature"))
             {
                 string featureName = node.Attribute("Name").Value;
                 string text = node.Value;
                 string uses = "";
-                if (node.Attribute("HasLimitedUse").Value == "True")
+                if (node.Attribute("HasLimitedUse") != null && node.Attribute("HasLimitedUse").Value == "True")
                 {
                     uses = "1/day";
                 }
@@ -53,14 +49,15 @@ namespace ICSheet5e.Model
             }
             if (subRaceName != null)
             {
-                var subRace = e.Descendants("SubRace").SingleOrDefault(x => x.Attribute("Name").Value == subRaceName);
+                var subRace = e.Elements("Subrace").SingleOrDefault(x => x.Attribute("Name").Value == subRaceName);
                 
                 var subFeatures = ExtractRacialFeatures(subRace, null);
                 var subBonus = subFeatures.SingleOrDefault(x => x.Name == "Ability Bonus");
                 var abilityScoreFeature = features.SingleOrDefault(x => x.Name == "Ability Bonus");
-                if (subRace.LastAttribute.Value == "Replaces") //variant human
+                if (subRace.LastAttribute.Name == "Replaces") //variant human
                 {
-                    features.Remove(features.SingleOrDefault(x => x.Name == "Ability Bonus"));
+                    var name = subRace.LastAttribute.Value;
+                    features.Remove(features.SingleOrDefault(x => x.Name == name));
                 }
                 else //all other subraces
                 {
@@ -69,6 +66,32 @@ namespace ICSheet5e.Model
                 }
                 
                 features.AddRange(subFeatures);
+            }
+            return features;
+        }
+
+        public List<IClassFeature> ClassFeatures(CharacterClassType classType)
+        {
+            var doc = XDocument.Parse(_classFeaturesXMLPath);
+            XElement classRoot;
+            if (classType == CharacterClassType.ArcaneTrickster) { classRoot = doc.Descendants("Rogue").First(); }
+            else if (classType == CharacterClassType.EldritchKnight) { classRoot = doc.Descendants("Fighter").First(); }
+            else { classRoot = doc.Descendants(classType.ToString()).First(); }
+            return ExtractClassFeatures(classRoot);
+        }
+
+        private List<IClassFeature> ExtractClassFeatures(XElement e)
+        {
+            List<IClassFeature> features = new List<IClassFeature>();
+            foreach (var node in e.Descendants("Feature"))
+            {
+                var featureName = node.Attribute("Name").Value;
+                var text = node.Value;
+                var uses = "";
+                var minLevel = int.Parse(node.Attribute("StartLevel").Value);
+                var f = new MartialFeature(featureName, text, uses);
+                f.MinimumLevel = minLevel;
+                features.Add(f);
             }
             return features;
         }

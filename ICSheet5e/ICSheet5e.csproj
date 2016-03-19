@@ -93,6 +93,7 @@
     <Compile Include="EventCoordinator\IChangeNotificationReceiver.cs" />
     <Compile Include="EventCoordinator\MulticastEventCoordinator.cs" />
     <Compile Include="Model\ArmorItem.cs" />
+    <Compile Include="Model\CharacterFactory.cs" />
     <Compile Include="Model\ISpellCaster.cs" />
     <Compile Include="Model\ItemDataBase.cs" />
     <Compile Include="Model\Race.cs" />
@@ -282,6 +283,7 @@
     <Resource Include="Resources\spell_list.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\ClassFeatures.xml" />
     <Resource Include="Resources\RacialFeatures.xml" />
     <Resource Include="Resources\tall-human-silhouette.png" />
     <Content Include="Resources\tall-human-silhouette.svg" />

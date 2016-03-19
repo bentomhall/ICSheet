@@ -153,6 +153,13 @@ namespace ICSheet5e.Model
         }
 
         [DataMember]
+        private bool _isSpellCaster = false;
+        public bool IsSpellCaster
+        {
+            get { return _isSpellCaster; }
+        }
+
+        [DataMember]
         public int ArmorClass
         {
             get { return Defenses.Single(x => x.type == DefenseType.Armor).value; }
@@ -356,6 +363,7 @@ namespace ICSheet5e.Model
             {
                 spellBooks.Add(SpellCaster.Construct(CharacterClassLevels, this, SpellDB));
             }
+            _isSpellCaster = (spellBooks[0].SpellAttackModifier != 0);
         }
 
         public bool TryUseFeature(IClassFeature feature)

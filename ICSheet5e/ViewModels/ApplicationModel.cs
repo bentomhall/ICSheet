@@ -64,7 +64,7 @@ namespace ICSheet5e.ViewModels
             get 
             {
                 if (currentCharacter == null) return false;
-                return currentCharacter.Spellcasting.Count > 0;
+                return currentCharacter.IsSpellCaster;
             }
         }
 
@@ -110,9 +110,10 @@ namespace ICSheet5e.ViewModels
 
         public void NewCharacterInformationReceived(string name, Model.Race race, List<System.Tuple<Model.CharacterClassType, int>> classes)
         {
-            currentCharacter = new Model.Character(name, classes, race);
-            currentCharacter.ItemDB = itemDB;
-            currentCharacter.SpellDB = spellDB;
+            var characterBuilder = new Model.CharacterFactory(name, race, classes, itemDB, spellDB);
+            currentCharacter = characterBuilder.Build();
+            //currentCharacter.ItemDB = itemDB;
+            //currentCharacter.SpellDB = spellDB;
             setViewModels();
         }
 
@@ -217,7 +218,7 @@ namespace ICSheet5e.ViewModels
             if (vm == null) { return; }
             var newLevels = vm.ChosenClassLevels;
             currentCharacter.DoLevelUp(newLevels);
-            if (currentCharacter.Spellcasting.Count > 0)
+            if (currentCharacter.IsSpellCaster)
             {
                 NotifyPropertyChanged("CanCastSpells");
                 if (ViewModels[3] is BaseViewModel && CanCastSpells) //change enabled spellcasting

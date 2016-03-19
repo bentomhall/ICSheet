@@ -68,11 +68,11 @@
     <Feature Name="Ability Bonus">+1 to all.</Feature>
     <Feature Name="Speed">30 ft/round.</Feature>
     <Feature Name="Languages">Common and one extra of your choice.</Feature>
-    <Variant Name="Variant Human" Replaces="Ability Bonus">
+    <Subrace Name="Variant Human" Replaces="Ability Bonus">
       <Feature Name="Ability Bonus">+1 to two of your choice.</Feature>
       <Feature Name="Skills">Proficiency in 1 skill of your choice.</Feature>
       <Feature Name="Feat">You gain one feat of your choice.</Feature>
-    </Variant>
+    </Subrace>
   </Race>
   <Race Name="Dragonborn">
     <Feature Name="Ability Bonus">+2 STR, +1 CHA</Feature>

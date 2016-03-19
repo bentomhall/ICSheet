@@ -111,6 +111,23 @@ namespace ICSheet5e.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;ClassFeatures&gt;
+        ///  &lt;PCClass Name=&quot;Barbarian&quot;&gt;
+        ///    &lt;Feature Name=&quot;Hit Dice&quot;&gt;d12&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Hit Points&quot;&gt;12 + CON; 1d12 (7) + CON after 1st&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Armor Proficiencies&quot;&gt;Light, Medium, Shields&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Weapon Proficiencies&quot;&gt;Simple, martial&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Tool Proficiencies&quot;&gt;None&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Rage&quot;&gt;Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon att [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ClassFeatures {
+            get {
+                return ResourceManager.GetString("ClassFeatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap inventory_background {

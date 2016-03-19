@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ClassFeatures>
+  <PCClass Name="Barbarian">
+    <Feature Name="Hit Dice">d12</Feature>
+    <Feature Name="Hit Points">12 + CON; 1d12 (7) + CON after 1st</Feature>
+    <Feature Name="Armor Proficiencies">Light, Medium, Shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, martial</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Rage">Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon attacks. Resistance to bludgeoning, piercing, slashing. Can't cast spells while raging. Duration: 1 minute or end of first round that you haven't taken damage or attacked a hostile creature.</Feature>
+    <Feature Name="Unarmored Defense">Armor Class when unarmored is 10 + DEX + CON (stacks with shields).</Feature>
+    <Feature Name="Reckless Attack" StartLevel="2">Gives/grants advantage on attack rolls (toggle on first attack of turn).</Feature>
+    <Feature Name="Danger Sense" StartLevel="2">Advantage on Dex saves against effects you can see. Inactive if blinded, deafened, or incapacitated.</Feature>
+    <Feature Name="Extra Attack" StartLevel="5">You can attack 2x per Attack action.</Feature>
+    <Feature Name="Fast Movement" StartLevel="5">Gain 10 ft/round speed while not wearing Heavy Armor.</Feature>
+    <Feature Name="Feral Instinct" StartLevel="7">Advantage on initiative. You can act on surprise rounds if you rage first thing.</Feature>
+    <Feature Name="Brutal Critical" StartLevel="9">Extra weapon damage on crit increases by 1 weapon dice. Increases to +2 at 13th and +3 at 17th.</Feature>
+    <Feature Name="Relentless Rage" StartLevel="11">If you drop to 0 HP while raging you can make a DC 10 CON save and drop to 1 HP instead. Each time you use it the DC increases by 5. DC resets after long rest.</Feature>
+    <Feature Name="Persistent Rage" StartLevel="15">Rage only ends early if you fall unconscious or choose to end it.</Feature>
+    <Feature Name="Indomitable Might" StartLevel="18">Use the larger of your STR score or STR check result.</Feature>
+    <Feature Name="Primal Champion" StartLevel="20">STR and CON scores increase by 4 each, up to 24 max.</Feature>
+    <Feature Name="Primal Path" StartLevel="3">See PHB for details.</Feature>
+  </PCClass>
+  <PCClass Name="Bard">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">Light</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, hand crossbows, longswords, rapiers, shortswords.</Feature>
+    <Feature Name="Tool Proficiencies">3 musical instruments of your choice.</Feature>
+    <Feature Name="Spellcasting">Bard Spellcasting (CHA)</Feature>
+    <Feature Name="Ritual Casting">Can cast bard (ritual) spells as rituals.</Feature>
+    <Feature Name="Spellcasting Focus">Musical instruments</Feature>
+    <Feature Name="Bardic Inspiration" HasLimitedUse="True">See PHB 53.</Feature>
+    <Feature Name="Jack of All Trades" StartLevel="2">Add 1/2 proficiency to ability checks that do not include proficiency bonus.</Feature>
+    <Feature Name="Song of Rest" StartLevel="2">Friendly creatures gain 1d6 (1d8 at 9th, 1d10 at 13th, 1d12 at 17th) extra health from using HD on short rests.</Feature>
+    <Feature Name="Bard College" StartLevel="3">See PHB 54.</Feature>
+    <Feature Name="Expertise" StartLevel="3">Choose 2 skills to get double proficiency. At 10th level choose 2 more.</Feature>
+    <Feature Name="Font of Inspiration" StartLevel="5">Regain Bardic Inspiration uses on short or long rest.</Feature>
+    <Feature Name="Countercharm" StartLevel="6">As action grant friendlies within 30 feet advantage on saves vs fear or charm until end of your next turn.</Feature>
+    <Feature Name="Magical Secrets" StartLevel="10">Learn 2 extra spells from any class. Choose 2 more at 14th and at 18th.</Feature>
+    <Feature Name="Superior Inspiration" StartLevel="20">If you roll initiative with no Bardic Inspiration uses left, you regain one use.</Feature>
+  </PCClass>
+  
+</ClassFeatures>

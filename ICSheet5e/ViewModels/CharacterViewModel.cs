@@ -249,7 +249,7 @@ namespace ICSheet5e.ViewModels
 
         public bool CanCastSpells 
         {
-            get { return character.Spellcasting.Count > 0; }
+            get { return character.IsSpellCaster; }
         }
 
         public string AvailableSpellSlots
