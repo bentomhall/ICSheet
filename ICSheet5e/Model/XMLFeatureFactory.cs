@@ -74,10 +74,15 @@ namespace ICSheet5e.Model
         {
             var doc = XDocument.Parse(_classFeaturesXMLPath);
             XElement classRoot;
-            if (classType == CharacterClassType.ArcaneTrickster) { classRoot = doc.Descendants("Rogue").First(); }
-            else if (classType == CharacterClassType.EldritchKnight) { classRoot = doc.Descendants("Fighter").First(); }
-            else { classRoot = doc.Descendants(classType.ToString()).First(); }
+            if (classType == CharacterClassType.ArcaneTrickster) { classRoot = FindSingleElementByNameAttribute("PCClass", "Rogue", doc.Root); }
+            else if (classType == CharacterClassType.EldritchKnight) { classRoot = FindSingleElementByNameAttribute("PCClass", "Fighter", doc.Root); }
+            else { classRoot = FindSingleElementByNameAttribute("PCClass", classType.ToString(), doc.Root); }
             return ExtractClassFeatures(classRoot);
+        }
+
+        private XElement FindSingleElementByNameAttribute(string XName, string attributeName, XElement inElement)
+        {
+            return inElement.Elements(XName).First(x => x.Attribute("Name").Value == attributeName);
         }
 
         private List<IClassFeature> ExtractClassFeatures(XElement e)
@@ -88,9 +93,9 @@ namespace ICSheet5e.Model
                 var featureName = node.Attribute("Name").Value;
                 var text = node.Value;
                 var uses = "";
-                var minLevel = int.Parse(node.Attribute("StartLevel").Value);
                 var f = new MartialFeature(featureName, text, uses);
-                f.MinimumLevel = minLevel;
+                if (node.Attribute("StartLevel") != null) { f.MinimumLevel = int.Parse(node.Attribute("StartLevel").Value); }
+                else { f.MinimumLevel = 1; }
                 features.Add(f);
             }
             return features;
