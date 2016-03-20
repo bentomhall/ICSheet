@@ -215,12 +215,30 @@ namespace ICSheet5e.Model
             }
         }
 
-        public void DoLevelUp(List<Tuple<CharacterClassType, int>> newLevels)
+        public void DoLevelUp(List<Tuple<CharacterClassType, int>> newLevels, IEnumerable<MartialFeature> newFeatures)
         {
+
             CharacterClassLevels = newLevels;
             RecalculateDependentBonuses();
             setSpellCasting();
             NotifyPropertyChanged("Levels");
+            foreach (var feature in newFeatures)
+            {
+                if (feature.Name == "Hit Dice")
+                {
+                    features.SingleOrDefault(x => x.Name == "Hit Dice").AddDescriptionText("+"+feature.Description.Remove(0, 9));
+                }
+                else if (feature.Name.Contains("Proficiency")) { continue; }
+                var existingFeature = Features.SingleOrDefault(x => x.Name == feature.Name);
+                if (existingFeature != null)
+                {
+                    existingFeature.AddDescriptionText(feature.Description.Replace(feature.Name + ":", ""));
+                }
+                else
+                {
+                    features.Add(feature);
+                }
+            }
         }
 
         public void DropItem(Item item)

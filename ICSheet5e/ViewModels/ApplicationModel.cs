@@ -216,8 +216,18 @@ namespace ICSheet5e.ViewModels
         {
             var vm = obj as LevelUpViewModel;
             if (vm == null) { return; }
+            var oldLevels = currentCharacter.Levels;
             var newLevels = vm.ChosenClassLevels;
-            currentCharacter.DoLevelUp(newLevels);
+            var featureFactory = new Model.XMLFeatureFactory();
+            List<Model.MartialFeature> newFeatures = new List<Model.MartialFeature>();
+            foreach (var cls in newLevels)
+            {
+                if (oldLevels.SingleOrDefault(x => x.Item1 == cls.Item1) != null)
+                {
+                    newFeatures.AddRange(featureFactory.ClassFeatures(cls.Item1));
+                }
+            }
+            currentCharacter.DoLevelUp(newLevels, newFeatures);
             if (currentCharacter.IsSpellCaster)
             {
                 NotifyPropertyChanged("CanCastSpells");
