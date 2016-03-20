@@ -75,7 +75,7 @@ namespace ICSheet5e.Model
         private CharacterClasses CharacterClassLevels;
 
         [DataMember]
-        private List<IClassFeature> features = new List<IClassFeature>();
+        private List<MartialFeature> features = new List<MartialFeature>();
 
         [DataMember]
         private Inventory<Item> inventory;
@@ -197,7 +197,7 @@ namespace ICSheet5e.Model
         public SkillList<Skill5e> Skills { get { return skills; } }
         public List<SpellCaster> Spellcasting { get { return spellBooks; } }
         public Model.SpellManager SpellDB { get { return _spellDB; } set { _spellDB = value; setSpellCasting(); } }
-        public void AddFeature(IClassFeature feature)
+        public void AddFeature(MartialFeature feature)
         {
             features.Add(feature);
         }
@@ -501,6 +501,8 @@ namespace ICSheet5e.Model
             setSpellCasting();
             NotifyPropertyChanged("Levels");
         }
+
+        public List<MartialFeature> Features { get { return features; } }
         #region INotifyPropertyChanged Implementation
 
         public event PropertyChangedEventHandler PropertyChanged;

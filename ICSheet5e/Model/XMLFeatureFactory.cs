@@ -14,7 +14,7 @@ namespace ICSheet5e.Model
         private string _raceFeaturesXML = ICSheet5e.Properties.Resources.RacialFeatures;
         private string _classFeaturesXMLPath = ICSheet5e.Properties.Resources.ClassFeatures;
 
-        public List<IClassFeature> RacialFeatures(Race forRace)
+        public List<MartialFeature> RacialFeatures(Race forRace)
         {
             var doc = XDocument.Parse(_raceFeaturesXML);
             var subRaceName = forRace.ToString();
@@ -32,9 +32,9 @@ namespace ICSheet5e.Model
             return ExtractRacialFeatures(racialElement, subRaceName);
         }
 
-        private List<IClassFeature> ExtractRacialFeatures(XElement e, string subRaceName)
+        private List<MartialFeature> ExtractRacialFeatures(XElement e, string subRaceName)
         {
-            List<IClassFeature> features = new List<IClassFeature>();
+            List<MartialFeature> features = new List<MartialFeature>();
             foreach (var node in e.Elements("Feature"))
             {
                 string featureName = node.Attribute("Name").Value;
@@ -70,7 +70,7 @@ namespace ICSheet5e.Model
             return features;
         }
 
-        public List<IClassFeature> ClassFeatures(CharacterClassType classType)
+        public List<MartialFeature> ClassFeatures(CharacterClassType classType)
         {
             var doc = XDocument.Parse(_classFeaturesXMLPath);
             XElement classRoot;
@@ -85,9 +85,9 @@ namespace ICSheet5e.Model
             return inElement.Elements(XName).First(x => x.Attribute("Name").Value == attributeName);
         }
 
-        private List<IClassFeature> ExtractClassFeatures(XElement e)
+        private List<MartialFeature> ExtractClassFeatures(XElement e)
         {
-            List<IClassFeature> features = new List<IClassFeature>();
+            List<MartialFeature> features = new List<MartialFeature>();
             foreach (var node in e.Descendants("Feature"))
             {
                 var featureName = node.Attribute("Name").Value;

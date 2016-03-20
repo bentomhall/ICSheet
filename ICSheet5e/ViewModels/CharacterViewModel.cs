@@ -534,5 +534,9 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged(e.PropertyName);
         }
 
+        public ObservableCollection<Model.MartialFeature> Features
+        {
+            get { return new ObservableCollection<Model.MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Item2))); }
+        }
     }
 }

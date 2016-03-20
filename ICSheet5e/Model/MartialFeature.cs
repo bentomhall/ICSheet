@@ -66,5 +66,10 @@ namespace ICSheet5e.Model
         {
             _usesRemainingToday = _totalUses;
         }
+
+        public string FullDescription //for tooltip use
+        {
+            get { return Description; }
+        }
     }
 }

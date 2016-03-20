@@ -199,7 +199,16 @@
             </UniformGrid>
         </Border>
         <Border Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
-            <!--put features here -->
+            <DockPanel>
+                <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18">Features</Label>
+                <ListBox ItemsSource="{Binding Path=Features}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
         </Border>
     </Grid>
 </UserControl>

@@ -130,6 +130,9 @@
       <DependentUpon>CharacterInformationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DelegateCommand.cs" />
+    <Compile Include="Views\FeaturesView.xaml.cs">
+      <DependentUpon>FeaturesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HealthBarView.xaml.cs">
       <DependentUpon>HealthBarView.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CharacterInformationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeaturesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
