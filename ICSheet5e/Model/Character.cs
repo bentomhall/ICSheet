@@ -46,54 +46,8 @@ namespace ICSheet5e.Model
             CharacterClassType.Wizard,
             CharacterClassType.EldritchKnight
         };
-        #endregion
 
-        [DataMember]
-        private int _proficiencyBonus = 2;
-
-        [DataMember]
-        private Dictionary<CharacterClassType, List<DefenseType>> _proficientDefenses = new Dictionary<CharacterClassType, List<DefenseType>>()
-        {
-            {CharacterClassType.ArcaneTrickster, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
-            {CharacterClassType.Barbarian, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
-            {CharacterClassType.Bard, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Charisma}},
-            {CharacterClassType.Cleric, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
-            {CharacterClassType.Druid, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}},
-            {CharacterClassType.Fighter, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
-            {CharacterClassType.EldritchKnight, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
-            {CharacterClassType.Rogue, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
-            {CharacterClassType.Paladin, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
-            {CharacterClassType.Monk, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
-            {CharacterClassType.Ranger, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
-            {CharacterClassType.Sorcerer, new List<DefenseType>() {DefenseType.Charisma, DefenseType.Constitution}},
-            {CharacterClassType.Warlock, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
-            {CharacterClassType.Wizard, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}}
-        };
-
-        private Model.SpellManager _spellDB;
-        [DataMember]
-        private CharacterClasses CharacterClassLevels;
-
-        [DataMember]
-        private List<MartialFeature> features = new List<MartialFeature>();
-
-        [DataMember]
-        private Inventory<Item> inventory;
-
-        [DataMember]
-        private List<bool> proficientDefensesForCharacter = new List<bool>();
-
-        [DataMember]
-        private SkillList<Skill5e> skills;
-
-        [DataMember]
-        private List<SpellCaster> spellBooks = new List<SpellCaster>();
-
-        [DataMember]
-        public string Notes { get; set; }
-
-        [DataMember]
-        public Race CharacterRace { get; set; }
+        #endregion CasterDictionaries
 
         public Character()
         {
@@ -153,13 +107,6 @@ namespace ICSheet5e.Model
         }
 
         [DataMember]
-        private bool _isSpellCaster = false;
-        public bool IsSpellCaster
-        {
-            get { return _isSpellCaster; }
-        }
-
-        [DataMember]
         public int ArmorClass
         {
             get { return Defenses.Single(x => x.type == DefenseType.Armor).value; }
@@ -172,14 +119,31 @@ namespace ICSheet5e.Model
         }
 
         [DataMember]
+        public Race CharacterRace { get; set; }
+
+        [DataMember]
         public int Experience { get; set; }
 
+        public List<MartialFeature> Features { get { return features; } }
+
         public double Gold { get { return inventory.CurrentGold; } }
+
+        public bool IsSpellCaster
+        {
+            get { return _isSpellCaster; }
+        }
+
         public Model.ItemDataBase ItemDB { get; set; }
+
         public CharacterClasses Levels
         {
             get { return CharacterClassLevels; }
         }
+
+        [DataMember]
+        public string Notes { get; set; }
+
+        public List<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
 
         public int Proficiency
         {
@@ -195,8 +159,11 @@ namespace ICSheet5e.Model
         }
 
         public SkillList<Skill5e> Skills { get { return skills; } }
+
         public List<SpellCaster> Spellcasting { get { return spellBooks; } }
+
         public Model.SpellManager SpellDB { get { return _spellDB; } set { _spellDB = value; setSpellCasting(); } }
+
         public void AddFeature(MartialFeature feature)
         {
             features.Add(feature);
@@ -224,28 +191,6 @@ namespace ICSheet5e.Model
                 return modifier;
             }
         }
-        #region Spells
-        public void CastSpell(Spell spell, int asLevel)
-        {
-            var book = spellBooks.FirstOrDefault(x => x.HasSpellPrepared(spell));
-            if (book != null && book.CanCastSpell(asLevel))
-            {
-                book.CastSpell(asLevel);
-                NotifyPropertyChanged("SpellSlots");
-            }
-            else { throw new System.ArgumentException("Can't cast that spell as that level."); }
-        }
-
-        public Tuple<List<int>, List<int>> SpellSlots
-        {
-            get
-            {
-                if (spellBooks.Count == 0) { return SpellCaster.Empty; }
-                return spellBooks[0].Slots;
-            }
-        }
-
-        #endregion
 
         public int DamageBonusWith(Item weapon)
         {
@@ -268,6 +213,14 @@ namespace ICSheet5e.Model
                 var success = inventory.Pay(amount);
                 if (!success) { throw new System.ArgumentException("Not enough gold for that transaction!"); }
             }
+        }
+
+        public void DoLevelUp(List<Tuple<CharacterClassType, int>> newLevels)
+        {
+            CharacterClassLevels = newLevels;
+            RecalculateDependentBonuses();
+            setSpellCasting();
+            NotifyPropertyChanged("Levels");
         }
 
         public void DropItem(Item item)
@@ -295,7 +248,6 @@ namespace ICSheet5e.Model
                 return inventory.EquippedItems[slot];
             }
             return null;
-                
         }
 
         public List<Item> ItemsMatching(System.Func<Item, bool> predicate)
@@ -324,6 +276,18 @@ namespace ICSheet5e.Model
             {
                 var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(abilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
                 ArmorClass = armorBonus;
+            }
+            else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Barbarian) != null) //unarmored defense
+            {
+                ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity) + abilityModifierFor(AbilityType.Constitution);
+            }
+            else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Monk) != null)
+            {
+                ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity) + abilityModifierFor(AbilityType.Wisdom);
+            }
+            else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Sorcerer) != null && features.SingleOrDefault(x => x.Name =="Draconic Resilience") != null)
+            {
+                ArmorClass = 13 + abilityModifierFor(AbilityType.Dexterity);
             }
             else
             {
@@ -366,6 +330,20 @@ namespace ICSheet5e.Model
             _isSpellCaster = (spellBooks[0].SpellAttackModifier != 0);
         }
 
+        public void TakeLongRest()
+        {
+            _currentHealth = MaxHealth;
+            if (spellBooks.Count > 0)
+            {
+                foreach (var book in spellBooks)
+                {
+                    book.RecoverAllSpellSlots();
+                }
+            }
+            NotifyPropertyChanged("CurrentHealth");
+            NotifyPropertyChanged("AvailableSpellSlots");
+        }
+
         public bool TryUseFeature(IClassFeature feature)
         {
             if (!features.Contains(feature)) { throw new System.ArgumentException(string.Format("This character does not have the {0} feature", feature.Name)); }
@@ -398,6 +376,75 @@ namespace ICSheet5e.Model
             }
             this.skills.setAllSkillBonuses(taggedSkills as List<Skill5e>);
         }
+
+        [DataMember]
+        private bool _isSpellCaster = false;
+
+        [DataMember]
+        private int _proficiencyBonus = 2;
+
+        [DataMember]
+        private Dictionary<CharacterClassType, List<DefenseType>> _proficientDefenses = new Dictionary<CharacterClassType, List<DefenseType>>()
+        {
+            {CharacterClassType.ArcaneTrickster, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
+            {CharacterClassType.Barbarian, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
+            {CharacterClassType.Bard, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Charisma}},
+            {CharacterClassType.Cleric, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
+            {CharacterClassType.Druid, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}},
+            {CharacterClassType.Fighter, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
+            {CharacterClassType.EldritchKnight, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
+            {CharacterClassType.Rogue, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
+            {CharacterClassType.Paladin, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
+            {CharacterClassType.Monk, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
+            {CharacterClassType.Ranger, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
+            {CharacterClassType.Sorcerer, new List<DefenseType>() {DefenseType.Charisma, DefenseType.Constitution}},
+            {CharacterClassType.Warlock, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
+            {CharacterClassType.Wizard, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}}
+        };
+
+        private Model.SpellManager _spellDB;
+
+        [DataMember]
+        private CharacterClasses CharacterClassLevels;
+
+        [DataMember]
+        private List<MartialFeature> features = new List<MartialFeature>();
+
+        [DataMember]
+        private Inventory<Item> inventory;
+
+        [DataMember]
+        private List<bool> proficientDefensesForCharacter = new List<bool>();
+
+        [DataMember]
+        private SkillList<Skill5e> skills;
+
+        [DataMember]
+        private List<SpellCaster> spellBooks = new List<SpellCaster>();
+
+        #region Spells
+
+        public Tuple<List<int>, List<int>> SpellSlots
+        {
+            get
+            {
+                if (spellBooks.Count == 0) { return SpellCaster.Empty; }
+                return spellBooks[0].Slots;
+            }
+        }
+
+        public void CastSpell(Spell spell, int asLevel)
+        {
+            var book = spellBooks.FirstOrDefault(x => x.HasSpellPrepared(spell));
+            if (book != null && book.CanCastSpell(asLevel))
+            {
+                book.CastSpell(asLevel);
+                NotifyPropertyChanged("SpellSlots");
+            }
+            else { throw new System.ArgumentException("Can't cast that spell as that level."); }
+        }
+
+        #endregion Spells
 
         private int calculateInitiative()
         {
@@ -460,10 +507,11 @@ namespace ICSheet5e.Model
 
             RecalculateArmorClass();
         }
+
         private void InitializeMovement()
         {
-            if (CharacterRace.Value == Race.RaceType.Dwarf || CharacterRace.SuperType == Race.RaceType.Dwarf || 
-                CharacterRace.SuperType == Race.RaceType.Halfling || CharacterRace.Value == Race.RaceType.Halfling || 
+            if (CharacterRace.Value == Race.RaceType.Dwarf || CharacterRace.SuperType == Race.RaceType.Dwarf ||
+                CharacterRace.SuperType == Race.RaceType.Halfling || CharacterRace.Value == Race.RaceType.Halfling ||
                 CharacterRace.Value == Race.RaceType.Gnome || CharacterRace.SuperType == Race.RaceType.Gnome)
             {
                 Movement = 25;
@@ -478,31 +526,6 @@ namespace ICSheet5e.Model
             }
         }
 
-        public List<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
-
-        public void TakeLongRest()
-        {
-            _currentHealth = MaxHealth;
-            if (spellBooks.Count > 0)
-            {
-                foreach (var book in spellBooks)
-                {
-                    book.RecoverAllSpellSlots();
-                }
-            }
-            NotifyPropertyChanged("CurrentHealth");
-            NotifyPropertyChanged("AvailableSpellSlots");
-        }
-
-        public void DoLevelUp(List<Tuple<CharacterClassType, int>> newLevels)
-        {
-            CharacterClassLevels = newLevels;
-            RecalculateDependentBonuses();
-            setSpellCasting();
-            NotifyPropertyChanged("Levels");
-        }
-
-        public List<MartialFeature> Features { get { return features; } }
         #region INotifyPropertyChanged Implementation
 
         public event PropertyChangedEventHandler PropertyChanged;

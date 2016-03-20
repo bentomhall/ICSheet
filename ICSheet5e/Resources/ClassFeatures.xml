@@ -53,5 +53,31 @@
     <Feature Name="Destroy Undead" StartLevel="5">Turned enemies under CR level (Table PHB 59) are destroyed outright.</Feature>
     <Feature Name="Divine Intervention" HasLimitedUse="True" StartLevel="10">See text in PHB pg 59.</Feature>
   </PCClass>
-  
+  <PCClass Name="Druid">
+    <Feature Name="Hit Dice">d8</Feature>
+  </PCClass>
+  <PCClass Name="Fighter">
+    <Feature Name="Hit Dice">d10</Feature>
+  </PCClass>
+  <PCClass Name="Monk">
+    <Feature Name="Hit Dice">d8</Feature>
+  </PCClass>
+  <PCClass Name="Paladin">
+    <Feature Name="Hit Dice">d10</Feature>
+  </PCClass>
+  <PCClass Name="Ranger">
+    <Feature Name="Hit Dice">d10</Feature>
+  </PCClass>
+  <PCClass Name="Rogue">
+    <Feature Name="Hit Dice">d8</Feature>
+  </PCClass>
+  <PCClass Name="Sorcerer">
+    <Feature Name="Hit Dice">d6</Feature>
+  </PCClass>
+  <PCClass Name="Warlock">
+    <Feature Name="Hit Dice">d8</Feature>
+  </PCClass>
+  <PCClass Name="Wizard">
+    <Feature Name="Hit Dice">d6</Feature>
+  </PCClass>
 </ClassFeatures>
