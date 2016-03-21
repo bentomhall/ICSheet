@@ -101,6 +101,7 @@
     <Compile Include="Model\SpellManager.cs" />
     <Compile Include="Model\WeaponItem.cs" />
     <Compile Include="Model\XMLFeatureFactory.cs" />
+    <Compile Include="ViewModels\AddFeatureViewModel.cs" />
     <Compile Include="ViewModels\AddNewSpellViewModel.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttackViewModel.cs" />
@@ -119,6 +120,9 @@
     <Compile Include="ViewModels\SpellViewModel.cs" />
     <Compile Include="Views\AddKnownSpellWindow.xaml.cs">
       <DependentUpon>AddKnownSpellWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewFeatureWindow.xaml.cs">
+      <DependentUpon>AddNewFeatureWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AttacksView.xaml.cs">
       <DependentUpon>AttacksView.xaml</DependentUpon>
@@ -182,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddKnownSpellWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewFeatureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

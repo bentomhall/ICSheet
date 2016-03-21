@@ -239,6 +239,27 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        public ICommand AddFeatureCommand
+        {
+            get { return new Views.DelegateCommand<object>(AddFeatureCommandExecuted); }
+        }
+
+        private void AddFeatureCommandExecuted(object obj)
+        {
+            if (currentCharacter == null) { return; }
+            var vm = new AddFeatureViewModel();
+            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.AddNewFeatureDialog, vm, AddFeatureDelegate);
+
+        }
+
+        private void AddFeatureDelegate(IViewModel obj)
+        {
+            if (!(obj is AddFeatureViewModel)) { return; }
+            var vm = (AddFeatureViewModel)obj;
+            var feature = vm.ToFeature();
+            currentCharacter.AddFeature(feature);
+        }
+
 
     }
 }

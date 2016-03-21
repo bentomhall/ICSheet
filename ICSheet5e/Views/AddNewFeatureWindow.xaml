@@ -1,0 +1,31 @@
+﻿<Window x:Class="ICSheet5e.Views.AddNewFeatureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="AddNewFeatureWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="146*"/>
+            <ColumnDefinition Width="146*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="86*"/>
+            <RowDefinition Height="29*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Center">Add New Feature</Label>
+        <Label Grid.Row="1">Feature Name:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=FeatureName}"></TextBox>
+        <Label Grid.Row="2">Uses:</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Uses}"></TextBox>
+        <Label Grid.Row="3">Minimum Level:</Label>
+        <xtck:IntegerUpDown Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="20" Value="{Binding Path=StartingLevel}"/>
+        <Label Grid.Row="4" Grid.RowSpan="1">Feature Text</Label>
+        <TextBox Grid.Row="4" Grid.Column="1" AcceptsReturn="True" AcceptsTab="True" Text="{Binding Path=FeatureText}"></TextBox>
+        <Button IsCancel="True" Grid.Row="5">Cancel</Button>
+        <Button Grid.Row="5" Grid.Column="1" Click="Button_Click" >Accept</Button>
+    </Grid>
+</Window>

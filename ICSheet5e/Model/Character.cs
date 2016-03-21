@@ -167,6 +167,7 @@ namespace ICSheet5e.Model
         public void AddFeature(MartialFeature feature)
         {
             features.Add(feature);
+            NotifyPropertyChanged("Features");
         }
 
         public EncumbranceType AddItemToInventory(Item item)
