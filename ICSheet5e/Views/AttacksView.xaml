@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="125" d:DesignWidth="196">
+             d:DesignHeight="117" d:DesignWidth="188">
     <Grid>
         <ListView ItemsSource="{Binding Attacks}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Weapon" Width="96" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Weapon" Width="88" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Bonus" DisplayMemberBinding="{Binding AttackBonus}"/>
                     <GridViewColumn Header="Damage" DisplayMemberBinding="{Binding Damage}"/>
                 </GridView>
