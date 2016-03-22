@@ -271,6 +271,14 @@ namespace ICSheet5e.Model
             var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Item2).First();
             MaxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(highestCaster.Item1, highestCaster.Item2, source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1)));
         }
+
+        public void SetSpellAttackDetails(Character source)
+        {
+            var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Item2).First();
+            var mod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1));
+            SpellAttackModifier = source.Proficiency + mod;
+            SpellDC = 8 + SpellAttackModifier;
+        }
     }
 
     static class SpellSlotsByLevel
