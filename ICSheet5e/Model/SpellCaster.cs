@@ -60,6 +60,7 @@ namespace ICSheet5e.Model
                 var sp = new SpellCaster(levels[0].Item1, levels[0].Item2, spellDB);
                 sp.SpellAttackModifier = 0;
                 sp.SpellDC = 0;
+                sp.maxPreparedSpells = 0;
                 return sp;
             }
             
@@ -70,6 +71,7 @@ namespace ICSheet5e.Model
                 var abilityMod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(levels[0].Item1));
                 sp.SpellAttackModifier = source.Proficiency + abilityMod;
                 sp.SpellDC = 8 + source.Proficiency + abilityMod;
+                sp.maxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(type.Item1, type.Item2, abilityMod);
                 return sp;
             }
             else
@@ -82,6 +84,7 @@ namespace ICSheet5e.Model
                 var abilityMod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(typeWithHighestLevel.Item1));
                 sp.SpellDC = 8 + source.Proficiency + abilityMod;
                 sp.SpellAttackModifier = source.Proficiency + abilityMod;
+                sp.maxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(typeWithHighestLevel.Item1, typeWithHighestLevel.Item2, abilityMod);
                 return sp;
             }
         }
@@ -140,6 +143,13 @@ namespace ICSheet5e.Model
         {
             var newLevel = castingLevel(newLevels);
             SetSpellSlots(newLevel);
+            maxPreparedSpells += 1;
+        }
+
+        public int MaxPreparedSpells 
+        { 
+            get { return maxPreparedSpells; }
+            set { maxPreparedSpells = value; }
         }
 
         #region slots
@@ -230,7 +240,7 @@ namespace ICSheet5e.Model
 
         public bool PrepareSpell(Spell spell)
         {
-            if (currentPrepared == maxPreparedSpells) { return false; }
+            if (currentPrepared == maxPreparedSpells && spell.Level != 0) { return false; } //cantrips don't count
             spellBook.ToggleSpellPreparation(spell);
             return true;
         }
@@ -256,6 +266,11 @@ namespace ICSheet5e.Model
             get { return spellBook.AllPreparedSpells; }
         }
 
+        public void AdjustMaxPreparedSpells(Character source)
+        {
+            var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Item2).First();
+            MaxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(highestCaster.Item1, highestCaster.Item2, source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1)));
+        }
     }
 
     static class SpellSlotsByLevel
@@ -433,6 +448,36 @@ namespace ICSheet5e.Model
             {
                 return AbilityType.None;
             }
+        }
+
+        private static Dictionary<CharacterClassType, List<int>> extraSpellsByClassAndLevel = new Dictionary<CharacterClassType, List<int>>()
+        {
+            {CharacterClassType.Cleric, new List<int>() {2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}},
+            {CharacterClassType.Paladin, new List<int>() {0, 0, 2, 2, 4, 4, 4, 4, 6, 6, 6, 6, 8, 8, 8, 8, 10, 10, 10, 10 }},
+            {CharacterClassType.Druid, new List<int>(){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}},
+            {CharacterClassType.Wizard, new List<int>(){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
+
+        };
+
+        public static int MaximumPreparedSpells(CharacterClassType classType, int level, int abilityModifier)
+        {
+            int maxSpells = 0;
+            switch (classType)
+            {
+                case CharacterClassType.Bard:
+                case CharacterClassType.Sorcerer:
+                case CharacterClassType.EldritchKnight:
+                case CharacterClassType.ArcaneTrickster:
+                case CharacterClassType.Ranger:
+                case CharacterClassType.Warlock:
+                    maxSpells = 99; //all known spells are prepared
+                    break;
+                default:
+                    maxSpells = Math.Max(level + abilityModifier, 1) + extraSpellsByClassAndLevel[classType][level];
+                    break;
+            }
+
+            return maxSpells;
         }
     }
 }

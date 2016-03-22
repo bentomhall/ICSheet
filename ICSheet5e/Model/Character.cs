@@ -322,6 +322,7 @@ namespace ICSheet5e.Model
         {
             InitializeDefenses(true);
             initiativeModifier = calculateInitiative();
+            spellBooks[0].AdjustMaxPreparedSpells(this);
         }
 
         public void RecalculateSkillsAfterAbilityScoreChange(List<Skill5e> skills)

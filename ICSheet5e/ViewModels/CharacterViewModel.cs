@@ -84,6 +84,11 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        public string PreparedSpellsCount
+        {
+            get { return String.Format("{0} / {1}", PreparedSpells.Count, character.Spellcasting[0].MaxPreparedSpells); }
+        }
+
         public ObservableCollection<Model.MartialFeature> Features
         {
             get { return new ObservableCollection<Model.MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Item2))); }
@@ -229,6 +234,7 @@ namespace ICSheet5e.ViewModels
             OnEquipmentChanged(this, args);
             NotifyPropertyChanged("SpellAttackBonus");
             NotifyPropertyChanged("SpellDC");
+            NotifyPropertyChanged("PreparedSpellsCount");
         }
 
         public void OnEquipmentChanged(object sender, PropertyChangedEventArgs e)
