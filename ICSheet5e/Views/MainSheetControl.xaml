@@ -180,15 +180,17 @@
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label Margin="0,0,12,0">Spell Attack Bonus:</Label>
-                    <TextBlock Text="{Binding Path=SpellAttackBonus}" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding Path=SpellAttackBonus}" MinWidth="60" VerticalAlignment="Center" TextAlignment="Right"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label Margin="0,0,65,0">Spell DC:</Label>
-                    <TextBlock Text="{Binding Path=SpellDC}" VerticalAlignment="Center" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding Path=SpellDC}" MinWidth="60" VerticalAlignment="Center" TextAlignment="Right"/>
                 </StackPanel>
-                <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center">Prepared Spells:</Label>
-                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="{Binding Path=PreparedSpellsCount}"/>
-                <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
+                    <TextBlock TextAlignment="Right" MinWidth="90" VerticalAlignment="Center" Text="{Binding Path=PreparedSpellsCount}"/>
+                </StackPanel>
+                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
                     
                 </ListBox>
             </DockPanel>
