@@ -18,6 +18,16 @@ namespace ICSheet5e.Model
         {
             Category = type;
         }
+
+        protected override string CollectDescription()
+        {
+            var builder = new StringBuilder(Name);
+            builder.AppendLine();
+            builder.AppendLine(Category.ToString());
+            builder.AppendLine(Damage.ToString());
+            builder.AppendLine(Properties);
+            return builder.ToString();
+        }
     }
 
     public enum WeaponCategory

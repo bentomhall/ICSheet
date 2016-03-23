@@ -143,6 +143,7 @@ namespace ICSheet5e.ViewModels
                     break;
             }
             NotifyPropertyChanged("EquippedItems");
+            NotifyPropertyChanged("Items");
         }
 
         private Dictionary<ItemSlot, int> EquipmentSlotMap = new Dictionary<ItemSlot, int>()
@@ -265,10 +266,11 @@ namespace ICSheet5e.ViewModels
             {
                 Slot = item.Slot;
                 Name = item.Name;
-                Properties = "";
+                Properties = item.Properties;
                 Value = item.Value;
                 Weight = item.Weight;
                 Count = item.Count;
+                SlotName = item.Slot.ToString();
             }
             PropertyChanged += OnBaseItemChanged;
             return;

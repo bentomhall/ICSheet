@@ -44,6 +44,14 @@ namespace ICSheet5e.Model
                     break;
             }
         }
+        protected override string CollectDescription()
+        {
+            var builder = new StringBuilder(Name);
+            builder.AppendLine();
+            builder.Append(ArmorClassType);
+            builder.Append(Properties);
+            return builder.ToString();
+        }
     }
 
     public enum ArmorType

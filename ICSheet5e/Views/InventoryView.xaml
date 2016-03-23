@@ -12,13 +12,6 @@
     <UserControl.Resources>
         <ImageBrush x:Key="HumanImageSource" ImageSource="../Resources/tall-human-silhouette.png"/>
         <v:ItemNameConverter x:Key="ItemNameConverter"/>
-        <!--<ObjectDataProvider MethodName="GetValues"
-                            ObjectType="{x:Type sys:Enum}"
-                            x:Key="ItemSlot">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="ItemSlot"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider> -->
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -38,6 +31,11 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="ContextMenu" Value="{StaticResource EquipmentContextMenu}"/>
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" IsHyphenationEnabled="True" MaxWidth="200"/>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
@@ -79,7 +77,7 @@
                 <ImageBrush ImageSource="../Resources/tall-human-silhouette.png"/>
             </Grid.Background>
             <Label Content="{Binding Path=HeadItemName}" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-            <TextBlock TextWrapping="Wrap" Text="{Binding Path=NeckItemName}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Path=NeckItemName}" Foreground="Green" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
             <Label Content="{Binding Path=MainWeaponName}" Grid.Row="3" VerticalAlignment="Center"/>
             <Label Content="{Binding Path=OffhandWeaponName}" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center"/>
             <Label Content="{Binding Path=HandItemName}" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" />
@@ -135,29 +133,29 @@
 
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="26*"/>
-                    <RowDefinition Height="26*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <Label>Weight (lbs)</Label>
+                <Label FontSize="10">Weight (lbs)</Label>
                 <TextBox Margin="5" Grid.Row="1" Text="{Binding Path=NewItemModel.Weight}"></TextBox>
-                <Label Grid.Column="1">Value (gp)</Label>
+                <Label FontSize="10" Grid.Column="1">Value (gp)</Label>
                 <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Path=NewItemModel.Value}"></TextBox>
-                <Label Grid.Column="2">Slot</Label>
+                <Label FontSize="10" Grid.Column="2">Slot</Label>
                 <ComboBox Margin="5" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Path=SlotNames}" SelectedItem="{Binding Path=NewItemModel.SlotName, Mode=TwoWay}"></ComboBox>
-                <Label Grid.Column="3">Stack Size</Label>
+                <Label FontSize="10" Grid.Column="3">Stack Size</Label>
                 <TextBox Margin="5" Grid.Row="1" Grid.Column="3" Text="{Binding Path=NewItemModel.Count}"></TextBox>
             </Grid>
             <Label Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Base Item</Label>
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
                 <ComboBox Margin="5" Width="225" ItemsSource="{Binding Path=NewItemModel.BaseItems}" SelectedItem="{Binding Path=NewItemModel.SelectedItemName, Mode=TwoWay}"></ComboBox>
                 <Label Margin="10,0,0,0" VerticalContentAlignment="Center">Enhancement</Label>
-                <TextBox Margin="5" Width="70" Text="{Binding Path=NewItemModel.Enhancement}"></TextBox>
+                <TextBox Margin="5" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Path=NewItemModel.Enhancement}"></TextBox>
             </StackPanel>
             <Label Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Properties:</Label>
             <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Path=NewItemModel.Properties}"></TextBox>
             <UniformGrid Columns="2" Grid.Row="4">
-                <Button Margin="5" Width="66" Command="{Binding Path=NewItemModel.CreateNewItemCommand}">Add</Button>
-                <Button Margin="5" Width="66" Command="{Binding Path=NewItemModel.ClearItemCommand}">Clear</Button>
+                <Button Margin="2" Width="66" Command="{Binding Path=NewItemModel.CreateNewItemCommand}">Add</Button>
+                <Button Margin="2" Width="66" Command="{Binding Path=NewItemModel.ClearItemCommand}">Clear</Button>
             </UniformGrid>
         </Grid>
     </Grid>

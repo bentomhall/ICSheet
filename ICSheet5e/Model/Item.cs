@@ -38,6 +38,8 @@ namespace ICSheet5e.Model
         public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
         public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }
         public int Count { get { return _stackSize; } set { _stackSize = value; NotifyPropertyChanged(); } }
+        public string Properties { get { return properties; } set { properties = value; NotifyPropertyChanged(); } }
+        public string Description { get { return CollectDescription(); } }
         [DataMember] public string BaseEffect { get; set; }
         [DataMember] public bool IsEquipped 
         {
@@ -73,14 +75,15 @@ namespace ICSheet5e.Model
             }
         }
 
-        private string CollectDescription()
+        protected virtual string CollectDescription()
         {
             StringBuilder output = new StringBuilder(_name);
-            if (_enhancement != 0) 
-            {
-                output.Append(string.Format(" +{0}", _enhancement));
-                output.Append(Environment.NewLine);
-            }
+            output.Append(Environment.NewLine);
+            //if (_enhancement != 0) 
+            //{
+            //    output.Append(string.Format(" +{0}", _enhancement));
+            //    output.Append(Environment.NewLine);
+            //}
             output.Append(properties);
             return output.ToString();
         }
