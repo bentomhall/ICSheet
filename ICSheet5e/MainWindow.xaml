@@ -59,7 +59,7 @@
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter Property="Panel.ZIndex" Value="100"/>
-                                        <Setter TargetName="Border" Property="Background" Value="#FF0064FF"/>
+                                        <Setter TargetName="Border" Property="Background" Value="#FF6767FF"/>
                                         <Setter Property="FontWeight" Value="Bold"/> 
                                     </Trigger>
                                     <Trigger Property="IsEnabled" Value="False">
