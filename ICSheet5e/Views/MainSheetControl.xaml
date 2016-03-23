@@ -39,19 +39,19 @@
             <StackPanel Orientation="Horizontal">
                 <DockPanel>
                     <Label DockPanel.Dock="Top">Name:</Label>
-                    <Label DockPanel.Dock="Top" Content="{Binding Name}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Top" MinWidth="300" Margin="0,0,10,0"/>
+                    <Label DockPanel.Dock="Top" Content="{Binding Name}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="300" Margin="0,0,10,0"/>
                 </DockPanel>
                 <DockPanel>
                     <Label DockPanel.Dock="Top">Race:</Label>
-                    <Label DockPanel.Dock="Top" Content="{Binding Race}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Top" MinWidth="150" Margin="0,0,10,0"/>
+                    <Label DockPanel.Dock="Top" Content="{Binding Race}" FontSize="36" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="200" Margin="0,0,15,0"/>
                 </DockPanel>
                 <DockPanel>
                     <Label DockPanel.Dock="Top">Classes and Levels:</Label>
-                    <TextBlock DockPanel.Dock="Top" Text="{Binding Levels}" FontSize="20" VerticalAlignment="Stretch" MinWidth="250" Margin="0,0,10,0" TextWrapping="Wrap"/>
+                    <TextBlock DockPanel.Dock="Top" Text="{Binding Levels}" FontSize="24" VerticalAlignment="Center" MinWidth="250" Margin="0,0,10,0" TextWrapping="Wrap"/>
                 </DockPanel>
                 <DockPanel>
                     <Label DockPanel.Dock="Top">XP:</Label>
-                    <TextBox DockPanel.Dock="Top" Text="{Binding Experience}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="150" Margin="0,0,10,0"/>
+                    <TextBox DockPanel.Dock="Top" Text="{Binding Experience}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="100" Margin="0,0,10,0"/>
                 </DockPanel>
             </StackPanel>
         </Border>

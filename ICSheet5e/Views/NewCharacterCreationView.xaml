@@ -8,14 +8,14 @@
              d:DesignHeight="900" d:DesignWidth="900"
              
              >
-    <DockPanel Background="Wheat" LastChildFill="False">
+    <DockPanel Background="LightGray" LastChildFill="False">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Name:</Label>
-            <TextBox DockPanel.Dock="Top" Width="700" Height="50" HorizontalAlignment="Right" Text="{Binding CharacterName, Mode=TwoWay}"></TextBox>
+            <TextBox DockPanel.Dock="Top" Width="700" Height="50" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="24" Text="{Binding CharacterName, Mode=TwoWay}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Race:</Label>
-            <ComboBox DockPanel.Dock="Top" Width="700" Height="50" HorizontalAlignment="Right" ItemsSource="{Binding Path=RaceList}" SelectedItem="{Binding Path=CharacterRace}"></ComboBox>
+            <ComboBox DockPanel.Dock="Top" Width="700" Height="50" FontSize="24" HorizontalAlignment="Right" ItemsSource="{Binding Path=RaceList}" SelectedItem="{Binding Path=CharacterRace}"></ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Class 1:</Label>
@@ -35,6 +35,6 @@
             <Label FontSize="32" >Levels:</Label>
             <TextBox Width="50" Text="{Binding Levels3}"></TextBox>
         </StackPanel>
-        <Button Command="{Binding Path=StartNewCharacterCommand}" IsEnabled="{Binding Path=CanExecute}" DockPanel.Dock="Top" Width="200" Margin="0, 15, 0, 0">Create Character!</Button>
+        <Button Command="{Binding Path=StartNewCharacterCommand}" Background="DarkGray" IsEnabled="{Binding Path=CanExecute}" DockPanel.Dock="Top"  Height="60" Width="200" Margin="0, 15, 0, 0">Create Character!</Button>
     </DockPanel>
 </UserControl>
