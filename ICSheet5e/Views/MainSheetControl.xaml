@@ -169,29 +169,29 @@
             <views:AttacksView/>
         </Border>
         <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White" Padding="4">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Button Command="{Binding CastSpellCommand}" Background="Green" Margin="0, 0, 15, 0" ClipToBounds="True">Cast Spell</Button>
                     <xctk:IntegerUpDown DefaultValue="1" Maximum="9" Minimum="1"  Value="{Binding Path=SelectedSpellLevel}" Width="100" DisplayDefaultValueOnEmptyText="True"/>
                 </StackPanel>
-                <StackPanel>
+                <StackPanel DockPanel.Dock="Top">
                     <Label HorizontalContentAlignment="Center">Available Slots</Label>
                     <TextBlock Text="{Binding Path=AvailableSpellSlots}" TextAlignment="Center" FontSize="14" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label Margin="0,0,12,0">Spell Attack Bonus:</Label>
                     <TextBlock Text="{Binding Path=SpellAttackBonus}" VerticalAlignment="Center" TextAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label Margin="0,0,65,0">Spell DC:</Label>
                     <TextBlock Text="{Binding Path=SpellDC}" VerticalAlignment="Center" TextAlignment="Center"/>
                 </StackPanel>
-                <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
-                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=PreparedSpellsCount}"/>
-                <ListBox ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
+                <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center">Prepared Spells:</Label>
+                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="{Binding Path=PreparedSpellsCount}"/>
+                <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
                     
                 </ListBox>
-            </StackPanel>
+            </DockPanel>
         </Border>
         <Border Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White" Padding="4">
             <DockPanel>

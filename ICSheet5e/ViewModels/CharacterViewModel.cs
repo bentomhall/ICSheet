@@ -50,7 +50,7 @@ namespace ICSheet5e.ViewModels
                 canEdit = value;
                 NotifyPropertyChanged();
                 if (!canEdit) NotifyEditingEnded(); //raise property changed notifications for directly bound properties
-                if (canEdit) NotifyEditingBegan();
+                if (canEdit) NotifyAttributesDisplayChanged();
             }
         }
 
@@ -202,7 +202,7 @@ namespace ICSheet5e.ViewModels
             get { return character.TemporaryHP; }
         }
 
-        public void NotifyEditingBegan()
+        public void NotifyAttributesDisplayChanged()
         {
             NotifyPropertyChanged("Strength");
             NotifyPropertyChanged("Dexterity");
@@ -235,6 +235,7 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("SpellAttackBonus");
             NotifyPropertyChanged("SpellDC");
             NotifyPropertyChanged("PreparedSpellsCount");
+            NotifyAttributesDisplayChanged();
         }
 
         public void OnEquipmentChanged(object sender, PropertyChangedEventArgs e)
