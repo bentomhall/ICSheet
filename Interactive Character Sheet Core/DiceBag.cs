@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Interactive_Character_Sheet_Core
+namespace InteractiveCharacterSheetCore
 {
     public enum DiceSize
     {

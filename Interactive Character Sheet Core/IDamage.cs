@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace Interactive_Character_Sheet_Core
+namespace InteractiveCharacterSheetCore
 {
     public interface IDamage
     {

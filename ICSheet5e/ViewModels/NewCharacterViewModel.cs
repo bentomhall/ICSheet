@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Interactive_Character_Sheet_Core;
+using InteractiveCharacterSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
@@ -164,12 +164,12 @@ namespace ICSheet5e.ViewModels
         {
             var c1 = new Tuple<Model.CharacterClassType, int>(classMap[_class1], _levels1);
             levels.Add(c1);
-            if (_class2 != "" && _levels2 != 0)
+            if (!string.IsNullOrEmpty(_class2) && _levels2 != 0)
             { 
                 var c2 = new Tuple<Model.CharacterClassType, int>(classMap[_class2], _levels2);
                 levels.Add(c2);
             }
-            if (_class3 != "" && _levels3 != 0)
+            if (!string.IsNullOrEmpty(_class3) && _levels3 != 0)
             {
                 var c3 = new Tuple<Model.CharacterClassType, int>(classMap[_class3], _levels3);
                 levels.Add(c3);

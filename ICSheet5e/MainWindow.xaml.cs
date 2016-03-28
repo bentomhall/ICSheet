@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.Serialization;
 using System.IO;
-using Interactive_Character_Sheet_Core;
+using InteractiveCharacterSheetCore;
 
 namespace ICSheet5e
 {

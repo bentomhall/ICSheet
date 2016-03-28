@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.IO;
 
-namespace Interactive_Character_Sheet_Core
+namespace InteractiveCharacterSheetCore
 {
     [DataContract]
     public abstract class CharacterBase
@@ -61,13 +61,13 @@ namespace Interactive_Character_Sheet_Core
         public int abilityModifierFor(AbilityType ability)
         {
             if (ability == AbilityType.None) { return 0; }
-            return abilities[ability].modifier;
+            return abilities[ability].Modifier;
         }
 
         public int AbilityScoreFor(AbilityType ability)
         {
             if (ability == AbilityType.None) { return 10; }
-            return abilities[ability].score;
+            return abilities[ability].Score;
         }
 
         #endregion

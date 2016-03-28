@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 
-namespace Interactive_Character_Sheet_Core
+namespace InteractiveCharacterSheetCore
 {
     [DataContract]
     public class Inventory<T> where T: IItem

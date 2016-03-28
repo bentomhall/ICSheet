@@ -8,7 +8,7 @@
     <ProjectGuid>{36B253A0-5A3E-4C5A-8259-B035DD3C9EBC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Interactive_Character_Sheet_Core</RootNamespace>
+    <RootNamespace>InteractiveCharacterSheetCore</RootNamespace>
     <AssemblyName>Interactive Character Sheet Core</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -32,11 +32,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="DiceBag.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IDamage.cs" />
     <Compile Include="IDefense.cs" />
     <Compile Include="IItem.cs" />

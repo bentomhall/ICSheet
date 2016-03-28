@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Runtime.CompilerServices;
 using ICSheet5e.Model;
-using Interactive_Character_Sheet_Core;
+using InteractiveCharacterSheetCore;
 
 namespace ICSheet5e.ViewModels
 {

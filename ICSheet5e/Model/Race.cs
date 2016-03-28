@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using Interactive_Character_Sheet_Core;
+using InteractiveCharacterSheetCore;
 
 namespace ICSheet5e.Model
 {

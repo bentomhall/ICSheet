@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Interactive_Character_Sheet_Core;
+using InteractiveCharacterSheetCore;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -119,12 +119,12 @@ namespace ICSheet5e.ViewModels
 
         public void SetAllAbilityScores(Dictionary<AbilityType, Ability> attributes)
         {
-            Strength = attributes[AbilityType.Strength].score;
-            Dexterity = attributes[AbilityType.Dexterity].score;
-            Constitution = attributes[AbilityType.Constitution].score;
-            Intelligence = attributes[AbilityType.Intelligence].score;
-            Wisdom = attributes[AbilityType.Wisdom].score;
-            Charisma = attributes[AbilityType.Charisma].score;
+            Strength = attributes[AbilityType.Strength].Score;
+            Dexterity = attributes[AbilityType.Dexterity].Score;
+            Constitution = attributes[AbilityType.Constitution].Score;
+            Intelligence = attributes[AbilityType.Intelligence].Score;
+            Wisdom = attributes[AbilityType.Wisdom].Score;
+            Charisma = attributes[AbilityType.Charisma].Score;
         }
 
         public AttributeBoxViewModel()

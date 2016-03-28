@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interactive_Character_Sheet_Core
+namespace InteractiveCharacterSheetCore
 {
     public interface IItem
     {

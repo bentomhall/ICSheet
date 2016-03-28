@@ -1,4 +1,4 @@
-﻿using Interactive_Character_Sheet_Core;
+﻿using InteractiveCharacterSheetCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

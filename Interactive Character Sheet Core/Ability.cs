@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace Interactive_Character_Sheet_Core
+namespace InteractiveCharacterSheetCore
 {
     public enum AbilityType
     {
@@ -39,21 +39,19 @@ namespace Interactive_Character_Sheet_Core
     [DataContract]
     public class Ability
     {
-        [DataMember] private AbilityType name;
         [DataMember] private int value;
 
-        public int modifier
+        public int Modifier
         {
             get { return (value - 10)/2; }
         }
 
         public Ability(AbilityType type, int score)
         {
-            name = type;
             value = score;
         }
 
-        public int score
+        public int Score
         {
             get { return value; }
         }

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
-using Interactive_Character_Sheet_Core;
+using InteractiveCharacterSheetCore;
 
 namespace ICSheet5e.Model
 {
