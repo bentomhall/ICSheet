@@ -23,6 +23,7 @@ namespace ICSheet5e.Model
         public string Uses { get { return _uses; } }
         public int MinimumLevel { get { return _minimumLevel; } set { _minimumLevel = value; } }
 
+        [Serializable]
         public class UnuseableException: System.Exception
         {
             public UnuseableException() { }
