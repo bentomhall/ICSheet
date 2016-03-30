@@ -89,7 +89,10 @@ namespace InteractiveCharacterSheetCore
                 return true;
             }
         }
-        [DataMember] public Dictionary<ItemSlot, T> EquippedItems = new Dictionary<ItemSlot, T>();
+
+        [DataMember] private Dictionary<ItemSlot, T> _equippedItems = new Dictionary<ItemSlot, T>();
+
+        public Dictionary<ItemSlot, T> EquippedItems { get { return _equippedItems; } set { _equippedItems = value; } }
 
         public bool IsEncumbered()
         {

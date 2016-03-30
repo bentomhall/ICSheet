@@ -1,6 +1,10 @@
-﻿public enum VisionType
+﻿
+namespace InteractiveCharacterSheetCore
 {
-    Normal,
-    LowLight,
-    Darkvision
+    public enum VisionType
+    {
+        Normal,
+        LowLight,
+        Darkvision
+    }
 }

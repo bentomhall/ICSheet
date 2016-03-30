@@ -65,7 +65,7 @@ namespace ICSheet5e.Model
                 {
                     type = ArmorType.Heavy;
                 }
-                var newItem = new ArmorItem(name, weight, value, false, properties, type);
+                var newItem = new ArmorItem(name, weight, value, false, properties, type, 0); //all default items are unenchanted, so bonus of 0
                 newItem.BaseEffect = ac;
                 output.Add(newItem);
             }

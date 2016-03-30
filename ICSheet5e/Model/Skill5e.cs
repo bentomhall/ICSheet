@@ -11,15 +11,15 @@ namespace ICSheet5e.Model
     [DataContract]
     public class Skill5e: ISkill
     {
-        [DataMember] public string name { get; set; }
-        public int bonus { get { return _bonus; } set { _bonus = value; } }
+        [DataMember] public string Name { get; set; }
+        public int Bonus { get { return _bonus; } set { _bonus = value; } }
         [DataMember] private int _bonus = 0;
         [DataMember]
         public bool IsTagged { get; set; }
 
         public Skill5e(String name, int bonus, bool isTagged) 
         {
-            this.name = name;
+            this.Name = name;
             this._bonus = bonus;
             IsTagged = isTagged;
         }

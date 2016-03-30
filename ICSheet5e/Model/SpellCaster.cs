@@ -68,7 +68,7 @@ namespace ICSheet5e.Model
             {
                 var type = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None).First();
                 var sp = new SpellCaster(type.Item1, type.Item2, spellDB);
-                var abilityMod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(levels[0].Item1));
+                var abilityMod = source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(levels[0].Item1));
                 sp.SpellAttackModifier = source.Proficiency + abilityMod;
                 sp.SpellDC = 8 + source.Proficiency + abilityMod;
                 sp.maxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(type.Item1, type.Item2, abilityMod);
@@ -76,12 +76,12 @@ namespace ICSheet5e.Model
             }
             else
             {
-                var type = CharacterClassType.MultiClassCaster;
+                var type = CharacterClassType.MulticlassCaster;
                 var subTypes = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None);
                 var typeWithHighestLevel = levels.OrderByDescending(x =>x.Item2).First();
                 var level = castingLevel(levels);
                 var sp = new SpellCaster(type, level, spellDB, subTypes.Select(x => x.Item1));
-                var abilityMod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(typeWithHighestLevel.Item1));
+                var abilityMod = source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(typeWithHighestLevel.Item1));
                 sp.SpellDC = 8 + source.Proficiency + abilityMod;
                 sp.SpellAttackModifier = source.Proficiency + abilityMod;
                 sp.maxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(typeWithHighestLevel.Item1, typeWithHighestLevel.Item2, abilityMod);
@@ -269,13 +269,13 @@ namespace ICSheet5e.Model
         public void AdjustMaxPreparedSpells(Character source)
         {
             var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Item2).First();
-            MaxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(highestCaster.Item1, highestCaster.Item2, source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1)));
+            MaxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(highestCaster.Item1, highestCaster.Item2, source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1)));
         }
 
         public void SetSpellAttackDetails(Character source)
         {
             var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.Item1] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Item2).First();
-            var mod = source.abilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1));
+            var mod = source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.Item1));
             SpellAttackModifier = source.Proficiency + mod;
             SpellDC = 8 + SpellAttackModifier;
         }
@@ -390,7 +390,7 @@ namespace ICSheet5e.Model
             { CharacterClassType.Warlock, SpellSlotsByLevel.Warlock },
             { CharacterClassType.Wizard, SpellSlotsByLevel.FullCaster },
             { CharacterClassType.ArcaneTrickster, SpellSlotsByLevel.Martial },
-            { CharacterClassType.MultiClassCaster, FullCaster}
+            { CharacterClassType.MulticlassCaster, FullCaster}
         };
 
         static public Dictionary<CharacterClassType, CastingType> CastingTypeForClassType = new Dictionary<CharacterClassType, CastingType>()
@@ -408,7 +408,7 @@ namespace ICSheet5e.Model
             { CharacterClassType.Wizard, CastingType.Full },
             { CharacterClassType.Barbarian, CastingType.None },
             { CharacterClassType.Fighter, CastingType.None },
-            { CharacterClassType.MultiClassCaster, CastingType.Full}
+            { CharacterClassType.MulticlassCaster, CastingType.Full}
         };
 
         static public List<int> SlotsForClassAndLevel(CharacterClassType type, int level)

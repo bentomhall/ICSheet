@@ -35,39 +35,39 @@ namespace InteractiveCharacterSheetCore
 
         public int RollInitiative()
         {
-            return dice.rollOne(DiceSize.d20) + initiativeModifier;
+            return dice.RollOne(DiceSize.d20) + initiativeModifier;
         }
         #endregion
 
         #region Abilities
         [DataMember]
-        protected Dictionary<AbilityType, Ability> abilities = new Dictionary<AbilityType, Ability>()
+        protected Dictionary<AbilityType, Ability> _abilities = new Dictionary<AbilityType, Ability>()
         {
-            { AbilityType.Strength, new Ability(AbilityType.Strength, 10) },
-            { AbilityType.Dexterity, new Ability(AbilityType.Dexterity, 10) },
-            { AbilityType.Constitution, new Ability(AbilityType.Constitution, 10) },
-            { AbilityType.Intelligence, new Ability(AbilityType.Intelligence, 10) },
-            { AbilityType.Wisdom, new Ability(AbilityType.Wisdom, 10) },
-            { AbilityType.Charisma, new Ability(AbilityType.Charisma, 10) }
+            { AbilityType.Strength, new Ability(10) },
+            { AbilityType.Dexterity, new Ability(10) },
+            { AbilityType.Constitution, new Ability(10) },
+            { AbilityType.Intelligence, new Ability(10) },
+            { AbilityType.Wisdom, new Ability(10) },
+            { AbilityType.Charisma, new Ability(10) }
         };
 
-        public Dictionary<AbilityType, Ability> Abilities { get { return abilities; } }
+        public Dictionary<AbilityType, Ability> Abilities { get { return _abilities; } }
 
-        public void mutateAbilityScore(AbilityType ability, int newScore)
+        public void MutateAbilityScore(AbilityType ability, int newScore)
         {
-            abilities[ability] = new Ability(ability, newScore);
+            _abilities[ability] = new Ability(newScore);
         }
 
-        public int abilityModifierFor(AbilityType ability)
+        public int AbilityModifierFor(AbilityType ability)
         {
             if (ability == AbilityType.None) { return 0; }
-            return abilities[ability].Modifier;
+            return _abilities[ability].Modifier;
         }
 
         public int AbilityScoreFor(AbilityType ability)
         {
             if (ability == AbilityType.None) { return 10; }
-            return abilities[ability].Score;
+            return _abilities[ability].Score;
         }
 
         #endregion
@@ -82,6 +82,7 @@ namespace InteractiveCharacterSheetCore
         public int CurrentHealth { get { return _currentHealth; } }
         public virtual void TakeDamage(IDamage damage)
         {
+            if (damage == null) { return; }
             if (_temporaryHP > damage.Amount)
             {
                 _temporaryHP -= damage.Amount;
@@ -105,8 +106,9 @@ namespace InteractiveCharacterSheetCore
         }
 
         [DataMember]
-        public  int _temporaryHP = 0;
+        private  int _temporaryHP = 0;
         public int TemporaryHP { get { return _temporaryHP; } }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "THP")]
         public void AddTHP(int amount)
         {
             if (amount > _temporaryHP) { _temporaryHP = amount; } //does not stack
@@ -118,10 +120,10 @@ namespace InteractiveCharacterSheetCore
         [DataMember] protected List<DamageType> Immunities { get; set; }
         [DataMember] protected List<Defense> _defenses = new List<Defense>();
         public List<Defense> Defenses { get { return _defenses; } }
-        public bool willHit(DefenseType type, int withAttack)
+        public bool WillHit(DefenseType type, int withAttack)
         {
-            var d = _defenses.Single(s => s.type == type);
-            return d.willHit(withAttack);
+            var d = _defenses.Single(s => s.TypeOfDefense == type);
+            return d.WillHit(withAttack);
         }
         #endregion
 

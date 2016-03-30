@@ -20,9 +20,9 @@ namespace InteractiveCharacterSheetCore
         [DataMember]
         private DefenseType _type;
 
-        public int value { get { return _value; } }
-        public DefenseType type { get { return _type; } }
-        public bool willHit(int attackValue)
+        public int Value { get { return _value; } }
+        public DefenseType TypeOfDefense { get { return _type; } }
+        public bool WillHit(int attackValue)
         {
             return attackValue >= _value;
         }
@@ -30,6 +30,7 @@ namespace InteractiveCharacterSheetCore
 
     public enum ResistanceType
     {
+        None
     }
 
     public enum DefenseType

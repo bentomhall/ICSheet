@@ -378,11 +378,11 @@ namespace ICSheet5e.ViewModels
             get
             {
                 if (canEdit) return character.AbilityScoreFor(AbilityType.Charisma);
-                else return character.abilityModifierFor(AbilityType.Charisma);
+                else return character.AbilityModifierFor(AbilityType.Charisma);
             }
             set
             {
-                character.mutateAbilityScore(AbilityType.Charisma, value);
+                character.MutateAbilityScore(AbilityType.Charisma, value);
                 NotifyPropertyChanged();
             }
         }
@@ -392,11 +392,11 @@ namespace ICSheet5e.ViewModels
             get
             {
                 if (canEdit) return character.AbilityScoreFor(AbilityType.Constitution);
-                else return character.abilityModifierFor(AbilityType.Constitution);
+                else return character.AbilityModifierFor(AbilityType.Constitution);
             }
             set
             {
-                character.mutateAbilityScore(AbilityType.Constitution, value);
+                character.MutateAbilityScore(AbilityType.Constitution, value);
                 NotifyPropertyChanged();
             }
         }
@@ -406,11 +406,11 @@ namespace ICSheet5e.ViewModels
             get
             {
                 if (canEdit) return character.AbilityScoreFor(AbilityType.Dexterity);
-                else return character.abilityModifierFor(AbilityType.Dexterity);
+                else return character.AbilityModifierFor(AbilityType.Dexterity);
             }
             set
             {
-                character.mutateAbilityScore(AbilityType.Dexterity, value);
+                character.MutateAbilityScore(AbilityType.Dexterity, value);
                 NotifyPropertyChanged();
             }
         }
@@ -420,11 +420,11 @@ namespace ICSheet5e.ViewModels
             get
             {
                 if (canEdit) return character.AbilityScoreFor(AbilityType.Intelligence);
-                else return character.abilityModifierFor(AbilityType.Intelligence);
+                else return character.AbilityModifierFor(AbilityType.Intelligence);
             }
             set
             {
-                character.mutateAbilityScore(AbilityType.Intelligence, value);
+                character.MutateAbilityScore(AbilityType.Intelligence, value);
                 NotifyPropertyChanged();
             }
         }
@@ -434,11 +434,11 @@ namespace ICSheet5e.ViewModels
             get
             {
                 if (canEdit) return character.AbilityScoreFor(AbilityType.Strength);
-                else return character.abilityModifierFor(AbilityType.Strength);
+                else return character.AbilityModifierFor(AbilityType.Strength);
             }
             set
             {
-                character.mutateAbilityScore(AbilityType.Strength, value);
+                character.MutateAbilityScore(AbilityType.Strength, value);
                 NotifyPropertyChanged();
             }
         }
@@ -448,11 +448,11 @@ namespace ICSheet5e.ViewModels
             get
             {
                 if (canEdit) return character.AbilityScoreFor(AbilityType.Wisdom);
-                else return character.abilityModifierFor(AbilityType.Wisdom);
+                else return character.AbilityModifierFor(AbilityType.Wisdom);
             }
             set
             {
-                character.mutateAbilityScore(AbilityType.Wisdom, value);
+                character.MutateAbilityScore(AbilityType.Wisdom, value);
                 NotifyPropertyChanged();
             }
         }
@@ -524,7 +524,7 @@ namespace ICSheet5e.ViewModels
 
         private void _setSkills(SkillList<Model.Skill5e> skills)
         {
-            var names = skills.getSkillNames();
+            var names = skills.SkillNames;
             Skills = new ObservableCollection<IndividualSkillViewModel>();
             foreach (var name in names)
             {
@@ -546,7 +546,7 @@ namespace ICSheet5e.ViewModels
         private AttackViewModel attackModelFor(IItem item)
         {
             var weapon = item as Model.WeaponItem;
-            if (weapon == null) { return AttackViewModel.DefaultModel(character.abilityModifierFor(AbilityType.Strength)); }
+            if (weapon == null) { return AttackViewModel.DefaultModel(character.AbilityModifierFor(AbilityType.Strength)); }
             var vm = new AttackViewModel();
             vm.Name = weapon.Name;
             vm.AttackBonus = character.AttackBonusWith(weapon);

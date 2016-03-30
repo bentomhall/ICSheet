@@ -46,7 +46,7 @@ namespace InteractiveCharacterSheetCore
             get { return (value - 10)/2; }
         }
 
-        public Ability(AbilityType type, int score)
+        public Ability(int score)
         {
             value = score;
         }

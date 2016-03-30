@@ -19,14 +19,14 @@ namespace ICSheet5e.ViewModels
 
             }
         }
-        public string Name { get { return Skill.name; } }
+        public string Name { get { return Skill.Name; } }
 
         public int Bonus
         {
-            get { return Skill.bonus; }
+            get { return Skill.Bonus; }
             set
             {
-                Skill.bonus = value;
+                Skill.Bonus = value;
                 NotifyPropertyChanged();
             }
         }

@@ -7,6 +7,7 @@ namespace InteractiveCharacterSheetCore
 {
     public enum DiceSize
     {
+        None = 0,
         d2 = 2,
         d4 = 4,
         d6 = 6,
@@ -19,23 +20,23 @@ namespace InteractiveCharacterSheetCore
 
     public interface IRollable
     {
-        int roll();
-        int roll(int withModifier);
+        int Roll();
+        int Roll(int withModifier);
     }
 
     public class DiceBag
     {
         private Random generator = new Random();
 
-        public int rollOne(DiceSize sides)
+        public int RollOne(DiceSize sides)
         {
             return generator.Next(1, (int)sides + 1);
         }
 
-        public int rollMany(DiceSet dice)
+        public int RollMany(DiceSet dice)
         {
             int sum = 0;
-            for (int i = 0; i < dice.Number; i++) { sum += rollOne(dice.Sides); }
+            for (int i = 0; i < dice.Number; i++) { sum += RollOne(dice.Sides); }
             return sum;
         }
     }
@@ -51,55 +52,67 @@ namespace InteractiveCharacterSheetCore
             Number = number;
             Sides = diceType;
         }
-    }
 
-    public class DiceCollection: IRollable
-    {
-        private DiceBag bag = new DiceBag();
-        public List<DiceSet> dice = new List<DiceSet>();
-        public int modifiers { get; set; }
-
-        public int roll()
+        public override bool Equals(object obj)
         {
-            var sum = 0;
-            foreach (DiceSet die in dice)
-            {
-                sum += bag.rollMany(die);
-            }
-            return sum + modifiers;
+            if (!(obj is DiceSet)) return false;
+            var other = (DiceSet)obj;
+            return (other.Number == Number && other.Sides == Sides);
         }
 
-        public int rollMaximum(Nullable<DiceSet> additional)
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static bool operator ==(DiceSet d1, DiceSet d2)
+        {
+            return d1.Equals(d2);
+        }
+        
+        public static bool operator !=(DiceSet d1, DiceSet d2)
+        {
+            return !d1.Equals(d2);
+        }
+    }
+
+    public class Dice: IRollable
+    {
+        private DiceBag bag = new DiceBag();
+        private List<DiceSet> activeDice = new List<DiceSet>();
+        public int Modifiers { get; set; }
+
+        public Dice (IEnumerable<DiceSet> dice)
+        {
+            activeDice.AddRange(dice);
+        }
+
+        public int Roll()
         {
             var sum = 0;
-            foreach (DiceSet die in dice)
+            foreach (DiceSet die in activeDice)
+            {
+                sum += bag.RollMany(die);
+            }
+            return sum + Modifiers;
+        }
+
+        public int RollMaximum(DiceSet? additional)
+        {
+            var sum = 0;
+            foreach (DiceSet die in activeDice)
             {
                 sum += (int)die.Sides;
             }
             if (additional.HasValue) {
-                sum += bag.rollMany(additional.Value);
+                sum += bag.RollMany(additional.Value);
             }
-            return sum + modifiers;
+            return sum + Modifiers;
         }
 
-        public int roll(int withModifier)
+        public int Roll(int withModifier)
         {
-            return roll() + withModifier;
-        }
-    }
-
-    static class FixedSizeDice
-    {
-        public static int rolld20()
-        {
-            Random r = new Random();
-            return r.Next(1, 21);
-        }
-
-        public static int rollPercentile()
-        {
-            Random r = new Random();
-            return r.Next(1, 101);
+            return Roll() + withModifier;
         }
     }
 }

@@ -25,14 +25,15 @@ namespace InteractiveCharacterSheetCore
 
         public void SetSkillBonusFor(T skill)
         {
-            skills[skill.name] = skill;
+            skills[skill.Name] = skill;
         }
 
-        public void setAllSkillBonuses(List<T> skillList)
+        public void SetAllSkillBonuses(List<T> skillList)
         {
+            if (skillList == null) { return; }
             foreach (T item in skillList)
             {
-                skills[item.name] = item;
+                skills[item.Name] = item;
             }
         }
 
@@ -48,7 +49,7 @@ namespace InteractiveCharacterSheetCore
         }
 
         [DataMember]
-        public Dictionary<string, AbilityType> skillAbilityMap4e = new Dictionary<string, AbilityType>()
+        private Dictionary<string, AbilityType> skillAbilityMap4e = new Dictionary<string, AbilityType>()
         {
              { "Acrobatics", AbilityType.Dexterity },
              { "Arcana", AbilityType.Intelligence },
@@ -70,7 +71,7 @@ namespace InteractiveCharacterSheetCore
         };
 
         [DataMember]
-        public Dictionary<string, AbilityType> skillAbilityMap5e = new Dictionary<string, AbilityType>()
+        private Dictionary<string, AbilityType> skillAbilityMap5e = new Dictionary<string, AbilityType>()
         {
             { "Acrobatics", AbilityType.Dexterity },
             { "Animal Handling", AbilityType.Wisdom },
@@ -91,7 +92,7 @@ namespace InteractiveCharacterSheetCore
             { "Survival", AbilityType.Wisdom }
         };
 
-        public AbilityType abilityFor(string skillName)
+        public AbilityType AbilityFor(string skillName)
         {
                 switch (edition)
                 {
@@ -105,9 +106,9 @@ namespace InteractiveCharacterSheetCore
         }
 
         [DataMember] private Dictionary<string, T> skills = new Dictionary<string, T>();
-        public int skillBonusFor(string skillName)
+        public int SkillBonusFor(string skillName)
         {
-            return skills[skillName].bonus;
+            return skills[skillName].Bonus;
         }
 
         public bool IsSkillTagged(string skillName)
@@ -115,16 +116,19 @@ namespace InteractiveCharacterSheetCore
             return skills[skillName].IsTagged;
         }
 
-        public List<string> getSkillNames() 
+        public List<string> SkillNames 
         { 
-            switch(edition)
+            get
             {
-                case Edition.Fourth:
-                    return skillAbilityMap4e.Keys.ToList<string>();
-                case Edition.Fifth:
-                    return skillAbilityMap5e.Keys.ToList<string>();
-                default:
-                    throw new NotImplementedException("Only 4th and 5th editions allowed");
+                switch (edition)
+                {
+                    case Edition.Fourth:
+                        return skillAbilityMap4e.Keys.ToList<string>();
+                    case Edition.Fifth:
+                        return skillAbilityMap5e.Keys.ToList<string>();
+                    default:
+                        return new List<string>();
+                }
             }
         }
 
@@ -132,8 +136,8 @@ namespace InteractiveCharacterSheetCore
 
     public interface ISkill
     {
-        string name { get; }
-        int bonus { get; set; }
+        string Name { get; }
+        int Bonus { get; set; }
         bool IsTagged { get; set; }
     }
 }

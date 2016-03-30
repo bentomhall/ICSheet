@@ -103,7 +103,7 @@ namespace ICSheet5e.Model
         {
             if (caster == CharacterClassType.Barbarian || caster == CharacterClassType.Fighter || caster == CharacterClassType.Monk || caster == CharacterClassType.Rogue) { return new List<string>(); }
             if (caster == CharacterClassType.ArcaneTrickster || caster == CharacterClassType.EldritchKnight) { return classSpellsMap[CharacterClassType.Wizard]; }
-            if (caster == CharacterClassType.MultiClassCaster) { return new List<string>(); } 
+            if (caster == CharacterClassType.MulticlassCaster) { return new List<string>(); } 
             return classSpellsMap[caster];
         }
 

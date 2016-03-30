@@ -26,29 +26,12 @@ namespace ICSheet5e.Model
         Wizard,
         EldritchKnight,
         ArcaneTrickster,
-        MultiClassCaster
+        MulticlassCaster
     }
 
     [DataContract]
     public class Character : CharacterBase
     {
-        #region CasterDictionaries
-
-        private static List<CharacterClassType> castingClasses = new List<CharacterClassType>()
-        {
-            CharacterClassType.Bard,
-            CharacterClassType.Cleric,
-            CharacterClassType.Druid,
-            CharacterClassType.Paladin,
-            CharacterClassType.Ranger,
-            CharacterClassType.Sorcerer,
-            CharacterClassType.Warlock,
-            CharacterClassType.Wizard,
-            CharacterClassType.EldritchKnight
-        };
-
-        #endregion CasterDictionaries
-
         public Character()
         {
             skills = new SkillList<Skill5e>(Edition.Fifth);
@@ -71,7 +54,7 @@ namespace ICSheet5e.Model
         {
             CharacterName = characterName;
             CharacterRace = race;
-            this.abilities = abilitySet; //set in base
+            this._abilities = abilitySet; //set in base
             CharacterClassLevels = classLevels;
             int totalLevel = classLevels.Sum(x => x.Item2);
             _proficiencyBonus = calculateProficiency(totalLevel);
@@ -109,10 +92,10 @@ namespace ICSheet5e.Model
         [DataMember]
         public int ArmorClass
         {
-            get { return Defenses.Single(x => x.type == DefenseType.Armor).value; }
+            get { return Defenses.Single(x => x.TypeOfDefense == DefenseType.Armor).Value; }
             set
             {
-                var ac = Defenses.SingleOrDefault(x => x.type == DefenseType.Armor);
+                var ac = Defenses.SingleOrDefault(x => x.TypeOfDefense == DefenseType.Armor);
                 if (ac != null) { Defenses.Remove(ac); }
                 Defenses.Add(new Defense(value, DefenseType.Armor));
             }
@@ -181,7 +164,7 @@ namespace ICSheet5e.Model
         public int AttackBonusWith(Item weapon)
         {
             var abilities = weapon.AssociatedAbilities;
-            var modifier = abilities.Max(x => abilityModifierFor(x));
+            var modifier = abilities.Max(x => AbilityModifierFor(x));
 
             if (weapon.IsProficient)
             {
@@ -198,7 +181,7 @@ namespace ICSheet5e.Model
             var abilities = weapon.AssociatedAbilities;
             if (weapon.Slot == ItemSlot.Mainhand)
             {
-                return abilities.Max(x => abilityModifierFor(x)) + weapon.EnhancementBonus;
+                return abilities.Max(x => AbilityModifierFor(x)) + weapon.EnhancementBonus;
             }
             else
             {
@@ -299,24 +282,24 @@ namespace ICSheet5e.Model
             var shield = EquippedItemForSlot(ItemSlot.Offhand) as ArmorItem;
             if (armor != null)
             {
-                var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(abilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
+                var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(AbilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
                 ArmorClass = armorBonus;
             }
             else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Barbarian) != null) //unarmored defense
             {
-                ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity) + abilityModifierFor(AbilityType.Constitution);
+                ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity) + AbilityModifierFor(AbilityType.Constitution);
             }
             else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Monk) != null)
             {
-                ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity) + abilityModifierFor(AbilityType.Wisdom);
+                ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity) + AbilityModifierFor(AbilityType.Wisdom);
             }
             else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Sorcerer) != null && features.SingleOrDefault(x => x.Name =="Draconic Resilience") != null)
             {
-                ArmorClass = 13 + abilityModifierFor(AbilityType.Dexterity);
+                ArmorClass = 13 + AbilityModifierFor(AbilityType.Dexterity);
             }
             else
             {
-                ArmorClass = 10 + abilityModifierFor(AbilityType.Dexterity);
+                ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity);
             }
             if (shield != null)
             {
@@ -381,7 +364,7 @@ namespace ICSheet5e.Model
         {
             List<Skill5e> skillBonuses = new List<Skill5e>();
 
-            foreach (var name in Skills.getSkillNames())
+            foreach (var name in Skills.SkillNames)
             {
                 if (skills.SkillForName(name) == null)
                 {
@@ -391,17 +374,17 @@ namespace ICSheet5e.Model
 
             foreach (var s in taggedSkills)
             {
-                AbilityType associatedAbility = skills.abilityFor(s.name);
+                AbilityType associatedAbility = skills.AbilityFor(s.Name);
                 if (s.IsTagged)
                 {
-                    s.bonus = abilityModifierFor(associatedAbility) + Proficiency;
+                    s.Bonus = AbilityModifierFor(associatedAbility) + Proficiency;
                 }
                 else
                 {
-                    s.bonus = abilityModifierFor(associatedAbility);
+                    s.Bonus = AbilityModifierFor(associatedAbility);
                 }
             }
-            this.skills.setAllSkillBonuses(taggedSkills as List<Skill5e>);
+            this.skills.SetAllSkillBonuses(taggedSkills as List<Skill5e>);
         }
 
         [DataMember]
@@ -475,7 +458,7 @@ namespace ICSheet5e.Model
 
         private int calculateInitiative()
         {
-            var bonus = abilityModifierFor(AbilityType.Dexterity);
+            var bonus = AbilityModifierFor(AbilityType.Dexterity);
             if (CharacterClassLevels.Where(x => (x.Item1 == CharacterClassType.Bard && x.Item2 > 2)).Count() > 0)
             {
                 bonus += _proficiencyBonus / 2;
@@ -508,27 +491,27 @@ namespace ICSheet5e.Model
                 proficientDefensesForCharacter.Clear();
             }
 
-            int str = (abilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
+            int str = (AbilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(str, DefenseType.Strength));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Strength));
 
-            int dex = (abilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0);
+            int dex = (AbilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(dex, DefenseType.Dexterity));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Dexterity));
 
-            int con = (abilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0);
+            int con = (AbilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(con, DefenseType.Constitution));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Constitution));
 
-            int intel = (abilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0);
+            int intel = (AbilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(intel, DefenseType.Intelligence));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Intelligence));
 
-            int wis = (abilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
+            int wis = (AbilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(wis, DefenseType.Wisdom));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Wisdom));
 
-            int cha = (abilityModifierFor(AbilityType.Charisma)) + (HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
+            int cha = (AbilityModifierFor(AbilityType.Charisma)) + (HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
             Defenses.Add(new Defense(cha, DefenseType.Charisma));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Charisma));
 

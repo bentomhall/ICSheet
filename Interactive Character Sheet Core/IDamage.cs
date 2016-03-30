@@ -10,9 +10,9 @@ namespace InteractiveCharacterSheetCore
     public interface IDamage
     {
         int Amount { get; set; }
-        DamageType type { get; }
-        bool isResistedBy(ResistanceType type);
-        bool triggersVulnerability(ResistanceType type);
+        DamageType Type { get; }
+        bool IsResistedBy(ResistanceType type);
+        bool TriggersVulnerability(ResistanceType type);
     }
 
     public enum DamageType
@@ -40,14 +40,14 @@ namespace InteractiveCharacterSheetCore
             set;
         }
 
-        public DamageType type { get { return DamageType.Untyped; } }
+        public DamageType Type { get { return DamageType.Untyped; } }
 
-        public bool isResistedBy(ResistanceType type)
+        public bool IsResistedBy(ResistanceType type)
         {
             return false;
         }
 
-        public bool triggersVulnerability(ResistanceType type)
+        public bool TriggersVulnerability(ResistanceType type)
         {
             return false;
         }
