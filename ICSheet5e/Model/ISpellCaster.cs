@@ -5,7 +5,7 @@ namespace ICSheet5e.Model
     interface ISpellCaster
     {
         void AddSpell(Spell spell);
-        void AdjustLevel(List<Tuple<CharacterClassType, int>> newLevels);
+        void AdjustLevel(List<CharacterClassItem> newLevels);
         System.Collections.Generic.List<Spell> AllSpellsForLevel(int level);
         bool CanCastSpell(int ofLevel);
         void CastSpell(int ofLevel);

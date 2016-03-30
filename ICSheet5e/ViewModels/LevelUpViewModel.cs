@@ -50,23 +50,22 @@ namespace ICSheet5e.ViewModels
             {"Arcane Trickster*", Model.CharacterClassType.ArcaneTrickster}
         };
 
-        private string selectedClassName = "Barbarian";
+        private string selectedClassName = "";
 
-        private List<Tuple<Model.CharacterClassType, int>> currentLevels;
-        private List<Tuple<Model.CharacterClassType, int>> projectedLevels;
+        private List<Model.CharacterClassItem> currentLevels;
+        private List<Model.CharacterClassItem> projectedLevels;
         
         private void addProjectedLevel(Model.CharacterClassType ofType)
         {
-            projectedLevels = new List<Tuple<Model.CharacterClassType,int>>(currentLevels); //clear any changes
-            var matchingType = currentLevels.SingleOrDefault(x => x.Item1 == ofType);
+            projectedLevels = new List<Model.CharacterClassItem>(currentLevels); //clear any changes
+            var matchingType = currentLevels.SingleOrDefault(x => x.Matches(ofType));
             if (matchingType != null)
             {
-                projectedLevels.Remove(matchingType);
-                projectedLevels.Add(new Tuple<Model.CharacterClassType, int>(ofType, matchingType.Item2 + 1));
+                matchingType.LevelUp();
             }
             else
             {
-                projectedLevels.Add(new Tuple<Model.CharacterClassType, int>(ofType, 1));
+                projectedLevels.Add(new Model.CharacterClassItem(ofType, 1));
             }
             NotifyPropertyChanged("ClassLevels");
         }
@@ -76,7 +75,7 @@ namespace ICSheet5e.ViewModels
             var output = new StringBuilder();
             foreach (var item in projectedLevels)
             {
-                output.AppendFormat(" {0} {1} /", item.Item1, item.Item2);
+                output.AppendFormat(" {0} /", item);
             }
             var lvls = output.ToString();
             if (lvls.EndsWith("/"))
@@ -106,15 +105,15 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public List<Tuple<Model.CharacterClassType, int>> ChosenClassLevels
+        public List<Model.CharacterClassItem> ChosenClassLevels
         {
             get { return projectedLevels; }
         }
 
-        public LevelUpViewModel(List<Tuple<Model.CharacterClassType, int>> current)
+        public LevelUpViewModel(List<Model.CharacterClassItem> current)
         {
             currentLevels = current;
-            projectedLevels = new List<Tuple<Model.CharacterClassType,int>>(current);
+            projectedLevels = new List<Model.CharacterClassItem>(current);
         }
 
 

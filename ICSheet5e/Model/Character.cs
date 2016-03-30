@@ -35,7 +35,7 @@ namespace ICSheet5e.Model
         public Character()
         {
             skills = new SkillList<Skill5e>(Edition.Fifth);
-            CharacterClassLevels = new CharacterClasses();
+            CharacterClassLevels = new List<CharacterClassItem>();
             inventory = new Inventory<Item>(10);
             inventory.EquipmentChanged += EquipmentChangeHandler;
             CharacterName = "";
@@ -50,13 +50,13 @@ namespace ICSheet5e.Model
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
 
-        public Character(string characterName, CharacterClasses classLevels, Race race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills)
+        public Character(string characterName, IEnumerable<CharacterClassItem> classLevels, Race race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills)
         {
             CharacterName = characterName;
             CharacterRace = race;
             this._abilities = abilitySet; //set in base
-            CharacterClassLevels = classLevels;
-            int totalLevel = classLevels.Sum(x => x.Item2);
+            CharacterClassLevels = classLevels.ToList<CharacterClassItem>();
+            int totalLevel = classLevels.Sum(x => x.Level);
             _proficiencyBonus = calculateProficiency(totalLevel);
             skills = new SkillList<Skill5e>(Edition.Fifth);
             SetSkills<Skill5e>(taggedSkills);
@@ -70,13 +70,13 @@ namespace ICSheet5e.Model
             InitializeDefenses();
         }
 
-        public Character(string characterName, CharacterClasses levels, Race race)
+        public Character(string characterName, IEnumerable<CharacterClassItem> levels, Race race)
             : this()
         {
-            CharacterClassLevels = levels;
+            CharacterClassLevels = levels.ToList<CharacterClassItem>();
             CharacterName = characterName;
             CharacterRace = race;
-            int totalLevel = levels.Sum(x => x.Item2);
+            int totalLevel = levels.Sum(x => x.Level);
             _proficiencyBonus = calculateProficiency(totalLevel);
             InitializeDefenses();
             InitializeMovement();
@@ -118,7 +118,7 @@ namespace ICSheet5e.Model
 
         public Model.ItemDataBase ItemDB { get; set; }
 
-        public CharacterClasses Levels
+        public List<CharacterClassItem> Levels
         {
             get { return CharacterClassLevels; }
         }
@@ -199,15 +199,13 @@ namespace ICSheet5e.Model
             }
         }
 
-        public void DoLevelUp(List<Tuple<CharacterClassType, int>> newLevels, IEnumerable<MartialFeature> newFeatures)
+        public void DoLevelUp(List<CharacterClassItem> newLevels, IEnumerable<MartialFeature> newFeatures)
         {
             if (CharacterClassLevels.Count < newLevels.Count) { updateFeatures(newFeatures); }
             CharacterClassLevels = newLevels;
             RecalculateDependentBonuses();
             setSpellCasting();
             NotifyPropertyChanged("Levels");
-            
-            
         }
 
         private void updateFeatures(IEnumerable<MartialFeature> newFeatures)
@@ -285,15 +283,15 @@ namespace ICSheet5e.Model
                 var armorBonus = armor.ArmorBonus + Math.Max(Math.Min(AbilityModifierFor(AbilityType.Dexterity), armor.MaxDexBonus), 0);
                 ArmorClass = armorBonus;
             }
-            else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Barbarian) != null) //unarmored defense
+            else if (Levels.SingleOrDefault(x => x.Matches(CharacterClassType.Barbarian)) != null) //unarmored defense
             {
                 ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity) + AbilityModifierFor(AbilityType.Constitution);
             }
-            else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Monk) != null)
+            else if (Levels.SingleOrDefault(x => x.Matches(CharacterClassType.Monk)) != null)
             {
                 ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity) + AbilityModifierFor(AbilityType.Wisdom);
             }
-            else if (Levels.SingleOrDefault(x => x.Item1 == CharacterClassType.Sorcerer) != null && features.SingleOrDefault(x => x.Name =="Draconic Resilience") != null)
+            else if (Levels.SingleOrDefault(x => x.Matches(CharacterClassType.Sorcerer)) != null && features.SingleOrDefault(x => x.Name =="Draconic Resilience") != null)
             {
                 ArmorClass = 13 + AbilityModifierFor(AbilityType.Dexterity);
             }
@@ -415,7 +413,7 @@ namespace ICSheet5e.Model
         private Model.SpellManager _spellDB;
 
         [DataMember]
-        private CharacterClasses CharacterClassLevels;
+        private List<CharacterClassItem> CharacterClassLevels;
 
         [DataMember]
         private List<MartialFeature> features = new List<MartialFeature>();
@@ -459,7 +457,7 @@ namespace ICSheet5e.Model
         private int calculateInitiative()
         {
             var bonus = AbilityModifierFor(AbilityType.Dexterity);
-            if (CharacterClassLevels.Where(x => (x.Item1 == CharacterClassType.Bard && x.Item2 > 2)).Count() > 0)
+            if (CharacterClassLevels.Where(x => (x.Matches(CharacterClassType.Bard) && x.Level >= 2)).Count() > 0)
             {
                 bonus += _proficiencyBonus / 2;
             }
@@ -475,7 +473,7 @@ namespace ICSheet5e.Model
         {
             try
             {
-                return _proficientDefenses[CharacterClassLevels[0].Item1].Contains(d);
+                return _proficientDefenses[CharacterClassLevels[0].ClassType].Contains(d);
             }
             catch (System.ArgumentOutOfRangeException)
             {

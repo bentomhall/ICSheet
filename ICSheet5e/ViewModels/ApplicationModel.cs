@@ -108,7 +108,7 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterInformationReceived(string name, Model.Race race, List<System.Tuple<Model.CharacterClassType, int>> classes)
+        public void NewCharacterInformationReceived(string name, Model.Race race, List<Model.CharacterClassItem> classes)
         {
             var characterBuilder = new Model.CharacterFactory(name, race, classes, itemDB, spellDB);
             currentCharacter = characterBuilder.Build();
@@ -222,9 +222,9 @@ namespace ICSheet5e.ViewModels
             List<Model.MartialFeature> newFeatures = new List<Model.MartialFeature>();
             foreach (var cls in newLevels)
             {
-                if (oldLevels.SingleOrDefault(x => x.Item1 == cls.Item1) != null)
+                if (oldLevels.SingleOrDefault(x => x.Matches(cls.ClassType)) != null)
                 {
-                    newFeatures.AddRange(featureFactory.ClassFeatures(cls.Item1));
+                    newFeatures.AddRange(featureFactory.ClassFeatures(cls.ClassType));
                 }
             }
             currentCharacter.DoLevelUp(newLevels, newFeatures);

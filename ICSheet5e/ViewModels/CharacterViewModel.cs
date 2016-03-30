@@ -91,7 +91,7 @@ namespace ICSheet5e.ViewModels
 
         public ObservableCollection<Model.MartialFeature> Features
         {
-            get { return new ObservableCollection<Model.MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Item2))); }
+            get { return new ObservableCollection<Model.MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Level))); }
         }
 
         public ObservableCollection<int> Gold
@@ -293,7 +293,7 @@ namespace ICSheet5e.ViewModels
             var builder = new StringBuilder();
             foreach (var entry in character.Levels)
             {
-                builder.AppendFormat("{0} {1} ", entry.Item1, entry.Item2);
+                builder.Append(entry);
             }
             return builder.ToString();
         }

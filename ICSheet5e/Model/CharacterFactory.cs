@@ -11,14 +11,14 @@ namespace ICSheet5e.Model
     {
         private string characterName;
         private Race characterRace;
-        private List<Tuple<CharacterClassType, int>> characterLevels;
+        private List<CharacterClassItem> characterLevels;
         private ItemDataBase itemDB;
         private SpellManager spellDB;
         private XMLFeatureFactory featureFactory = new XMLFeatureFactory();
 
-        internal CharacterFactory(string name, Race race, IEnumerable<Tuple<CharacterClassType, int>> levels, ItemDataBase items, SpellManager spells)
+        internal CharacterFactory(string name, Race race, IEnumerable<CharacterClassItem> levels, ItemDataBase items, SpellManager spells)
         {
-            characterLevels = new List<Tuple<CharacterClassType,int>>(levels);
+            characterLevels = new List<CharacterClassItem>(levels);
             characterName = name;
             characterRace = race;
             itemDB = items;
@@ -38,7 +38,7 @@ namespace ICSheet5e.Model
 
             foreach (var clsLvl in characterLevels)
             {
-                var classFeatures = featureFactory.ClassFeatures(clsLvl.Item1);
+                var classFeatures = featureFactory.ClassFeatures(clsLvl.ClassType);
                 foreach (var f in classFeatures) { c.AddFeature(f); }
             }
             return c;

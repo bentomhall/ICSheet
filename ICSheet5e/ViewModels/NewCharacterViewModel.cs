@@ -87,7 +87,7 @@ namespace ICSheet5e.ViewModels
 
         public List<Model.Race> RaceList { get; set; }
 
-        private List<Tuple<Model.CharacterClassType, int>> levels =  new List<Tuple<Model.CharacterClassType,int>>();
+        private List<Model.CharacterClassItem> levels =  new List<Model.CharacterClassItem>();
 
         private string _class1 = "";
         private string _class2 = "";
@@ -162,16 +162,16 @@ namespace ICSheet5e.ViewModels
 
         private void StartNewCharacterCommandExecuted(object sender)
         {
-            var c1 = new Tuple<Model.CharacterClassType, int>(classMap[_class1], _levels1);
+            var c1 = new Model.CharacterClassItem(classMap[_class1], _levels1);
             levels.Add(c1);
             if (!string.IsNullOrEmpty(_class2) && _levels2 != 0)
             { 
-                var c2 = new Tuple<Model.CharacterClassType, int>(classMap[_class2], _levels2);
+                var c2 = new Model.CharacterClassItem(classMap[_class2], _levels2);
                 levels.Add(c2);
             }
             if (!string.IsNullOrEmpty(_class3) && _levels3 != 0)
             {
-                var c3 = new Tuple<Model.CharacterClassType, int>(classMap[_class3], _levels3);
+                var c3 = new Model.CharacterClassItem(classMap[_class3], _levels3);
                 levels.Add(c3);
             }
 
@@ -206,6 +206,6 @@ namespace ICSheet5e.ViewModels
             CanExecute = canExecute;
         }
 
-        public Action<string, Model.Race, List<Tuple<Model.CharacterClassType, int>>> delegateAction { get; set; }
+        public Action<string, Model.Race, List<Model.CharacterClassItem>> delegateAction { get; set; }
     }
 }
