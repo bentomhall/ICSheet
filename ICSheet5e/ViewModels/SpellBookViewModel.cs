@@ -15,13 +15,26 @@ namespace ICSheet5e.ViewModels
             _dB = dB;
             LoadAllSpells();
             _spellsForSelectedLevel = spellViewModelsForLevel(0);
+            reconcilePreparedSpells();
         }
 
-        public ObservableCollection<SpellViewModel> AllSpells
+        private void reconcilePreparedSpells()
+        {
+            var master = _caster.PreparedSpells;
+            foreach (var s in _allSpells)
+            {
+                if (master.Count(x => x.Name == s.Name) != 0)
+                {
+                    s.IsPrepared = true;
+                }
+            }
+        }
+
+        public ObservableCollection<Spell> AllSpells
         {
             get
             {
-                return _spellsForSelectedLevel;
+                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Level == _selectedLevel));
             }
         }
 
@@ -57,8 +70,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public SpellViewModel SelectedSpell
-        {
+        public Spell SelectedSpell { 
             get { return _selectedSpell; }
             set
             {
@@ -99,7 +111,7 @@ namespace ICSheet5e.ViewModels
         private SpellCaster _caster;
         private SpellManager _dB;
         private int _selectedLevel = 0;
-        private SpellViewModel _selectedSpell;
+        private Spell _selectedSpell;
 
         private List<string> _spellLevelLabels = new List<string>()
         {
@@ -149,9 +161,9 @@ namespace ICSheet5e.ViewModels
 
         private void LearnSpellCommandExecuted(object obj)
         {
-            var spell = SelectedSpell.Spell;
+            var spell = SelectedSpell;
             _caster.AddSpell(spell);
-            SelectedSpell.SpellKnown = true;
+            //SelectedSpell.SpellKnown = true;
             NotifyPropertyChanged("SpellKnown");
         }
 
@@ -182,11 +194,11 @@ namespace ICSheet5e.ViewModels
 
         private void ToggleSpellPreparationExecuted(object obj)
         {
-            var spell = SelectedSpell.Spell;
+            var spell = SelectedSpell;
             if (!_caster.IsSpellKnown(spell)) { return; }
             _caster.PrepareSpell(spell);
-            SelectedSpell.PrepareSpell();
-            NotifyPropertyChanged("PreparedSpells");
+            NotifyPropertyChanged("AllSpells");
+            NotifyPropertyChanged("IsPrepared");
         }
     }
 }

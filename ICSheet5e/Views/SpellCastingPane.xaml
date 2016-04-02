@@ -28,21 +28,21 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="ContextMenu" Value="{StaticResource SpellContextMenu}"/>
-                    <Style.Triggers>
+                        <!--<Style.Triggers>
                         <DataTrigger Binding="{Binding Path=SpellKnown}" Value="False">
                             <Setter Property="Background" Value="#aaaaaa"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=SpellKnown}" Value="True">
                             <Setter Property="Background" Value="White"/>
                         </DataTrigger>
-                    </Style.Triggers>
+                    </Style.Triggers> -->
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Spell Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
                     <GridViewColumn Header="Prepared?" DisplayMemberBinding="{Binding IsPrepared}"/>
-                    <GridViewColumn Header="Known?" DisplayMemberBinding="{Binding SpellKnown}"/>
+                    <!--<GridViewColumn Header="Known?" DisplayMemberBinding="{Binding SpellKnown}"/>-->
                 </GridView>
             </ListView.View>
         </ListView>

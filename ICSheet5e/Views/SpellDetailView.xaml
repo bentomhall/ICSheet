@@ -34,6 +34,6 @@
         <Label Grid.Row="5">Components:</Label>
         <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=SelectedSpell.Components}" TextWrapping="Wrap"/>
         <Label Grid.Row="6" VerticalContentAlignment="Top">Text:</Label>
-        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=SelectedSpell.Text}" IsHyphenationEnabled="True" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=SelectedSpell.Description}" IsHyphenationEnabled="True" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>
