@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Xml.Linq;
 using System.Runtime.Serialization;
 
@@ -14,7 +11,7 @@ namespace ICSheet5e.Model
     {
         private bool canCast(CharacterClassType classType, string spellName)
         {
-            return classSpellsMap[classType].Count > 0;
+            return classSpellsMap[classType].Contains(spellName);
         }
         private bool hasSpellDetails(string spellName)
         {
@@ -78,8 +75,7 @@ namespace ICSheet5e.Model
                     var type = classNameClassTypeMap[caster];
                     if (canCast(type, spell.Name))
                     {
-                        if (spell.CastableBy == null) { spell.CastableBy = new List<CharacterClassType>(); }
-                        spell.CastableBy.Add(type);
+                        spell.AddCastingClass(type);
                     }
                 }
                 _spellDetails.Add(spell);
@@ -99,7 +95,7 @@ namespace ICSheet5e.Model
         [DataMember]
         private List<string> castingClasses = new List<String>() { "bard", "cleric", "druid", "paladin", "ranger", "sorcerer", "warlock", "wizard" };
 
-        public List<string> SpellNamesFor(CharacterClassType caster)
+        public IEnumerable<string> SpellNamesFor(CharacterClassType caster)
         {
             if (caster == CharacterClassType.Barbarian || caster == CharacterClassType.Fighter || caster == CharacterClassType.Monk || caster == CharacterClassType.Rogue) { return new List<string>(); }
             if (caster == CharacterClassType.ArcaneTrickster || caster == CharacterClassType.EldritchKnight) { return classSpellsMap[CharacterClassType.Wizard]; }
@@ -121,7 +117,6 @@ namespace ICSheet5e.Model
                 spell.Level = -1;
                 spell.Range = "?";
                 spell.Components = "?";
-                spell.CastableBy = new List<CharacterClassType>();
                 spell.CastTime = "?";
                 spell.School = "?";
                 return spell;

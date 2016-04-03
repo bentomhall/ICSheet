@@ -35,10 +35,13 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")] //set in XAML
         public Spell SpellToLearn { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string SearchString { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ObservableCollection<Spell> MatchingSpells
         {
             get {
@@ -48,6 +51,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand FindMatchingSpellsCommand
         {
             get { return new Views.DelegateCommand<object>(x => NotifyPropertyChanged("MatchingSpells")); }

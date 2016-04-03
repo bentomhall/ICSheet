@@ -70,7 +70,7 @@ namespace ICSheet5e.Model
             return features;
         }
 
-        public List<MartialFeature> ClassFeatures(CharacterClassType classType)
+        public IEnumerable<MartialFeature> ClassFeatures(CharacterClassType classType)
         {
             var doc = XDocument.Parse(_classFeaturesXMLPath);
             XElement classRoot;
@@ -80,12 +80,12 @@ namespace ICSheet5e.Model
             return ExtractClassFeatures(classRoot);
         }
 
-        private XElement FindSingleElementByNameAttribute(string XName, string attributeName, XElement inElement)
+        static private XElement FindSingleElementByNameAttribute(string XName, string attributeName, XElement inElement)
         {
             return inElement.Elements(XName).First(x => x.Attribute("Name").Value == attributeName);
         }
 
-        private List<MartialFeature> ExtractClassFeatures(XElement e)
+        static private IEnumerable<MartialFeature> ExtractClassFeatures(XElement e)
         {
             List<MartialFeature> features = new List<MartialFeature>();
             foreach (var node in e.Descendants("Feature"))

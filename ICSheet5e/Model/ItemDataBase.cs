@@ -22,8 +22,8 @@ namespace ICSheet5e.Model
         private List<WeaponItem> _weapons;
 
         public ICollection<ArmorItem> Armors { get { return _armors; } }
-        public List<WeaponItem> Weapons { get { return _weapons; } }
-        public List<Item> Items { get { return _items; } }
+        public ICollection<WeaponItem> Weapons { get { return _weapons; } }
+        public ICollection<Item> Items { get { return _items; } }
 
         public bool Contains(IItem item)
         {
@@ -39,7 +39,7 @@ namespace ICSheet5e.Model
             if (_weapons == null) { _weapons = ParseBasicWeapons(); }
         }
 
-        private List<ArmorItem> ParseBasicArmors()
+        static private List<ArmorItem> ParseBasicArmors()
         {
             var data = ICSheet5e.Properties.Resources.BasicArmors;
             var doc = XDocument.Parse(data);
@@ -72,12 +72,12 @@ namespace ICSheet5e.Model
             return output;
         }
 
-        private List<Item> ParseItems()
+        static private List<Item> ParseItems()
         {
             return new List<Item>();
         }
 
-        private List<WeaponItem> ParseBasicWeapons()
+        static private List<WeaponItem> ParseBasicWeapons()
         {
             var data = ICSheet5e.Properties.Resources.BasicWeapons;
             var doc = XDocument.Parse(data);
@@ -109,7 +109,7 @@ namespace ICSheet5e.Model
                 else if (dType == "Slashing") { type = DamageType.Slashing; }
                 var slot = ItemSlot.Mainhand;
                 if (properties.Contains("Two-handed")) { slot = ItemSlot.TwoHanded; }
-                var newItem = new WeaponItem(name, weight, value, slot, false, properties, category);
+                var newItem = new WeaponItem(name, weight, value, slot, false, properties, category, 0);
                 newItem.BaseEffect = damage;
                 newItem.Damage = type;
                 output.Add(newItem);

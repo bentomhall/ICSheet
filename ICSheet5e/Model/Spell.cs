@@ -27,7 +27,7 @@ namespace ICSheet5e.Model
         public int Level { get; set; }
 
         [DataMember]
-        public List<CharacterClassType> CastableBy { get; set; }
+        public ICollection<CharacterClassType> CastableBy { get; private set; }
 
         [DataMember]
         public string School { get; set; }
@@ -40,6 +40,12 @@ namespace ICSheet5e.Model
 
         [DataMember]
         public string Duration { get; set; }
+
+        public void AddCastingClass(CharacterClassType classType)
+        {
+            if (CastableBy == null) { CastableBy = new List<CharacterClassType>() { classType }; }
+            else { CastableBy.Add(classType); }
+        }
 
         public override string ToString()
         {

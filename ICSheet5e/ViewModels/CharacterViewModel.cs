@@ -144,7 +144,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public IReadOnlyCollection<Model.Spell> PreparedSpells
+        public IEnumerable<Model.Spell> PreparedSpells
         {
             get
             {

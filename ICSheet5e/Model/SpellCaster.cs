@@ -9,7 +9,7 @@ using InteractiveCharacterSheetCore;
 namespace ICSheet5e.Model
 {
     [DataContract]
-    public class SpellCaster: IClassFeature, ICSheet5e.Model.ISpellCaster
+    public class SpellCaster: IClassFeature, ISpellCaster
     {
         public int MinimumLevel { get { return 1; } }
         public void Clear() { spellBook.UnprepareAllSpells(); }
@@ -41,23 +41,23 @@ namespace ICSheet5e.Model
         };
 
         [DataMember]
-        private List<CharacterClassType> subTypes;
+        private IEnumerable<CharacterClassType> subTypes;
 
-        public SpellCaster(CharacterClassType type, int level, Model.SpellManager spellDB, IEnumerable<CharacterClassType> subTypes = null)
+        public SpellCaster(CharacterClassType type, int level, SpellManager spellDB, IEnumerable<CharacterClassType> subTypes)
         {
             className = type;
             SetSpellSlots(level);
-            if (subTypes != null) { this.subTypes = subTypes.ToList<CharacterClassType>(); }
+            if (subTypes != null) { this.subTypes = subTypes; }
             spellBook = new SpellBook(spellDB, type, this.subTypes);
             RecoverAllSpellSlots();
         }
 
-        public static SpellCaster Construct(List<CharacterClassItem> levels, Character source, Model.SpellManager spellDB)
+        public static SpellCaster Construct(IList<CharacterClassItem> levels, Character source, SpellManager spellDB)
         {
             var numberOfCastingClasses = levels.Count(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None);
             if (numberOfCastingClasses == 0)
             {
-                var sp = new SpellCaster(levels[0].ClassType, levels[0].Level, spellDB);
+                var sp = new SpellCaster(levels[0].ClassType, levels[0].Level, spellDB, null);
                 sp.SpellAttackModifier = 0;
                 sp.SpellDC = 0;
                 sp.maxPreparedSpells = 0;
@@ -67,7 +67,7 @@ namespace ICSheet5e.Model
             else if (numberOfCastingClasses == 1)
             {
                 var type = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None).First();
-                var sp = new SpellCaster(type.ClassType, type.Level, spellDB);
+                var sp = new SpellCaster(type.ClassType, type.Level, spellDB, null);
                 var abilityMod = source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(levels[0].ClassType));
                 sp.SpellAttackModifier = source.Proficiency + abilityMod;
                 sp.SpellDC = 8 + source.Proficiency + abilityMod;
@@ -89,7 +89,7 @@ namespace ICSheet5e.Model
             }
         }
 
-        static public SpellCaster ConstructFromExisting(SpellCaster caster, Character source, List<CharacterClassItem> levels, SpellManager spellDB)
+        static public SpellCaster ConstructFromExisting(SpellCaster caster, Character source, IEnumerable<CharacterClassItem> levels, SpellManager spellDB)
         {
             var castingClasses = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None);
             if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] != SpellSlotsByLevel.CastingType.None) {
@@ -98,11 +98,11 @@ namespace ICSheet5e.Model
             } //no change
             else if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] == SpellSlotsByLevel.CastingType.None)
             {
-                return SpellCaster.Construct(levels, source, spellDB); //no known spells to worry about
+                return SpellCaster.Construct(levels.ToList(), source, spellDB); //no known spells to worry about
             }
             else
             {
-                var sc = SpellCaster.Construct(levels, source, spellDB);
+                var sc = SpellCaster.Construct(levels.ToList(), source, spellDB);
                 foreach (var spell in caster.spellBook.AllKnownSpells)
                 {
                     sc.AddSpell(spell);
@@ -111,7 +111,7 @@ namespace ICSheet5e.Model
             }
         }
 
-        static private int castingLevel(List<CharacterClassItem> levels)
+        static private int castingLevel(IEnumerable<CharacterClassItem> levels)
         {
             var output = 0;
             foreach (var item in levels)
@@ -142,7 +142,7 @@ namespace ICSheet5e.Model
             get { return String.Format("Casts spells as a {0}", className); }
         }
 
-        public void AdjustLevel(List<CharacterClassItem> newLevels)
+        public void AdjustLevel(IEnumerable<CharacterClassItem> newLevels)
         {
             var newLevel = castingLevel(newLevels);
             SetSpellSlots(newLevel);
@@ -233,7 +233,7 @@ namespace ICSheet5e.Model
             }
         }
 
-        public List<Spell> AllSpellsForLevel(int level)
+        public IEnumerable<Spell> AllSpellsForLevel(int level)
         {
             return spellBook.AllSpellsFor(level);
         }
@@ -243,7 +243,7 @@ namespace ICSheet5e.Model
             return spellBook.IsSpellKnown(spell);
         }
 
-        public void PrepareSpells(List<Spell> spells)
+        public void PrepareSpells(ICollection<Spell> spells)
         {
             if (spells.Count > maxPreparedSpells) { throw new System.ArgumentException("Too many spells to prepare!"); }
             spellBook.UnprepareAllSpells();
@@ -277,7 +277,7 @@ namespace ICSheet5e.Model
             return SpellSlotsByLevel.CastingTypeForClassType[className] != SpellSlotsByLevel.CastingType.None;
         }
 
-        public List<Spell> PreparedSpells
+        public IEnumerable<Spell> PreparedSpells
         {
             get { return spellBook.AllPreparedSpells; }
         }

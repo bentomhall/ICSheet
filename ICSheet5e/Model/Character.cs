@@ -106,7 +106,7 @@ namespace ICSheet5e.Model
         [DataMember]
         public string Notes { get; set; }
 
-        public IReadOnlyCollection<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
+        public IEnumerable<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
 
         public int Proficiency
         {

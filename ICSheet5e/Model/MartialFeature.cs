@@ -23,16 +23,6 @@ namespace ICSheet5e.Model
         public string Uses { get { return _uses; } }
         public int MinimumLevel { get { return _minimumLevel; } set { _minimumLevel = value; } }
 
-        [Serializable]
-        public class UnuseableException: Exception
-        {
-            public UnuseableException() { }
-
-            public UnuseableException(string message) : base(message) { }
-
-            public UnuseableException(string message, Exception inner) : base(message, inner) { }
-        }
-
         public MartialFeature(string name, string description, string uses)
         {
             _name = name;

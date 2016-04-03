@@ -17,9 +17,7 @@ namespace ICSheet5e.Model
         private List<Spell> _allSpells = new List<Spell>();
         [DataMember]
         private List<Spell> _knownSpells = new List<Spell>();
-        [DataMember]
-        private CharacterClassType classType;
-        public SpellBook(Model.SpellManager spellDB, CharacterClassType className, List<CharacterClassType> subClasses = null)
+        public SpellBook(SpellManager spellDB, CharacterClassType className, IEnumerable<CharacterClassType> subClasses)
         {
             dB = spellDB;
             if (subClasses != null)
@@ -27,10 +25,9 @@ namespace ICSheet5e.Model
                 loadSpells(subClasses);
             }
             else { loadSpells(className); }
-            classType = className;
         }
 
-        private void loadSpells(List<CharacterClassType> types)
+        private void loadSpells(IEnumerable<CharacterClassType> types)
         {
             foreach (var type in types)
             {
@@ -67,20 +64,20 @@ namespace ICSheet5e.Model
             }
         }
 
-        public List<Spell> AllSpellsFor(int spellLevel)
+        public IEnumerable<Spell> AllSpellsFor(int spellLevel)
         {
-            return _allSpells.Where(x => x.Level == spellLevel).ToList();
+            return _allSpells.Where(x => x.Level == spellLevel);
         }
 
-        public List<Spell> AllPreparedSpells
+        public IEnumerable<Spell> AllPreparedSpells
         {
             get 
             {
-                return _knownSpells.Where(x => x.IsPrepared).ToList(); 
+                return _knownSpells.Where(x => x.IsPrepared); 
             }
         }
 
-        public List<Spell> AllKnownSpells
+        public IEnumerable<Spell> AllKnownSpells
         {
             get { return _knownSpells; }
         }
@@ -97,8 +94,6 @@ namespace ICSheet5e.Model
             if (IsSpellKnown(spell)) 
             {
                 spell.IsPrepared = (!spell.IsPrepared);
-                //var sp = _knownSpells.SingleOrDefault(x => x.Name == spell.Name);
-                //sp.IsPrepared = (!sp.IsPrepared); 
             }
         }
 
