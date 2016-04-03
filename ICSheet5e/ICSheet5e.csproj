@@ -111,7 +111,6 @@
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
-    <Compile Include="ViewModels\ClassInformationViewModel.cs" />
     <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />

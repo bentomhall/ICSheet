@@ -206,6 +206,6 @@ namespace ICSheet5e.ViewModels
             CanExecute = canExecute;
         }
 
-        public Action<string, Model.Race, List<Model.CharacterClassItem>> delegateAction { get; set; }
+        public Action<string, Model.Race, IEnumerable<Model.CharacterClassItem>> delegateAction { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace ICSheet5e.ViewModels
         {
             character = c;
             _setSkills(c.Skills);
-            _levels = FormatLevels();
             Parent = parent;
             Parent.PropertyChanged += ParentEditingPropertyChanged;
             Attacks = new ObservableCollection<AttackViewModel>();
@@ -263,7 +262,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        private string _levels = "";
+        //private string _levels = "";
         private Model.Spell _selectedSpell;
         private bool canEdit = false;
         private Model.Character character;
@@ -326,13 +325,9 @@ namespace ICSheet5e.ViewModels
             return;
         }
 
-        private bool HealDamageCommandCanExecute(object obj)
-        {
-            return (CurrentHealth < MaxHealth);
-        }
-
         private void HealDamageCommandExecuted(object obj)
         {
+            if (obj == null) { return; }
             var type = HealthChangeViewModel.HealthChangeType.Healing;
             DisplayModalHealthDialog(type);
         }
@@ -356,7 +351,7 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged(e.PropertyName);
         }
 
-        private ObservableCollection<int> ParseGold(double gold)
+        static private ObservableCollection<int> ParseGold(double gold)
         {
             var goldList = new ObservableCollection<int>();
             var temp = gold;
@@ -471,7 +466,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public List<Defense> Defenses
+        public IList<Defense> Defenses
         {
             get { return character.Defenses; }
         }
@@ -557,7 +552,7 @@ namespace ICSheet5e.ViewModels
 
         #endregion Attacks
 
-        private string slotListAsString(List<int> slots)
+        static private string slotListAsString(List<int> slots)
         {
             return String.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
         }

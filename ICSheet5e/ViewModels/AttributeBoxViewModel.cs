@@ -132,7 +132,7 @@ namespace ICSheet5e.ViewModels
             IsEditing = false;
         }
 
-        private int ModifierFor(int attributeScore)
+        static private int ModifierFor(int attributeScore)
         {
             return (attributeScore - 10) / 2;
         }

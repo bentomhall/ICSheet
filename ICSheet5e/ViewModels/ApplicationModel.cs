@@ -108,12 +108,10 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterInformationReceived(string name, Model.Race race, List<Model.CharacterClassItem> classes)
+        public void NewCharacterInformationReceived(string name, Model.Race race, IEnumerable<Model.CharacterClassItem> classes)
         {
             var characterBuilder = new Model.CharacterFactory(name, race, classes, itemDB, spellDB);
             currentCharacter = characterBuilder.Build();
-            //currentCharacter.ItemDB = itemDB;
-            //currentCharacter.SpellDB = spellDB;
             setViewModels();
         }
 
@@ -133,7 +131,6 @@ namespace ICSheet5e.ViewModels
             ViewModels[0] = cvm;
             ViewModels[1] = new InventoryViewModel(currentCharacter, this);
             if (CanCastSpells) {
-                var caster = currentCharacter.Spellcasting[0];
                 var sp = new SpellBookViewModel(currentCharacter.Spellcasting[0], spellDB);
                 sp.PropertyChanged += cvm.OnEquipmentChanged;
                 ViewModels[3] = sp;
@@ -170,7 +167,6 @@ namespace ICSheet5e.ViewModels
             if (!IsCharacterInitialized) return;
             var saveLocation = Views.WindowManager.SelectSaveLocation();
             if (saveLocation == null) { return; } //user canceled save dialog
-            List<Type> knownTypes = new List<Type>() { typeof(Model.ArmorItem), typeof(Model.WeaponItem) };
             var serializer = new DataContractSerializer(typeof(Model.Character));
             System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
             serializer.WriteObject(stream, currentCharacter);
@@ -179,6 +175,7 @@ namespace ICSheet5e.ViewModels
 
         public bool SaveCommandCanExecute(object sender)
         {
+            if (sender == null) { return false; }
             return IsCharacterInitialized;
         }
 
