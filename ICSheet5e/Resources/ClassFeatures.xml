@@ -122,9 +122,33 @@
   </PCClass>
   <PCClass Name="Paladin">
     <Feature Name="Hit Dice">d10</Feature>
+    <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">All armor, shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple and martial weapons.</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Divine Sense">As an action you can sense the presence of any undead, celestial or fiend within 60 ft. You know the type but not the identity. You also detect the presence of any hallowed or desecrated areas within range. You can use this up to 1 + CHA times per long rest.</Feature>
+    <Feature xml:space="preserve" Name="Lay on Hands">You have a pool healing up to 5 x paladin level. With this pool you can:
+    Touch and heal any creature as an action.
+    Spend 5 points to cure any disease or neutralize poison on a target.
+    This has no effect on undead or constructs.</Feature>
+    <Feature xml:space="preserve" Name="Fighting Style" StartLevel="2">You gain one of the following:
+    Defese: While wearing armor you gain +1 to AC.
+    Dueling: While you are wielding a melee weapon in 1 hand and no other weapon you gain +2 to damage with that weapon.
+    Great Weapon Fighting: Can reroll 1s or 2s on damage dice for two-handed weapons.
+    Protection: When a visible creature attacks a target within 5 feet of you you can use your reaction to impose disadvantage. Must be wielding a shield.</Feature>
+    <Feature Name="Spellcasting" StartLevel="2">Paladin Spellcasting (CHA prepared).</Feature>
+    <Feature Name="Divine Smite" StartLevel="2">When you hit a creature with a melee weapon attack you can expend a spell slot to add 2d8 + (n-1)d8 radiant damage; n = level of slot. Max is 5d8. Damage increases by 1d8 on undead and fiends.</Feature>
+    <Feature Name="Divine Health" StartLevel="3">You are immune to disease.</Feature>
+    <Feature Name="Sacred Oath" StartLevel="3">See PHB 85.</Feature>
+    <Feature Name="Extra Attack (Paladin)" StartLevel="5">You can attack 2x when you use the Attack action. Does not stack.</Feature>
+    <Feature Name="Aura of Protection" StartLevel="6">You and allies within 10' gain +CHA bonus to saving throws while you are conscious. Range increases to 30' at 18th level.</Feature>
+    <Feature Name="Aura of Courage" StartLevel="10">You and allies within 10' cannot be frightened while you are conscious. Range increases to 30' at 18th level.</Feature>
+    <Feature Name="Improved Divine Smite" StartLevel="11">You deal 1d8 extra radiant damage on hit. Stacks with Divine Smite.</Feature>
+    <Feature Name="Cleansing Touch" StartLevel="14">You can use your action to end one spell on yourself or one willing creature (touch). Uses: CHA/long rest.</Feature>
   </PCClass>
   <PCClass Name="Ranger">
     <Feature Name="Hit Dice">d10</Feature>
+    <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
   </PCClass>
   <PCClass Name="Rogue">
     <Feature Name="Hit Dice">d8</Feature>
@@ -132,6 +156,7 @@
   </PCClass>
   <PCClass Name="Sorcerer">
     <Feature Name="Hit Dice">d6</Feature>
+    <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
   </PCClass>
   <PCClass Name="Warlock">
     <Feature Name="Hit Dice">d8</Feature>
@@ -139,5 +164,6 @@
   </PCClass>
   <PCClass Name="Wizard">
     <Feature Name="Hit Dice">d6</Feature>
+    <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
   </PCClass>
 </ClassFeatures>
