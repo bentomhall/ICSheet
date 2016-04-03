@@ -92,7 +92,10 @@ namespace ICSheet5e.Model
         static public SpellCaster ConstructFromExisting(SpellCaster caster, Character source, List<CharacterClassItem> levels, SpellManager spellDB)
         {
             var castingClasses = levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None);
-            if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] != SpellSlotsByLevel.CastingType.None) { return caster; } //no change
+            if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] != SpellSlotsByLevel.CastingType.None) {
+                caster.AdjustLevel(levels);
+                return caster;
+            } //no change
             else if (castingClasses.Count() == 1 && SpellSlotsByLevel.CastingTypeForClassType[caster.className] == SpellSlotsByLevel.CastingType.None)
             {
                 return SpellCaster.Construct(levels, source, spellDB); //no known spells to worry about
@@ -215,6 +218,19 @@ namespace ICSheet5e.Model
         public void AddSpell(Spell spell)
         {
             spellBook.AddKnownSpell(spell);
+            switch(className)
+            {
+                case CharacterClassType.Bard:
+                case CharacterClassType.EldritchKnight:
+                case CharacterClassType.ArcaneTrickster:
+                case CharacterClassType.Ranger:
+                case CharacterClassType.Sorcerer:
+                case CharacterClassType.Warlock:
+                    spellBook.ToggleSpellPreparation(spell); //these classes automatically prepare all spells known.
+                    break;
+                default:
+                    break;
+            }
         }
 
         public List<Spell> AllSpellsForLevel(int level)

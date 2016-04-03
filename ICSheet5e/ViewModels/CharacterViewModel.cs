@@ -86,7 +86,7 @@ namespace ICSheet5e.ViewModels
 
         public string PreparedSpellsCount
         {
-            get { return String.Format("{0} / {1}", PreparedSpells.Count(x => x.Level != 0), character.Spellcasting[0].MaxPreparedSpells); }
+            get { return string.Format("{0} / {1}", PreparedSpells.Count(x => x.Level != 0), character.Spellcasting[0].MaxPreparedSpells); }
         }
 
         public ObservableCollection<Model.MartialFeature> Features

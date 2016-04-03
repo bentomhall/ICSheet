@@ -336,6 +336,8 @@ namespace ICSheet5e.Model
                 spellBooks.Add(SpellCaster.Construct(CharacterClassLevels, this, SpellDB));
             }
             _isSpellCaster = (spellBooks[0].SpellAttackModifier != 0);
+            NotifyPropertyChanged("AvailableSpellSlots");
+            NotifyPropertyChanged("PreparedSpellsCount");
         }
 
         public void TakeLongRest()
