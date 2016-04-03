@@ -372,7 +372,7 @@ namespace ICSheet5e.ViewModels
 
         private void CreateItemCommandExecuted(object obj)
         {
-            if (name == "") { return; }
+            if (string.IsNullOrEmpty(name)) { return; }
 
 
             

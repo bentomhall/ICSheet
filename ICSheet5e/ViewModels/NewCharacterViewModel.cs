@@ -202,7 +202,7 @@ namespace ICSheet5e.ViewModels
             canExecute = canExecute && (CharacterName != null);
             canExecute = canExecute && (CharacterRace != null);
             canExecute = canExecute && (_levels1 != 0);
-            canExecute = canExecute && (_class1 != "");
+            canExecute = canExecute && !string.IsNullOrEmpty(_class1);
             CanExecute = canExecute;
         }
 

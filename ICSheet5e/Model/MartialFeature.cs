@@ -24,7 +24,7 @@ namespace ICSheet5e.Model
         public int MinimumLevel { get { return _minimumLevel; } set { _minimumLevel = value; } }
 
         [Serializable]
-        public class UnuseableException: System.Exception
+        public class UnuseableException: Exception
         {
             public UnuseableException() { }
 

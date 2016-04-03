@@ -362,7 +362,7 @@ namespace ICSheet5e.Model
 
         protected override void SetSkills<T>(List<T> taggedSkills)
         {
-            List<Skill5e> skillBonuses = new List<Skill5e>();
+            //List<Skill5e> skillBonuses = new List<Skill5e>();
 
             foreach (var name in Skills.SkillNames)
             {
