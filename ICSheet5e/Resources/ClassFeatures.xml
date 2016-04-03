@@ -91,6 +91,34 @@
   </PCClass>
   <PCClass Name="Monk">
     <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">None</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, shortswords</Feature>
+    <Feature Name="Tool Proficiencies">One type of artisan's tools or one musical instrument</Feature>
+    <Feature Name="Unarmored Defense">While not wearing armor and not wielding a shield, AC is 10 + DEX + WIS</Feature>
+    <Feature xml:space="preserve" Name="Martial Arts">While unarmed or wielding monk weapons (shortswords or any simple non-two-handed/heavy weapon) and unarmored (no shield):
+    Use DEX instead of STR for attack and damage.
+    Use d4 instead of regular unarmed strike damage. Damage increases with level.
+    Bonus action unarmed strike when you use the Attack action.</Feature>
+    <Feature Name="Ki" StartLevel="2">You gain Ki points equal to your level. You regain these points on short/long rests. Ki save DC = 8 + proficiency + WIS.</Feature>
+    <Feature Name="Flurry of Blows" StartLevel="2">Spend 1 ki point immediately after using Attack action to make 2 unarmed strikes as bonus action.</Feature>
+    <Feature Name="Patient Defense" StartLevel="2">Spend 1 ki point to take dodge action as bonus action on your turn.</Feature>
+    <Feature Name="Step of the Wind" StartLevel="2">Spend 1 ki point to take disengage or dash as bonus action; jump distance doubled for the turn.</Feature>
+    <Feature Name="Unarmored Movement" StartLevel="2">Your speed increases by 10 ft/round while not armored. At 9th level you gain the ability to run across vertical surfaces and liquids.</Feature>
+    <Feature Name="Monastic Tradition" StartLevel="3">See PHB.</Feature>
+    <Feature Name="Deflect Missiles" StartLevel="3">Use reaction to catch or deflect a missile when hit with ranged weapon attack. Damage reduced by 1d10 + DEX + level. If the damage is reduced to 0, you can catch it and throw it back. See PHB 78 for details.</Feature>
+    <Feature Name="Slow Fall" StartLevel="4">Use your reaction to reduce falling damage by 5 x monk level.</Feature>
+    <Feature Name="Extra Attack (Monk)" StartLevel="5">You can attack 2x when you use the Attack action. Does not stack.</Feature>
+    <Feature Name="Stunning Strike" StartLevel="5">When you hit with a melee weapon attack you can spend 1 ki point. Target must succeed on a CON save or be stunned until the end of your next turn.</Feature>
+    <Feature Name="Ki-empowered Strikes" StartLevel="6">Unarmed strikes count as magical for overcoming resistances and immunities.</Feature>
+    <Feature Name="Evasion" StartLevel="7">When you can make a DEX save and take half damage, you instead take no damage on success and half damage on failure.</Feature>
+    <Feature Name="Stillness of Mind" StartLevel="7">You can use your action to end one effect on yourself that causes charm or fear.</Feature>
+    <Feature Name="Purity of Body" StartLevel="10">You are immune to disease and poison.</Feature>
+    <Feature Name="Tongue of the Sun and Moon" StartLevel="13">You understand (and can be understood) in all spoken languages.</Feature>
+    <Feature Name="Diamond Soul" StartLevel="14">You have proficiency in all saving throws. You can use a ki point to reroll any failed saves.</Feature>
+    <Feature Name="Timeless Body" StartLevel="15">You do not suffer the effects of old age and cannot be magically aged. Your lifespan does not increase however. You need no food or water.</Feature>
+    <Feature Name="Empty Body" StartLevel="18">You can use your action to spend 4 ki points to become invisible for 1 minute. During that time you have resistance to all damage except force damage. You can cast Astral Projection using 8 ki points.</Feature>
+    <Feature Name="Perfect Self">When you roll initiative and have no ki points left, you regain 4 ki points.</Feature>
   </PCClass>
   <PCClass Name="Paladin">
     <Feature Name="Hit Dice">d10</Feature>
@@ -100,12 +128,14 @@
   </PCClass>
   <PCClass Name="Rogue">
     <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
   </PCClass>
   <PCClass Name="Sorcerer">
     <Feature Name="Hit Dice">d6</Feature>
   </PCClass>
   <PCClass Name="Warlock">
     <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
   </PCClass>
   <PCClass Name="Wizard">
     <Feature Name="Hit Dice">d6</Feature>
