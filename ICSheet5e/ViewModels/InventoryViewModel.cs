@@ -276,7 +276,7 @@ namespace ICSheet5e.ViewModels
             return;
         }
 
-        public NewItemFactory(List<WeaponItem> weapons, List<ArmorItem> armors)
+        public NewItemFactory(IEnumerable<WeaponItem> weapons, IEnumerable<ArmorItem> armors)
         {
 
             baseItems = new ObservableCollection<string>();
@@ -289,8 +289,8 @@ namespace ICSheet5e.ViewModels
             {
                 baseItems.Add(a.Name);
             }
-            this.armors = armors;
-            this.weapons = weapons;
+            this.armors = armors.ToList();
+            this.weapons = weapons.ToList();
             this.PropertyChanged += OnBaseItemChanged;
             SetValuesFromItem(null); //initialize all items
         }

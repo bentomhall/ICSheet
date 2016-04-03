@@ -28,7 +28,7 @@ namespace ICSheet5e.Model
         [DataMember]
         private int _stackSize = 1;
 
-        public List<AbilityType> AssociatedAbilities { get { return associatedAbility; } }
+        public IEnumerable<AbilityType> AssociatedAbilities { get { return associatedAbility; } }
         public string Name { get { return _name; } }
         public bool IsProficient { get { return _isProficient; } }
         public double Weight { get { return _weight; } }
@@ -51,7 +51,7 @@ namespace ICSheet5e.Model
             }
         }
         [DataMember] public bool isRanged { get; set; }
-        public Item(string name, double weight, double value, ItemSlot slot, bool proficient, string properties, int bonus=0)
+        public Item(string name, double weight, double value, ItemSlot slot, bool proficient, string properties, int bonus)
         {
             _name = name;
             _weight = weight;

@@ -72,10 +72,6 @@ namespace InteractiveCharacterSheetCore
 
         #endregion
 
-        #region Skills
-        protected abstract void SetSkills<T>(List<T> taggedSkills) where T : ISkill;
-        #endregion
-
         #region Health
         [DataMember] public int MaxHealth { get; set; }
         [DataMember] protected int _currentHealth;

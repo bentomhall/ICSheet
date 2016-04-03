@@ -21,7 +21,7 @@ namespace ICSheet5e.Model
         [DataMember]
         private List<WeaponItem> _weapons;
 
-        public List<ArmorItem> Armors { get { return _armors; } }
+        public ICollection<ArmorItem> Armors { get { return _armors; } }
         public List<WeaponItem> Weapons { get { return _weapons; } }
         public List<Item> Items { get { return _items; } }
 

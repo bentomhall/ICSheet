@@ -105,14 +105,14 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public List<Model.CharacterClassItem> ChosenClassLevels
+        public ICollection<Model.CharacterClassItem> ChosenClassLevels
         {
             get { return projectedLevels; }
         }
 
-        public LevelUpViewModel(List<Model.CharacterClassItem> current)
+        public LevelUpViewModel(ICollection<Model.CharacterClassItem> current)
         {
-            currentLevels = current;
+            currentLevels = current.ToList();
             projectedLevels = new List<Model.CharacterClassItem>(current);
         }
 

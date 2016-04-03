@@ -144,7 +144,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public List<Model.Spell> PreparedSpells
+        public IReadOnlyCollection<Model.Spell> PreparedSpells
         {
             get
             {
@@ -476,7 +476,7 @@ namespace ICSheet5e.ViewModels
             get { return character.Defenses; }
         }
 
-        public List<bool> ProficientDefenses
+        public IReadOnlyCollection<bool> ProficientDefenses
         {
             get { return character.ProficientDefenses; }
         }

@@ -50,26 +50,6 @@ namespace ICSheet5e.Model
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
 
-        public Character(string characterName, IEnumerable<CharacterClassItem> classLevels, Race race, Dictionary<AbilityType, Ability> abilitySet, int health, List<Skill5e> taggedSkills)
-        {
-            CharacterName = characterName;
-            CharacterRace = race;
-            this._abilities = abilitySet; //set in base
-            CharacterClassLevels = classLevels.ToList<CharacterClassItem>();
-            int totalLevel = classLevels.Sum(x => x.Level);
-            _proficiencyBonus = calculateProficiency(totalLevel);
-            skills = new SkillList<Skill5e>(Edition.Fifth);
-            SetSkills<Skill5e>(taggedSkills);
-            MaxHealth = health;
-            _currentHealth = health;
-            initiativeModifier = calculateInitiative();
-            Resistances = new List<DamageType>();
-            Immunities = new List<DamageType>();
-
-            inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
-            InitializeDefenses();
-        }
-
         public Character(string characterName, IEnumerable<CharacterClassItem> levels, Race race)
             : this()
         {
@@ -84,7 +64,7 @@ namespace ICSheet5e.Model
             initiativeModifier = calculateInitiative();
         }
 
-        public List<Item> AllCarriedItems
+        public ICollection<Item> AllCarriedItems
         {
             get { return inventory.FilterContentsBy(x => true); }
         }
@@ -107,7 +87,7 @@ namespace ICSheet5e.Model
         [DataMember]
         public int Experience { get; set; }
 
-        public List<MartialFeature> Features { get { return features; } }
+        public ICollection<MartialFeature> Features { get { return features; } }
 
         public double Gold { get { return inventory.CurrentGold; } }
 
@@ -118,7 +98,7 @@ namespace ICSheet5e.Model
 
         public Model.ItemDataBase ItemDB { get; set; }
 
-        public List<CharacterClassItem> Levels
+        public ICollection<CharacterClassItem> Levels
         {
             get { return CharacterClassLevels; }
         }
@@ -126,14 +106,14 @@ namespace ICSheet5e.Model
         [DataMember]
         public string Notes { get; set; }
 
-        public List<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
+        public IReadOnlyCollection<Spell> PreparedSpells { get { return spellBooks[0].PreparedSpells; } }
 
         public int Proficiency
         {
             get { return _proficiencyBonus; }
         }
 
-        public List<bool> ProficientDefenses
+        public IReadOnlyCollection<bool> ProficientDefenses
         {
             get
             {
@@ -143,7 +123,7 @@ namespace ICSheet5e.Model
 
         public SkillList<Skill5e> Skills { get { return skills; } }
 
-        public List<SpellCaster> Spellcasting { get { return spellBooks; } }
+        public IList<SpellCaster> Spellcasting { get { return spellBooks; } }
 
         public Model.SpellManager SpellDB { get { return _spellDB; } set { _spellDB = value; setSpellCasting(); } }
 
@@ -199,10 +179,10 @@ namespace ICSheet5e.Model
             }
         }
 
-        public void DoLevelUp(List<CharacterClassItem> newLevels, IEnumerable<MartialFeature> newFeatures)
+        public void DoLevelUp(ICollection<CharacterClassItem> newLevels, IEnumerable<MartialFeature> newFeatures)
         {
             if (CharacterClassLevels.Count < newLevels.Count) { updateFeatures(newFeatures); }
-            CharacterClassLevels = newLevels;
+            CharacterClassLevels = newLevels.ToList();
             RecalculateDependentBonuses();
             setSpellCasting();
             NotifyPropertyChanged("Levels");
@@ -256,7 +236,7 @@ namespace ICSheet5e.Model
             return null;
         }
 
-        public List<Item> ItemsMatching(System.Func<Item, bool> predicate)
+        public IEnumerable<Item> ItemsMatching(Func<Item, bool> predicate)
         {
             return inventory.FilterContentsBy(predicate);
         }
@@ -313,9 +293,9 @@ namespace ICSheet5e.Model
             spellBooks[0].SetSpellAttackDetails(this);
         }
 
-        public void RecalculateSkillsAfterAbilityScoreChange(List<Skill5e> skills)
+        public void RecalculateSkillsAfterAbilityScoreChange(IEnumerable<Skill5e> newSkills)
         {
-            SetSkills<Skill5e>(skills);
+            SetSkills<Skill5e>(newSkills);
         }
 
         public void RemoveItemFromInventory(Item item)
@@ -360,10 +340,8 @@ namespace ICSheet5e.Model
             return feature.TryUseFeature(); //sideEffects
         }
 
-        protected override void SetSkills<T>(List<T> taggedSkills)
+        private void SetSkills<T>(IEnumerable<T> taggedSkills) where T:ISkill
         {
-            //List<Skill5e> skillBonuses = new List<Skill5e>();
-
             foreach (var name in Skills.SkillNames)
             {
                 if (skills.SkillForName(name) == null)
@@ -466,7 +444,7 @@ namespace ICSheet5e.Model
             return bonus;
         }
 
-        private int calculateProficiency(int level)
+        static private int calculateProficiency(int level)
         {
             return (level - 1) / 4 + 2; //integer division
         }
