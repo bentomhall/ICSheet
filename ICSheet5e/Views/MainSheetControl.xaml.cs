@@ -24,5 +24,10 @@ namespace ICSheet5e.Views
         {
             InitializeComponent();
         }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OverrideACPopup.IsOpen = !OverrideACPopup.IsOpen;
+        }
     }
 }

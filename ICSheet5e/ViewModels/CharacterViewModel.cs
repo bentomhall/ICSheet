@@ -68,6 +68,17 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        public int ArmorClassBonus
+        {
+            get { return character.ArmorClassBonus; }
+            set
+            {
+                character.ArmorClassBonus = value;
+                character.RecalculateArmorClass();
+                NotifyPropertyChanged("ArmorClass");
+            }
+        }
+
         public int CurrentHealth
         {
             get { return character.CurrentHealth; }

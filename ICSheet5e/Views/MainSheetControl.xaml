@@ -105,7 +105,7 @@
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[3]}"/>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[4]}"/>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[5]}"/>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[0].Value}"></Label> <!--defense 0 is AC -->
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[0].Value}"></Label>
                 <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Defenses[1].Value}"></Label>
                 <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Defenses[2].Value}"></Label>
                 <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Defenses[3].Value}"></Label>
@@ -122,7 +122,13 @@
         <Border Grid.Column="4" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Padding="4">
             <StackPanel>
                 <Label HorizontalContentAlignment="Center">Armor Class</Label>
-                <TextBox VerticalAlignment="Stretch" FontWeight="Bold" HorizontalContentAlignment="Center" FontSize="48" IsEnabled="{Binding CanEdit}" Text="{Binding ArmorClass}"></TextBox>
+                <TextBlock VerticalAlignment="Stretch" FontWeight="Bold" TextAlignment="Center" FontSize="48" Text="{Binding ArmorClass}" MouseDown="TextBlock_MouseDown"/>
+                <Popup Name="OverrideACPopup">
+                    <StackPanel Background="White">
+                        <Label>Miscellaneous AC Bonus:</Label>
+                        <TextBox Text="{Binding ArmorClassBonus}"/>
+                    </StackPanel>
+                </Popup>
             </StackPanel>
         </Border>
         <Border Grid.Column="5" Grid.Row="1" Background="White" CornerRadius="15" BorderBrush="Black" BorderThickness="2">

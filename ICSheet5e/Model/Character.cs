@@ -96,7 +96,7 @@ namespace ICSheet5e.Model
             get { return _isSpellCaster; }
         }
 
-        public Model.ItemDataBase ItemDB { get; set; }
+        public ItemDataBase ItemDB { get; set; }
 
         public ICollection<CharacterClassItem> Levels
         {
@@ -224,7 +224,7 @@ namespace ICSheet5e.Model
 
         public void EquipmentChangeHandler(object sender, EquipmentChangedEventArgs e)
         {
-            System.Console.WriteLine(e.Items.ToString());
+            Console.WriteLine(e.Items.ToString());
         }
 
         public Item EquippedItemForSlot(ItemSlot slot)
@@ -254,6 +254,8 @@ namespace ICSheet5e.Model
         //
         //public VisionType Vision { get { return _vision; } }
         //public int Movement { get; set; }
+
+        public int ArmorClassBonus { get; set; }
         public void RecalculateArmorClass()
         {
             var armor = EquippedItemForSlot(ItemSlot.Armor) as ArmorItem;
@@ -267,7 +269,7 @@ namespace ICSheet5e.Model
             {
                 ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity) + AbilityModifierFor(AbilityType.Constitution);
             }
-            else if (Levels.SingleOrDefault(x => x.Matches(CharacterClassType.Monk)) != null)
+            else if (Levels.SingleOrDefault(x => x.Matches(CharacterClassType.Monk)) != null && shield == null)
             {
                 ArmorClass = 10 + AbilityModifierFor(AbilityType.Dexterity) + AbilityModifierFor(AbilityType.Wisdom);
             }
@@ -283,6 +285,7 @@ namespace ICSheet5e.Model
             {
                 ArmorClass += 2 + shield.EnhancementBonus;
             }
+            ArmorClass += ArmorClassBonus; //overrides
         }
 
         public void RecalculateDependentBonuses()
@@ -390,7 +393,7 @@ namespace ICSheet5e.Model
             {CharacterClassType.Wizard, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}}
         };
 
-        private Model.SpellManager _spellDB;
+        private SpellManager _spellDB;
 
         [DataMember]
         private List<CharacterClassItem> CharacterClassLevels;
@@ -455,10 +458,31 @@ namespace ICSheet5e.Model
             {
                 return _proficientDefenses[CharacterClassLevels[0].ClassType].Contains(d);
             }
-            catch (System.ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 return false; //no classes have been set yet
             }
+        }
+        [DataMember]
+        private Dictionary<DefenseType, int> DefenseBonusMap;
+        
+        private Dictionary<DefenseType, int> initializeDefenseMap()
+        {
+            return new Dictionary<DefenseType, int>()
+        {
+            {DefenseType.Strength, 0 },
+            {DefenseType.Dexterity, 0 },
+            {DefenseType.Constitution, 0 },
+            {DefenseType.Intelligence, 0 },
+            {DefenseType.Wisdom, 0 },
+            {DefenseType.Charisma, 0 }
+        };
+        } 
+
+        public void AddDefenseBonus(DefenseType ofType, int withValue)
+        {
+            if (DefenseBonusMap == null) { DefenseBonusMap = initializeDefenseMap(); }
+            DefenseBonusMap[ofType] = withValue; //no stacking
         }
 
         private void InitializeDefenses(bool resetAll = false)
@@ -468,28 +492,28 @@ namespace ICSheet5e.Model
                 _defenses.Clear();
                 proficientDefensesForCharacter.Clear();
             }
-
-            int str = (AbilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0);
+            if (DefenseBonusMap == null) { DefenseBonusMap = initializeDefenseMap(); }
+            int str = (AbilityModifierFor(AbilityType.Strength)) + (HasProficiencyIn(DefenseType.Strength) ? _proficiencyBonus : 0) + DefenseBonusMap[DefenseType.Strength];
             Defenses.Add(new Defense(str, DefenseType.Strength));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Strength));
 
-            int dex = (AbilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0);
+            int dex = (AbilityModifierFor(AbilityType.Dexterity)) + (HasProficiencyIn(DefenseType.Dexterity) ? _proficiencyBonus : 0) + DefenseBonusMap[DefenseType.Dexterity];
             Defenses.Add(new Defense(dex, DefenseType.Dexterity));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Dexterity));
 
-            int con = (AbilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0);
+            int con = (AbilityModifierFor(AbilityType.Constitution)) + (HasProficiencyIn(DefenseType.Constitution) ? _proficiencyBonus : 0) + DefenseBonusMap[DefenseType.Constitution];
             Defenses.Add(new Defense(con, DefenseType.Constitution));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Constitution));
 
-            int intel = (AbilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0);
+            int intel = (AbilityModifierFor(AbilityType.Intelligence)) + (HasProficiencyIn(DefenseType.Intelligence) ? _proficiencyBonus : 0) + DefenseBonusMap[DefenseType.Intelligence];
             Defenses.Add(new Defense(intel, DefenseType.Intelligence));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Intelligence));
 
-            int wis = (AbilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0);
+            int wis = (AbilityModifierFor(AbilityType.Wisdom)) + (HasProficiencyIn(DefenseType.Wisdom) ? _proficiencyBonus : 0) + DefenseBonusMap[DefenseType.Wisdom];
             Defenses.Add(new Defense(wis, DefenseType.Wisdom));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Wisdom));
 
-            int cha = (AbilityModifierFor(AbilityType.Charisma)) + (HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0);
+            int cha = (AbilityModifierFor(AbilityType.Charisma)) + (HasProficiencyIn(DefenseType.Charisma) ? _proficiencyBonus : 0) + DefenseBonusMap[DefenseType.Charisma];
             Defenses.Add(new Defense(cha, DefenseType.Charisma));
             proficientDefensesForCharacter.Add(HasProficiencyIn(DefenseType.Charisma));
 

@@ -35,14 +35,14 @@
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">
                 <MenuItem Command="{Binding Path=NewCharacterCommand}" Header="_New"/>
-                <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open"/>
-                <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save"/>
+                <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open..."/>
+                <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save..."/>
             </MenuItem>
             <MenuItem Header="_Edit" IsCheckable="True" IsChecked="{Binding Path=IsEditingModeEnabled, Mode=TwoWay}" Width="56"/>
             <MenuItem Header="_Character">
                 <MenuItem Header="Long _Rest" Command="{Binding Path=DoLongRestCommand}" />
-                <MenuItem Header="_Level Up" Command="{Binding Path=LevelUpCommand}"/>
-                <MenuItem Header="_Add Feature" Command="{Binding Path=AddFeatureCommand}"/>
+                <MenuItem Header="_Level Up..." Command="{Binding Path=LevelUpCommand}"/>
+                <MenuItem Header="_Add Feature..." Command="{Binding Path=AddFeatureCommand}"/>
             </MenuItem>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
