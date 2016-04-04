@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
@@ -38,13 +36,10 @@ namespace InteractiveCharacterSheetCore
             if (!_inventory.Contains(item)) { AddItem(item); }
             if (item.Slot == ItemSlot.None) { return; } //non-slot items cannot be equipped. They should still be added to inventory.
             if (item.Slot == ItemSlot.TwoHanded) { EquippedItems.Remove(ItemSlot.Offhand); }
-            if (isSlotOccupied(item) && EquippedItems[item.Slot].Name == item.Name) { EquippedItems.Remove(item.Slot); } //toggles equipped status
-            EquippedItems[item.Slot] = item; //only one item per slot
-
-            //var eventArgs = new EquipmentChangedEventArgs();
-            //eventArgs.Items = EquippedItems.Values.ToList<T>() as List<IItem>;
-            //OnEquipmentChanged(eventArgs);
+            if (isSlotOccupied(item) && EquippedItems[item.Slot].Name == item.Name) { EquippedItems.Remove(item.Slot); } //unequip item
+            else { EquippedItems[item.Slot] = item; } //replace equipped item
         }
+
         public void AddItem(T newItem)
         {
             var matchingItem = _inventory.SingleOrDefault(x => x.Name == newItem.Name);

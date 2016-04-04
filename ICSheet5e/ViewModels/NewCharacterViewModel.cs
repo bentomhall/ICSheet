@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using InteractiveCharacterSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
-    public class NewCharacterViewModel:BaseViewModel
+    public class NewCharacterViewModel : BaseViewModel
     {
-        public NewCharacterViewModel():base()
+        public NewCharacterViewModel() : base()
         {
             RaceList = new List<Model.Race>();
             foreach (var rtype in _allRaceTypes)
@@ -26,7 +22,7 @@ namespace ICSheet5e.ViewModels
             get { return classes; }
         }
 
-        private List<String> classes = new List<string>()
+        static private List<string> classes = new List<string>()
         {
             "Barbarian",
             "Bard",
@@ -44,7 +40,7 @@ namespace ICSheet5e.ViewModels
             "Arcane Trickster*",
         };
 
-        private Dictionary<string, Model.CharacterClassType> classMap = new Dictionary<string,Model.CharacterClassType>()
+        static private Dictionary<string, Model.CharacterClassType> classMap = new Dictionary<string,Model.CharacterClassType>()
         {
             {"Barbarian", Model.CharacterClassType.Barbarian},
             {"Bard", Model.CharacterClassType.Bard},

@@ -282,16 +282,28 @@ namespace ICSheet5e.Model
 
         public void AdjustMaxPreparedSpells(Character source)
         {
-            var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Level).First();
-            MaxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(highestCaster.ClassType, highestCaster.Level, source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.ClassType)));
+            var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Level).FirstOrDefault();
+            if (highestCaster != null)
+            {
+                MaxPreparedSpells = SpellSlotsByLevel.MaximumPreparedSpells(highestCaster.ClassType, highestCaster.Level, source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.ClassType)));
+            }
+            else { MaxPreparedSpells = 0; }
         }
 
         public void SetSpellAttackDetails(Character source)
         {
-            var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Level).First();
-            var mod = source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.ClassType));
-            SpellAttackModifier = source.Proficiency + mod;
-            SpellDC = 8 + SpellAttackModifier;
+            var highestCaster = source.Levels.Where(x => SpellSlotsByLevel.CastingTypeForClassType[x.ClassType] != SpellSlotsByLevel.CastingType.None ).OrderByDescending(y => y.Level).FirstOrDefault();
+            if (highestCaster != null)
+            {
+                var mod = source.AbilityModifierFor(SpellSlotsByLevel.CastingAbilityFor(highestCaster.ClassType));
+                SpellAttackModifier = source.Proficiency + mod;
+                SpellDC = 8 + SpellAttackModifier;
+            }
+            else
+            {
+                SpellAttackModifier = 0;
+                SpellDC = 0;
+            }
         }
     }
 
@@ -422,6 +434,7 @@ namespace ICSheet5e.Model
             { CharacterClassType.Wizard, CastingType.Full },
             { CharacterClassType.Barbarian, CastingType.None },
             { CharacterClassType.Fighter, CastingType.None },
+            { CharacterClassType.Monk, CastingType.None },
             { CharacterClassType.MulticlassCaster, CastingType.Full}
         };
 

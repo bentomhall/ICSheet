@@ -125,7 +125,7 @@ namespace ICSheet5e.Model
 
         public IList<SpellCaster> Spellcasting { get { return spellBooks; } }
 
-        public Model.SpellManager SpellDB { get { return _spellDB; } set { _spellDB = value; setSpellCasting(); } }
+        public SpellManager SpellDB { get { return _spellDB; } set { _spellDB = value; setSpellCasting(); } }
 
         public void AddFeature(MartialFeature feature)
         {
@@ -185,6 +185,7 @@ namespace ICSheet5e.Model
             CharacterClassLevels = newLevels.ToList();
             RecalculateDependentBonuses();
             setSpellCasting();
+            InitializeMovement();
             NotifyPropertyChanged("Levels");
         }
 
@@ -217,9 +218,10 @@ namespace ICSheet5e.Model
         public void Equip(Item item)
         {
             inventory.EquipItem(item);
-            if (item.Slot == ItemSlot.Armor || (item.Name.Contains("Shield") && item.Slot == ItemSlot.Offhand)) { RecalculateArmorClass(); }
             if (item.IsEquipped) { item.IsEquipped = false; }
             else { item.IsEquipped = true; }
+            if (item.Slot == ItemSlot.Armor || (item.Name.Contains("Shield") && item.Slot == ItemSlot.Offhand)) { RecalculateArmorClass(); InitializeMovement(); }
+            
         }
 
         public void EquipmentChangeHandler(object sender, EquipmentChangedEventArgs e)
@@ -255,6 +257,7 @@ namespace ICSheet5e.Model
         //public VisionType Vision { get { return _vision; } }
         //public int Movement { get; set; }
 
+        [DataMember]
         public int ArmorClassBonus { get; set; }
         public void RecalculateArmorClass()
         {
@@ -374,25 +377,6 @@ namespace ICSheet5e.Model
         [DataMember]
         private int _proficiencyBonus = 2;
 
-        [DataMember]
-        private Dictionary<CharacterClassType, List<DefenseType>> _proficientDefenses = new Dictionary<CharacterClassType, List<DefenseType>>()
-        {
-            {CharacterClassType.ArcaneTrickster, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
-            {CharacterClassType.Barbarian, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
-            {CharacterClassType.Bard, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Charisma}},
-            {CharacterClassType.Cleric, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
-            {CharacterClassType.Druid, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}},
-            {CharacterClassType.Fighter, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
-            {CharacterClassType.EldritchKnight, new List<DefenseType>() {DefenseType.Strength, DefenseType.Constitution}},
-            {CharacterClassType.Rogue, new List<DefenseType>() {DefenseType.Dexterity, DefenseType.Intelligence}},
-            {CharacterClassType.Paladin, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
-            {CharacterClassType.Monk, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
-            {CharacterClassType.Ranger, new List<DefenseType>() {DefenseType.Strength, DefenseType.Dexterity}},
-            {CharacterClassType.Sorcerer, new List<DefenseType>() {DefenseType.Charisma, DefenseType.Constitution}},
-            {CharacterClassType.Warlock, new List<DefenseType>() {DefenseType.Wisdom, DefenseType.Charisma}},
-            {CharacterClassType.Wizard, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}}
-        };
-
         private SpellManager _spellDB;
 
         [DataMember]
@@ -432,7 +416,7 @@ namespace ICSheet5e.Model
                 book.CastSpell(asLevel);
                 NotifyPropertyChanged("SpellSlots");
             }
-            else { throw new System.ArgumentException("Can't cast that spell as that level."); }
+            else { throw new ArgumentException("Can't cast that spell as that level."); }
         }
 
         #endregion Spells
@@ -456,7 +440,7 @@ namespace ICSheet5e.Model
         {
             try
             {
-                return _proficientDefenses[CharacterClassLevels[0].ClassType].Contains(d);
+                return CharacterClassLevels[0].ProficientDefenses.Contains(d);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -522,20 +506,22 @@ namespace ICSheet5e.Model
 
         private void InitializeMovement()
         {
-            if (CharacterRace.Value == Race.RaceType.Dwarf || CharacterRace.SuperType == Race.RaceType.Dwarf ||
-                CharacterRace.SuperType == Race.RaceType.Halfling || CharacterRace.Value == Race.RaceType.Halfling ||
-                CharacterRace.Value == Race.RaceType.Gnome || CharacterRace.SuperType == Race.RaceType.Gnome)
+            var movement = CharacterRace.BaseMovement;
+            var bonuses = CharacterClassLevels.Select(x => x.MovementBonus).OrderByDescending(x => x.Item2);
+            var bonus = 0;
+            foreach (var b in bonuses)
             {
-                Movement = 25;
+                var isUnarmoredMonk = b.Item1 == CharacterClassType.Monk && EquippedItemForSlot(ItemSlot.Armor) == null && (EquippedItemForSlot(ItemSlot.Offhand) as ArmorItem) == null;
+                var isProperlyArmoredBarbarian = b.Item1 == CharacterClassType.Barbarian && (EquippedItemForSlot(ItemSlot.Armor) as ArmorItem)?.ArmorClassType != ArmorType.Heavy;
+                if (isUnarmoredMonk || isProperlyArmoredBarbarian)
+                {
+                    bonus = b.Item2;
+                    break;
+                }
             }
-            else if (CharacterRace.Value == Race.RaceType.WoodElf)
-            {
-                Movement = 35;
-            }
-            else
-            {
-                Movement = 30;
-            }
+
+            Movement = movement + bonus;
+            NotifyPropertyChanged("Movement");
         }
 
         #region INotifyPropertyChanged Implementation

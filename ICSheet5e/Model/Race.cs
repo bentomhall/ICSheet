@@ -58,7 +58,7 @@ namespace ICSheet5e.Model
             { RaceType.WoodElf, "Wood Elf"},
         };
 
-        public Nullable<RaceType> SuperType
+        public RaceType? SuperType
         {
             get
             {
@@ -95,6 +95,27 @@ namespace ICSheet5e.Model
             else { return "Unknown Race"; }
         }
 
-        public Race(RaceType race) { this.Value = race; }
+        public Race(RaceType race) { Value = race; }
+
+        public int BaseMovement
+        {
+            get
+            {
+                if (Value == RaceType.Dwarf || SuperType == RaceType.Dwarf ||
+    SuperType == RaceType.Halfling || Value == RaceType.Halfling ||
+    Value == RaceType.Gnome || SuperType == RaceType.Gnome)
+                {
+                    return 25;
+                }
+                else if (Value == RaceType.WoodElf)
+                {
+                    return 35;
+                }
+                else
+                {
+                    return 30;
+                }
+            }
+        }
     }
 }

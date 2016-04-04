@@ -104,7 +104,7 @@
     <Feature Name="Flurry of Blows" StartLevel="2">Spend 1 ki point immediately after using Attack action to make 2 unarmed strikes as bonus action.</Feature>
     <Feature Name="Patient Defense" StartLevel="2">Spend 1 ki point to take dodge action as bonus action on your turn.</Feature>
     <Feature Name="Step of the Wind" StartLevel="2">Spend 1 ki point to take disengage or dash as bonus action; jump distance doubled for the turn.</Feature>
-    <Feature Name="Unarmored Movement" StartLevel="2">Your speed increases by 10 ft/round while not armored. At 9th level you gain the ability to run across vertical surfaces and liquids.</Feature>
+    <Feature Name="Unarmored Movement" StartLevel="2">Your speed increases by 10 ft/round while not armored. This increases by 5 ft/round every 4 levels. At 9th level you gain the ability to run across vertical surfaces and liquids.</Feature>
     <Feature Name="Monastic Tradition" StartLevel="3">See PHB.</Feature>
     <Feature Name="Deflect Missiles" StartLevel="3">Use reaction to catch or deflect a missile when hit with ranged weapon attack. Damage reduced by 1d10 + DEX + level. If the damage is reduced to 0, you can catch it and throw it back. See PHB 78 for details.</Feature>
     <Feature Name="Slow Fall" StartLevel="4">Use your reaction to reduce falling damage by 5 x monk level.</Feature>
