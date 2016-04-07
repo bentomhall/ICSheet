@@ -5,7 +5,7 @@
     <DockPanel>
         <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="18" FontWeight="Bold">New Class:</Label>
         <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Classes}" SelectedItem="{Binding SelectedClassName}"/>
-        <TextBlock DockPanel.Dock="Top" Height="54" Text="{Binding Path=ClassLevels}"/>
+        <TextBlock DockPanel.Dock="Top" Height="54" Text="{Binding Path=ClassLevels}" TextAlignment="Center"/>
         <Button DockPanel.Dock="Bottom" Content="OK" IsDefault="True" Click="Button_Click" />
         <Button DockPanel.Dock="Bottom" Content="Cancel" IsCancel="True"/>
     </DockPanel>
