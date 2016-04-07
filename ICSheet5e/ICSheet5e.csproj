@@ -270,6 +270,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\SpellList5e.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -279,9 +280,6 @@
       <Project>{36b253a0-5a3e-4c5a-8259-b035dd3c9ebc}</Project>
       <Name>Interactive Character Sheet Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\SpellList5e.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\BasicArmors.xml" />
