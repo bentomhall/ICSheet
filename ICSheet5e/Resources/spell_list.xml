@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <SpellList>
 <CastingClass Name="bard">
-<Spell Name="Animal Friendship"/>
 <Spell Name="Animal Messenger"/>
 <Spell Name="Animate Objects"/>
 <Spell Name="Awaken"/>
 <Spell Name="Bane"/>
 <Spell Name="Bestow Curse"/>
-<Spell Name="Blade Ward"/>
 <Spell Name="Blindness/Deafness"/>
 <Spell Name="Calm Emotions"/>
 <Spell Name="Charm Person"/>
 <Spell Name="Clairvoyance"/>
-<Spell Name="Cloud of Daggers"/>
 <Spell Name="Comprehend Languages"/>
 <Spell Name="Compulsion"/>
 <Spell Name="Confusion"/>
-<Spell Name="Crown of Madness"/>
 <Spell Name="Cure Wounds"/>
 <Spell Name="Dancing Lights"/>
-<Spell Name="Detect Magic"/>
 <Spell Name="Detect Thoughts"/>
 <Spell Name="Dimension Door"/>
 <Spell Name="Disguise Self"/>
 <Spell Name="Dispel Magic"/>
-<Spell Name="Dissonant Whispers"/>
 <Spell Name="Dominate Monster"/>
 <Spell Name="Dominate Person"/>
 <Spell Name="Dream"/>
@@ -36,7 +30,6 @@
 <Spell Name="Fear"/>
 <Spell Name="Feather Fall"/>
 <Spell Name="Feeblemind"/>
-<Spell Name="Feign Death"/>
 <Spell Name="Find the Path"/>
 <Spell Name="Forcecage"/>
 <Spell Name="Foresight"/>
@@ -60,7 +53,7 @@
 <Spell Name="Invisibility"/>
 <Spell Name="Knock"/>
 <Spell Name="Legend Lore"/>
-<Spell Name="Leomund's Tiny Hut"/>
+<Spell Name="Tiny Hut"/>
 <Spell Name="Lesser Restoration"/>
 <Spell Name="Light"/>
 <Spell Name="Locate Animals or Plants"/>
@@ -79,10 +72,10 @@
 <Spell Name="Mirage Arcane"/>
 <Spell Name="Mislead"/>
 <Spell Name="Modify Memory"/>
-<Spell Name="Mordenkainen's Magnificent Mansion"/>
-<Spell Name="Mordenkainen's Sword"/>
+<Spell Name="Magnificent Mansion"/>
+<Spell Name="Arcane Sword"/>
 <Spell Name="Nondetection"/>
-<Spell Name="Otto's Irresistible Dance"/>
+<Spell Name="Irresistible Dance"/>
 <Spell Name="Phantasmal Force"/>
 <Spell Name="Planar Binding"/>
 <Spell Name="Plant Growth"/>
@@ -110,7 +103,7 @@
 <Spell Name="Stinking Cloud"/>
 <Spell Name="Suggestion"/>
 <Spell Name="Symbol"/>
-<Spell Name="Tasha's Hideous Laughter"/>
+<Spell Name="Hideous Laughter"/>
 <Spell Name="Teleport"/>
 <Spell Name="Teleportation Circle"/>
 <Spell Name="Thunderwave"/>
@@ -232,7 +225,6 @@
 </CastingClass>
 <CastingClass Name="druid">
 <Spell Name="Absorb Elements"/>
-<Spell Name="Animal Friendship"/>
 <Spell Name="Animal Messenger"/>
 <Spell Name="Animal Shapes"/>
 <Spell Name="Antilife Shell"/>
@@ -365,7 +357,6 @@
 <Spell Name="Wall of Fire"/>
 <Spell Name="Wall of Stone"/>
 <Spell Name="Wall of Thorns"/>
-<Spell Name="Wall of Water"/>
 <Spell Name="Warding Wind"/>
 <Spell Name="Water Breathing"/>
 <Spell Name="Water Walk"/>
@@ -376,30 +367,19 @@
 </CastingClass>
 <CastingClass Name="paladin">
 <Spell Name="Aid"/>
-<Spell Name="Aura of Life"/>
-<Spell Name="Aura of Purity"/>
-<Spell Name="Aura of Vitality"/>
-<Spell Name="Banishing Smite"/>
 <Spell Name="Banishment"/>
 <Spell Name="Bless"/>
-<Spell Name="Blinding Smite"/>
-<Spell Name="Branding Smite"/>
-<Spell Name="Circle of Power"/>
-<Spell Name="Command"/>
-<Spell Name="Compelled Duel"/>
 <Spell Name="Create Food and Water"/>
 <Spell Name="Crusader's Mantle"/>
 <Spell Name="Cure Wounds"/>
 <Spell Name="Daylight"/>
 <Spell Name="Death Ward"/>
-<Spell Name="Destructive Smite"/>
 <Spell Name="Detect Evil and Good"/>
 <Spell Name="Detect Magic"/>
 <Spell Name="Detect Poison and Disease"/>
 <Spell Name="Dispel Evil and Good"/>
 <Spell Name="Dispel Magic"/>
 <Spell Name="Divine Favor"/>
-<Spell Name="Elemental Weapon"/>
 <Spell Name="Find Steed"/>
 <Spell Name="Geas"/>
 <Spell Name="Heroism"/>
@@ -414,27 +394,16 @@
 <Spell Name="Raise Dead"/>
 <Spell Name="Remove Curse"/>
 <Spell Name="Revivify"/>
-<Spell Name="Searing Smite"/>
 <Spell Name="Shield of Faith"/>
-<Spell Name="Staggering Smite"/>
-<Spell Name="Thunderous Smite"/>
-<Spell Name="Wrathful Smite"/>
 <Spell Name="Zone of Truth"/>
 </CastingClass>
 <CastingClass Name="ranger">
-<Spell Name="Absorb Elements"/>
 <Spell Name="Alarm"/>
-<Spell Name="Animal Friendship"/>
 <Spell Name="Animal Messenger"/>
 <Spell Name="Barkskin"/>
-<Spell Name="Beast Bond"/>
-<Spell Name="Beast Sense"/>
 <Spell Name="Commune with Nature"/>
 <Spell Name="Conjure Animals"/>
-<Spell Name="Conjure Barrage"/>
-<Spell Name="Conjure Volley"/>
 <Spell Name="Conjure Woodland Beings"/>
-<Spell Name="Cordon of Arrows"/>
 <Spell Name="Cure Wounds"/>
 <Spell Name="Darkvision"/>
 <Spell Name="Daylight"/>
@@ -473,9 +442,8 @@
 <Spell Name="Wind Wall"/>
 </CastingClass>
 <CastingClass Name="sorcerer">
-<Spell Name="Abi-Dalzim's Horrid Wilting"/>
+<Spell Name="Horrid Wilting"/>
 <Spell Name="Acid Splash"/>
-<Spell Name="Aganazzar's Scorcher"/>
 <Spell Name="Alter Self"/>
 <Spell Name="Animate Objects"/>
 <Spell Name="Arcane Gate"/>
@@ -572,7 +540,6 @@
 <Spell Name="Major Image"/>
 <Spell Name="Mass Suggestion"/>
 <Spell Name="Maximilian's Earthen Grasp"/>
-<Spell Name="Melf's Minute Meteors"/>
 <Spell Name="Mending"/>
 <Spell Name="Message"/>
 <Spell Name="Meteor Swarm"/>
@@ -605,7 +572,6 @@
 <Spell Name="Sleep"/>
 <Spell Name="Sleet Storm"/>
 <Spell Name="Slow"/>
-<Spell Name="Snilloc's Snowball Swarm"/>
 <Spell Name="Spider Climb"/>
 <Spell Name="Stinking Cloud"/>
 <Spell Name="Stoneskin"/>
@@ -636,8 +602,6 @@
 </CastingClass>
 <CastingClass Name="warlock">
 <Spell Name="Arcane Gate"/>
-<Spell Name="Armor of Agathys"/>
-<Spell Name="Arms of Hadar"/>
 <Spell Name="Astral Projection"/>
 <Spell Name="Banishment"/>
 <Spell Name="Blade Ward"/>
@@ -686,10 +650,6 @@
 <Spell Name="Hypnotic Pattern"/>
 <Spell Name="Illusory Script"/>
 <Spell Name="Imprisonment"/>
-<Spell Name="Investiture of Flame"/>
-<Spell Name="Investiture of Ice"/>
-<Spell Name="Investiture of Stone"/>
-<Spell Name="Investiture of Wind"/>
 <Spell Name="Invisibility"/>
 <Spell Name="Mage Hand"/>
 <Spell Name="Magic Circle"/>
@@ -721,10 +681,9 @@
 <Spell Name="Witch Bolt"/>
 </CastingClass>
 <CastingClass Name="wizard">
-<Spell Name="Abi-Dalzim's Horrid Wilting"/>
+<Spell Name="Horrid Wilting"/>
 <Spell Name="Absorb Elements"/>
 <Spell Name="Acid Splash"/>
-<Spell Name="Aganazzar's Scorcher"/>
 <Spell Name="Alarm"/>
 <Spell Name="Alter Self"/>
 <Spell Name="Animate Dead"/>
@@ -785,7 +744,7 @@
 <Spell Name="Dispel Magic"/>
 <Spell Name="Dominate Monster"/>
 <Spell Name="Dominate Person"/>
-<Spell Name="Drawmij's Instant Summons"/>
+<Spell Name="Instant Summons"/>
 <Spell Name="Dream"/>
 <Spell Name="Dust Devil"/>
 <Spell Name="Earth Tremor"/>
@@ -794,7 +753,7 @@
 <Spell Name="Enlarge/Reduce"/>
 <Spell Name="Erupting Earth"/>
 <Spell Name="Etherealness"/>
-<Spell Name="Evard's Black Tentacles"/>
+<Spell Name="Black Tentacles"/>
 <Spell Name="Expeditious Retreat"/>
 <Spell Name="Eyebite"/>
 <Spell Name="Fabricate"/>
@@ -848,8 +807,8 @@
 <Spell Name="Jump"/>
 <Spell Name="Knock"/>
 <Spell Name="Legend Lore"/>
-<Spell Name="Leomund's Secret Chest"/>
-<Spell Name="Leomund's Tiny Hut"/>
+<Spell Name="Secret Chest"/>
+<Spell Name="Tiny Hut"/>
 <Spell Name="Levitate"/>
 <Spell Name="Light"/>
 <Spell Name="Lightning Bolt"/>
@@ -865,10 +824,10 @@
 <Spell Name="Magic Weapon"/>
 <Spell Name="Major Image"/>
 <Spell Name="Mass Suggestion"/>
-<Spell Name="Maximilian's Earthen Grasp"/>
+<Spell Name="Earthen Grasp"/>
 <Spell Name="Maze"/>
-<Spell Name="Melf's Acid Arrow"/>
-<Spell Name="Melf's Minute Meteors"/>
+<Spell Name="Acid Arrow"/>
+<Spell Name="Minute Meteors"/>
 <Spell Name="Mending"/>
 <Spell Name="Message"/>
 <Spell Name="Meteor Swarm"/>
@@ -880,16 +839,16 @@
 <Spell Name="Misty Step"/>
 <Spell Name="Modify Memory"/>
 <Spell Name="Mold Earth"/>
-<Spell Name="Mordenkainen's Faithful Hound"/>
-<Spell Name="Mordenkainen's Magnificent Mansion"/>
-<Spell Name="Mordenkainen's Private Sanctum"/>
-<Spell Name="Mordenkainen's Sword"/>
+<Spell Name="Faithful Hound"/>
+<Spell Name="Magnificent Mansion"/>
+<Spell Name="Private Sanctum"/>
+<Spell Name="Arcane Sword"/>
 <Spell Name="Move Earth"/>
 <Spell Name="Nondetection"/>
-<Spell Name="Nystul's Magic Aura"/>
-<Spell Name="Otiluke's Freezing Sphere"/>
-<Spell Name="Otiluke's Resilient Sphere"/>
-<Spell Name="Otto's Irresistible Dance"/>
+<Spell Name="Arcanist's Magic Aura"/>
+<Spell Name="Freezing Sphere"/>
+<Spell Name="Resilient Sphere"/>
+<Spell Name="Irresistible Dance"/>
 <Spell Name="Passwall"/>
 <Spell Name="Phantasmal Force"/>
 <Spell Name="Phantasmal Killer"/>
@@ -908,7 +867,7 @@
 <Spell Name="Protection from Energy"/>
 <Spell Name="Protection from Evil and Good"/>
 <Spell Name="Pyrotechnics"/>
-<Spell Name="Rary's Telepathic Bond"/>
+<Spell Name="Telepathic Bond"/>
 <Spell Name="Ray of Enfeeblement"/>
 <Spell Name="Ray of Frost"/>
 <Spell Name="Ray of Sickness"/>
@@ -932,7 +891,6 @@
 <Spell Name="Sleep"/>
 <Spell Name="Sleet Storm"/>
 <Spell Name="Slow"/>
-<Spell Name="Snilloc's Snowball Swarm"/>
 <Spell Name="Spider Climb"/>
 <Spell Name="Stinking Cloud"/>
 <Spell Name="Stone Shape"/>
@@ -942,7 +900,7 @@
 <Spell Name="Sunbeam"/>
 <Spell Name="Sunburst"/>
 <Spell Name="Symbol"/>
-<Spell Name="Tasha's Hideous Laughter"/>
+<Spell Name="Hideous Laughter"/>
 <Spell Name="Telekinesis"/>
 <Spell Name="Telepathy"/>
 <Spell Name="Teleport"/>

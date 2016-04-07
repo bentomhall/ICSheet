@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
 namespace InteractiveCharacterSheetCore
@@ -49,28 +47,6 @@ namespace InteractiveCharacterSheetCore
         }
 
         [DataMember]
-        private Dictionary<string, AbilityType> skillAbilityMap4e = new Dictionary<string, AbilityType>()
-        {
-             { "Acrobatics", AbilityType.Dexterity },
-             { "Arcana", AbilityType.Intelligence },
-             { "Athletics", AbilityType.Strength },
-             { "Bluff", AbilityType.Charisma },
-             { "Diplomacy", AbilityType.Charisma },
-             { "Dungeoneering", AbilityType.Intelligence },
-             { "Endurance", AbilityType.Constitution },
-             { "Heal", AbilityType.Wisdom },
-             { "History", AbilityType.Intelligence },
-             { "Insight", AbilityType.Wisdom },
-             { "Intimidate", AbilityType.Charisma },
-             { "Nature", AbilityType.Wisdom },
-             { "Perception", AbilityType.Wisdom },
-             { "Religion", AbilityType.Intelligence },
-             { "Stealth", AbilityType.Dexterity },
-             { "Streetwise", AbilityType.Charisma },
-             { "Thievery", AbilityType.Dexterity }
-        };
-
-        [DataMember]
         private Dictionary<string, AbilityType> skillAbilityMap5e = new Dictionary<string, AbilityType>()
         {
             { "Acrobatics", AbilityType.Dexterity },
@@ -96,12 +72,10 @@ namespace InteractiveCharacterSheetCore
         {
                 switch (edition)
                 {
-                    case Edition.Fourth:
-                        return skillAbilityMap4e[skillName];
                     case Edition.Fifth:
                         return skillAbilityMap5e[skillName];
                     default:
-                        throw new NotImplementedException("Only 4th and 5th editions allowed");
+                        throw new NotImplementedException("Only 5th editions allowed");
                 }
         }
 
@@ -122,8 +96,6 @@ namespace InteractiveCharacterSheetCore
             {
                 switch (edition)
                 {
-                    case Edition.Fourth:
-                        return skillAbilityMap4e.Keys.ToList<string>();
                     case Edition.Fifth:
                         return skillAbilityMap5e.Keys.ToList<string>();
                     default:

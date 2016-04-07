@@ -23,7 +23,7 @@ namespace ICSheet5e.Model
         private void loadSpellNames() 
         {
             _spellNames = new List<string>();
-            var resource = ICSheet5e.Properties.Resources.spell_list;
+            var resource = Properties.Resources.spell_list;
             var doc = XDocument.Parse(resource);
             classSpellsMap = new Dictionary<CharacterClassType, List<string>>();
             foreach (var cls in doc.Descendants("CastingClass"))
@@ -55,8 +55,7 @@ namespace ICSheet5e.Model
 
         private void loadSpellDetails()
         {
-            var resource = ICSheet5e.Properties.Resources.SpellList5e;
-            var spellDetailsJ = Newtonsoft.Json.Linq.JArray.Parse(resource);
+            var spellDetailsJ = Newtonsoft.Json.Linq.JArray.Parse(Properties.Resources.SpellList5e);
             _spellDetails = new List<Spell>();
             foreach (var element in spellDetailsJ)
             {
@@ -113,7 +112,7 @@ namespace ICSheet5e.Model
             {
                 var spell = new Spell();
                 spell.Name = spellName;
-                spell.Description = "No data for this spell. Look in the PHB.";
+                spell.Description = "This spell is not part of the SRD. Look in the appropriate source book (Player's Handbook, etc.)";
                 spell.Level = -1;
                 spell.Range = "?";
                 spell.Components = "?";
