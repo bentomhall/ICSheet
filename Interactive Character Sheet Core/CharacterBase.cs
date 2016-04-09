@@ -13,18 +13,6 @@ namespace InteractiveCharacterSheetCore
     public abstract class CharacterBase
     {
 
-        private DiceBag dice = new DiceBag();
-        public DiceBag Dice
-        {
-            get
-            {
-                if (dice == null)
-                {
-                    dice = new DiceBag();
-                }
-                return dice;
-            }
-        }
         [DataMember] public string CharacterName { get; set; }
         #region Initiative
         [DataMember] protected int initiativeModifier = 0;
@@ -33,10 +21,6 @@ namespace InteractiveCharacterSheetCore
             get { return initiativeModifier; }
         }
 
-        public int RollInitiative()
-        {
-            return dice.RollOne(DiceSize.d20) + initiativeModifier;
-        }
         #endregion
 
         #region Abilities

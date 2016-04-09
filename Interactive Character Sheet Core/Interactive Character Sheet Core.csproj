@@ -38,7 +38,6 @@
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="CharacterBase.cs" />
-    <Compile Include="DiceBag.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IDamage.cs" />
     <Compile Include="IDefense.cs" />
