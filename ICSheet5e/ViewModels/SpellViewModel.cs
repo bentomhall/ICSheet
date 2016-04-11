@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
     public class SpellViewModel : BaseViewModel
     {
         private bool isSpellKnown = false;
-        private Model.Spell _spell;
+        private Spell _spell;
 
         public bool SpellKnown
         {
@@ -21,12 +22,12 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public SpellViewModel(Model.Spell spell)
+        public SpellViewModel(Spell spell)
         {
             _spell = spell;
         }
 
-        public Model.Spell Spell { get { return _spell; } }
+        public Spell Spell { get { return _spell; } }
 
         public string Name { get { return _spell.Name; } }
         public bool IsPrepared { get { return _spell.IsPrepared; } }

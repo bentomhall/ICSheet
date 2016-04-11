@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ICSheet5e.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {

@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Runtime.CompilerServices;
-using ICSheet5e.Model;
-using InteractiveCharacterSheetCore;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {

@@ -117,29 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BasicArmors" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BasicArmors.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="ArmorItemPath" xml:space="preserve">
+    <value>BasicArmors.xml</value>
   </data>
-  <data name="BasicWeapons" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BasicWeapons.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="ClassFeaturesPath" xml:space="preserve">
+    <value>ClassFeatures.xml</value>
   </data>
-  <data name="inventory_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tall-human-silhouette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="RacialFeaturesPath" xml:space="preserve">
+    <value>RacialFeatures.xml</value>
   </data>
-  <data name="spell_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spell_list.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="SpellDetailsPath" xml:space="preserve">
+    <value>SpellList5e.json</value>
   </data>
-  <data name="RacialFeatures" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RacialFeatures.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="SpellNamesPath" xml:space="preserve">
+    <value>spell_list.xml</value>
   </data>
-  <data name="ClassFeatures" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClassFeatures.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SpellList5e" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\spelllist5e.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="BasicItems" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BasicItems.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="WeaponItemPath" xml:space="preserve">
+    <value>BasicWeapons.xml</value>
   </data>
 </root>
