@@ -1,5 +1,4 @@
-﻿using InteractiveCharacterSheetCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -39,11 +38,9 @@ namespace ICSheetCore
             inventory = new Inventory<Item>(10);
             inventory.EquipmentChanged += EquipmentChangeHandler;
             CharacterName = "";
-            CharacterRace = new Race(Model.Race.RaceType.Human);
+            CharacterRace = new Race(Race.RaceType.Human);
             MaxHealth = 1;
             _currentHealth = 1;
-            Resistances = new List<DamageType>();
-            Immunities = new List<DamageType>();
             _proficiencyBonus = 2;
             SetSkills<Skill5e>(new List<Skill5e>());
 
@@ -226,7 +223,7 @@ namespace ICSheetCore
 
         public void EquipmentChangeHandler(object sender, EquipmentChangedEventArgs e)
         {
-            Console.WriteLine(e.Items.ToString());
+            return;
         }
 
         public Item EquippedItemForSlot(ItemSlot slot)

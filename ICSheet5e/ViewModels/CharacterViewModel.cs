@@ -314,9 +314,7 @@ namespace ICSheet5e.ViewModels
             switch (model.Type)
             {
                 case HealthChangeViewModel.HealthChangeType.Damage:
-                    var dmg = new DamageBase();
-                    dmg.Amount = model.Amount;
-                    character.TakeDamage(dmg);
+                    character.TakeDamage(model.Amount);
                     break;
 
                 case HealthChangeViewModel.HealthChangeType.Healing:

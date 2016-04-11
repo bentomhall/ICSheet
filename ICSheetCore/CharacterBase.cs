@@ -95,8 +95,6 @@ namespace ICSheetCore
         #endregion
 
         #region Defenses
-        [DataMember] protected List<DamageType> Resistances { get; set; }
-        [DataMember] protected List<DamageType> Immunities { get; set; }
         [DataMember] protected List<Defense> _defenses = new List<Defense>();
         public List<Defense> Defenses { get { return _defenses; } }
         public bool WillHit(DefenseType type, int withAttack)

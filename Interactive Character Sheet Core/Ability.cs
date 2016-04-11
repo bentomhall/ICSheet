@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace ICSheetCore
+namespace InteractiveCharacterSheetCore
 {
     public enum AbilityType
     {

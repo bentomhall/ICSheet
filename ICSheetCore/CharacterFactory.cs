@@ -14,7 +14,7 @@ namespace ICSheetCore
         private List<CharacterClassItem> characterLevels;
         private ItemDataBase itemDB;
         private SpellManager spellDB;
-        private XMLFeatureFactory featureFactory = new XMLFeatureFactory();
+        private XMLFeatureFactory featureFactory = new XMLFeatureFactory("", ""); //broken!
 
         internal CharacterFactory(string name, Race race, IEnumerable<CharacterClassItem> levels, ItemDataBase items, SpellManager spells)
         {

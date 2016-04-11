@@ -12,7 +12,7 @@ namespace ICSheetCore
     public class SpellBook
     {
         [DataMember]
-        private Model.SpellManager dB;
+        private SpellManager dB;
         [DataMember]
         private List<Spell> _allSpells = new List<Spell>();
         [DataMember]
