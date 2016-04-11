@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.IO;
 
-namespace InteractiveCharacterSheetCore
+namespace ICSheetCore
 {
     [DataContract]
     public abstract class CharacterBase
