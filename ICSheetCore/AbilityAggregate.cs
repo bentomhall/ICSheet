@@ -4,7 +4,7 @@ namespace ICSheetCore
 {
     internal class AbilityAggregate
     {
-        private Dictionary<AbilityType, Ability> _abilities;
+        private Dictionary<AbilityType, Ability> _abilities =  new Dictionary<AbilityType, Ability>();
 
         internal AbilityAggregate()
         {
@@ -28,11 +28,15 @@ namespace ICSheetCore
 
         internal void Modify(AbilityType ability, int newScore)
         {
+            var oldAbilityModifier = _abilities[ability].Modifier;
             _abilities[ability] = new Ability(newScore);
-            var args = new AbilityModifiedEventArgs();
-            args.Score = newScore;
-            args.Modifier = (newScore - 10) / 2;
-            OnAbilityModified(args);
+            if (oldAbilityModifier != _abilities[ability].Modifier)
+            {
+                var args = new AbilityModifiedEventArgs();
+                args.Modifier = (newScore - 10) / 2;
+                args.ModifiedAbility = ability;
+                OnAbilityModified(args);
+            }
         }
 
         internal void OnAbilityModified(AbilityModifiedEventArgs e)
@@ -49,7 +53,7 @@ namespace ICSheetCore
 
     internal class AbilityModifiedEventArgs : EventArgs
     {
-        internal int Score { get; set; }
         internal int Modifier { get; set; }
+        internal AbilityType ModifiedAbility { get; set; }
     }
 }
