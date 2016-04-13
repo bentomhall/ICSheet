@@ -40,9 +40,16 @@
     <StartupObject>ICSheet5e.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="PDFClown">
+      <HintPath>..\..\..\..\..\Downloads\PDFClown-0.1.2-Beta\PDFClown\dotNET\pdfclown.lib\build\package\PDFClown.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
