@@ -6,17 +6,27 @@ namespace ICSheetCore
     {
         private Dictionary<AbilityType, Ability> _abilities;
 
-        public int AbilityModifierFor(AbilityType ability)
+        internal AbilityAggregate()
+        {
+            _abilities[AbilityType.Strength] = new Ability(10);
+            _abilities[AbilityType.Dexterity] = new Ability(10);
+            _abilities[AbilityType.Constitution] = new Ability(10);
+            _abilities[AbilityType.Intelligence] = new Ability(10);
+            _abilities[AbilityType.Wisdom] = new Ability(10);
+            _abilities[AbilityType.Charisma] = new Ability(10);
+        }
+
+        internal int AbilityModifierFor(AbilityType ability)
         {
             return _abilities[ability].Modifier;
         }
 
-        public int AbilityScoreFor(AbilityType ability)
+        internal int AbilityScoreFor(AbilityType ability)
         {
             return _abilities[ability].Score;
         }
 
-        public void Modify(AbilityType ability, int newScore)
+        internal void Modify(AbilityType ability, int newScore)
         {
             _abilities[ability] = new Ability(newScore);
             var args = new AbilityModifiedEventArgs();
