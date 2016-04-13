@@ -173,7 +173,7 @@ namespace ICSheetCore
             else
             {
                 var success = inventory.Pay(amount);
-                if (!success) { throw new System.ArgumentException("Not enough gold for that transaction!"); }
+                if (!success) { throw new ArgumentException("Not enough gold for that transaction!"); }
             }
         }
 
@@ -354,7 +354,7 @@ namespace ICSheetCore
 
         public bool TryUseFeature(IClassFeature feature)
         {
-            if (!features.Contains(feature)) { throw new System.ArgumentException(string.Format("This character does not have the {0} feature", feature.Name)); }
+            if (!features.Contains(feature)) { throw new ArgumentException(string.Format("This character does not have the {0} feature", feature.Name)); }
             return feature.TryUseFeature(); //sideEffects
         }
 
