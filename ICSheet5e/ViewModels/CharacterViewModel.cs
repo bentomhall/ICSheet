@@ -336,7 +336,6 @@ namespace ICSheet5e.ViewModels
 
         private void HealDamageCommandExecuted(object obj)
         {
-            if (obj == null) { return; }
             var type = HealthChangeViewModel.HealthChangeType.Healing;
             DisplayModalHealthDialog(type);
         }

@@ -29,6 +29,13 @@ namespace ICSheetCore
             _defenses[DefenseType.Charisma] = new Defense(abilities.AbilityModifierFor(AbilityType.Charisma), _proficiencyForDefense[DefenseType.Charisma], 0, DefenseType.Charisma);
         }
 
+
+
+        /// <summary>
+        /// Fetch the total bonus for the requested type of defense, including base value, proficiency, and any manual overrides.
+        /// </summary>
+        /// <param name="defense"></param>
+        /// <returns></returns>
         internal int DefenseValueFor(DefenseType defense)
         {
             return _defenses[defense].Value;
@@ -71,6 +78,7 @@ namespace ICSheetCore
             return;
         }
 
+        
         internal int ArmorClass { get { return DefenseValueFor(DefenseType.Armor); } }
         internal int StrengthSave { get { return DefenseValueFor(DefenseType.Strength); } }
         internal int DexteritySave { get { return DefenseValueFor(DefenseType.Dexterity); } }
