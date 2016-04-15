@@ -6,6 +6,7 @@
     <Feature Name="Armor Proficiencies">Light, Medium, Shields</Feature>
     <Feature Name="Weapon Proficiencies">Simple, martial</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Constitution</Feature>
     <Feature Name="Rage">Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon attacks. Resistance to bludgeoning, piercing, slashing. Can't cast spells while raging. Duration: 1 minute or end of first round that you haven't taken damage or attacked a hostile creature.</Feature>
     <Feature Name="Unarmored Defense">Armor Class when unarmored is 10 + DEX + CON (stacks with shields).</Feature>
     <Feature Name="Reckless Attack" StartLevel="2">Gives/grants advantage on attack rolls (toggle on first attack of turn).</Feature>
@@ -26,6 +27,7 @@
     <Feature Name="Armor Proficiencies">Light</Feature>
     <Feature Name="Weapon Proficiencies">Simple, hand crossbows, longswords, rapiers, shortswords.</Feature>
     <Feature Name="Tool Proficiencies">3 musical instruments of your choice.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Dexterity, Charisma</Feature>
     <Feature Name="Spellcasting">Bard Spellcasting (CHA, Spontaneous)</Feature>
     <Feature Name="Ritual Casting">Can cast bard (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Musical instruments</Feature>
@@ -45,6 +47,7 @@
     <Feature Name="Armor Proficiencies">Light, Medium, Shields</Feature>
     <Feature Name="Weapon Proficiencies">Simple</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
     <Feature Name="Spellcasting">Cleric Spellcasting (WIS, Prepared)</Feature>
     <Feature Name="Ritual Casting">Can cast cleric (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Holy symbols.</Feature>
@@ -60,6 +63,7 @@
     <Feature Name="Armor Proficiencies">Light, Medium, Shields (No metal armor or shields).</Feature>
     <Feature Name="Weapon Proficiencies">Clubs, daggers, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears</Feature>
     <Feature Name="Tool Proficiencies">Herbalism Kit</Feature>
+    <Feature Name="Saving Throw Proficiencies">Intelligence, Wisdom</Feature>
     <Feature Name="Spellcasting">Druid Spellcasting (WIS, Prepared)</Feature>
     <Feature Name="Ritual Casting">Can cast Druid (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Druidic focus.</Feature>
@@ -75,6 +79,7 @@
     <Feature Name="Armor Proficiencies">All</Feature>
     <Feature Name="Weapon Proficiencies">Simple, martial</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Constitution</Feature>
     <Feature xml:space="preserve" Name="Fighting Style">You gain one of the following benefits:
     Archery: You gain a +2 bonus to attacks made with ranged weapons.
     Defense: Gain +1 AC while wearing armor.
@@ -95,6 +100,7 @@
     <Feature Name="Armor Proficiencies">None</Feature>
     <Feature Name="Weapon Proficiencies">Simple, shortswords</Feature>
     <Feature Name="Tool Proficiencies">One type of artisan's tools or one musical instrument</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Dexterity</Feature>
     <Feature Name="Unarmored Defense">While not wearing armor and not wielding a shield, AC is 10 + DEX + WIS</Feature>
     <Feature xml:space="preserve" Name="Martial Arts">While unarmed or wielding monk weapons (shortswords or any simple non-two-handed/heavy weapon) and unarmored (no shield):
     Use DEX instead of STR for attack and damage.
@@ -126,6 +132,7 @@
     <Feature Name="Armor Proficiencies">All armor, shields</Feature>
     <Feature Name="Weapon Proficiencies">Simple and martial weapons.</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
     <Feature Name="Divine Sense">As an action you can sense the presence of any undead, celestial or fiend within 60 ft. You know the type but not the identity. You also detect the presence of any hallowed or desecrated areas within range. You can use this up to 1 + CHA times per long rest.</Feature>
     <Feature xml:space="preserve" Name="Lay on Hands">You have a pool healing up to 5 x paladin level. With this pool you can:
     Touch and heal any creature as an action.
@@ -149,21 +156,26 @@
   <PCClass Name="Ranger">
     <Feature Name="Hit Dice">d10</Feature>
     <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Dexterity</Feature>
   </PCClass>
   <PCClass Name="Rogue">
     <Feature Name="Hit Dice">d8</Feature>
     <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Dexterity, Intelligence</Feature>
   </PCClass>
   <PCClass Name="Sorcerer">
     <Feature Name="Hit Dice">d6</Feature>
     <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Constitution, Charisma</Feature>
   </PCClass>
   <PCClass Name="Warlock">
     <Feature Name="Hit Dice">d8</Feature>
     <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
   </PCClass>
   <PCClass Name="Wizard">
     <Feature Name="Hit Dice">d6</Feature>
     <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Intelligence, Wisdom</Feature>
   </PCClass>
 </ClassFeatures>
