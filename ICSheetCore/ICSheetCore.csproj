@@ -80,6 +80,7 @@
     <Compile Include="SpellBook.cs" />
     <Compile Include="SpellCaster.cs" />
     <Compile Include="SpellCastingAggregate.cs" />
+    <Compile Include="SpellcastingFeature.cs" />
     <Compile Include="SpellManager.cs" />
     <Compile Include="VisionType.cs" />
     <Compile Include="WeaponItem.cs" />

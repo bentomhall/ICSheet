@@ -1,6 +1,6 @@
 ﻿namespace ICSheetCore
 {
-    internal interface IFeature
+    public interface IFeature
     {
         string Name { get; }
         int StartsFromLevel { get; }

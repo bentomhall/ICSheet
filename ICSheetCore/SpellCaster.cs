@@ -404,6 +404,25 @@ namespace ICSheetCore
             { 20, new List<int>() { 4, 3, 3, 1, 0, 0, 0, 0, 0 }}
         };
 
+        public static IEnumerable<int> SpellSlotsFor(CastingType type, int level)
+        {
+            switch(type)
+            {
+                case CastingType.Full:
+                    return FullCaster[level];
+                case CastingType.Half:
+                    return HalfCaster[level];
+                case CastingType.Martial:
+                    return Martial[level];
+                case CastingType.Warlock:
+                    return Warlock[level];
+                case CastingType.None:
+                    break;
+            }
+            return new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+        }
+
         static private Dictionary<CharacterClassType, Dictionary<int, List<int>>> spellSlotsByClass = new Dictionary<CharacterClassType, Dictionary<int, List<int>>>()
         {
             { CharacterClassType.Bard, SpellcastingLookup.FullCaster },
