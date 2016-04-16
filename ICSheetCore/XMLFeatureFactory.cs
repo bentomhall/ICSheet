@@ -122,6 +122,65 @@ namespace ICSheetCore
         }
 
         /// <summary>
+        /// Gets all subraces defined for a particular race.
+        /// 
+        /// </summary>
+        /// <param name="raceName">Name of base race</param>
+        /// <returns>Names of all subraces</returns>
+        public IEnumerable<string> ExtractSubraceNames(string raceName)
+        {
+            var element = FindSingleElementByNameAttribute("Race", raceName, _raceFeatures.Root);
+            return element.Elements("Subrace").Select(x => x.Attribute("Name").Value);
+        }
+
+        /// <summary>
+        /// Gets all features for the given race/subrace combination. 
+        /// </summary>
+        /// <param name="race">Name of base race.</param>
+        /// <param name="subrace">Name of subrace (if any). Pass null or "" for no subrace.</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"/>
+        public IEnumerable<IFeature> ExtractRacialFeatures(string race, string subrace)
+        {
+            var features = new List<RaceFeature>();
+            var baseRaceElement = FindSingleElementByNameAttribute("Race", race, _raceFeatures.Root);
+            foreach(var node in baseRaceElement.Elements("Feature"))
+            {
+                features.Add(extractRacialFeaturesFor(node));
+            }
+            if (!string.IsNullOrWhiteSpace(subrace))
+            {
+                var subraceElement = FindSingleElementByNameAttribute("Subrace", subrace, baseRaceElement);
+                if (subraceElement.Attribute("Replaces") != null)
+                {
+                    var replacedFeature = features.Single(x => x.Name == subraceElement.Attribute("Replaces").Value);
+                    features.Remove(replacedFeature);
+                }
+                foreach (var node in subraceElement.Elements())
+                {
+                    var newFeature = extractRacialFeaturesFor(subraceElement);
+                    var oldFeature = features.SingleOrDefault(x => x.Name == newFeature.Name);
+                    if (oldFeature != null)
+                    {
+                        oldFeature.CombineDescriptions(newFeature);
+                    }
+                    else
+                    {
+                        features.Add(newFeature);
+                    }
+                }
+            }
+            return features;
+        }
+
+        private RaceFeature extractRacialFeaturesFor(XElement node)
+        {
+            var featureName = node.Attribute("Name").Value;
+            var text = node.Value;
+            return new RaceFeature(featureName, text);
+        }
+
+        /// <summary>
         /// Gets all valid class names as strings from the provided xml
         /// </summary>
         /// <returns>all valid class names</returns>
@@ -133,7 +192,6 @@ namespace ICSheetCore
         /// <summary>
         /// Extracts an enumerable of all the features related to a single provided player class.
         /// 
-        /// Throws ArgumentException if the class name is not found.
         /// </summary>
         /// <param name="pcClassName">The name of the class desired. Must match the output of ExtractClassNames</param>
         /// <returns></returns>

@@ -6,13 +6,27 @@ using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
-    class RaceFeature : IFeature
+    public class RaceFeature : IFeature
     {
+        private string _name;
+        private string _description;
+
+        public RaceFeature(string name, string description)
+        {
+            _name = name;
+            _description = description;
+        }
+
+        public void CombineDescriptions(RaceFeature other)
+        {
+            _description = $"{_description}. {other.Description}";
+        }
+
         public string Description
         {
             get
             {
-                throw new NotImplementedException();
+                return _description;
             }
         }
 
@@ -28,7 +42,7 @@ namespace ICSheetCore
         {
             get
             {
-                throw new NotImplementedException();
+                return _name;
             }
         }
 
