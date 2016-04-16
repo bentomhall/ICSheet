@@ -14,12 +14,22 @@ namespace ICSheetCore
         private string _notes;
         private string _background;
 
-        private AbilityAggregate _abilityAggregate;
-        private DefenseAggregate _defenseAggregate;
-        private Race _race;
-        private PlayerClassAggregate _classAggregate;
-        private SkillAggregate _skillAggregate;
-        //private Inventory _inventory; 
+        private AbilityAggregate _abilityAggregate; //can construct
+        private DefenseAggregate _defenseAggregate; //can construct
+        private IRace _race; //should be passed in
+        private PlayerClassAggregate _classAggregate; //should be passed in
+        private SkillAggregate _skillAggregate; //can construct
+        //private Inventory _inventory;
+
+        internal PlayerCharacter(string name, IRace race, PlayerClassAggregate classesAndLevels)
+        {
+            _race = race;
+            _name = name;
+            _classAggregate = classesAndLevels;
+            _abilityAggregate = new AbilityAggregate();
+            _defenseAggregate = new DefenseAggregate(_abilityAggregate, _classAggregate.ProficiencyForDefenses);
+            _skillAggregate = new SkillAggregate();
+        }
     }
 
 }

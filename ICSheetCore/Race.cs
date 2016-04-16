@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace ICSheetCore
 {
     [DataContract]
-    public class Race
+    public class Race 
     {
         public enum RaceType
         {
