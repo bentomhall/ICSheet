@@ -132,6 +132,9 @@
     <Compile Include="Views\AttributeBlock.xaml.cs">
       <DependentUpon>AttributeBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ClassFeatureView.xaml.cs">
+      <DependentUpon>ClassFeatureView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DelegateCommand.cs" />
     <Compile Include="Views\FeaturesView.xaml.cs">
       <DependentUpon>FeaturesView.xaml</DependentUpon>
@@ -197,6 +200,10 @@
     <Page Include="Views\AttributeBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ClassFeatureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FeaturesView.xaml">
       <SubType>Designer</SubType>
