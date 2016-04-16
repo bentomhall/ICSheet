@@ -74,6 +74,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Race.cs" />
+    <Compile Include="RaceFeature.cs" />
     <Compile Include="Skill5e.cs" />
     <Compile Include="SkillAggregate.cs" />
     <Compile Include="Spell.cs" />

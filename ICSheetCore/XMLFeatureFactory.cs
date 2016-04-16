@@ -5,6 +5,9 @@ using System.Xml.Linq;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// Parses XML features into feature objects.
+    /// </summary>
     public class XMLFeatureFactory
     {
         private string _raceFeaturesXML;
@@ -109,15 +112,36 @@ namespace ICSheetCore
             return features;
         }
 
+        /// <summary>
+        /// Gets all valid race names as strings from the provided xml
+        /// </summary>
+        /// <returns>all valid race names</returns>
+        public IEnumerable<string> ExtractRaceNames()
+        {
+            return _raceFeatures.Root.Elements().Select(x => x.Attribute("Name").Value);
+        }
+
+        /// <summary>
+        /// Gets all valid class names as strings from the provided xml
+        /// </summary>
+        /// <returns>all valid class names</returns>
         public IEnumerable<string> ExtractClassNames()
         {
             return _classFeatures.Root.Elements().Select(x => x.Attribute("Name").Value);
         }
 
+        /// <summary>
+        /// Extracts an enumerable of all the features related to a single provided player class.
+        /// 
+        /// Throws ArgumentException if the class name is not found.
+        /// </summary>
+        /// <param name="pcClassName">The name of the class desired. Must match the output of ExtractClassNames</param>
+        /// <returns></returns>
         public IEnumerable<IFeature> ExtractFeaturesFor(string pcClassName)
         {
             var features = new List<IFeature>();
             var element = FindSingleElementByNameAttribute("PCClass", pcClassName, _classFeatures.Root);
+            if (element == null) { throw new ArgumentException("Invalid class name supplied."); }
             foreach (var node in element.Elements())
             {
                 features.Add(FeatureFactoryFrom(node));
