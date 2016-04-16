@@ -1,5 +1,4 @@
-﻿using System;
-namespace ICSheet5e.ViewModels
+﻿namespace ICSheet5e.ViewModels
 {
     public interface IViewModel
     {

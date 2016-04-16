@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
 namespace ICSheetCore
 {
-    class XMLFeatureFactory
+    public class XMLFeatureFactory
     {
         private string _raceFeaturesXML;
         private string _classFeaturesXML;
+        private XDocument _classFeatures;
+        private XDocument _raceFeatures;
 
         public XMLFeatureFactory(string raceFeatures, string classFeatures)
         {
@@ -15,6 +18,8 @@ namespace ICSheetCore
             if (classFeatures == null) { throw new System.ArgumentNullException("classFeatures"); }
             _raceFeaturesXML = raceFeatures;
             _classFeaturesXML = classFeatures;
+            _classFeatures = XDocument.Parse(_classFeaturesXML);
+            _raceFeatures = XDocument.Parse(_raceFeaturesXML);
         }
 
         public List<MartialFeature> RacialFeatures(Race forRace)
@@ -102,6 +107,54 @@ namespace ICSheetCore
                 features.Add(f);
             }
             return features;
+        }
+
+        public IEnumerable<string> ExtractClassNames()
+        {
+            return _classFeatures.Root.Elements().Select(x => x.Attribute("Name").Value);
+        }
+
+        public IEnumerable<IFeature> ExtractFeaturesFor(string pcClassName)
+        {
+            var features = new List<IFeature>();
+            var element = FindSingleElementByNameAttribute("PCClass", pcClassName, _classFeatures.Root);
+            foreach (var node in element.Elements())
+            {
+                features.Add(FeatureFactoryFrom(node));
+            }
+            return features;
+
+        }
+
+        private IFeature FeatureFactoryFrom(XElement element)
+        {
+            var featureName = element.Attribute("Name").Value;
+            if (featureName == "Spellcasting")
+            {
+                return ExtractSpellcastingFeature(element);
+            }
+            else { return ExtractClassFeature(element); }
+        }
+
+        private IFeature ExtractClassFeature(XElement element)
+        {
+            var featureName = element.Attribute("Name").Value;
+            var text = element.Value;
+            var isInheritable = (element.Attribute("MulticlassInheritable").Value == "True" ? true : false);
+            var startingLevel = int.Parse(element.Attribute("StartLevel").Value);
+            return new ClassFeature(featureName, startingLevel, isInheritable, text);
+        }
+
+        private IFeature ExtractSpellcastingFeature(XElement element)
+        {
+            var name = element.Parent.Attribute("Name").Value;
+            var castingType = element.Element("CastingType").Value;
+            var castingAbility = (AbilityType)Enum.Parse(typeof(AbilityType), element.Element("CastingAttribute").Value);
+            var isPrepared = (element.Element("IsPreparedCaster").Value == "True" ? true: false);
+            var cantrips = element.Element("Cantrips").Value.Split(' ').Select(x => int.Parse(x));
+            var bonusSpells = element.Element("BonusSpells").Value.Split(' ').Select(x => int.Parse(x));
+            var spellsKnown = element.Element("Spells").Value.Split(' ').Select(x => int.Parse(x));
+            return new SpellcastingFeature(name, castingType, bonusSpells, castingAbility, isPrepared, cantrips, spellsKnown);
         }
     }
 }

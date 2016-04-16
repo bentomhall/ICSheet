@@ -7,38 +7,39 @@ using System.Xml.Linq;
 
 namespace ICSheetCore
 {
-    class CharacterFactory
+    public class CharacterFactory
     {
-        private string characterName;
-        private Race characterRace;
-        private List<CharacterClassItem> characterLevels;
-        private ItemDataBase itemDB;
-        private SpellManager spellDB;
-        private XMLFeatureFactory featureFactory = new XMLFeatureFactory("", ""); //broken!
+        private string _characterName;
+        private Race _characterRace;
+        private List<CharacterClassItem> _characterLevels;
+        private ItemDataBase _itemDB;
+        private SpellManager _spellDB;
+        private XMLFeatureFactory _featureFactory;
 
-        internal CharacterFactory(string name, Race race, IEnumerable<CharacterClassItem> levels, ItemDataBase items, SpellManager spells)
+        public CharacterFactory(string name, Race race, IEnumerable<CharacterClassItem> levels, ItemDataBase items, SpellManager spells, XMLFeatureFactory features)
         {
-            characterLevels = new List<CharacterClassItem>(levels);
-            characterName = name;
-            characterRace = race;
-            itemDB = items;
-            spellDB = spells;
+            _featureFactory = features;
+            _characterLevels = new List<CharacterClassItem>(levels);
+            _characterName = name;
+            _characterRace = race;
+            _itemDB = items;
+            _spellDB = spells;
         }
 
-        internal Character Build()
+        public Character Build()
         {
-            var c = new Character(characterName, characterLevels, characterRace);
-            c.ItemDB = itemDB;
-            c.SpellDB = spellDB;
-            var raceFeatures = featureFactory.RacialFeatures(characterRace);
+            var c = new Character(_characterName, _characterLevels, _characterRace);
+            c.ItemDB = _itemDB;
+            c.SpellDB = _spellDB;
+            var raceFeatures = _featureFactory.RacialFeatures(_characterRace);
             foreach (var f in raceFeatures)
             {
                 c.AddFeature(f);
             }
 
-            foreach (var clsLvl in characterLevels)
+            foreach (var clsLvl in _characterLevels)
             {
-                var classFeatures = featureFactory.ClassFeatures(clsLvl.ClassType);
+                var classFeatures = _featureFactory.ClassFeatures(clsLvl.ClassType);
                 foreach (var f in classFeatures) { c.AddFeature(f); }
             }
             return c;

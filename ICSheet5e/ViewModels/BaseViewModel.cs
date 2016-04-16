@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 
@@ -24,6 +20,6 @@ namespace ICSheet5e.ViewModels
         #endregion
 
 
-        public ViewModels.ApplicationModel Parent { get; set; }
+        public ApplicationModel Parent { get; set; }
     }
 }

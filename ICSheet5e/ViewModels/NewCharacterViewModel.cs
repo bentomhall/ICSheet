@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
@@ -8,15 +9,15 @@ namespace ICSheet5e.ViewModels
     {
         public NewCharacterViewModel() : base()
         {
-            RaceList = new List<Model.Race>();
+            RaceList = new List<Race>();
             foreach (var rtype in _allRaceTypes)
             {
-                RaceList.Add(new Model.Race(rtype));
+                RaceList.Add(new Race(rtype));
             }
         }
 
         public string CharacterName { get; set; }
-        public Model.Race CharacterRace { get; set; }
+        public Race CharacterRace { get; set; }
         public List<string> Classes
         {
             get { return classes; }
@@ -40,50 +41,50 @@ namespace ICSheet5e.ViewModels
             "Arcane Trickster*",
         };
 
-        static private Dictionary<string, Model.CharacterClassType> classMap = new Dictionary<string,Model.CharacterClassType>()
+        static private Dictionary<string, CharacterClassType> classMap = new Dictionary<string, CharacterClassType>()
         {
-            {"Barbarian", Model.CharacterClassType.Barbarian},
-            {"Bard", Model.CharacterClassType.Bard},
-            {"Cleric", Model.CharacterClassType.Cleric},
-            {"Druid", Model.CharacterClassType.Druid},
-            {"Fighter", Model.CharacterClassType.Fighter},
-            {"Monk", Model.CharacterClassType.Monk},
-            {"Paladin", Model.CharacterClassType.Paladin},
-            {"Ranger", Model.CharacterClassType.Ranger},
-            {"Rogue", Model.CharacterClassType.Rogue},
-            {"Sorcerer", Model.CharacterClassType.Sorcerer},
-            {"Warlock", Model.CharacterClassType.Warlock},
-            {"Wizard", Model.CharacterClassType.Wizard},
-            {"Eldritch Knight*", Model.CharacterClassType.EldritchKnight},
-            {"Arcane Trickster*", Model.CharacterClassType.ArcaneTrickster}
+            {"Barbarian", CharacterClassType.Barbarian},
+            {"Bard", CharacterClassType.Bard},
+            {"Cleric", CharacterClassType.Cleric},
+            {"Druid", CharacterClassType.Druid},
+            {"Fighter", CharacterClassType.Fighter},
+            {"Monk", CharacterClassType.Monk},
+            {"Paladin", CharacterClassType.Paladin},
+            {"Ranger", CharacterClassType.Ranger},
+            {"Rogue", CharacterClassType.Rogue},
+            {"Sorcerer", CharacterClassType.Sorcerer},
+            {"Warlock", CharacterClassType.Warlock},
+            {"Wizard", CharacterClassType.Wizard},
+            {"Eldritch Knight*", CharacterClassType.EldritchKnight},
+            {"Arcane Trickster*", CharacterClassType.ArcaneTrickster}
         };
 
-        private List<Model.Race.RaceType> _allRaceTypes = new List<Model.Race.RaceType>()
+        private List<Race.RaceType> _allRaceTypes = new List<Race.RaceType>()
         {
-            Model.Race.RaceType.DarkElf,
-            Model.Race.RaceType.Dragonborn,
-            Model.Race.RaceType.Dwarf,
-            Model.Race.RaceType.Elf,
-            Model.Race.RaceType.ForestGnome,
-            Model.Race.RaceType.Gnome,
-            Model.Race.RaceType.HalfElf,
-            Model.Race.RaceType.Halfling,
-            Model.Race.RaceType.HalfOrc,
-            Model.Race.RaceType.HighElf,
-            Model.Race.RaceType.HillDwarf,
-            Model.Race.RaceType.Human,
-            Model.Race.RaceType.Lightheart,
-            Model.Race.RaceType.MountainDwarf,
-            Model.Race.RaceType.RockGnome,
-            Model.Race.RaceType.Stout,
-            Model.Race.RaceType.Tiefling,
-            Model.Race.RaceType.VariantHuman,
-            Model.Race.RaceType.WoodElf
+            Race.RaceType.DarkElf,
+            Race.RaceType.Dragonborn,
+            Race.RaceType.Dwarf,
+            Race.RaceType.Elf,
+            Race.RaceType.ForestGnome,
+            Race.RaceType.Gnome,
+            Race.RaceType.HalfElf,
+            Race.RaceType.Halfling,
+            Race.RaceType.HalfOrc,
+            Race.RaceType.HighElf,
+            Race.RaceType.HillDwarf,
+            Race.RaceType.Human,
+            Race.RaceType.Lightheart,
+            Race.RaceType.MountainDwarf,
+            Race.RaceType.RockGnome,
+            Race.RaceType.Stout,
+            Race.RaceType.Tiefling,
+            Race.RaceType.VariantHuman,
+            Race.RaceType.WoodElf
         };
 
-        public List<Model.Race> RaceList { get; set; }
+        public List<Race> RaceList { get; set; }
 
-        private List<Model.CharacterClassItem> levels =  new List<Model.CharacterClassItem>();
+        private List<CharacterClassItem> levels =  new List<CharacterClassItem>();
 
         private string _class1 = "";
         private string _class2 = "";
@@ -158,16 +159,16 @@ namespace ICSheet5e.ViewModels
 
         private void StartNewCharacterCommandExecuted(object sender)
         {
-            var c1 = new Model.CharacterClassItem(classMap[_class1], _levels1);
+            var c1 = new CharacterClassItem(classMap[_class1], _levels1);
             levels.Add(c1);
             if (!string.IsNullOrEmpty(_class2) && _levels2 != 0)
             { 
-                var c2 = new Model.CharacterClassItem(classMap[_class2], _levels2);
+                var c2 = new CharacterClassItem(classMap[_class2], _levels2);
                 levels.Add(c2);
             }
             if (!string.IsNullOrEmpty(_class3) && _levels3 != 0)
             {
-                var c3 = new Model.CharacterClassItem(classMap[_class3], _levels3);
+                var c3 = new CharacterClassItem(classMap[_class3], _levels3);
                 levels.Add(c3);
             }
 
@@ -202,6 +203,6 @@ namespace ICSheet5e.ViewModels
             CanExecute = canExecute;
         }
 
-        public Action<string, Model.Race, IEnumerable<Model.CharacterClassItem>> delegateAction { get; set; }
+        public Action<string, Race, IEnumerable<CharacterClassItem>> delegateAction { get; set; }
     }
 }

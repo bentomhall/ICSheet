@@ -13,7 +13,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ICSheetCore.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,21 +43,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
+    <Compile Include="AbilityAggregate.cs" />
     <Compile Include="ArmorItem.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterBase.cs" />
     <Compile Include="CharacterClassItem.cs" />
     <Compile Include="CharacterFactory.cs" />
+    <Compile Include="ClassFeature.cs" />
+    <Compile Include="DefenseAggregate.cs" />
+    <Compile Include="EnumValueLocator.cs" />
     <Compile Include="IClassFeature.cs" />
     <Compile Include="IDefense.cs" />
+    <Compile Include="IFeature.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="IRace.cs" />
     <Compile Include="ISkill.cs" />
     <Compile Include="ISpellCaster.cs" />
+    <Compile Include="ISpellcastingFeature.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemDataBase.cs" />
     <Compile Include="MartialFeature.cs" />
+    <Compile Include="PlayerCharacter.cs" />
+    <Compile Include="PlayerCharacterClassDetail.cs" />
+    <Compile Include="PlayerClassAggregate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -65,9 +75,12 @@
     </Compile>
     <Compile Include="Race.cs" />
     <Compile Include="Skill5e.cs" />
+    <Compile Include="SkillAggregate.cs" />
     <Compile Include="Spell.cs" />
     <Compile Include="SpellBook.cs" />
     <Compile Include="SpellCaster.cs" />
+    <Compile Include="SpellCastingAggregate.cs" />
+    <Compile Include="SpellcastingFeature.cs" />
     <Compile Include="SpellManager.cs" />
     <Compile Include="VisionType.cs" />
     <Compile Include="WeaponItem.cs" />

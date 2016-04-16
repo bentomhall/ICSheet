@@ -26,7 +26,14 @@
     <Feature Name="Armor Proficiencies">Light</Feature>
     <Feature Name="Weapon Proficiencies">Simple, hand crossbows, longswords, rapiers, shortswords.</Feature>
     <Feature Name="Tool Proficiencies">3 musical instruments of your choice.</Feature>
-    <Feature Name="Spellcasting">Bard Spellcasting (CHA, Spontaneous)</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Full</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+    </Feature>
     <Feature Name="Ritual Casting">Can cast bard (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Musical instruments</Feature>
     <Feature Name="Bardic Inspiration" HasLimitedUse="True">See PHB 53.</Feature>
@@ -46,7 +53,15 @@
     <Feature Name="Weapon Proficiencies">Simple</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
     <Feature Name="Spellcasting">Cleric Spellcasting (WIS, Prepared)</Feature>
-    <Feature Name="Ritual Casting">Can cast cleric (ritual) spells as rituals.</Feature>
+    <Feature Name="Ritual Casting">Can cast prepared Cleric ritual spells as rituals</Feature>
+      <Feature Name="Spellcasting">
+        <CastingType>Full</CastingType>
+        <IsPreparedCaster>True</IsPreparedCaster>
+        <CastingAbility>Wisdom</CastingAbility>
+        <Cantrips>3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5</Cantrips>
+        <BonusSpells>2 2 4 4 6 6 8 8 10 10 10 10 10 10 10 10 10 10 10 10</BonusSpells>
+        <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells> <!--meaningless-->
+      </Feature>
     <Feature Name="Spellcasting Focus">Holy symbols.</Feature>
     <Feature Name="Divine Domain">See PHB 59.</Feature>
     <Feature Name="Channel Divinity" HasLimitedUse="True" StartLevel="2">Turn Undead: Undead enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
@@ -60,7 +75,14 @@
     <Feature Name="Armor Proficiencies">Light, Medium, Shields (No metal armor or shields).</Feature>
     <Feature Name="Weapon Proficiencies">Clubs, daggers, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears</Feature>
     <Feature Name="Tool Proficiencies">Herbalism Kit</Feature>
-    <Feature Name="Spellcasting">Druid Spellcasting (WIS, Prepared)</Feature>
+    <Feature Name="Spellcasting">
+        <CastingType>Full</CastingType>
+        <IsPreparedCaster>True</IsPreparedCaster>
+        <CastingAbility>Wisdom</CastingAbility>
+        <Cantrips>2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4</Cantrips>
+        <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells> <!--overrides in subclass-->
+        <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells> <!--meaningless-->
+    </Feature>
     <Feature Name="Ritual Casting">Can cast Druid (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Druidic focus.</Feature>
     <Feature Name="Wild Shape" Uses="2/short or long rest">You can change shape up to 2x/short or long rest. The max CR of the animal and other restrictions, limitations, etc. are found on PHB 66-67.</Feature>
@@ -136,7 +158,14 @@
     Dueling: While you are wielding a melee weapon in 1 hand and no other weapon you gain +2 to damage with that weapon.
     Great Weapon Fighting: Can reroll 1s or 2s on damage dice for two-handed weapons.
     Protection: When a visible creature attacks a target within 5 feet of you you can use your reaction to impose disadvantage. Must be wielding a shield.</Feature>
-    <Feature Name="Spellcasting" StartLevel="2">Paladin Spellcasting (CHA prepared).</Feature>
+    <Feature Name="Spellcasting" StartLevel="2">
+      <CastingType>Half</CastingType>
+      <IsPreparedCaster>True</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Cantrips>
+      <BonusSpells>0 0 2 2 4 4 6 6 8 8 10 10 10 10 10 10 10 10 10 10</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells><!--meaningless-->
+    </Feature>
     <Feature Name="Divine Smite" StartLevel="2">When you hit a creature with a melee weapon attack you can expend a spell slot to add 2d8 + (n-1)d8 radiant damage; n = level of slot. Max is 5d8. Damage increases by 1d8 on undead and fiends.</Feature>
     <Feature Name="Divine Health" StartLevel="3">You are immune to disease.</Feature>
     <Feature Name="Sacred Oath" StartLevel="3">See PHB 85.</Feature>
@@ -149,6 +178,14 @@
   <PCClass Name="Ranger">
     <Feature Name="Hit Dice">d10</Feature>
     <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
+    <Feature Name="Spellcasting" StartLevel="2">
+      <CastingType>Half</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Wisdom</CastingAbility>
+      <Cantrips>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>0 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11</Spells>
+    </Feature>
   </PCClass>
   <PCClass Name="Rogue">
     <Feature Name="Hit Dice">d8</Feature>
@@ -157,13 +194,38 @@
   <PCClass Name="Sorcerer">
     <Feature Name="Hit Dice">d6</Feature>
     <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Full</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 6 6</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>2 3 4 5 6 7 8 9 10 11 12 12 13 13 14 14 15 15 15 15</Spells>
+    </Feature>
   </PCClass>
   <PCClass Name="Warlock">
     <Feature Name="Hit Dice">d8</Feature>
     <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Warlock</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>2 3 4 5 6 7 8 9 10 10 11 11 12 12 13 13 14 14 15 15</Spells>
+    </Feature>
   </PCClass>
   <PCClass Name="Wizard">
     <Feature Name="Hit Dice">d6</Feature>
     <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
+    <Feature Name="Spellcasting" StartLevel="2">
+      <CastingType>True</CastingType>
+      <IsPreparedCaster>True</IsPreparedCaster>
+      <CastingAbility>Intelligence</CastingAbility>
+      <Cantrips>3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+      <!--meaningless-->
+    </Feature>
   </PCClass>
 </ClassFeatures>

@@ -77,7 +77,7 @@ namespace ICSheet5e.Views
         public static string SelectSaveLocation()
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "Character";
+            dlg.FileName = "";
             dlg.DefaultExt = ".dnd5e";
             dlg.Filter = "5th Edition Character Sheets (.dnd5e)|*.dnd5e";
 

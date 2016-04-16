@@ -4,6 +4,9 @@ using System.Runtime.Serialization;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// A single class/level combination. Maintains all details that can be determined without reference to other possible classes and levels. 
+    /// </summary>
     [DataContract]
     public class CharacterClassItem
     {
@@ -30,11 +33,17 @@ namespace ICSheetCore
             {CharacterClassType.Wizard, new List<DefenseType>() {DefenseType.Intelligence, DefenseType.Wisdom}}
         };
 
+        /// <summary>
+        /// Constructor. No hinky business here.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="numberOfLevels"></param>
         public CharacterClassItem(CharacterClassType type, int numberOfLevels)
         {
             _classType = type;
             level = numberOfLevels;
         }
+
 
         public void LevelUp()
         {

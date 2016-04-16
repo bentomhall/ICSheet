@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
@@ -31,8 +32,8 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public Model.Skill5e Skill { get; set; }
-        public Action<Model.Skill5e> delegateProficiencyChanged;
+        public Skill5e Skill { get; set; }
+        public Action<Skill5e> delegateProficiencyChanged;
 
         public string FullDescription
         {

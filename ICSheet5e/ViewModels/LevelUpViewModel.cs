@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
@@ -14,7 +13,7 @@ namespace ICSheet5e.ViewModels
             get { return classes; }
         }
 
-        private List<String> classes = new List<string>()
+        private List<string> classes = new List<string>()
         {
             "Barbarian",
             "Bard",
@@ -32,32 +31,32 @@ namespace ICSheet5e.ViewModels
             "Arcane Trickster*",
         };
 
-        private Dictionary<string, Model.CharacterClassType> classMap = new Dictionary<string, Model.CharacterClassType>()
+        private Dictionary<string, CharacterClassType> classMap = new Dictionary<string, CharacterClassType>()
         {
-            {"Barbarian", Model.CharacterClassType.Barbarian},
-            {"Bard", Model.CharacterClassType.Bard},
-            {"Cleric", Model.CharacterClassType.Cleric},
-            {"Druid", Model.CharacterClassType.Druid},
-            {"Fighter", Model.CharacterClassType.Fighter},
-            {"Monk", Model.CharacterClassType.Monk},
-            {"Paladin", Model.CharacterClassType.Paladin},
-            {"Ranger", Model.CharacterClassType.Ranger},
-            {"Rogue", Model.CharacterClassType.Rogue},
-            {"Sorcerer", Model.CharacterClassType.Sorcerer},
-            {"Warlock", Model.CharacterClassType.Warlock},
-            {"Wizard", Model.CharacterClassType.Wizard},
-            {"Eldritch Knight*", Model.CharacterClassType.EldritchKnight},
-            {"Arcane Trickster*", Model.CharacterClassType.ArcaneTrickster}
+            {"Barbarian", CharacterClassType.Barbarian},
+            {"Bard", CharacterClassType.Bard},
+            {"Cleric", CharacterClassType.Cleric},
+            {"Druid", CharacterClassType.Druid},
+            {"Fighter", CharacterClassType.Fighter},
+            {"Monk", CharacterClassType.Monk},
+            {"Paladin", CharacterClassType.Paladin},
+            {"Ranger", CharacterClassType.Ranger},
+            {"Rogue", CharacterClassType.Rogue},
+            {"Sorcerer", CharacterClassType.Sorcerer},
+            {"Warlock", CharacterClassType.Warlock},
+            {"Wizard", CharacterClassType.Wizard},
+            {"Eldritch Knight*", CharacterClassType.EldritchKnight},
+            {"Arcane Trickster*", CharacterClassType.ArcaneTrickster}
         };
 
         private string selectedClassName = "";
 
-        private List<Model.CharacterClassItem> currentLevels;
-        private List<Model.CharacterClassItem> projectedLevels;
+        private List<CharacterClassItem> currentLevels;
+        private List<CharacterClassItem> projectedLevels;
         
-        private void addProjectedLevel(Model.CharacterClassType ofType)
+        private void addProjectedLevel(CharacterClassType ofType)
         {
-            projectedLevels = new List<Model.CharacterClassItem>(currentLevels); //clear any changes
+            projectedLevels = new List<CharacterClassItem>(currentLevels); //clear any changes
             var matchingType = currentLevels.SingleOrDefault(x => x.Matches(ofType));
             if (matchingType != null)
             {
@@ -65,7 +64,7 @@ namespace ICSheet5e.ViewModels
             }
             else
             {
-                projectedLevels.Add(new Model.CharacterClassItem(ofType, 1));
+                projectedLevels.Add(new CharacterClassItem(ofType, 1));
             }
             NotifyPropertyChanged("ClassLevels");
         }
@@ -105,15 +104,15 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public ICollection<Model.CharacterClassItem> ChosenClassLevels
+        public ICollection<CharacterClassItem> ChosenClassLevels
         {
             get { return projectedLevels; }
         }
 
-        public LevelUpViewModel(ICollection<Model.CharacterClassItem> current)
+        public LevelUpViewModel(ICollection<CharacterClassItem> current)
         {
             currentLevels = current.ToList();
-            projectedLevels = new List<Model.CharacterClassItem>(current);
+            projectedLevels = new List<CharacterClassItem>(current);
         }
 
 

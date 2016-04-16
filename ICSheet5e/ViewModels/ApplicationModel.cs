@@ -9,14 +9,15 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
     public class ApplicationModel: BaseViewModel
     {
-        Model.Character currentCharacter = null;
-        Model.ItemDataBase itemDB = new Model.ItemDataBase();
-        Model.SpellManager spellDB = new Model.SpellManager();
+        Character currentCharacter = null;
+        ItemDataBase itemDB;
+        SpellManager spellDB;
         public bool IsEditingModeEnabled
         {
             get { return canEdit; }
@@ -75,6 +76,7 @@ namespace ICSheet5e.ViewModels
 
         public ApplicationModel()
         {
+
             if (currentCharacter == null)
             {
                 IsCharacterInitialized = false;
@@ -88,6 +90,9 @@ namespace ICSheet5e.ViewModels
                 subModel.Parent = this;
                 _viewModels.Add(subModel);
             }
+            var itemReader = new XMLItemReader(Properties.Resources.BasicArmors, Properties.Resources.BasicWeapons, Properties.Resources.BasicItems);
+            itemDB = new ItemDataBase(itemReader);
+            spellDB = new SpellManager(Properties.Resources.spell_list, Properties.Resources.SpellList5e);
         }
 
         public ICommand NewCharacterCommand
@@ -108,9 +113,10 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterInformationReceived(string name, Model.Race race, IEnumerable<Model.CharacterClassItem> classes)
+        public void NewCharacterInformationReceived(string name, Race race, IEnumerable<CharacterClassItem> classes)
         {
-            var characterBuilder = new Model.CharacterFactory(name, race, classes, itemDB, spellDB);
+            var featureFactory = new XMLFeatureFactory(Properties.Resources.RacialFeatures, Properties.Resources.ClassFeatures);
+            var characterBuilder = new CharacterFactory(name, race, classes, itemDB, spellDB, featureFactory);
             currentCharacter = characterBuilder.Build();
             setViewModels();
         }
@@ -151,9 +157,9 @@ namespace ICSheet5e.ViewModels
         {
             var location = Views.WindowManager.SelectExistingFile();
             if (location == null) { return; } //user canceled open dialog
-            var serializer = new DataContractSerializer(typeof(Model.Character));
+            var serializer = new DataContractSerializer(typeof(Character));
             System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
-            var c = (Model.Character)serializer.ReadObject(reader);
+            var c = (Character)serializer.ReadObject(reader);
             reader.Close();
             currentCharacter = c;
             currentCharacter.ItemDB = itemDB;
@@ -167,7 +173,7 @@ namespace ICSheet5e.ViewModels
             if (!IsCharacterInitialized) return;
             var saveLocation = Views.WindowManager.SelectSaveLocation();
             if (saveLocation == null) { return; } //user canceled save dialog
-            var serializer = new DataContractSerializer(typeof(Model.Character));
+            var serializer = new DataContractSerializer(typeof(Character));
             System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
             serializer.WriteObject(stream, currentCharacter);
             stream.Close();
@@ -216,11 +222,11 @@ namespace ICSheet5e.ViewModels
             if (vm == null) { return; }
             var oldLevels = currentCharacter.Levels;
             var newLevels = vm.ChosenClassLevels;
-            var featureFactory = new Model.XMLFeatureFactory();
-            List<Model.MartialFeature> newFeatures = new List<Model.MartialFeature>();
+            var featureFactory = new XMLFeatureFactory(Properties.Resources.RacialFeatures, Properties.Resources.ClassFeatures);
+            List<MartialFeature> newFeatures = new List<MartialFeature>();
             foreach (var cls in newLevels)
             {
-                if (oldLevels.SingleOrDefault(x => x.Matches(cls.ClassType)) != null)
+                if (oldLevels.SingleOrDefault(x => !x.Matches(cls.ClassType)) != null)
                 {
                     newFeatures.AddRange(featureFactory.ClassFeatures(cls.ClassType));
                 }

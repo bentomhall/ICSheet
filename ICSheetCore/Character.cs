@@ -42,7 +42,7 @@ namespace ICSheetCore
             MaxHealth = 1;
             _currentHealth = 1;
             _proficiencyBonus = 2;
-            SetSkills<Skill5e>(new List<Skill5e>());
+            SetSkills(new List<Skill5e>());
 
             inventory = new Inventory<Item>(AbilityScoreFor(AbilityType.Strength));
         }
@@ -50,7 +50,7 @@ namespace ICSheetCore
         public Character(string characterName, IEnumerable<CharacterClassItem> levels, Race race)
             : this()
         {
-            CharacterClassLevels = levels.ToList<CharacterClassItem>();
+            CharacterClassLevels = levels.ToList();
             CharacterName = characterName;
             CharacterRace = race;
             int totalLevel = levels.Sum(x => x.Level);
@@ -93,6 +93,7 @@ namespace ICSheetCore
             get { return _isSpellCaster; }
         }
 
+        [DataMember]
         public ItemDataBase ItemDB { get; set; }
 
         public ICollection<CharacterClassItem> Levels
@@ -172,7 +173,7 @@ namespace ICSheetCore
             else
             {
                 var success = inventory.Pay(amount);
-                if (!success) { throw new System.ArgumentException("Not enough gold for that transaction!"); }
+                if (!success) { throw new ArgumentException("Not enough gold for that transaction!"); }
             }
         }
 
@@ -192,12 +193,26 @@ namespace ICSheetCore
             {
                 if (feature.Name == "Hit Dice")
                 {
-                    features.SingleOrDefault(x => x.Name == "Hit Dice").AddDescriptionText("+" + feature.Description.Remove(0, 9));
+                    var current = Features.SingleOrDefault(x => x.Name == "Hit Dice");
+                    if (current.Description != feature.Description)
+                    {
+                        current.AddDescriptionText(feature.Description.Replace("Hit Dice:",""));
+                    }
+                    continue;
                 }
-                else if (feature.Name.Contains("Proficiency")) { continue; }
-                var existingFeature = Features.SingleOrDefault(x => x.Name == feature.Name);
+                else if (feature.Name == "Hit Points")
+                {
+                    var current = Features.SingleOrDefault(x => x.Name == feature.Name);
+                    features.Remove(current);
+                    features.Add(feature);
+                    continue;
+                       
+                }
+                else if (feature.Name.Contains("Proficiency") || feature.Name.Contains("Proficiencies")) { continue; }
+                var existingFeature = features.SingleOrDefault(x => x.Name == feature.Name);
                 if (existingFeature != null)
                 {
+                    if (existingFeature.Description == feature.Description) { continue; }
                     existingFeature.AddDescriptionText(feature.Description.Replace(feature.Name + ":", ""));
                 }
                 else
@@ -339,7 +354,7 @@ namespace ICSheetCore
 
         public bool TryUseFeature(IClassFeature feature)
         {
-            if (!features.Contains(feature)) { throw new System.ArgumentException(string.Format("This character does not have the {0} feature", feature.Name)); }
+            if (!features.Contains(feature)) { throw new ArgumentException(string.Format("This character does not have the {0} feature", feature.Name)); }
             return feature.TryUseFeature(); //sideEffects
         }
 

@@ -1,11 +1,11 @@
-﻿using InteractiveCharacterSheetCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
@@ -15,7 +15,7 @@ namespace ICSheet5e.ViewModels
         {
         }
 
-        public CharacterViewModel(Model.Character c, ApplicationModel parent)
+        public CharacterViewModel(Character c, ApplicationModel parent)
         {
             character = c;
             _setSkills(c.Skills);
@@ -58,7 +58,7 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(CastSpellCommandExecuted); }
         }
 
-        public Model.Character Character
+        public Character Character
         {
             get { return character; }
             set
@@ -99,9 +99,9 @@ namespace ICSheet5e.ViewModels
             get { return string.Format("{0} / {1}", PreparedSpells.Count(x => x.Level != 0), character.Spellcasting[0].MaxPreparedSpells); }
         }
 
-        public ObservableCollection<Model.MartialFeature> Features
+        public ObservableCollection<MartialFeature> Features
         {
-            get { return new ObservableCollection<Model.MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Level))); }
+            get { return new ObservableCollection<MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Level))); }
         }
 
         public ObservableCollection<int> Gold
@@ -154,7 +154,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public IEnumerable<Model.Spell> PreparedSpells
+        public IEnumerable<Spell> PreparedSpells
         {
             get
             {
@@ -167,12 +167,12 @@ namespace ICSheet5e.ViewModels
             get { return character.Proficiency; }
         }
 
-        public Model.Race Race
+        public Race Race
         {
             get { return character.CharacterRace; }
         }
 
-        public Model.Spell SelectedPreparedSpell
+        public Spell SelectedPreparedSpell
         {
             get { return _selectedSpell; }
             set { _selectedSpell = value; NotifyPropertyChanged(); SelectedSpellLevel = value.Level; NotifyPropertyChanged("SelectedSpellLevel"); }
@@ -224,10 +224,10 @@ namespace ICSheet5e.ViewModels
 
         public void NotifyEditingEnded()
         {
-            List<Model.Skill5e> newSkills = new List<Model.Skill5e>();
+            List<Skill5e> newSkills = new List<Skill5e>();
             foreach (var vm in Skills)
             {
-                var skill = new Model.Skill5e(vm.Name, vm.Bonus, vm.IsProficient);
+                var skill = new Skill5e(vm.Name, vm.Bonus, vm.IsProficient);
                 newSkills.Add(skill);
             }
             character.RecalculateDependentBonuses();
@@ -274,9 +274,9 @@ namespace ICSheet5e.ViewModels
         }
 
         //private string _levels = "";
-        private Model.Spell _selectedSpell;
+        private Spell _selectedSpell;
         private bool canEdit = false;
-        private Model.Character character;
+        private Character character;
 
         private void AddTHPCommandExecuted(object obj)
         {
@@ -336,7 +336,6 @@ namespace ICSheet5e.ViewModels
 
         private void HealDamageCommandExecuted(object obj)
         {
-            if (obj == null) { return; }
             var type = HealthChangeViewModel.HealthChangeType.Healing;
             DisplayModalHealthDialog(type);
         }
@@ -508,9 +507,9 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public void SkillProficiencyChanged(Model.Skill5e skill)
+        public void SkillProficiencyChanged(Skill5e skill)
         {
-            var skillVM = _skills.Single(x => x.Skill == skill);
+            var skillVM = _skills.Single(x => x.Skill.Name == skill.Name);
             if (skillVM.IsProficient)
             {
                 skillVM.Bonus += Proficiency;
@@ -526,7 +525,7 @@ namespace ICSheet5e.ViewModels
         private ObservableCollection<bool> _proficientSkills = new ObservableCollection<bool>();
         private ObservableCollection<IndividualSkillViewModel> _skills = new ObservableCollection<IndividualSkillViewModel>();
 
-        private void _setSkills(SkillList<Model.Skill5e> skills)
+        private void _setSkills(SkillList<Skill5e> skills)
         {
             var names = skills.SkillNames;
             Skills = new ObservableCollection<IndividualSkillViewModel>();
@@ -549,7 +548,7 @@ namespace ICSheet5e.ViewModels
 
         private AttackViewModel attackModelFor(IItem item)
         {
-            var weapon = item as Model.WeaponItem;
+            var weapon = item as WeaponItem;
             if (weapon == null) { return AttackViewModel.DefaultModel(character.AbilityModifierFor(AbilityType.Strength)); }
             var vm = new AttackViewModel();
             vm.Name = weapon.Name;
@@ -563,7 +562,7 @@ namespace ICSheet5e.ViewModels
 
         static private string slotListAsString(List<int> slots)
         {
-            return String.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
+            return string.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
         }
 
         private void TakeDamageCommandExecuted(object obj)

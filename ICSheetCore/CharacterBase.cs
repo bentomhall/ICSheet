@@ -97,11 +97,6 @@ namespace ICSheetCore
         #region Defenses
         [DataMember] protected List<Defense> _defenses = new List<Defense>();
         public List<Defense> Defenses { get { return _defenses; } }
-        public bool WillHit(DefenseType type, int withAttack)
-        {
-            var d = _defenses.Single(s => s.TypeOfDefense == type);
-            return d.WillHit(withAttack);
-        }
         #endregion
 
         [DataMember] protected VisionType _vision;
