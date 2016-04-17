@@ -202,23 +202,23 @@ namespace ICSheetCore
             if (element == null) { throw new ArgumentException("Invalid class name supplied."); }
             foreach (var node in element.Elements())
             {
-                features.Add(FeatureFactoryFrom(node));
+                features.Add(featureFactoryFrom(node));
             }
             return features;
 
         }
 
-        private IFeature FeatureFactoryFrom(XElement element)
+        private IFeature featureFactoryFrom(XElement element)
         {
             var featureName = element.Attribute("Name").Value;
             if (featureName == "Spellcasting")
             {
-                return ExtractSpellcastingFeature(element);
+                return extractSpellcastingFeature(element);
             }
-            else { return ExtractClassFeature(element); }
+            else { return extractClassFeature(element); }
         }
 
-        private IFeature ExtractClassFeature(XElement element)
+        private IFeature extractClassFeature(XElement element)
         {
             var featureName = element.Attribute("Name").Value;
             var text = element.Value;
@@ -227,7 +227,7 @@ namespace ICSheetCore
             return new ClassFeature(featureName, startingLevel, isInheritable, text);
         }
 
-        private IFeature ExtractSpellcastingFeature(XElement element)
+        private IFeature extractSpellcastingFeature(XElement element)
         {
             var name = element.Parent.Attribute("Name").Value;
             var castingType = element.Element("CastingType").Value;
