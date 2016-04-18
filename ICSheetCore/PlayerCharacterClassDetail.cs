@@ -15,7 +15,7 @@ namespace ICSheetCore
         internal PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
         {
             _className = className;
-            _level = level;
+            Level = level;
             setFeatures(features);
         }
 
@@ -23,13 +23,13 @@ namespace ICSheetCore
         {
             var unarmoredMovement = _features.Count(x => x.Name == "Unarmored Movement") > 0;
             
-            if (unarmoredMovement && _level >= 2 && armor == ArmorType.None && !isWearingShield)
+            if (unarmoredMovement && Level >= 2 && armor == ArmorType.None && !isWearingShield)
             {
-                return 10 + 5 * (_level - 2) / 4;
+                return 10 + 5 * (Level - 2) / 4;
             }
 
             var fastMovement = _features.Count(x => x.Name == "Fast Movement") > 0;
-            if (fastMovement && _level >= 5 && armor != ArmorType.Heavy)
+            if (fastMovement && Level >= 5 && armor != ArmorType.Heavy)
             {
                 return 10;
             }
@@ -62,6 +62,27 @@ namespace ICSheetCore
         internal ISpellcastingFeature Spellcasting
         {
             get { return (ISpellcastingFeature)_features.SingleOrDefault(x => x.Name == "Spellcasting"); }
+        }
+
+        internal int Level
+        {
+            get
+            {
+                return _level;
+            }
+        }
+
+        internal void AddLevel()
+        {
+            _level += 1;
+        }
+
+        internal IEnumerable<DefenseType> ProficientDefenses
+        {
+            get
+            {
+                return _proficientDefenses;
+            }
         }
 
         private void setFeatures(IEnumerable<IFeature> features)

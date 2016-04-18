@@ -64,6 +64,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="ItemDataBase.cs" />
     <Compile Include="MartialFeature.cs" />
+    <Compile Include="PCRace.cs" />
     <Compile Include="PlayerCharacter.cs" />
     <Compile Include="PlayerCharacterClassDetail.cs" />
     <Compile Include="PlayerClassAggregate.cs" />

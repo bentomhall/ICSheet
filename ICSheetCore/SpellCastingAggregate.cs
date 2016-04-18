@@ -1,36 +1,57 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ICSheetCore
 {
     internal class SpellCastingAggregate
     {
-        private List<SpellcastingFeature> _features;
+        private List<ISpellcastingFeature> _features;
         private List<int> _totalSpellSlots;
         private List<int> _availableSpellSlots;
         private List<Spell> _knownSpells;
         private SpellManager _spellDB;
         
-        internal SpellCastingAggregate(IEnumerable<SpellcastingFeature> spellcastingFeatures, SpellManager spellDB)
+        internal SpellCastingAggregate(IEnumerable<ISpellcastingFeature> spellcastingFeatures, IEnumerable<int> levels, SpellManager spellDB)
         {
+
             _features = spellcastingFeatures.ToList();
             _spellDB = spellDB;
+            setSpellSlots(levels.ToList());
+        }
+
+        private void setSpellSlots(IList<int> levels)
+        {
             if (_features.Count == 1)
             {
-                _totalSpellSlots = _features[0].SpellSlots(1).ToList();
-            }
-            else if (_features.All(x => x.ParticipatesInMulticlassSpellcasting))
-            {
-                _totalSpellSlots = SpellcastingLookup.SpellSlotsFor(SpellcastingLookup.CastingType.Full, 2).ToList(); //wrong level
+                _totalSpellSlots = _features[0].SpellSlots(levels[0]).ToList();
             }
             else
             {
-                _totalSpellSlots = new List<int>(_features[0].SpellSlots(1));
+                var casterLevel = 0;
                 for (var ii = 0; ii < _features.Count; ii++)
                 {
-                    _totalSpellSlots = _totalSpellSlots.Zip(_features[ii].SpellSlots(1), (x, y) => x + y).ToList();
+                    var current = _features[ii];
+                    
+                    if (current.CasterType == SpellcastingLookup.CastingType.Warlock)
+                    {
+                        _totalSpellSlots = _totalSpellSlots.Zip(current.SpellSlots(levels[ii]), (x, y) => x + y).ToList();
+                    }
+                    else if (current.CasterType == SpellcastingLookup.CastingType.Full)
+                    {
+                        casterLevel += levels[ii];
+                    }
+                    else if (current.CasterType == SpellcastingLookup.CastingType.Half)
+                    {
+                        casterLevel += levels[ii] / 2;
+                    }
+                    else if (current.CasterType == SpellcastingLookup.CastingType.Martial)
+                    {
+                        casterLevel += levels[ii] / 3;
+                    }
                 }
+                _totalSpellSlots = _totalSpellSlots.Zip(SpellcastingLookup.SpellSlotsFor(SpellcastingLookup.CastingType.Full, casterLevel), (x, y) => x + y).ToList();
             }
-        } 
+        }
     }
 }

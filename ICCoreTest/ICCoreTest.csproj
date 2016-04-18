@@ -64,6 +64,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICSheetCore\ICSheetCore.csproj">
+      <Project>{4fc0dbe9-d447-48b8-b475-8f4cc78c3aba}</Project>
+      <Name>ICSheetCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

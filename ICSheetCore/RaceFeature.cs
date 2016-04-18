@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ICSheetCore
+﻿namespace ICSheetCore
 {
+    /// <summary>
+    /// Implements IFeature for races. Starting level of 1 for everything.
+    /// </summary>
     public class RaceFeature : IFeature
     {
         private string _name;
@@ -52,6 +49,11 @@ namespace ICSheetCore
             {
                 return 1;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{_name}: {_description}";
         }
     }
 }

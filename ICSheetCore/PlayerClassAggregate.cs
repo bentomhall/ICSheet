@@ -6,7 +6,7 @@ namespace ICSheetCore
 {
     internal class PlayerClassAggregate
     {
-        private List<CharacterClassItem> _playerClasses;
+        private List<PlayerCharacterClassDetail> _playerClasses;
         private int _proficiencyBonus;
         private SpellCastingAggregate _spellcastingAggregate;
         private Dictionary<DefenseType, int> _proficienctDefenses = new Dictionary<DefenseType, int>()
@@ -20,16 +20,33 @@ namespace ICSheetCore
         };
         private int _totalLevel;
 
-        internal PlayerClassAggregate(IEnumerable<CharacterClassItem> classesAndLevels)
+        internal PlayerClassAggregate(IEnumerable<PlayerCharacterClassDetail> classesAndLevels, SpellManager spellDB)
         {
-            _playerClasses = new List<CharacterClassItem>(classesAndLevels);
+            _playerClasses = classesAndLevels.ToList();
             _totalLevel = _playerClasses.Sum(x => x.Level);
             _proficiencyBonus = calculateProficiencyBonus();
             foreach (var defense in _playerClasses[0].ProficientDefenses)
             {
                 _proficienctDefenses[defense] = _proficiencyBonus;
             }
+            _spellcastingAggregate = createSpellcastingAggregate(spellDB);
             
+        }
+
+        private SpellCastingAggregate createSpellcastingAggregate(SpellManager db)
+        {
+            var castingFeatures = new List<ISpellcastingFeature>();
+            var levels = new List<int>();
+            foreach (var c in _playerClasses)
+            {
+                var f = c.Spellcasting;
+                if (f != null)
+                {
+                    castingFeatures.Add(f);
+                    levels.Add(c.Level);
+                }
+            }
+            return new SpellCastingAggregate(castingFeatures, levels, db);
         }
 
         private int calculateProficiencyBonus()
