@@ -20,21 +20,27 @@ namespace ICSheetCore
         [DataMember]
         private Dictionary<CharacterClassType, List<string>> classSpellsMap;
 
+        [DataMember]
+        private Dictionary<string, List<string>> classNameSpellsMap;
+
         private void loadSpellNames(string spellNames) 
         {
             _spellNames = new List<string>();
             var doc = XDocument.Parse(spellNames);
             classSpellsMap = new Dictionary<CharacterClassType, List<string>>();
+            classNameSpellsMap = new Dictionary<string, List<string>>();
             foreach (var cls in doc.Descendants("CastingClass"))
             {
                 var clsName = cls.Attribute("Name").Value;
                 var clsType = classNameClassTypeMap[clsName];
                 classSpellsMap[clsType] = new List<string>();
+                classNameSpellsMap[clsName] = new List<string>();
                 foreach (var spell in cls.Elements())
                 {
                     var name = spell.Attribute("Name").Value;
                     if (!_spellNames.Contains(name)) { _spellNames.Add(name); }
                     classSpellsMap[clsType].Add(name);
+                    classNameSpellsMap[clsName].Add(name);
                 }
             }
         }
@@ -99,6 +105,11 @@ namespace ICSheetCore
             if (caster == CharacterClassType.ArcaneTrickster || caster == CharacterClassType.EldritchKnight) { return classSpellsMap[CharacterClassType.Wizard]; }
             if (caster == CharacterClassType.MulticlassCaster) { return new List<string>(); } 
             return classSpellsMap[caster];
+        }
+
+        public IEnumerable<string> SpellNamesFor(string className)
+        {
+            return classNameSpellsMap[className];
         }
 
         public Spell SpellDetailsFor(string spellName)

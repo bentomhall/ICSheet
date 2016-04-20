@@ -7,6 +7,7 @@ namespace ICSheetCore
         string SpellBookName { get; }
         AbilityType CastingAbility { get; }
         bool ParticipatesInMulticlassSpellcasting { get; }
+        bool IsPreparedCaster { get; }
         
         SpellcastingLookup.CastingType CasterType { get; }
 

@@ -10,10 +10,10 @@ namespace ICSheetCore
     {
         private string _name;
         private string _alignment;
-        private int _experience;
         private string _notes;
         private string _background;
 
+        private HealthManager _health;
         private AbilityAggregate _abilityAggregate; //can construct
         private DefenseAggregate _defenseAggregate; //can construct
         private IRace _race; //should be passed in
@@ -30,6 +30,23 @@ namespace ICSheetCore
             _defenseAggregate = new DefenseAggregate(_abilityAggregate, _classAggregate.ProficiencyForDefenses);
             _skillAggregate = new SkillAggregate();
         }
+
+        public bool IsSpellcaster { get { return _classAggregate.IsSpellcaster; } }
+
+        public IEnumerable<int> AvailableSpellSlots { get { return _classAggregate.AvailableSpellSlots; } }
+
+        public int ArmorClassBonus
+        {
+            get { return _defenseAggregate.ArmorClass; }
+        }
+
+        public int CurrentHealth { get { return _health.CurrentHealth; } }
+
+        public int MaxHealth { get { return _health.MaxHealth; } set { _health.MaxHealth = value; } }
+
+        public int Experience { get; set; }
+
+
     }
 
 }

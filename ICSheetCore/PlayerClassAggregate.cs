@@ -30,7 +30,18 @@ namespace ICSheetCore
                 _proficienctDefenses[defense] = _proficiencyBonus;
             }
             _spellcastingAggregate = createSpellcastingAggregate(spellDB);
-            
+        }
+
+        internal IEnumerable<int> AvailableSpellSlots { get { return _spellcastingAggregate.AvailableSpellSlots; } }
+
+        internal bool IsSpellcaster { get { return _spellcastingAggregate.CanCastSpells; } }
+
+        internal string SpellsPreparedOfMax(AbilityAggregate abilities)
+        {
+            var spellcastingLevels = _playerClasses.Where(x => x.Spellcasting != null)
+                                                   .ToDictionary(x => x.Name, 
+                                                                 x => x.Level);
+            return _spellcastingAggregate.PreparedSpellUtilization(abilities, spellcastingLevels);
         }
 
         private SpellCastingAggregate createSpellcastingAggregate(SpellManager db)

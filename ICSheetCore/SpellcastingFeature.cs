@@ -123,6 +123,8 @@ namespace ICSheetCore
             return _spellsKnown[level - 1];
         }
 
+        public bool IsPreparedCaster { get { return _isPreparedCaster; } }
+
         public int SpellsPrepared(int level, int abilityBonus)
         {
             if (_isPreparedCaster)

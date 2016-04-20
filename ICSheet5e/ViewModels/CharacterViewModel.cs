@@ -31,11 +31,13 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(AddTHPCommandExecuted); }
         }
 
+        //TODO: must edit for new class
         public string AvailableSpellSlots
         {
             get { return slotListAsString(character.SpellSlots.Item2); }
         }
 
+        //TODO: change capitalization
         public bool CanCastSpells
         {
             get { return character.IsSpellCaster; }

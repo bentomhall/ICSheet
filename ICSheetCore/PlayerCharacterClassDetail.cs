@@ -15,7 +15,7 @@ namespace ICSheetCore
         internal PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
         {
             _className = className;
-            Level = level;
+            _level = level;
             setFeatures(features);
         }
 
@@ -63,6 +63,8 @@ namespace ICSheetCore
         {
             get { return (ISpellcastingFeature)_features.SingleOrDefault(x => x.Name == "Spellcasting"); }
         }
+
+        internal string Name { get { return _className; } }
 
         internal int Level
         {

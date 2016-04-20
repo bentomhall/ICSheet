@@ -27,6 +27,25 @@ namespace ICSheetCore
             else { loadSpells(className); }
         }
 
+        public SpellBook(SpellManager spellDB, string className, bool isPreparedCaster)
+        {
+            dB = spellDB;
+            loadSpells(className, isPreparedCaster);
+        }
+
+        public int PreparedSpellCount { get { return _knownSpells.Count(x => x.IsPrepared); } }
+
+        private void loadSpells(string className, bool isPrepared)
+        {
+            var spellNames = dB.SpellNamesFor(className);
+            foreach (var name in spellNames)
+            {
+                var spell = dB.SpellDetailsFor(name);
+                _allSpells.Add(spell);
+            }
+            if (isPrepared) { setKnownSpells(_allSpells); }
+        }
+
         private void loadSpells(IEnumerable<CharacterClassType> types)
         {
             foreach (var type in types)
