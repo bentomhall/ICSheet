@@ -22,5 +22,7 @@ namespace ICSheetCore
         /// A collection of all racial features (including subrace features).
         /// </summary>
         IEnumerable<IFeature> Features { get; }
+
+        void AddFeature(IFeature feature);
     }
 }

@@ -80,5 +80,15 @@ namespace ICSheetCore
                 return _subraceName;
             }
         }
+
+        /// <summary>
+        /// Adds a custom racial feature.
+        /// Not implemented yet
+        /// </summary>
+        /// <param name="feature"></param>
+        public void AddFeature(IFeature feature)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

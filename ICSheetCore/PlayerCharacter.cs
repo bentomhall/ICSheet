@@ -19,7 +19,12 @@ namespace ICSheetCore
         private IRace _race; //should be passed in
         private PlayerClassAggregate _classAggregate; //should be passed in
         private SkillAggregate _skillAggregate; //can construct
-        //private Inventory _inventory;
+                                                //private Inventory _inventory;
+
+        private ICollection<IFeature> aggregateFeatures()
+        {
+            throw new NotImplementedException();
+        }
 
         internal PlayerCharacter(string name, IRace race, PlayerClassAggregate classesAndLevels)
         {
@@ -45,6 +50,103 @@ namespace ICSheetCore
         public int MaxHealth { get { return _health.MaxHealth; } set { _health.MaxHealth = value; } }
 
         public int Experience { get; set; }
+
+        public string RaceName { get { return _race.RaceName; } }
+
+        public string Notes { get { return _notes; } set { _notes = value; } }
+
+        public ICollection<IFeature> Features { get { return aggregateFeatures(); } }
+
+        public int Proficiency { get { return _classAggregate.ProficiencyBonus; } }
+
+        public void AddFeature(IFeature feature)
+        {
+            if (feature as ClassFeature != null) { _classAggregate.AddFeature(feature); }
+            else if (feature as RaceFeature != null) { _race.AddFeature(feature); }
+            else { return; } //ideally will never happen.
+        }
+
+        //Skills
+
+        public void AddItemToInventory(IItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AttackBonusWith(IItem weapon)
+        {
+            var w = weapon as WeaponItem;
+            if (w == null) { return _abilityAggregate.AbilityModifierFor(AbilityType.Strength); } //improvised weapons
+            var abilities = w.AssociatedAbilities;
+            var modifier = abilities.Max(x => _abilityAggregate.AbilityModifierFor(x));
+            if (w.IsProficient)
+            {
+                return modifier + Proficiency;
+            }
+            else
+            {
+                return modifier;
+            }
+        }
+
+        public int DamageBonusWith(IItem weapon)
+        {
+            var w = weapon as WeaponItem;
+            if (w == null && _classAggregate.HasFeature("Martial Arts"))
+            {
+                return _abilityAggregate.AbilityModifierFor(AbilityType.Strength);
+            }
+            else if (w == null) { return 0; }
+            var abilities = w.AssociatedAbilities;
+            if (w.Slot == ItemSlot.Mainhand)
+            {
+                return abilities.Max(x => _abilityAggregate.AbilityModifierFor(x)) + w.EnhancementBonus;
+            }
+            else if (_classAggregate.HasFeature("Two-Weapon Fighting"))
+            {
+                return abilities.Max(x => _abilityAggregate.AbilityModifierFor(x)) + w.EnhancementBonus;
+            }
+            else { return w.EnhancementBonus; }
+        }
+
+        public void DoGoldTransaction(double amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DoLevelUp(ICollection<PlayerCharacterClassDetail> newLevels, IEnumerable<IFeature> newFeatures)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DropItem(IItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Equip(IItem item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IItem EquippedItemForSlot(ItemSlot slot)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IItem> ItemsMatching(Func<IItem, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ArmorClassOverride { get; set; }
+
+        public TakeLongRest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<int> SpellSlots { get { return _classAggregate.AvailableSpellSlots; } }
 
 
     }

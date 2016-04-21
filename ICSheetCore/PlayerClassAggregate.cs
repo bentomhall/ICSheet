@@ -20,6 +20,12 @@ namespace ICSheetCore
         };
         private int _totalLevel;
 
+        private int calculateProficiencyBonus()
+        {
+            return (_totalLevel - 1) / 4 + 2;
+        }
+
+
         internal PlayerClassAggregate(IEnumerable<PlayerCharacterClassDetail> classesAndLevels, SpellManager spellDB)
         {
             _playerClasses = classesAndLevels.ToList();
@@ -60,14 +66,23 @@ namespace ICSheetCore
             return new SpellCastingAggregate(castingFeatures, levels, db);
         }
 
-        private int calculateProficiencyBonus()
+        internal void AddFeature(IFeature feature)
         {
-            return (_totalLevel - 1) / 4 + 2;
+            throw new NotImplementedException();
         }
+
+
 
         internal IDictionary<DefenseType, int> ProficiencyForDefenses
         {
             get { return _proficienctDefenses; }
+        }
+
+        internal int ProficiencyBonus { get { return _proficiencyBonus; } }
+
+        internal bool HasFeature(string withName)
+        {
+            return _playerClasses.Count(x => x.HasFeature(withName)) > 0; 
         }
 
     }

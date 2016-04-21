@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
-    internal class PlayerCharacterClassDetail
+    public class PlayerCharacterClassDetail
     {
         private readonly string _className;
         private int _level;
         private List<IFeature> _features;
 
-        internal PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
+        public PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
         {
             _className = className;
             _level = level;
             setFeatures(features);
         }
 
-        internal int speedBonus(ArmorType armor, bool isWearingShield)
+        public int speedBonus(ArmorType armor, bool isWearingShield)
         {
             var unarmoredMovement = _features.Count(x => x.Name == "Unarmored Movement") > 0;
             
@@ -37,7 +37,7 @@ namespace ICSheetCore
             return 0;
         }
 
-        internal int BaseArmorClass(AbilityAggregate abilities, ArmorType armor, bool isWearingShield)
+        public int BaseArmorClass(AbilityAggregate abilities, ArmorType armor, bool isWearingShield)
         {
             var ac = 10 +abilities.AbilityModifierFor(AbilityType.Dexterity);
             if (armor != ArmorType.None) { return ac; } //all the armor bonuses rely on wearing no armor. Shields count separately
@@ -59,14 +59,14 @@ namespace ICSheetCore
             return ac; //this covers unarmored wizards (etc).
         }
 
-        internal ISpellcastingFeature Spellcasting
+        public ISpellcastingFeature Spellcasting
         {
             get { return (ISpellcastingFeature)_features.SingleOrDefault(x => x.Name == "Spellcasting"); }
         }
 
-        internal string Name { get { return _className; } }
+        public string Name { get { return _className; } }
 
-        internal int Level
+        public int Level
         {
             get
             {
@@ -74,17 +74,22 @@ namespace ICSheetCore
             }
         }
 
-        internal void AddLevel()
+        public void AddLevel()
         {
             _level += 1;
         }
 
-        internal IEnumerable<DefenseType> ProficientDefenses
+        public IEnumerable<DefenseType> ProficientDefenses
         {
             get
             {
                 return _proficientDefenses;
             }
+        }
+
+        public bool HasFeature(string name)
+        {
+            return _features.Count(x => x.Name == name) > 0;
         }
 
         private void setFeatures(IEnumerable<IFeature> features)
