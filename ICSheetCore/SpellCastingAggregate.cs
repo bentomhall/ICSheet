@@ -33,7 +33,7 @@ namespace ICSheetCore
             get { return _availableSpellSlots; }
         }
 
-        internal string PreparedSpellUtilization(AbilityAggregate abilities, IDictionary<string, int> levels)
+        internal string PreparedSpellUtilization(IAbilityDataSource abilities, IDictionary<string, int> levels)
         {
             var s = new System.Text.StringBuilder();
             foreach (KeyValuePair<string, int> entry in levels)
@@ -117,6 +117,48 @@ namespace ICSheetCore
         internal void ResetAllSlots()
         {
             _availableSpellSlots = new List<int>(_totalSpellSlots);
+        }
+
+        internal void UseSpellSlot(int level)
+        {
+            _availableSpellSlots[level - 1] = Math.Max(_availableSpellSlots[level - 1] - 1, 0);
+        }
+
+        internal IEnumerable<Spell> PreparedSpells
+        {
+            get
+            {
+                var spells = new List<Spell>();
+                foreach (KeyValuePair<string, SpellBook> entry in _spellBooks)
+                {
+                    spells.AddRange(entry.Value.AllPreparedSpells);
+                }
+                return spells;
+            }
+        }
+
+        internal IReadOnlyDictionary<string, int> SpellAttackBonusesWith(IAbilityDataSource abilities, int proficiency)
+        {
+            var output = new Dictionary<string, int>();
+            foreach (var f in _features)
+            {
+                var name = f.Name;
+                var abilityMod = abilities.AbilityModifierFor(f.CastingAbility);
+                output[name] = abilityMod + proficiency;
+            }
+            return output;
+        }
+
+        internal IReadOnlyDictionary<string, int> SpellDCsWith(IAbilityDataSource abilities, int proficiency)
+        {
+            var output = new Dictionary<string, int>();
+            foreach (var f in _features)
+            {
+                var name = f.Name;
+                var abilityMod = abilities.AbilityModifierFor(f.CastingAbility);
+                output[name] = 8 + abilityMod + proficiency;
+            }
+            return output;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 namespace ICSheetCore
 {
-    internal class AbilityAggregate
+    internal class AbilityAggregate : IAbilityDataSource
     {
         private Dictionary<AbilityType, Ability> _abilities =  new Dictionary<AbilityType, Ability>();
 
@@ -16,12 +16,12 @@ namespace ICSheetCore
             _abilities[AbilityType.Charisma] = new Ability(10);
         }
 
-        internal int AbilityModifierFor(AbilityType ability)
+        int IAbilityDataSource.AbilityModifierFor(AbilityType ability)
         {
             return _abilities[ability].Modifier;
         }
 
-        internal int AbilityScoreFor(AbilityType ability)
+        int IAbilityDataSource.AbilityScoreFor(AbilityType ability)
         {
             return _abilities[ability].Score;
         }
@@ -41,11 +41,7 @@ namespace ICSheetCore
 
         internal void OnAbilityModified(AbilityModifiedEventArgs e)
         {
-            EventHandler<AbilityModifiedEventArgs> handler = AbilityModified;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            AbilityModified?.Invoke(this, e);
         }
 
         internal event EventHandler<AbilityModifiedEventArgs> AbilityModified;

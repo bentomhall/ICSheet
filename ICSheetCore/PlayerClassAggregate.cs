@@ -48,7 +48,7 @@ namespace ICSheetCore
 
         internal bool IsSpellcaster { get { return _spellcastingAggregate.CanCastSpells; } }
 
-        internal string SpellsPreparedOfMax(AbilityAggregate abilities)
+        internal string SpellsPreparedOfMax(IAbilityDataSource abilities)
         {
             var spellcastingLevels = _playerClasses.Where(x => x.Spellcasting != null)
                                                    .ToDictionary(x => x.Name,
@@ -105,6 +105,8 @@ namespace ICSheetCore
             }
         }
 
+        internal IEnumerable<Spell> PreparedSpells { get { return _spellcastingAggregate.PreparedSpells; } }
+
         internal void LevelUp(string className, IEnumerable<IFeature> newFeatures)
         {
             var currentClass = _playerClasses.SingleOrDefault(x => x.Name == className);
@@ -135,7 +137,7 @@ namespace ICSheetCore
                     _spellcastingAggregate.RegainSpellSlot(entry.Key, entry.Value);
                 }
             }
-            throw new NotImplementedException();
+            
         }
 
         private void invalidateClassData()
@@ -143,6 +145,21 @@ namespace ICSheetCore
             _totalLevel += 1;
             _proficiencyBonus = calculateProficiencyBonus();
             calculateDefenses();
+        }
+
+        internal void UseSpellSlot(int level)
+        {
+            _spellcastingAggregate.UseSpellSlot(level);
+        }
+
+        internal IReadOnlyDictionary<string, int> SpellAttackBonuses(IAbilityDataSource abilities)
+        {
+            return _spellcastingAggregate.SpellAttackBonusesWith(abilities, ProficiencyBonus);
+        }
+
+        internal IReadOnlyDictionary<string, int> SpellDCs(IAbilityDataSource abilities)
+        {
+            return _spellcastingAggregate.SpellDCsWith(abilities, ProficiencyBonus);
         }
     }
 

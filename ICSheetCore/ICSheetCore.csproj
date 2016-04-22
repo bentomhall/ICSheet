@@ -53,6 +53,7 @@
     <Compile Include="DefenseAggregate.cs" />
     <Compile Include="EnumValueLocator.cs" />
     <Compile Include="HealthManager.cs" />
+    <Compile Include="IAbilityDataSource.cs" />
     <Compile Include="IClassFeature.cs" />
     <Compile Include="IDefense.cs" />
     <Compile Include="IFeature.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="ISkill.cs" />
     <Compile Include="ISpellCaster.cs" />
     <Compile Include="ISpellcastingFeature.cs" />
+    <Compile Include="ISpellHandler.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemDataBase.cs" />
     <Compile Include="ListExtensions.cs" />

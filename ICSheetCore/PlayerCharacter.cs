@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
-    public class PlayerCharacter
+    /// <summary>
+    /// 
+    /// </summary>
+    public class PlayerCharacter :ISpellcastingDataSource, ISpellcastingDelegate
     {
         private string _name;
         private string _alignment;
@@ -39,14 +42,86 @@ namespace ICSheetCore
             _defenseAggregate = new DefenseAggregate(_abilityAggregate, _classAggregate.ProficiencyForDefenses);
             _skillAggregate = new SkillAggregate();
         }
+
+        #region ISpellcastingDataSource
         /// <summary>
         /// 
         /// </summary>
         public bool IsSpellcaster { get { return _classAggregate.IsSpellcaster; } }
+
         /// <summary>
         /// 
         /// </summary>
-        public IEnumerable<int> AvailableSpellSlots { get { return _classAggregate.AvailableSpellSlots; } }
+        public IEnumerable<int> SpellSlots { get { return _classAggregate.AvailableSpellSlots; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<Spell> PreparedSpells
+        {
+            get { return _classAggregate.PreparedSpells; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyDictionary<string, int> SpellAttackBonuses
+        {
+            get { return _classAggregate.SpellAttackBonuses(_abilityAggregate); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyDictionary<string, int> SpellDCs
+        {
+            get { return _classAggregate.SpellDCs(_abilityAggregate); }
+        }
+        #endregion
+
+        #region ISpellcastingDelegate
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        public void UseSpellSlot(int level)
+        {
+            _classAggregate.UseSpellSlot(level);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <param name="asClass"></param>
+        public void Learn(string spellName, string asClass)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <param name="asClass"></param>
+        public void Unlearn(string spellName, string asClass) { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <param name="asClass"></param>
+        public void Prepare(string spellName, string asClass) { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <param name="asClass"></param>
+        public void Unprepare(string spellName, string asClass) { }
+        #endregion
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -110,9 +185,10 @@ namespace ICSheetCore
         public int AttackBonusWith(IItem weapon)
         {
             var w = weapon as WeaponItem;
-            if (w == null) { return _abilityAggregate.AbilityModifierFor(AbilityType.Strength); } //improvised weapons
+            var abilitiesSource = _abilityAggregate as IAbilityDataSource;
+            if (w == null) { return abilitiesSource.AbilityModifierFor(AbilityType.Strength); } //improvised weapons
             var abilities = w.AssociatedAbilities;
-            var modifier = abilities.Max(x => _abilityAggregate.AbilityModifierFor(x));
+            var modifier = abilities.Max(x => abilitiesSource.AbilityModifierFor(x));
             if (w.IsProficient)
             {
                 return modifier + Proficiency;
@@ -130,19 +206,20 @@ namespace ICSheetCore
         public int DamageBonusWith(IItem weapon)
         {
             var w = weapon as WeaponItem;
+            var abilitiesSource = _abilityAggregate as IAbilityDataSource;
             if (w == null && _classAggregate.HasFeature("Martial Arts"))
             {
-                return _abilityAggregate.AbilityModifierFor(AbilityType.Strength);
+                return abilitiesSource.AbilityModifierFor(AbilityType.Strength);
             }
             else if (w == null) { return 0; }
             var abilities = w.AssociatedAbilities;
             if (w.Slot == ItemSlot.Mainhand)
             {
-                return abilities.Max(x => _abilityAggregate.AbilityModifierFor(x)) + w.EnhancementBonus;
+                return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
             }
             else if (_classAggregate.HasFeature("Two-Weapon Fighting"))
             {
-                return abilities.Max(x => _abilityAggregate.AbilityModifierFor(x)) + w.EnhancementBonus;
+                return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
             }
             else { return w.EnhancementBonus; }
         }
@@ -208,12 +285,10 @@ namespace ICSheetCore
         {
             _health.HealDamage(MaxHealth);
             _classAggregate.ResetSpellSlots(new Dictionary<int, int>() { { -1, -1 } });
-            throw new NotImplementedException();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        public IEnumerable<int> SpellSlots { get { return _classAggregate.AvailableSpellSlots; } }
+        
+        
+        
 
 
     }
