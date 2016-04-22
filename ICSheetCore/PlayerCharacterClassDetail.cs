@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
-    public class PlayerCharacterClassDetail
+    internal class PlayerCharacterClassDetail
     {
         private readonly string _className;
         private int _level;
         private List<IFeature> _features;
 
-        public PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
+        internal PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
         {
             _className = className;
             _level = level;
             setFeatures(features);
         }
 
-        public int speedBonus(ArmorType armor, bool isWearingShield)
+        internal int speedBonus(ArmorType armor, bool isWearingShield)
         {
             var unarmoredMovement = _features.Count(x => x.Name == "Unarmored Movement") > 0;
             
@@ -37,7 +37,7 @@ namespace ICSheetCore
             return 0;
         }
 
-        public int BaseArmorClass(AbilityAggregate abilities, ArmorType armor, bool isWearingShield)
+        internal int BaseArmorClass(AbilityAggregate abilities, ArmorType armor, bool isWearingShield)
         {
             var ac = 10 +abilities.AbilityModifierFor(AbilityType.Dexterity);
             if (armor != ArmorType.None) { return ac; } //all the armor bonuses rely on wearing no armor. Shields count separately
@@ -59,14 +59,14 @@ namespace ICSheetCore
             return ac; //this covers unarmored wizards (etc).
         }
 
-        public ISpellcastingFeature Spellcasting
+        internal ISpellcastingFeature Spellcasting
         {
             get { return (ISpellcastingFeature)_features.SingleOrDefault(x => x.Name == "Spellcasting"); }
         }
 
-        public string Name { get { return _className; } }
+        internal string Name { get { return _className; } }
 
-        public int Level
+        internal int Level
         {
             get
             {
@@ -74,12 +74,12 @@ namespace ICSheetCore
             }
         }
 
-        public void AddLevel()
+        internal void AddLevel()
         {
             _level += 1;
         }
 
-        public IEnumerable<DefenseType> ProficientDefenses
+        internal IEnumerable<DefenseType> ProficientDefenses
         {
             get
             {
@@ -87,7 +87,9 @@ namespace ICSheetCore
             }
         }
 
-        public bool HasFeature(string name)
+        internal IEnumerable<IFeature> Features { get { return _features; } }
+
+        internal bool HasFeature(string name)
         {
             return _features.Count(x => x.Name == name) > 0;
         }

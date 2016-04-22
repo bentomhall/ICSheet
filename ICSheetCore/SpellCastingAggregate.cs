@@ -11,14 +11,17 @@ namespace ICSheetCore
         private List<int> _availableSpellSlots;
         private Dictionary<string, SpellBook> _spellBooks;
         private SpellManager _spellDB;
+        private List<int> _levels;
         
         internal SpellCastingAggregate(IEnumerable<ISpellcastingFeature> spellcastingFeatures, IEnumerable<int> levels, SpellManager spellDB)
         {
 
             _features = spellcastingFeatures.ToList();
             _spellDB = spellDB;
-            setSpellSlots(levels.ToList());
+            _levels = levels.ToList();
+            setSpellSlots(_levels);
             setSpellbooks();
+            
         }
 
 
@@ -87,6 +90,33 @@ namespace ICSheetCore
                 _totalSpellSlots = _totalSpellSlots.Zip(SpellcastingLookup.SpellSlotsFor(SpellcastingLookup.CastingType.Full, casterLevel), (x, y) => x + y).ToList();
             }
             _availableSpellSlots = new List<int>(_totalSpellSlots); //copy constructor
+        }
+
+        internal void IncreaseLevel(string name)
+        {
+            var indx = _features.FindIndex(x => x.Name == name);
+            _levels[indx] += 1;
+            setSpellSlots(_levels);
+        }
+
+        internal void AddSpellcasting(IFeature feature)
+        {
+            var s = feature as ISpellcastingFeature;
+            if (s == null) { throw new ArgumentException($"Must be spellcasting feature: Got {feature.Name}"); }
+            _spellBooks[feature.Name] = new SpellBook(_spellDB, feature.Name, s.IsPreparedCaster);
+            _features.Add(s);
+            _levels.Add(1);
+            setSpellSlots(_levels);
+        }
+
+        internal void RegainSpellSlot(int level, int numberOfSlots)
+        {
+            _availableSpellSlots[level - 1] += Math.Min(numberOfSlots, _totalSpellSlots[level - 1]);
+        }
+
+        internal void ResetAllSlots()
+        {
+            _availableSpellSlots = new List<int>(_totalSpellSlots);
         }
     }
 }

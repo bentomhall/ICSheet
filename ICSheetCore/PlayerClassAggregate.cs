@@ -9,6 +9,7 @@ namespace ICSheetCore
         private List<PlayerCharacterClassDetail> _playerClasses;
         private int _proficiencyBonus;
         private SpellCastingAggregate _spellcastingAggregate;
+        private List<IFeature> _customFeatures = new List<IFeature>();
         private Dictionary<DefenseType, int> _proficienctDefenses = new Dictionary<DefenseType, int>()
         {
             {DefenseType.Strength, 0 },
@@ -31,11 +32,16 @@ namespace ICSheetCore
             _playerClasses = classesAndLevels.ToList();
             _totalLevel = _playerClasses.Sum(x => x.Level);
             _proficiencyBonus = calculateProficiencyBonus();
+            calculateDefenses();
+            _spellcastingAggregate = createSpellcastingAggregate(spellDB);
+        }
+
+        private void calculateDefenses()
+        {
             foreach (var defense in _playerClasses[0].ProficientDefenses)
             {
                 _proficienctDefenses[defense] = _proficiencyBonus;
             }
-            _spellcastingAggregate = createSpellcastingAggregate(spellDB);
         }
 
         internal IEnumerable<int> AvailableSpellSlots { get { return _spellcastingAggregate.AvailableSpellSlots; } }
@@ -45,7 +51,7 @@ namespace ICSheetCore
         internal string SpellsPreparedOfMax(AbilityAggregate abilities)
         {
             var spellcastingLevels = _playerClasses.Where(x => x.Spellcasting != null)
-                                                   .ToDictionary(x => x.Name, 
+                                                   .ToDictionary(x => x.Name,
                                                                  x => x.Level);
             return _spellcastingAggregate.PreparedSpellUtilization(abilities, spellcastingLevels);
         }
@@ -68,7 +74,7 @@ namespace ICSheetCore
 
         internal void AddFeature(IFeature feature)
         {
-            throw new NotImplementedException();
+            _customFeatures.Add(feature);
         }
 
 
@@ -82,9 +88,62 @@ namespace ICSheetCore
 
         internal bool HasFeature(string withName)
         {
-            return _playerClasses.Count(x => x.HasFeature(withName)) > 0; 
+            return _playerClasses.Count(x => x.HasFeature(withName)) > 0;
         }
 
+        internal IEnumerable<IFeature> AllFeatures
+        {
+            get
+            {
+                var features = new List<IFeature>();
+                foreach (var c in _playerClasses)
+                {
+                    features.AddRange(c.Features);
+                }
+                features.AddRange(_customFeatures);
+                return features;
+            }
+        }
+
+        internal void LevelUp(string className, IEnumerable<IFeature> newFeatures)
+        {
+            var currentClass = _playerClasses.SingleOrDefault(x => x.Name == className);
+            if (currentClass != null) {
+                currentClass.AddLevel();
+                _spellcastingAggregate.IncreaseLevel(currentClass.Name);
+            }
+            else
+            {
+                var cls = new PlayerCharacterClassDetail(className, 1, newFeatures);
+                _playerClasses.Add(cls);
+                _spellcastingAggregate.AddSpellcasting(cls.Features.SingleOrDefault(x => x.Name == "Spellcasting"));
+            }
+            invalidateClassData();
+        }
+
+        internal void ResetSpellSlots(IDictionary<int, int> slotsToRecover)
+        {
+            foreach (KeyValuePair<int, int> entry in slotsToRecover)
+            {
+                if (entry.Key == -1)
+                {
+                    _spellcastingAggregate.ResetAllSlots();
+                    return;
+                }
+                else if (HasFeature("Arcane Recovery") || HasFeature("Pact Magic") ||HasFeature("Flexible Casting"))
+                {
+                    _spellcastingAggregate.RegainSpellSlot(entry.Key, entry.Value);
+                }
+            }
+            throw new NotImplementedException();
+        }
+
+        private void invalidateClassData()
+        {
+            _totalLevel += 1;
+            _proficiencyBonus = calculateProficiencyBonus();
+            calculateDefenses();
+        }
     }
 
     internal class ClassInformationChangedEventArgs : EventArgs
