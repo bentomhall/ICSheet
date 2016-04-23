@@ -50,7 +50,7 @@ namespace ICSheetCore
             _spellBooks = new Dictionary<string, SpellBook>();
             foreach (var f in _features)
             {
-                _spellBooks[f.Name] = new SpellBook(_spellDB, f.Name, f.IsPreparedCaster);
+                _spellBooks[f.Name] = new SpellBook(_spellDB, f.SpellBookName, f.IsPreparedCaster);
             }
         }
 

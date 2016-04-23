@@ -22,7 +22,6 @@ namespace ICSheet5e.ViewModels
         {
             foreach (var typeName in names)
             {
- 
                 foreach (var spellName in spellDB.SpellNamesFor(typeName))
                 {
                     if (_allSpells.SingleOrDefault(x => x.Name == spellName) == null)

@@ -98,7 +98,7 @@ namespace ICSheetCore
                 var features = new List<IFeature>();
                 foreach (var c in _playerClasses)
                 {
-                    features.AddRange(c.Features.Where(x => x.StartsFromLevel < c.Level));
+                    features.AddRange(c.Features.Where(x => x.StartsFromLevel <= c.Level));
                 }
                 features.AddRange(_customFeatures);
                 return features;

@@ -6,6 +6,7 @@
         int StartsFromLevel { get; }
         bool IsMulticlassInheritable { get; }
         string Description { get; }
+        string FullDescription { get; }
 
     }
 }

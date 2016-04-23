@@ -62,6 +62,8 @@ namespace ICSheetCore
     {
         internal InventoryAggregate()
         {
+            _equippedItems[ItemSlot.Mainhand] = _unarmedStrike;
+            _equippedItems[ItemSlot.Armor] = _clothing;
         }
 
         internal IEnumerable<IItem> ContentsMatching(Func<IItem, bool> criterion)

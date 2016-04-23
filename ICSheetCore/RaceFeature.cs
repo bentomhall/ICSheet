@@ -51,6 +51,14 @@
             }
         }
 
+        public string FullDescription
+        {
+            get
+            {
+                return Description;
+            }
+        }
+
         public override string ToString()
         {
             return $"{_name}: {_description}";

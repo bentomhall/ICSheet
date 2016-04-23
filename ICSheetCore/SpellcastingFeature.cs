@@ -125,6 +125,14 @@ namespace ICSheetCore
 
         public bool IsPreparedCaster { get { return _isPreparedCaster; } }
 
+        public string FullDescription
+        {
+            get
+            {
+                return Description;
+            }
+        }
+
         public int SpellsPrepared(int level, int abilityBonus)
         {
             if (_isPreparedCaster)

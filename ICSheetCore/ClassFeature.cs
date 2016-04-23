@@ -36,5 +36,13 @@ namespace ICSheetCore
         {
             get; private set;
         }
+
+        public string FullDescription
+        {
+            get
+            {
+                return Description;
+            }
+        }
     }
 }

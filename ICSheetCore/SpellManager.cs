@@ -68,7 +68,7 @@ namespace ICSheetCore
 
         public IEnumerable<string> SpellNamesFor(string className)
         {
-            return classNameSpellsMap[className];
+            return classNameSpellsMap[className.ToLower()];
         }
 
         public Spell SpellDetailsFor(string spellName)
