@@ -37,10 +37,10 @@ namespace ICSheetCore
             return 0;
         }
 
-        internal int BaseArmorClass(AbilityAggregate abilities, ArmorType armor, bool isWearingShield)
+        internal int BaseArmorClass(IAbilityDataSource abilities, ArmorType armor, bool isWearingShield)
         {
-            var ac = 10 +abilities.AbilityModifierFor(AbilityType.Dexterity);
-            if (armor != ArmorType.None) { return ac; } //all the armor bonuses rely on wearing no armor. Shields count separately
+            var ac = 10 + abilities.AbilityModifierFor(AbilityType.Dexterity);
+            if (armor != ArmorType.None) { return 10; } //all the armor bonuses rely on wearing no armor. Shields count separately
             var isBarbarian = _features.Count(x => x.Name == "Unarmored Defense (Barbarian)") > 0;
             if (isBarbarian)
             {

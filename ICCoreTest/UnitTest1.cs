@@ -18,5 +18,42 @@ namespace ICCoreTest
             Assert.AreEqual(rce.BaseMovement, 35);
             Assert.AreEqual(rce2.BaseMovement, 30);
         }
+
+        [TestMethod]
+        public void TestAddMoney()
+        {
+            var m = new Money();
+            m.Add(1);
+            Assert.AreEqual(m.Gold, 1);
+            m.Add(0.5m);
+            Assert.AreEqual(m.Silver, 5);
+            m.Add(12.34m);
+            Assert.AreEqual(m.Platinum, 1);
+            Assert.AreEqual(m.Gold, 3);
+            Assert.AreEqual(m.Silver, 8);
+            Assert.AreEqual(m.Copper, 4);
+        }
+
+        [TestMethod]
+        public void TestRemoveMoney()
+        {
+            var m = new Money();
+            m.Add(12.34m);
+            m.Remove(0.5m);
+            Assert.AreEqual(m.Gold, 1);
+            Assert.AreEqual(m.Silver, 8);
+            Assert.AreEqual(m.Copper, 4);
+            Assert.AreEqual(m.Platinum, 1);
+
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(OutOfMoneyExeption), "More money was removed than was present.")]
+        public void TestRemoveTooMuchCash()
+        {
+            var m = new Money();
+            m.Add(12.34m);
+            m.Remove(50m);
+        }
     }
 }

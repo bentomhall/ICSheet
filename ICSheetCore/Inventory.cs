@@ -103,21 +103,14 @@ namespace ICSheetCore
 
         protected virtual void OnEquipmentChanged(EquipmentChangedEventArgs e)
         {
-            var handler = EquipmentChanged;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            EquipmentChanged?.Invoke(this, e);
         }
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

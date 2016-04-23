@@ -161,6 +161,11 @@ namespace ICSheetCore
         {
             return _spellcastingAggregate.SpellDCsWith(abilities, ProficiencyBonus);
         }
+
+        internal int BaseACWith(IAbilityDataSource abilities, ArmorType armorWeight, bool hasShield)
+        {
+            return _playerClasses.Max(x => x.BaseArmorClass(abilities, armorWeight, hasShield));
+        }
     }
 
     internal class ClassInformationChangedEventArgs : EventArgs

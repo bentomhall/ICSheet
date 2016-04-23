@@ -59,6 +59,7 @@
     <Compile Include="IFeature.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="InventoryAggregate.cs" />
     <Compile Include="IRace.cs" />
     <Compile Include="ISkill.cs" />
     <Compile Include="ISpellCaster.cs" />

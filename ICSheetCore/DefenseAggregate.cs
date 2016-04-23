@@ -17,7 +17,7 @@ namespace ICSheetCore
             { AbilityType.Charisma, DefenseType.Charisma }
         };
 
-        internal DefenseAggregate(AbilityAggregate abilities, IDictionary<DefenseType, int> proficientDefenses)
+        internal DefenseAggregate(IAbilityDataSource abilities, IDictionary<DefenseType, int> proficientDefenses)
         {
             _defenses[DefenseType.Armor] = new Defense(10 + abilities.AbilityModifierFor(AbilityType.Dexterity), DefenseType.Armor); //there is never proficiency in armor class
             _proficiencyForDefense = proficientDefenses;
@@ -76,6 +76,27 @@ namespace ICSheetCore
             var oldDefense = _defenses[defense];
             _defenses[defense] = new Defense(oldDefense.BaseValue, oldDefense.Proficiency, newAdjustment, defense);
             return;
+        }
+
+        internal void ChangeACFromArmor(ArmorItem item, IAbilityDataSource abilities, int baseAC)
+        {
+            int ac = 10;
+            switch(item.ArmorClassType)
+            {
+                case ArmorType.None:
+                    ac = baseAC;
+                    break;
+                case ArmorType.Light:
+                    ac = item.ArmorBonus + abilities.AbilityModifierFor(AbilityType.Dexterity) + item.EnhancementBonus;
+                    break;
+                case ArmorType.Medium:
+                    ac = item.ArmorBonus + Math.Min(abilities.AbilityModifierFor(AbilityType.Dexterity), 2) + item.EnhancementBonus;
+                    break;
+                case ArmorType.Heavy:
+                    ac = item.ArmorBonus + item.EnhancementBonus;
+                    break;
+            }
+            ModifyAC(ac);
         }
 
         

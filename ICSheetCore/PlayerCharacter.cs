@@ -22,7 +22,7 @@ namespace ICSheetCore
         private IRace _race; //should be passed in
         private PlayerClassAggregate _classAggregate; //should be passed in
         private SkillAggregate _skillAggregate; //can construct
-                                                //private Inventory _inventory;
+        private InventoryAggregate _inventory;
 
         private ICollection<IFeature> aggregateFeatures()
         {
@@ -41,6 +41,7 @@ namespace ICSheetCore
             _abilityAggregate = new AbilityAggregate();
             _defenseAggregate = new DefenseAggregate(_abilityAggregate, _classAggregate.ProficiencyForDefenses);
             _skillAggregate = new SkillAggregate();
+            _inventory = new InventoryAggregate();
         }
 
         #region ISpellcastingDataSource
@@ -175,7 +176,7 @@ namespace ICSheetCore
         /// <param name="item"></param>
         public void AddItemToInventory(IItem item)
         {
-            throw new NotImplementedException();
+            _inventory.AddItem(item);
         }
         /// <summary>
         /// 
@@ -227,9 +228,9 @@ namespace ICSheetCore
         /// 
         /// </summary>
         /// <param name="amount"></param>
-        public void DoGoldTransaction(double amount)
+        public void DoGoldTransaction(decimal amount)
         {
-            throw new NotImplementedException();
+            _inventory.MoneyTransaction(amount);
         }
         /// <summary>
         /// 
@@ -240,22 +241,50 @@ namespace ICSheetCore
         {
             _classAggregate.LevelUp(className, newFeatures);
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
         public void DropItem(IItem item)
         {
-            throw new NotImplementedException();
+            _inventory.UnequipItem(item);
+            _inventory.RemoveItem(item);
         }
+
         /// <summary>
-        /// 
+        /// Equips item and recalculates AC if the item was armor.
         /// </summary>
         /// <param name="item"></param>
         public void Equip(IItem item)
         {
-            throw new NotImplementedException();
+            _inventory.EquipItem(item);
+            var a = item as ArmorItem;
+            if (a != null)
+            {
+                var hasShield = _inventory.ItemEquippedIn(ItemSlot.Offhand) is ArmorItem;
+                var baseAC = _classAggregate.BaseACWith(_abilityAggregate, a.ArmorClassType, hasShield);
+                _defenseAggregate.ChangeACFromArmor(a, _abilityAggregate, baseAC);
+            }
         }
+
+        /// <summary>
+        /// Unequips item and recalculates AC (using cloth) if the item was armor.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Unequip(IItem item)
+        {
+            _inventory.UnequipItem(item);
+            var a = item as ArmorItem;
+            if (a != null)
+            {
+                var hasShield = _inventory.ItemEquippedIn(ItemSlot.Offhand) is ArmorItem;
+                var armor = _inventory.ItemEquippedIn(ItemSlot.Armor) as ArmorItem;
+                var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, hasShield);
+                _defenseAggregate.ChangeACFromArmor(armor, _abilityAggregate, baseAC);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -263,8 +292,9 @@ namespace ICSheetCore
         /// <returns></returns>
         public IItem EquippedItemForSlot(ItemSlot slot)
         {
-            throw new NotImplementedException();
+            return _inventory.ItemEquippedIn(slot);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -272,7 +302,7 @@ namespace ICSheetCore
         /// <returns></returns>
         public IEnumerable<IItem> ItemsMatching(Func<IItem, bool> predicate)
         {
-            throw new NotImplementedException();
+            return _inventory.ContentsMatching(predicate);
         }
         /// <summary>
         /// Non-armor, non-attribute bonuses/maluses to armor.
@@ -286,6 +316,11 @@ namespace ICSheetCore
             _health.HealDamage(MaxHealth);
             _classAggregate.ResetSpellSlots(new Dictionary<int, int>() { { -1, -1 } });
         }
+
+        /// <summary>
+        /// returns the object representing the cash on hand. Read only. Setters inaccessible outside of the assembly.
+        /// </summary>
+        public Money Cash { get { return _inventory.CashOnHand; } }
         
         
         
