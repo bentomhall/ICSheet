@@ -141,7 +141,7 @@ namespace ICSheet5e.ViewModels
             ViewModels[0] = cvm;
             ViewModels[1] = new InventoryViewModel(currentCharacter, this, itemDB);
             if (CanCastSpells) {
-                var sp = new SpellBookViewModel(currentCharacter, spellDB);
+                var sp = new SpellBookViewModel(currentCharacter, spellDB, featureFactory);
                 sp.PropertyChanged += cvm.OnEquipmentChanged;
                 ViewModels[3] = sp;
             }
@@ -232,7 +232,7 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged("CanCastSpells");
                 if (ViewModels[3] is BaseViewModel && CanCastSpells) //change enabled spellcasting
                 {
-                    ViewModels[3] = new SpellBookViewModel(currentCharacter, spellDB);
+                    ViewModels[3] = new SpellBookViewModel(currentCharacter, spellDB, featureFactory);
                     NotifyPropertyChanged("ViewModels");
                 }
             }

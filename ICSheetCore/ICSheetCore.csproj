@@ -45,13 +45,9 @@
     <Compile Include="Ability.cs" />
     <Compile Include="AbilityAggregate.cs" />
     <Compile Include="ArmorItem.cs" />
-    <Compile Include="Character.cs" />
-    <Compile Include="CharacterBase.cs" />
-    <Compile Include="CharacterClassItem.cs" />
     <Compile Include="CharacterFactory.cs" />
     <Compile Include="ClassFeature.cs" />
     <Compile Include="DefenseAggregate.cs" />
-    <Compile Include="EnumValueLocator.cs" />
     <Compile Include="HealthManager.cs" />
     <Compile Include="IAbilityDataSource.cs" />
     <Compile Include="IClassFeature.cs" />
@@ -59,17 +55,14 @@
     <Compile Include="IFeature.cs" />
     <Compile Include="IInventoryDataSource.cs" />
     <Compile Include="IItem.cs" />
-    <Compile Include="Inventory.cs" />
     <Compile Include="InventoryAggregate.cs" />
     <Compile Include="IRace.cs" />
     <Compile Include="ISkill.cs" />
-    <Compile Include="ISpellCaster.cs" />
     <Compile Include="ISpellcastingFeature.cs" />
     <Compile Include="ISpellHandler.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemDataBase.cs" />
     <Compile Include="ListExtensions.cs" />
-    <Compile Include="MartialFeature.cs" />
     <Compile Include="PCRace.cs" />
     <Compile Include="PlayerCharacter.cs" />
     <Compile Include="PlayerCharacterClassDetail.cs" />
@@ -80,17 +73,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Race.cs" />
     <Compile Include="RaceFeature.cs" />
     <Compile Include="Skill5e.cs" />
     <Compile Include="SkillAggregate.cs" />
     <Compile Include="Spell.cs" />
     <Compile Include="SpellBook.cs" />
-    <Compile Include="SpellCaster.cs" />
     <Compile Include="SpellCastingAggregate.cs" />
     <Compile Include="SpellcastingFeature.cs" />
+    <Compile Include="SpellcastingLookup.cs" />
     <Compile Include="SpellManager.cs" />
-    <Compile Include="VisionType.cs" />
     <Compile Include="WeaponItem.cs" />
     <Compile Include="XMLFeatureFactory.cs" />
     <Compile Include="XMLItemReader.cs" />

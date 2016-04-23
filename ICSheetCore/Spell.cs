@@ -27,9 +27,6 @@ namespace ICSheetCore
         public int Level { get; set; }
 
         [DataMember]
-        public ICollection<CharacterClassType> CastableBy { get; private set; }
-
-        [DataMember]
         public string School { get; set; }
 
         [DataMember]
@@ -41,12 +38,6 @@ namespace ICSheetCore
         [DataMember]
         public string Duration { get; set; }
 
-        public void AddCastingClass(CharacterClassType classType)
-        {
-            if (CastableBy == null) { CastableBy = new List<CharacterClassType>() { classType }; }
-            else { CastableBy.Add(classType); }
-        }
-
         public override string ToString()
         {
             return Name;
@@ -56,7 +47,7 @@ namespace ICSheetCore
         {
             get
             {
-                return String.Format("Level: {0}\r\nCast Time: {1}\r\nRange: {2}\r\n{3}", Level, CastTime, Range, Description);
+                return string.Format("Level: {0}\r\nCast Time: {1}\r\nRange: {2}\r\n{3}", Level, CastTime, Range, Description);
             }
         }
     }

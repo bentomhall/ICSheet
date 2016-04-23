@@ -17,15 +17,6 @@ namespace ICSheetCore
         private List<Spell> _allSpells = new List<Spell>();
         [DataMember]
         private List<Spell> _knownSpells = new List<Spell>();
-        public SpellBook(SpellManager spellDB, CharacterClassType className, IEnumerable<CharacterClassType> subClasses)
-        {
-            dB = spellDB;
-            if (subClasses != null)
-            {
-                loadSpells(subClasses);
-            }
-            else { loadSpells(className); }
-        }
 
         public SpellBook(SpellManager spellDB, string className, bool isPreparedCaster)
         {
@@ -44,34 +35,6 @@ namespace ICSheetCore
                 _allSpells.Add(spell);
             }
             if (isPrepared) { setKnownSpells(_allSpells); }
-        }
-
-        private void loadSpells(IEnumerable<CharacterClassType> types)
-        {
-            foreach (var type in types)
-            {
-                loadSpells(type);
-            }
-        }
-
-        private void loadSpells(CharacterClassType className)
-        {
-            var spellNames = dB.SpellNamesFor(className);
-            foreach (var name in spellNames)
-            {
-                var spell = dB.SpellDetailsFor(name);
-                if (!IsSpellAlreadyAddedToList(spell)) { _allSpells.Add(spell); };
-            }
-            switch(className)
-            {
-                case CharacterClassType.Cleric:
-                case CharacterClassType.Druid:
-                case CharacterClassType.Paladin:
-                    setKnownSpells(_allSpells); //these classes know all their spells
-                    break;
-                default:
-                    break;
-            }
         }
 
         private void setKnownSpells(List<Spell> spells)

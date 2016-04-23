@@ -14,23 +14,23 @@ namespace ICSheetCore
         None
     };
 
-    public static class AbilityTypeExtension
-    {
-        private static Dictionary<AbilityType, string> abilityNameMap = new Dictionary<AbilityType, string>()
-        {
-            { AbilityType.Strength, "STR" },
-            { AbilityType.Dexterity, "DEX" },
-            { AbilityType.Constitution, "CON"},
-            { AbilityType.Intelligence, "INT"},
-            { AbilityType.Wisdom, "WIS"},
-            { AbilityType.Charisma, "CHA"}
-        };
+    //public static class AbilityTypeExtension
+    //{
+    //    private static Dictionary<AbilityType, string> abilityNameMap = new Dictionary<AbilityType, string>()
+    //    {
+    //        { AbilityType.Strength, "STR" },
+    //        { AbilityType.Dexterity, "DEX" },
+    //        { AbilityType.Constitution, "CON"},
+    //        { AbilityType.Intelligence, "INT"},
+    //        { AbilityType.Wisdom, "WIS"},
+    //        { AbilityType.Charisma, "CHA"}
+    //    };
 
-        public static string NameForAbility(this AbilityType ability)
-        {
-            return abilityNameMap[ability];
-        } 
-    }
+    //    public static string NameForAbility(this AbilityType ability)
+    //    {
+    //        return abilityNameMap[ability];
+    //    } 
+    //}
 
     [DataContract]
     public class Ability
