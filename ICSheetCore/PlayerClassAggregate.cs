@@ -137,7 +137,6 @@ namespace ICSheetCore
                     _spellcastingAggregate.RegainSpellSlot(entry.Key, entry.Value);
                 }
             }
-            
         }
 
         private void invalidateClassData()
@@ -165,6 +164,26 @@ namespace ICSheetCore
         internal int BaseACWith(IAbilityDataSource abilities, ArmorType armorWeight, bool hasShield)
         {
             return _playerClasses.Max(x => x.BaseArmorClass(abilities, armorWeight, hasShield));
+        }
+
+        internal void LearnSpell(string spellName, string asClass)
+        {
+            _spellcastingAggregate.LearnSpell(spellName, asClass);
+        }
+
+        internal void UnlearnSpell(string spellName, string asClass)
+        {
+            _spellcastingAggregate.UnlearnSpell(spellName, asClass);
+        }
+
+        internal void PrepareSpell(string spellName, string asClass)
+        {
+            _spellcastingAggregate.PrepareSpell(spellName, asClass);
+        }
+
+        internal void UnprepareSpell(string spellName, string asClass)
+        {
+            _spellcastingAggregate.UnprepareSpell(spellName, asClass);
         }
     }
 

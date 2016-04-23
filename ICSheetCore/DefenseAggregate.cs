@@ -56,6 +56,11 @@ namespace ICSheetCore
             return;
         }
 
+        internal void ModifyAbilityBonus(object sender, AbilityModifiedEventArgs e)
+        {
+            ModifyAbilityBonus(e.ModifiedAbility, e.Modifier);
+        }
+
         //<summary>
         //Sets the AC to the given base value. Any manual override adjustments are preserved.
         //
@@ -76,6 +81,11 @@ namespace ICSheetCore
             var oldDefense = _defenses[defense];
             _defenses[defense] = new Defense(oldDefense.BaseValue, oldDefense.Proficiency, newAdjustment, defense);
             return;
+        }
+
+        internal int GetDefenseAdjustment(DefenseType defense)
+        {
+            return _defenses[defense].Adjustment;
         }
 
         internal void ChangeACFromArmor(ArmorItem item, IAbilityDataSource abilities, int baseAC)

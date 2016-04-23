@@ -9,7 +9,7 @@ namespace ICSheetCore
     /// <summary>
     /// 
     /// </summary>
-    public class PlayerCharacter :ISpellcastingDataSource, ISpellcastingDelegate
+    public class PlayerCharacter :ISpellcastingDataSource, ISpellcastingDelegate, IInventoryDataSource, IInventoryDelegate
     {
         private string _name;
         private string _alignment;
@@ -40,8 +40,10 @@ namespace ICSheetCore
             _classAggregate = classesAndLevels;
             _abilityAggregate = new AbilityAggregate();
             _defenseAggregate = new DefenseAggregate(_abilityAggregate, _classAggregate.ProficiencyForDefenses);
+            _abilityAggregate.AbilityModified += _defenseAggregate.ModifyAbilityBonus;
             _skillAggregate = new SkillAggregate();
             _inventory = new InventoryAggregate();
+            _health = new HealthManager();
         }
 
         #region ISpellcastingDataSource
@@ -97,7 +99,7 @@ namespace ICSheetCore
         /// <param name="asClass"></param>
         public void Learn(string spellName, string asClass)
         {
-            throw new NotImplementedException();
+            _classAggregate.LearnSpell(spellName, asClass);
         }
 
         /// <summary>
@@ -105,71 +107,24 @@ namespace ICSheetCore
         /// </summary>
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
-        public void Unlearn(string spellName, string asClass) { }
+        public void Unlearn(string spellName, string asClass) { _classAggregate.UnlearnSpell(spellName, asClass); }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
-        public void Prepare(string spellName, string asClass) { }
+        public void Prepare(string spellName, string asClass) { _classAggregate.PrepareSpell(spellName, asClass); }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
-        public void Unprepare(string spellName, string asClass) { }
+        public void Unprepare(string spellName, string asClass) { _classAggregate.UnprepareSpell(spellName, asClass); }
         #endregion
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int ArmorClassBonus
-        {
-            get { return _defenseAggregate.ArmorClass + ArmorClassOverride; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int CurrentHealth { get { return _health.CurrentHealth; } }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int MaxHealth { get { return _health.MaxHealth; } set { _health.MaxHealth = value; } }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Experience { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string RaceName { get { return _race.RaceName; } }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Notes { get { return _notes; } set { _notes = value; } }
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICollection<IFeature> Features { get { return aggregateFeatures(); } }
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Proficiency { get { return _classAggregate.ProficiencyBonus; } }
-        /// <summary>
-        /// Feats count as class features.
-        /// </summary>
-        /// <param name="feature"></param>
-        public void AddFeature(IFeature feature)
-        {
-            if (feature as ClassFeature != null) { _classAggregate.AddFeature(feature); }
-            else if (feature as RaceFeature != null) { _race.AddFeature(feature); }
-            else { return; } //ideally will never happen.
-        }
-
-        //Skills
+        #region IInventoryDelegate
         /// <summary>
         /// 
         /// </summary>
@@ -178,52 +133,7 @@ namespace ICSheetCore
         {
             _inventory.AddItem(item);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        public int AttackBonusWith(IItem weapon)
-        {
-            var w = weapon as WeaponItem;
-            var abilitiesSource = _abilityAggregate as IAbilityDataSource;
-            if (w == null) { return abilitiesSource.AbilityModifierFor(AbilityType.Strength); } //improvised weapons
-            var abilities = w.AssociatedAbilities;
-            var modifier = abilities.Max(x => abilitiesSource.AbilityModifierFor(x));
-            if (w.IsProficient)
-            {
-                return modifier + Proficiency;
-            }
-            else
-            {
-                return modifier;
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        public int DamageBonusWith(IItem weapon)
-        {
-            var w = weapon as WeaponItem;
-            var abilitiesSource = _abilityAggregate as IAbilityDataSource;
-            if (w == null && _classAggregate.HasFeature("Martial Arts"))
-            {
-                return abilitiesSource.AbilityModifierFor(AbilityType.Strength);
-            }
-            else if (w == null) { return 0; }
-            var abilities = w.AssociatedAbilities;
-            if (w.Slot == ItemSlot.Mainhand)
-            {
-                return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
-            }
-            else if (_classAggregate.HasFeature("Two-Weapon Fighting"))
-            {
-                return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
-            }
-            else { return w.EnhancementBonus; }
-        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -231,15 +141,6 @@ namespace ICSheetCore
         public void DoGoldTransaction(decimal amount)
         {
             _inventory.MoneyTransaction(amount);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="className">The name of the class in which to level up.</param>
-        /// <param name="newFeatures">should only contain the features for the new class. Ignored if increasing level of current class</param>
-        public void DoLevelUp(string className, IEnumerable<IFeature> newFeatures)
-        {
-            _classAggregate.LevelUp(className, newFeatures);
         }
 
         /// <summary>
@@ -284,7 +185,9 @@ namespace ICSheetCore
                 _defenseAggregate.ChangeACFromArmor(armor, _abilityAggregate, baseAC);
             }
         }
+        #endregion
 
+        #region IInventoryDataSource
         /// <summary>
         /// 
         /// </summary>
@@ -304,10 +207,168 @@ namespace ICSheetCore
         {
             return _inventory.ContentsMatching(predicate);
         }
+
+        /// <summary>
+        /// returns the object representing the cash on hand. Read only. Setters inaccessible outside of the assembly.
+        /// </summary>
+        public Money Cash { get { return _inventory.CashOnHand; } }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int ArmorClassBonus
+        {
+            get { return _defenseAggregate.ArmorClass; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CurrentHealth { get { return _health.CurrentHealth; } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int MaxHealth { get { return _health.MaxHealth; } set { _health.MaxHealth = value; } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Experience { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string RaceName { get { return _race.RaceName; } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Notes { get { return _notes; } set { _notes = value; } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<IFeature> Features { get { return aggregateFeatures(); } }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Proficiency { get { return _classAggregate.ProficiencyBonus; } }
+        /// <summary>
+        /// Feats count as class features.
+        /// </summary>
+        /// <param name="feature"></param>
+        public void AddFeature(IFeature feature)
+        {
+            if (feature as ClassFeature != null) { _classAggregate.AddFeature(feature); }
+            else if (feature as RaceFeature != null) { _race.AddFeature(feature); }
+            else { return; } //ideally will never happen.
+        }
+
+        /// <summary>
+        /// Gets the bonus for the given skill.
+        /// </summary>
+        /// <param name="skillName"></param>
+        /// <param name="proficiencyLevel"></param>
+        /// <returns></returns>
+        public int SkillBonusFor(string skillName, ProficiencyType proficiencyLevel)
+        {
+            int p = 0;
+            switch (proficiencyLevel)
+            {
+                case ProficiencyType.Expertise:
+                    p = 2 * Proficiency;
+                    break;
+                case ProficiencyType.Full:
+                    p = Proficiency;
+                    break;
+                case ProficiencyType.Half:
+                    p = Proficiency / 2;
+                    break;
+                case ProficiencyType.None:
+                    p = 0;
+                    break;
+            }
+            return _skillAggregate.SkillBonusFor(skillName, _abilityAggregate, p);
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="weapon"></param>
+        /// <returns></returns>
+        public int AttackBonusWith(IItem weapon)
+        {
+            var w = weapon as WeaponItem;
+            var abilitiesSource = _abilityAggregate as IAbilityDataSource;
+            if (w == null) { return abilitiesSource.AbilityModifierFor(AbilityType.Strength); } //improvised weapons
+            var abilities = w.AssociatedAbilities;
+            var modifier = abilities.Max(x => abilitiesSource.AbilityModifierFor(x));
+            if (w.IsProficient || (w.Name == "Unarmed Strike" && _classAggregate.HasFeature("Martial Arts")))
+            {
+                return modifier + Proficiency;
+            }
+            else
+            {
+                return modifier;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="weapon"></param>
+        /// <returns></returns>
+        public int DamageBonusWith(IItem weapon)
+        {
+            var w = weapon as WeaponItem;
+            var abilitiesSource = _abilityAggregate as IAbilityDataSource;
+            if (w.Name == "Unarmed Strike" && _classAggregate.HasFeature("Martial Arts"))
+            {
+                return abilitiesSource.AbilityModifierFor(AbilityType.Strength);
+            }
+            else if (w.Name == "Unarmed Strike") { return 0; }
+            var abilities = w.AssociatedAbilities;
+            if (w.Slot == ItemSlot.Mainhand)
+            {
+                return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
+            }
+            else if (_classAggregate.HasFeature("Two-Weapon Fighting"))
+            {
+                return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
+            }
+            else { return w.EnhancementBonus; }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="className">The name of the class in which to level up.</param>
+        /// <param name="newFeatures">should only contain the features for the new class. Ignored if increasing level of current class</param>
+        public void DoLevelUp(string className, IEnumerable<IFeature> newFeatures)
+        {
+            _classAggregate.LevelUp(className, newFeatures);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetNonACDefenseOverride(DefenseType defense, int value)
+        {
+            _defenseAggregate.ModifyDefenseAdjustment(defense, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="defense"></param>
+        public void GetNotACDefenseOverride(DefenseType defense)
+        {
+            _defenseAggregate.GetDefenseAdjustment(defense);
+        }
+
         /// <summary>
         /// Non-armor, non-attribute bonuses/maluses to armor.
         /// </summary>
-        public int ArmorClassOverride { get; set; }
+        public int ArmorClassOverride
+        {
+            get { return _defenseAggregate.GetDefenseAdjustment(DefenseType.Armor); }
+            set { _defenseAggregate.ModifyDefenseAdjustment(DefenseType.Armor, value); }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -318,14 +379,40 @@ namespace ICSheetCore
         }
 
         /// <summary>
-        /// returns the object representing the cash on hand. Read only. Setters inaccessible outside of the assembly.
+        /// 
         /// </summary>
-        public Money Cash { get { return _inventory.CashOnHand; } }
-        
-        
-        
-
-
+        /// <param name="ability"></param>
+        /// <param name="value"></param>
+        public void ModifyAbilityScore(AbilityType ability, int value)
+        {
+            _abilityAggregate.Modify(ability, value);
+            var hasShield = _inventory.ItemEquippedIn(ItemSlot.Offhand) is ArmorItem;
+            var armor = _inventory.ItemEquippedIn(ItemSlot.Armor) as ArmorItem;
+            var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, hasShield);
+            _defenseAggregate.ChangeACFromArmor(armor, _abilityAggregate, baseAC);
+        }
     }
 
+    /// <summary>
+    /// The type of proficiency to add to a skill check.
+    /// </summary>
+    public enum ProficiencyType
+    {
+        /// <summary>
+        /// Not proficient.
+        /// </summary>
+        None,
+        /// <summary>
+        /// Jack of all trades (bard) gets 1/2 proficiency to otherwise non-proficient skills
+        /// </summary>
+        Half,
+        /// <summary>
+        /// Regular proficiency
+        /// </summary>
+        Full,
+        /// <summary>
+        /// Double proficiency (rogue expertise, Knowledge cleric, a few others).
+        /// </summary>
+        Expertise
+    }
 }

@@ -24,8 +24,6 @@ namespace ICSheetCore
             
         }
 
-
-
         internal bool CanCastSpells { get { return _features.Count != 0; } }
 
         internal IEnumerable<int> AvailableSpellSlots
@@ -160,5 +158,46 @@ namespace ICSheetCore
             }
             return output;
         }
+
+        internal void LearnSpell(string spellName, string asClass)
+        {
+            try
+            {
+                var sb = _spellBooks[asClass];
+                sb.AddKnownSpell(spellName);
+            }
+            catch (KeyNotFoundException) { return; }
+        }
+
+        internal void UnlearnSpell(string spellName, string asClass)
+        {
+            try
+            {
+                var sb = _spellBooks[asClass];
+                sb.UnlearnSpell(spellName);
+            }
+            catch (KeyNotFoundException) { return; }
+        }
+
+        internal void PrepareSpell(string spellName, string asClass)
+        {
+            try
+            {
+                var sb = _spellBooks[asClass];
+                sb.PrepareSpell(spellName);
+            }
+            catch (KeyNotFoundException) { return; }
+        }
+
+        internal void UnprepareSpell(string spellName, string asClass)
+        {
+            try
+            {
+                var sb = _spellBooks[asClass];
+                sb.UnprepareSpell(spellName);
+            }
+            catch (KeyNotFoundException) { return; }
+        }
+
     }
 }

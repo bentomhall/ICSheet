@@ -57,6 +57,7 @@
     <Compile Include="IClassFeature.cs" />
     <Compile Include="IDefense.cs" />
     <Compile Include="IFeature.cs" />
+    <Compile Include="IInventoryDataSource.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="InventoryAggregate.cs" />

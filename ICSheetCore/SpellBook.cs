@@ -107,6 +107,15 @@ namespace ICSheetCore
             if (!IsSpellKnown(spell)) { _knownSpells.Add(spell); }
         }
 
+        public void AddKnownSpell(string withName)
+        {
+            if (!IsSpellKnown(withName))
+            {
+                var spell = dB.SpellDetailsFor(withName);
+                _knownSpells.Add(spell);
+            }
+        }
+
         public void ToggleSpellPreparation(Spell spell)
         {
             
@@ -124,14 +133,39 @@ namespace ICSheetCore
             }
         }
 
+        public void UnlearnSpell(string spellName)
+        {
+            var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
+            if (s != null) { _knownSpells.Remove(s); }
+        }
+
+        public void PrepareSpell(string spellName)
+        {
+            var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
+            if (s != null) { s.IsPrepared = true; }
+        }
+
+        public void UnprepareSpell(string spellName)
+        {
+            var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
+            if (s != null) { s.IsPrepared = false; }
+        }
+
         public bool IsSpellKnown(Spell spell)
         {
             return (_knownSpells.SingleOrDefault(x => x.Name == spell.Name) != null);
+        }
+
+        public bool IsSpellKnown(string spellName)
+        {
+            return _knownSpells.Count(x => x.Name == spellName) > 0;
         }
 
         private bool IsSpellAlreadyAddedToList(Spell spell)
         {
             return _allSpells.SingleOrDefault(x => x.Name == spell.Name) != null;
         }
+
+
     }
 }
