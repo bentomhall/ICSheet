@@ -140,7 +140,7 @@ namespace ICSheetCore
             var output = new Dictionary<string, int>();
             foreach (var f in _features)
             {
-                var name = f.Name;
+                var name = f.SpellBookName;
                 var abilityMod = abilities.AbilityModifierFor(f.CastingAbility);
                 output[name] = abilityMod + proficiency;
             }
@@ -152,7 +152,7 @@ namespace ICSheetCore
             var output = new Dictionary<string, int>();
             foreach (var f in _features)
             {
-                var name = f.Name;
+                var name = f.SpellBookName;
                 var abilityMod = abilities.AbilityModifierFor(f.CastingAbility);
                 output[name] = 8 + abilityMod + proficiency;
             }

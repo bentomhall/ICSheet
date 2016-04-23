@@ -225,13 +225,24 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("Charisma");
         }
 
+        private void NotifyDefensesChanged()
+        {
+            NotifyPropertyChanged("StrengthSave");
+            NotifyPropertyChanged("DexteritySave");
+            NotifyPropertyChanged("ConstitutionSave");
+            NotifyPropertyChanged("IntelligenceSave");
+            NotifyPropertyChanged("WisdomSave");
+            NotifyPropertyChanged("CharismaSave");
+        }
+
         public void NotifyEditingEnded()
         {
             NotifyPropertyChanged("ArmorClass");
             NotifyPropertyChanged("Proficiency");
             NotifyPropertyChanged("Movement");
             NotifyPropertyChanged("Initiative");
-            NotifyPropertyChanged("Skills");
+            NotifyDefensesChanged();
+            _setSkills();
             var args = new PropertyChangedEventArgs("EquippedItems");
             OnEquipmentChanged(this, args);
             NotifyPropertyChanged("SpellAttackBonus");
@@ -292,12 +303,12 @@ namespace ICSheet5e.ViewModels
 
         private string FormatLevels()
         {
-            var builder = new StringBuilder();
-            foreach (var entry in character.Levels)
+            var s = new List<string>();
+            foreach (KeyValuePair<string, int> entry in character.Levels)
             {
-                builder.Append(entry);
+                s.Add($"{entry.Key} {entry.Value}");
             }
-            return builder.ToString();
+            return string.Join(Environment.NewLine, s);
         }
 
         private void HandleHealthChange(IViewModel vm)
