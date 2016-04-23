@@ -31,6 +31,12 @@ namespace ICSheetCore
             return inElement.Elements(XName).First(x => x.Attribute("Name").Value == attributeName);
         }
 
+        static private string AttributeValueOrDefault(XElement element, string attributeName)
+        {
+            var e = element.Attributes().FirstOrDefault(x => x.Name == attributeName);
+            return (e == null) ? null : e.Value;
+        }
+
 
         /// <summary>
         /// Gets all valid race names as strings from the provided xml
@@ -166,8 +172,8 @@ namespace ICSheetCore
         {
             var featureName = element.Attribute("Name").Value;
             var text = element.Value;
-            var isInheritable = (element.Attribute("MulticlassInheritable").Value == "True" ? true : false);
-            var startingLevel = int.Parse(element.Attribute("StartLevel").Value);
+            bool isInheritable = !string.IsNullOrEmpty(AttributeValueOrDefault(element, "MulticlassInheritable"));
+            var startingLevel = int.Parse(AttributeValueOrDefault(element, "StartLevel") ?? "1");
             return new ClassFeature(featureName, startingLevel, isInheritable, text);
         }
 
@@ -175,7 +181,7 @@ namespace ICSheetCore
         {
             var name = element.Parent.Attribute("Name").Value;
             var castingType = element.Element("CastingType").Value;
-            var castingAbility = (AbilityType)Enum.Parse(typeof(AbilityType), element.Element("CastingAttribute").Value);
+            var castingAbility = (AbilityType)Enum.Parse(typeof(AbilityType), element.Element("CastingAbility").Value);
             var isPrepared = (element.Element("IsPreparedCaster").Value == "True" ? true: false);
             var cantrips = element.Element("Cantrips").Value.Split(' ').Select(x => int.Parse(x));
             var bonusSpells = element.Element("BonusSpells").Value.Split(' ').Select(x => int.Parse(x));

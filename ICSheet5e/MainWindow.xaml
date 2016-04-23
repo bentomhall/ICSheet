@@ -77,9 +77,6 @@
             </TabControl.Resources>
             <TabItem Name="Overview" Header="Overview" Content="{Binding Path=ViewModels[0]}" ContentTemplateSelector="{StaticResource TabContentSelector}" Height="38" VerticalAlignment="Top"/>
             <TabItem Header="Inventory" IsEnabled="{Binding Path=IsCharacterInitialized}" Content="{Binding Path=ViewModels[1]}" ContentTemplateSelector="{StaticResource TabContentSelector}"/>
-            <TabItem Header="Features" IsEnabled="{Binding Path=IsCharacterInitialized}">
-                <views:ClassFeatureView/>
-            </TabItem>
             <TabItem Header="Spells" IsEnabled="{Binding Path=CanCastSpells}" Content="{Binding Path=ViewModels[3]}" ContentTemplateSelector="{StaticResource TabContentSelector}"/>
         </TabControl>
     </DockPanel>

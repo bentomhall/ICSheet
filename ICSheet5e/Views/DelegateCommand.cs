@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ICSheet5e.Views
 {
-    class DelegateCommand<T> : System.Windows.Input.ICommand
+    class DelegateCommand<T> : ICommand
     {
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;
@@ -39,10 +40,8 @@ namespace ICSheet5e.Views
         public event EventHandler CanExecuteChanged;
         public void RaiseCanExecuteChanged()
         {
-            if (CanExecuteChanged != null)
-            {
-                CanExecuteChanged(this, EventArgs.Empty);
-            }
+            CommandManager.InvalidateRequerySuggested();
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

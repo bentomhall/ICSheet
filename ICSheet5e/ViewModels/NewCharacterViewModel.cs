@@ -14,7 +14,16 @@ namespace ICSheet5e.ViewModels
         }
 
         public string CharacterName { get; set; }
-        public string CharacterRace { get; set; }
+        public string CharacterRace
+        {
+            get { return _baseRace; }
+            set
+            {
+                _baseRace = value;
+                NotifyPropertyChanged("SubraceList");
+            }
+                
+        }
         public string CharacterSubrace { get; set; }
         public string CharacterAlignment { get; set; }
         public string CharacterBackground { get; set; }
@@ -35,6 +44,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        private string _baseRace;
         private string _characterClass = "";
 
         private int _level = 0;
@@ -46,6 +56,7 @@ namespace ICSheet5e.ViewModels
             {
                 _characterClass = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("CanCreateNewCharacter");
             }
         }
 
@@ -56,13 +67,19 @@ namespace ICSheet5e.ViewModels
             {
                 _level = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("CanCreateNewCharacter");
             }
+        }
+
+        public bool CanCreateNewCharacter
+        {
+            get { return NewCharacterCommandCanExecute(); }
         }
 
 
         public ICommand StartNewCharacterCommand
         {
-            get { return new Views.DelegateCommand<object>(StartNewCharacterCommandExecuted, NewCharacterCommandCanExecute); }
+            get { return new Views.DelegateCommand<object>(StartNewCharacterCommandExecuted); }
         }
 
         private void StartNewCharacterCommandExecuted(object sender)
@@ -72,10 +89,8 @@ namespace ICSheet5e.ViewModels
             delegateAction?.Invoke(CharacterName, raceData, classesAndLevels);
         }
 
-        private bool _canExecute = false;
-        private bool NewCharacterCommandCanExecute(object sender)
+        private bool NewCharacterCommandCanExecute()
         {
-            if (sender == null) { return false; }
             bool canExecute = true;
             canExecute = canExecute && (CharacterName != null);
             canExecute = canExecute && (CharacterRace != null);
@@ -85,5 +100,9 @@ namespace ICSheet5e.ViewModels
         }
 
         public Action<string, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
+
+        public IEnumerable<string> Alignments { get { return alignments; } }
+
+        static private List<string> alignments = new List<string>() { "Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil" };
     }
 }

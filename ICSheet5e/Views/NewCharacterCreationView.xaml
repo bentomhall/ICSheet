@@ -10,30 +10,30 @@
              >
     <DockPanel Background="LightGray" LastChildFill="False">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Name:</Label>
-            <TextBox DockPanel.Dock="Top" Width="700" Height="50" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="24" Text="{Binding CharacterName, Mode=TwoWay}"></TextBox>
+            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="182">Name:</Label>
+            <TextBox DockPanel.Dock="Top" Width="668" Height="50" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="24" Text="{Binding CharacterName, Mode=TwoWay}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Race:</Label>
-            <ComboBox DockPanel.Dock="Top" Width="700" Height="50" FontSize="24" HorizontalAlignment="Right" ItemsSource="{Binding Path=RaceList}" SelectedItem="{Binding Path=CharacterRace}"></ComboBox>
+            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="182">Race:</Label>
+            <ComboBox DockPanel.Dock="Top" Width="668" Height="50" FontSize="24" HorizontalAlignment="Right" ItemsSource="{Binding Path=RaceList}" SelectedItem="{Binding Path=CharacterRace}"></ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Subrace:</Label>
-            <ComboBox DockPanel.Dock="Top" Width="700" Height="50" FontSize="24" HorizontalAlignment="Right" ItemsSource="{Binding Path=SubraceList}" SelectedItem="{Binding Path=CharacterSubrace}"></ComboBox>
+            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="183">Subrace:</Label>
+            <ComboBox DockPanel.Dock="Top" Width="668" Height="50" FontSize="24" HorizontalAlignment="Right" ItemsSource="{Binding Path=SubraceList}" SelectedItem="{Binding Path=CharacterSubrace}"></ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontSize="36">Alignment:</Label>
             <ComboBox Width="250" ItemsSource="{Binding Path=Alignments}" SelectedItem="{Binding Path=CharacterAlignment}"/>
-            <Label FontSize="36">Background:</Label>
-            <TextBox Width="210" Text="{Binding Path=CharacterBackground}" HorizontalContentAlignment="Right"/>
+            <Label FontSize="36" Margin="10 0 0 0">Background:</Label>
+            <TextBox Width="198" Text="{Binding Path=CharacterBackground}" VerticalContentAlignment="Center" FontSize="24"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="150">Class:</Label>
-            <ComboBox Width="100" ItemsSource="{Binding Classes}" SelectedValue="{Binding Path=CharacterClass, Mode=TwoWay}" Margin="0,0,5,0"/>
-            <Label FontSize="32">Levels:</Label>
-            <TextBox Width="50" Text="{Binding Level1, Mode=TwoWay}"></TextBox>
+            <Label FontSize="36" DockPanel.Dock="Top" HorizontalAlignment="Left" Width="182">Class:</Label>
+            <ComboBox Width="250" ItemsSource="{Binding Classes}" SelectedValue="{Binding Path=CharacterClass, Mode=TwoWay}" Margin="0,0,5,0"/>
+            <Label FontSize="36" Margin="10 0 0 0" Width="203">Level:</Label>
+            <TextBox Width="199" Text="{Binding Level, Mode=TwoWay}" VerticalContentAlignment="Center"></TextBox>
         </StackPanel>
         
-        <Button Command="{Binding Path=StartNewCharacterCommand}" Background="DarkGray" DockPanel.Dock="Top"  Height="60" Width="200" Margin="0, 15, 0, 0">Create Character!</Button>
+        <Button Command="{Binding Path=StartNewCharacterCommand}" IsEnabled="{Binding Path=CanCreateNewCharacter}" Background="DarkGray" DockPanel.Dock="Top"  Height="60" Width="200" Margin="0, 15, 0, 0">Create Character!</Button>
     </DockPanel>
 </UserControl>
