@@ -11,11 +11,12 @@ namespace ICSheetCore
     {
         private string _characterName;
 
-        private ItemDataBase _itemDB;
         private SpellManager _spellDB;
         private XMLFeatureFactory _featureFactory;
         private PCRace _race;
         private PlayerClassAggregate _classes;
+        private string _alignment;
+        private string _background;
 
         /// <summary>
         /// Creates an instance of a PlayerCharacterFactory
@@ -56,6 +57,24 @@ namespace ICSheetCore
             _classes = new PlayerClassAggregate(classes, _spellDB);
         }
 
+        /// <summary>
+        /// Optional.
+        /// </summary>
+        /// <param name="value"></param>
+        public void AssignBackground(string value)
+        {
+            _background = value;
+        }
+
+        /// <summary>
+        /// Optional
+        /// </summary>
+        /// <param name="value"></param>
+        public void AssignAlignment(string value)
+        {
+            _alignment = value;
+        }
+
 
         /// <summary>
         /// Creates a new PlayerCharacter instance. Throws InvalidOperationException if AssignRace and AssignClassLevels not called first.
@@ -67,7 +86,10 @@ namespace ICSheetCore
             {
                 throw new InvalidOperationException("Must set race and classes before building");
             }
-            return new PlayerCharacter(_characterName, _race, _classes);
+            var c = new PlayerCharacter(_characterName, _race, _classes);
+            c.Alignment = _alignment ?? "";
+            c.Background = _background ?? "";
+            return c;
         }
     }
 }

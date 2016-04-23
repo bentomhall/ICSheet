@@ -15,7 +15,7 @@ namespace ICSheetCore
         public int Gold { get { return (int)(_cash % 10); } }
         public int Copper { get { return (int)((_cash * 100) % 10); } }
         public int Silver { get { return (int)((_cash * 10) % 10); } }
-
+        public decimal Total { get { return _cash; } }
         private decimal _cash;
 
         /// <summary>

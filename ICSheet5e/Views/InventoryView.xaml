@@ -99,7 +99,7 @@
             <Button Margin="5" Grid.Column="1" Command="{Binding Path=ModifyItemCountCommand}" CommandParameter="-">Decrease Quantity</Button>
             <Button Margin="5" Grid.Column="2" Command="{Binding Path=ModifyItemCountCommand}" CommandParameter="Drop">Drop</Button>
             <Label Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Gold</Label>
-            <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Gold}"></Label>
+            <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Gold.Total}"></Label>
             <Label Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Amount</Label>
             <TextBox Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding TransactionAmount}"></TextBox>
             <UniformGrid Rows="2" Columns="1" Grid.Row="2" Grid.Column="2">

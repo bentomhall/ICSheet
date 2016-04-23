@@ -104,10 +104,9 @@ namespace ICSheet5e.ViewModels
 
         private void EquipItemCommandExecuted(int index)
         {
-            var newItem = Items[index];
-            currentCharacter.Equip(newItem);
-            var name = ItemNameOrDefault(newItem.Slot);
-            switch (newItem.Slot)
+            currentCharacter.Equip(SelectedItem);
+            var name = ItemNameOrDefault(SelectedItem.Slot);
+            switch (SelectedItem.Slot)
             {
                 case ItemSlot.Head:
                     HeadItemName = name;
@@ -140,6 +139,7 @@ namespace ICSheet5e.ViewModels
             }
             NotifyPropertyChanged("EquippedItems");
             NotifyPropertyChanged("Items");
+            
         }
 
         private Dictionary<ItemSlot, int> EquipmentSlotMap = new Dictionary<ItemSlot, int>()

@@ -208,8 +208,10 @@
             </DockPanel>
         </Border>
         <Border Grid.Column="8" Grid.ColumnSpan="1" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
-            <UniformGrid Rows="3" Columns="2">
-                <Label Height="25" Margin="0,0,4,0" VerticalContentAlignment="Center">Gold:</Label>
+            <UniformGrid Rows="4" Columns="2">
+                <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Platinum</Label>
+                <TextBlock Text="{Binding Path=Gold.Platinum}" VerticalAlignment="Center" MinWidth="50"/>
+                <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Gold:</Label>
                 <TextBlock Text="{Binding Path=Gold.Gold}" VerticalAlignment="Center" MinWidth="50"/>
                 <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Silver:</Label>
                 <TextBlock Text="{Binding Path=Gold.Silver}" VerticalAlignment="Center" MinWidth="50"/>

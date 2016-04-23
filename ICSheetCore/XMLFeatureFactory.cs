@@ -95,6 +95,8 @@ namespace ICSheetCore
                         features.Add(newFeature);
                     }
                 }
+                var subraceFeature = features.SingleOrDefault(x => x.Name == subrace);
+                features.Remove(subraceFeature);
             }
             return features;
         }

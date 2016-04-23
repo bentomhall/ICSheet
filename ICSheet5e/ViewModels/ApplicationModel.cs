@@ -115,12 +115,14 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterInformationReceived(string name, Tuple<string, string> race, IDictionary<string, int> classes)
+        public void NewCharacterInformationReceived(string name, string alignment, string background, Tuple<string, string> race, IDictionary<string, int> classes)
         {
             
             var characterBuilder = new CharacterFactory(name, spellDB, featureFactory);
             characterBuilder.AssignClassLevels(classes);
             characterBuilder.AssignRace(race.Item1, race.Item2);
+            characterBuilder.AssignAlignment(alignment);
+            characterBuilder.AssignBackground(background);
             currentCharacter = characterBuilder.ToPlayerCharacter();
             setViewModels();
         }

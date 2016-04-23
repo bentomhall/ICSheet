@@ -46,6 +46,16 @@ namespace ICSheetCore
             _health = new HealthManager();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Alignment { get { return _alignment; } set { _alignment = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Background { get { return _background; } set { _background = value; } }
+
         #region ISpellcastingDataSource
         /// <summary>
         /// 

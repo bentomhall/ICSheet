@@ -86,7 +86,7 @@ namespace ICSheet5e.ViewModels
         {
             var raceData = new Tuple<string, string>(CharacterRace, CharacterSubrace);
             var classesAndLevels = new Dictionary<string, int>() { { CharacterClass, Level } };
-            delegateAction?.Invoke(CharacterName, raceData, classesAndLevels);
+            delegateAction?.Invoke(CharacterName, CharacterAlignment, CharacterBackground, raceData, classesAndLevels);
         }
 
         private bool NewCharacterCommandCanExecute()
@@ -99,7 +99,7 @@ namespace ICSheet5e.ViewModels
             return canExecute;
         }
 
-        public Action<string, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
+        public Action<string, string, string, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
 
         public IEnumerable<string> Alignments { get { return alignments; } }
 

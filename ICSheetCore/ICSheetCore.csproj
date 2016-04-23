@@ -47,6 +47,7 @@
     <Compile Include="ArmorItem.cs" />
     <Compile Include="CharacterFactory.cs" />
     <Compile Include="ClassFeature.cs" />
+    <Compile Include="Data\CharacterData.cs" />
     <Compile Include="DefenseAggregate.cs" />
     <Compile Include="HealthManager.cs" />
     <Compile Include="IAbilityDataSource.cs" />

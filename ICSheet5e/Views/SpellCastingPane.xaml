@@ -27,23 +27,14 @@
             </ListView.Resources>
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="ContextMenu" Value="{StaticResource SpellContextMenu}"/>
-                        <!--<Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=SpellKnown}" Value="False">
-                            <Setter Property="Background" Value="#aaaaaa"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=SpellKnown}" Value="True">
-                            <Setter Property="Background" Value="White"/>
-                        </DataTrigger>
-                    </Style.Triggers> -->
-                </Style>
+                        <Setter Property="ContextMenu" Value="{StaticResource SpellContextMenu}"/>
+                    </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Spell Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
                     <GridViewColumn Header="Prepared?" DisplayMemberBinding="{Binding IsPrepared}"/>
-                    <!--<GridViewColumn Header="Known?" DisplayMemberBinding="{Binding SpellKnown}"/>-->
-                </GridView>
+                 </GridView>
             </ListView.View>
         </ListView>
             <Button Command="{Binding Path=LearnNewSpellCommand}">Add Other</Button>
