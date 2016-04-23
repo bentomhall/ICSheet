@@ -10,14 +10,12 @@
         <DataTemplate x:Key="SkillItemTemplate">
             <Border BorderBrush="Black" BorderThickness="0,1,0,0" ClipToBounds="True">
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox Width="20" IsChecked="{Binding Path=IsProficient}" Margin="0,7,0,0"/>
+                    <Button Width="20" Content="{Binding Path=Proficiency}" Command="{Binding Path=ToggleProficiency}" Margin="0,7,0,0"/>
                     <Label Width="60" Content="{Binding Path=Bonus}" HorizontalContentAlignment="Center"/>
                     <Label Width="120" Content="{Binding Path=Name}"/>
                 </StackPanel>
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid ClipToBounds="True">
-        <ListBox ItemsSource="{Binding Path=Skills}" ItemTemplate="{StaticResource SkillItemTemplate}" HorizontalContentAlignment="Stretch" ClipToBounds="True"/>
-    </Grid>
+    <ListBox ItemsSource="{Binding Path=Skills}" ItemTemplate="{StaticResource SkillItemTemplate}" HorizontalContentAlignment="Stretch" ClipToBounds="True"/>
 </UserControl>

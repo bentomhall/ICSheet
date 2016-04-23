@@ -208,6 +208,30 @@ namespace ICSheetCore
 
         }
 
+        /// <summary>
+        /// All valid skill names for 5th edition
+        /// </summary>
+        static public IEnumerable<string> SkillNames = new List<string>()
+        {
+            "Acrobatics",
+            "Animal Handling",
+            "Arcana",
+            "Athletics",
+            "Deception",
+            "History",
+            "Insight",
+            "Intimidation",
+            "Medicine",
+            "Nature",
+            "Perception",
+            "Performance",
+            "Persuasion",
+            "Religion",
+            "Sleight of Hand",
+            "Stealth",
+            "Survival"
+        };
+
         private IFeature featureFactoryFrom(XElement element)
         {
             var featureName = element.Attribute("Name").Value;

@@ -15,7 +15,7 @@ namespace ICSheet5e.ViewModels
 {
     public class ApplicationModel: BaseViewModel
     {
-        Character currentCharacter = null;
+        PlayerCharacter currentCharacter = null;
         ItemDataBase itemDB;
         SpellManager spellDB;
         public bool IsEditingModeEnabled
@@ -65,7 +65,7 @@ namespace ICSheet5e.ViewModels
             get 
             {
                 if (currentCharacter == null) return false;
-                return currentCharacter.IsSpellCaster;
+                return currentCharacter.IsSpellcaster;
             }
         }
 
@@ -73,6 +73,7 @@ namespace ICSheet5e.ViewModels
         private bool canEdit = false;
         private bool isInitialized = false;
         private List<BaseViewModel> _viewModels = new List<BaseViewModel>();
+        private XMLFeatureFactory featureFactory;
 
         public ApplicationModel()
         {
@@ -93,6 +94,7 @@ namespace ICSheet5e.ViewModels
             var itemReader = new XMLItemReader(Properties.Resources.BasicArmors, Properties.Resources.BasicWeapons, Properties.Resources.BasicItems);
             itemDB = new ItemDataBase(itemReader);
             spellDB = new SpellManager(Properties.Resources.spell_list, Properties.Resources.SpellList5e);
+            featureFactory = new XMLFeatureFactory(Properties.Resources.RacialFeatures, Properties.Resources.ClassFeatures);
         }
 
         public ICommand NewCharacterCommand
@@ -113,17 +115,19 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
         }
 
-        public void NewCharacterInformationReceived(string name, Race race, IEnumerable<CharacterClassItem> classes)
+        public void NewCharacterInformationReceived(string name, Tuple<string, string> race, IDictionary<string, int> classes)
         {
-            var featureFactory = new XMLFeatureFactory(Properties.Resources.RacialFeatures, Properties.Resources.ClassFeatures);
-            var characterBuilder = new CharacterFactory(name, race, classes, itemDB, spellDB, featureFactory);
-            currentCharacter = characterBuilder.Build();
+            
+            var characterBuilder = new CharacterFactory(name, spellDB, featureFactory);
+            characterBuilder.AssignClassLevels(classes);
+            characterBuilder.AssignRace(race.Item1, race.Item2);
+            currentCharacter = characterBuilder.ToPlayerCharacter();
             setViewModels();
         }
 
         public void NewCharacterCommandExecuted(object sender)
         {
-            var vm = new NewCharacterViewModel();
+            var vm = new NewCharacterViewModel(featureFactory);
             vm.delegateAction = NewCharacterInformationReceived;
             vm.Parent = this;
             ViewModels[0] = vm;
@@ -135,9 +139,9 @@ namespace ICSheet5e.ViewModels
         {
             var cvm = new CharacterViewModel(currentCharacter, this);
             ViewModels[0] = cvm;
-            ViewModels[1] = new InventoryViewModel(currentCharacter, this);
+            ViewModels[1] = new InventoryViewModel(currentCharacter, this, itemDB);
             if (CanCastSpells) {
-                var sp = new SpellBookViewModel(currentCharacter.Spellcasting[0], spellDB);
+                var sp = new SpellBookViewModel(currentCharacter, spellDB);
                 sp.PropertyChanged += cvm.OnEquipmentChanged;
                 ViewModels[3] = sp;
             }
@@ -155,28 +159,28 @@ namespace ICSheet5e.ViewModels
 
         public void OpenCommandExecute(object sender)
         {
-            var location = Views.WindowManager.SelectExistingFile();
-            if (location == null) { return; } //user canceled open dialog
-            var serializer = new DataContractSerializer(typeof(Character));
-            System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
-            var c = (Character)serializer.ReadObject(reader);
-            reader.Close();
-            currentCharacter = c;
-            currentCharacter.ItemDB = itemDB;
-            currentCharacter.SpellDB = spellDB;
-            setViewModels();
+            //var location = Views.WindowManager.SelectExistingFile();
+            //if (location == null) { return; } //user canceled open dialog
+            //var serializer = new DataContractSerializer(typeof(Character));
+            //System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
+            //var c = (Character)serializer.ReadObject(reader);
+            //reader.Close();
+            //currentCharacter = c;
+            //currentCharacter.ItemDB = itemDB;
+            //currentCharacter.SpellDB = spellDB;
+            //setViewModels();
         }
 
         
         public void SaveCommandExecuted(object sender)
         {
-            if (!IsCharacterInitialized) return;
-            var saveLocation = Views.WindowManager.SelectSaveLocation();
-            if (saveLocation == null) { return; } //user canceled save dialog
-            var serializer = new DataContractSerializer(typeof(Character));
-            System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
-            serializer.WriteObject(stream, currentCharacter);
-            stream.Close();
+            //if (!IsCharacterInitialized) return;
+            //var saveLocation = Views.WindowManager.SelectSaveLocation();
+            //if (saveLocation == null) { return; } //user canceled save dialog
+            //var serializer = new DataContractSerializer(typeof(Character));
+            //System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
+            //serializer.WriteObject(stream, currentCharacter);
+            //stream.Close();
         }
 
         public bool SaveCommandCanExecute(object sender)
@@ -212,7 +216,7 @@ namespace ICSheet5e.ViewModels
         private void DoLevelUpCommandExecuted(object obj)
         {
             if (currentCharacter == null) { return; }
-            var vm = new LevelUpViewModel(currentCharacter.Levels);
+            var vm = new LevelUpViewModel(currentCharacter.Levels, featureFactory);
             Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.LevelUpDialog, vm, OnLevelUpCompleted);
         }
 
@@ -220,24 +224,15 @@ namespace ICSheet5e.ViewModels
         {
             var vm = obj as LevelUpViewModel;
             if (vm == null) { return; }
-            var oldLevels = currentCharacter.Levels;
             var newLevels = vm.ChosenClassLevels;
-            var featureFactory = new XMLFeatureFactory(Properties.Resources.RacialFeatures, Properties.Resources.ClassFeatures);
-            List<MartialFeature> newFeatures = new List<MartialFeature>();
-            foreach (var cls in newLevels)
-            {
-                if (oldLevels.SingleOrDefault(x => !x.Matches(cls.ClassType)) != null)
-                {
-                    newFeatures.AddRange(featureFactory.ClassFeatures(cls.ClassType));
-                }
-            }
+            var newFeatures = featureFactory.ExtractFeaturesFor(newLevels);
             currentCharacter.DoLevelUp(newLevels, newFeatures);
-            if (currentCharacter.IsSpellCaster)
+            if (currentCharacter.IsSpellcaster)
             {
                 NotifyPropertyChanged("CanCastSpells");
                 if (ViewModels[3] is BaseViewModel && CanCastSpells) //change enabled spellcasting
                 {
-                    ViewModels[3] = new SpellBookViewModel(currentCharacter.Spellcasting[0], spellDB);
+                    ViewModels[3] = new SpellBookViewModel(currentCharacter, spellDB);
                     NotifyPropertyChanged("ViewModels");
                 }
             }

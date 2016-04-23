@@ -7,11 +7,12 @@ using System.Windows.Input;
 
 namespace ICSheet5e.ViewModels
 {
+    //TODO: needs significant surgery
     public class SpellBookViewModel : BaseViewModel
     {
-        public SpellBookViewModel(SpellCaster caster, SpellManager dB)
+        public SpellBookViewModel(PlayerCharacter caster, SpellManager dB)
         {
-            this._caster = caster;
+            _caster = caster;
             _dB = dB;
             LoadAllSpells();
             _spellsForSelectedLevel = spellViewModelsForLevel(0);
@@ -97,7 +98,7 @@ namespace ICSheet5e.ViewModels
             if (model is AddNewSpellViewModel)
             {
                 var spell = (model as AddNewSpellViewModel).SpellToLearn;
-                _caster.AddSpell(spell);
+                _caster.Learn(spell.Name, "Wizard"); //wrong
                 var vm = new SpellViewModel(spell);
                 vm.SpellKnown = true;
                 _allSpellModels.Add(vm);
@@ -108,7 +109,7 @@ namespace ICSheet5e.ViewModels
 
         private List<SpellViewModel> _allSpellModels = new List<SpellViewModel>();
         private List<Spell> _allSpells = new List<Spell>();
-        private SpellCaster _caster;
+        private PlayerCharacter _caster;
         private SpellManager _dB;
         private int _selectedLevel = 0;
         private Spell _selectedSpell;
@@ -135,21 +136,14 @@ namespace ICSheet5e.ViewModels
             {
                 return; //casting these does nothing
             }
-            else if (_caster.CanCastSpell(SpellLevel))
-            {
-                _caster.CastSpell(SpellLevel);
-                NotifyPropertyChanged("AvailableSpellSlots");
-            }
-            else
-            {
-                return;
-            }
+            _caster.UseSpellSlot(_selectedLevel);
+            NotifyPropertyChanged("AvailableSpellSlots");
+            
         }
 
         private string formatSpellSlots()
         {
-            var slots = _caster.Slots.Item2;
-            return String.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
+            return string.Join(" / ", _caster.SpellSlots);
         }
 
         private void LearnNewSpellCommandExecuted(object obj)
@@ -162,8 +156,7 @@ namespace ICSheet5e.ViewModels
         private void LearnSpellCommandExecuted(object obj)
         {
             var spell = SelectedSpell;
-            _caster.AddSpell(spell);
-            //SelectedSpell.SpellKnown = true;
+            _caster.Learn(spell.Name, "Wizard");
             NotifyPropertyChanged("SpellKnown");
         }
 
@@ -177,14 +170,14 @@ namespace ICSheet5e.ViewModels
 
         private void LoadSpellsOfLevel(int level)
         {
-            var spells = _caster.AllSpellsForLevel(level);
-            foreach (var spell in spells)
-            {
-                var vm = new SpellViewModel(spell);
-                if (_caster.IsSpellKnown(spell)) { vm.SpellKnown = true; }
-                _allSpellModels.Add(vm);
-                _allSpells.Add(spell);
-            }
+            //var spells = _caster.AllSpellsForLevel(level);
+            //foreach (var spell in spells)
+            //{
+            //    var vm = new SpellViewModel(spell);
+            //    if (_caster.IsSpellKnown(spell)) { vm.SpellKnown = true; }
+            //    _allSpellModels.Add(vm);
+            //    _allSpells.Add(spell);
+            //}
         }
 
         private ObservableCollection<SpellViewModel> spellViewModelsForLevel(int level)
@@ -195,8 +188,8 @@ namespace ICSheet5e.ViewModels
         private void ToggleSpellPreparationExecuted(object obj)
         {
             var spell = SelectedSpell;
-            if (!_caster.IsSpellKnown(spell)) { return; }
-            _caster.PrepareSpell(spell);
+
+            _caster.Prepare(spell.Name, "Wizard");
             NotifyPropertyChanged("AllSpells");
             NotifyPropertyChanged("IsPrepared");
         }

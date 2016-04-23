@@ -68,6 +68,14 @@ namespace ICSheetCore
         /// <summary>
         /// 
         /// </summary>
+        public string SpellPreparationCount
+        {
+            get { return _classAggregate.SpellsPreparedOfMax(_abilityAggregate); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IReadOnlyDictionary<string, int> SpellAttackBonuses
         {
             get { return _classAggregate.SpellAttackBonuses(_abilityAggregate); }
@@ -214,6 +222,8 @@ namespace ICSheetCore
         public Money Cash { get { return _inventory.CashOnHand; } }
         #endregion
 
+
+        #region Defenses
         /// <summary>
         /// 
         /// </summary>
@@ -221,14 +231,116 @@ namespace ICSheetCore
         {
             get { return _defenseAggregate.ArmorClass; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetNonACDefenseOverride(DefenseType defense, int value)
+        {
+            _defenseAggregate.ModifyDefenseAdjustment(defense, value);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="defense"></param>
+        public void GetNotACDefenseOverride(DefenseType defense)
+        {
+            _defenseAggregate.GetDefenseAdjustment(defense);
+        }
+
+        /// <summary>
+        /// Non-armor, non-attribute bonuses/maluses to armor.
+        /// </summary>
+        public int ArmorClassOverride
+        {
+            get { return _defenseAggregate.GetDefenseAdjustment(DefenseType.Armor); }
+            set { _defenseAggregate.ModifyDefenseAdjustment(DefenseType.Armor, value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public Tuple<int, bool> DefenseBonusFor(DefenseType type)
+        {
+
+            return new Tuple<int, bool>(_defenseAggregate.DefenseValueFor(type), _classAggregate.ProficiencyForDefenses[type] > 0);
+        }
+        #endregion
+
+        #region Health
         /// <summary>
         /// 
         /// </summary>
         public int CurrentHealth { get { return _health.CurrentHealth; } }
+        
         /// <summary>
         /// 
         /// </summary>
         public int MaxHealth { get { return _health.MaxHealth; } set { _health.MaxHealth = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TemporaryHP { get { return _health.TemporaryHP; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        public void TakeDamage(int amount)
+        {
+            _health.TakeDamage(amount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        public void HealDamage(int amount)
+        {
+            _health.HealDamage(amount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddTHP(int amount)
+        {
+            _health.AddTHP(amount);
+        }
+        #endregion
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Initiative
+        {
+            get { return _classAggregate.InitiativeBonus(_abilityAggregate); }
+        }
+
+        public IDictionary<string, int> Levels
+        {
+            get { return _classAggregate.Levels; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Movement
+        {
+            get { return _classAggregate.MovementSpeed(this); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name { get { return _name; } }
+
         /// <summary>
         /// 
         /// </summary>
@@ -344,31 +456,7 @@ namespace ICSheetCore
             _classAggregate.LevelUp(className, newFeatures);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void SetNonACDefenseOverride(DefenseType defense, int value)
-        {
-            _defenseAggregate.ModifyDefenseAdjustment(defense, value);
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="defense"></param>
-        public void GetNotACDefenseOverride(DefenseType defense)
-        {
-            _defenseAggregate.GetDefenseAdjustment(defense);
-        }
-
-        /// <summary>
-        /// Non-armor, non-attribute bonuses/maluses to armor.
-        /// </summary>
-        public int ArmorClassOverride
-        {
-            get { return _defenseAggregate.GetDefenseAdjustment(DefenseType.Armor); }
-            set { _defenseAggregate.ModifyDefenseAdjustment(DefenseType.Armor, value); }
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -390,6 +478,28 @@ namespace ICSheetCore
             var armor = _inventory.ItemEquippedIn(ItemSlot.Armor) as ArmorItem;
             var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, hasShield);
             _defenseAggregate.ChangeACFromArmor(armor, _abilityAggregate, baseAC);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ability"></param>
+        /// <returns></returns>
+        public int AbilityScoreFor(AbilityType ability)
+        {
+            var abilities = _abilityAggregate as IAbilityDataSource;
+            return abilities.AbilityScoreFor(ability);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ability"></param>
+        /// <returns></returns>
+        public int AbilityModifierFor(AbilityType ability)
+        {
+            var abilities = _abilityAggregate as IAbilityDataSource;
+            return abilities.AbilityModifierFor(ability);
         }
     }
 

@@ -15,15 +15,15 @@ namespace ICSheet5e.ViewModels
         {
         }
 
-        public CharacterViewModel(Character c, ApplicationModel parent)
+        public CharacterViewModel(PlayerCharacter c, ApplicationModel parent)
         {
             character = c;
-            _setSkills(c.Skills);
+            _setSkills();
             Parent = parent;
             Parent.PropertyChanged += ParentEditingPropertyChanged;
             Attacks = new ObservableCollection<AttackViewModel>();
             Attacks.Add(attackModelFor(null));
-            character.PropertyChanged += ParentEditingPropertyChanged;
+            //character.PropertyChanged += ParentEditingPropertyChanged;
         }
 
         public ICommand AddTemporaryHealthCommand
@@ -31,16 +31,14 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(AddTHPCommandExecuted); }
         }
 
-        //TODO: must edit for new class
         public string AvailableSpellSlots
         {
-            get { return slotListAsString(character.SpellSlots.Item2); }
+            get { return slotListAsString(character.SpellSlots); }
         }
 
-        //TODO: change capitalization
         public bool CanCastSpells
         {
-            get { return character.IsSpellCaster; }
+            get { return character.IsSpellcaster; }
         }
 
         public bool CanEdit
@@ -60,7 +58,7 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(CastSpellCommandExecuted); }
         }
 
-        public Character Character
+        public PlayerCharacter Character
         {
             get { return character; }
             set
@@ -72,11 +70,10 @@ namespace ICSheet5e.ViewModels
 
         public int ArmorClassBonus
         {
-            get { return character.ArmorClassBonus; }
+            get { return character.ArmorClassOverride; }
             set
             {
-                character.ArmorClassBonus = value;
-                character.RecalculateArmorClass();
+                character.ArmorClassOverride = value;
                 NotifyPropertyChanged("ArmorClass");
             }
         }
@@ -98,17 +95,17 @@ namespace ICSheet5e.ViewModels
 
         public string PreparedSpellsCount
         {
-            get { return string.Format("{0} / {1}", PreparedSpells.Count(x => x.Level != 0), character.Spellcasting[0].MaxPreparedSpells); }
+            get { return character.SpellPreparationCount; }
         }
 
-        public ObservableCollection<MartialFeature> Features
+        public ObservableCollection<IFeature> Features
         {
-            get { return new ObservableCollection<MartialFeature>(character.Features.Where(x => x.MinimumLevel <= character.Levels.Max(y => y.Level))); }
+            get { return new ObservableCollection<IFeature>(character.Features); }
         }
 
-        public ObservableCollection<int> Gold
+        public Money Gold
         {
-            get { return ParseGold(character.Gold); }
+            get { return character.Cash; }
         }
 
         public ICommand HealDamageCommand
@@ -143,7 +140,7 @@ namespace ICSheet5e.ViewModels
 
         public string Name
         {
-            get { return character.CharacterName; }
+            get { return character.Name; }
         }
 
         public string Notes
@@ -169,15 +166,9 @@ namespace ICSheet5e.ViewModels
             get { return character.Proficiency; }
         }
 
-        public Race Race
+        public string Race
         {
-            get { return character.CharacterRace; }
-        }
-
-        public Spell SelectedPreparedSpell
-        {
-            get { return _selectedSpell; }
-            set { _selectedSpell = value; NotifyPropertyChanged(); SelectedSpellLevel = value.Level; NotifyPropertyChanged("SelectedSpellLevel"); }
+            get { return character.RaceName; }
         }
 
         public int SelectedSpellLevel
@@ -186,21 +177,31 @@ namespace ICSheet5e.ViewModels
             set;
         }
 
-        public int SpellAttackBonus
+        public string SpellAttackBonus
         {
             get
             {
-                if (CanCastSpells) { return character.Spellcasting[0].SpellAttackModifier; }
-                else { return 0; }
+                var values = character.SpellAttackBonuses;
+                var sb = new StringBuilder();
+                foreach (KeyValuePair<string, int> entry in values)
+                {
+                    sb.AppendLine($"{entry.Key}: {entry.Value}");
+                }
+                return sb.ToString();
             }
         }
 
-        public int SpellDC
+        public string SpellDC
         {
             get
             {
-                if (CanCastSpells) { return character.Spellcasting[0].SpellDC; }
-                else { return 0; }
+                var values = character.SpellDCs;
+                var sb = new StringBuilder();
+                foreach (KeyValuePair<string, int> entry in values)
+                {
+                    sb.AppendLine($"{entry.Key}: {entry.Value}");
+                }
+                return sb.ToString();
             }
         }
 
@@ -226,21 +227,10 @@ namespace ICSheet5e.ViewModels
 
         public void NotifyEditingEnded()
         {
-            List<Skill5e> newSkills = new List<Skill5e>();
-            foreach (var vm in Skills)
-            {
-                var skill = new Skill5e(vm.Name, vm.Bonus, vm.IsProficient);
-                newSkills.Add(skill);
-            }
-            character.RecalculateDependentBonuses();
-            character.RecalculateSkillsAfterAbilityScoreChange(newSkills);
             NotifyPropertyChanged("ArmorClass");
             NotifyPropertyChanged("Proficiency");
             NotifyPropertyChanged("Movement");
             NotifyPropertyChanged("Initiative");
-            NotifyPropertyChanged("Defenses");
-            NotifyPropertyChanged("ProficientDefenses");
-            _setSkills(character.Skills);
             NotifyPropertyChanged("Skills");
             var args = new PropertyChangedEventArgs("EquippedItems");
             OnEquipmentChanged(this, args);
@@ -275,10 +265,10 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        //private string _levels = "";
-        private Spell _selectedSpell;
+        public Spell SelectedPreparedSpell { get; set; }
+
         private bool canEdit = false;
-        private Character character;
+        private PlayerCharacter character;
 
         private void AddTHPCommandExecuted(object obj)
         {
@@ -289,7 +279,7 @@ namespace ICSheet5e.ViewModels
         private void CastSpellCommandExecuted(object obj)
         {
             if (SelectedPreparedSpell == null || SelectedSpellLevel < SelectedPreparedSpell.Level) { return; }
-            character.CastSpell(SelectedPreparedSpell, SelectedSpellLevel);
+            character.UseSpellSlot(SelectedSpellLevel);
             NotifyPropertyChanged("AvailableSpellSlots");
         }
 
@@ -361,21 +351,6 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged(e.PropertyName);
         }
 
-        static private ObservableCollection<int> ParseGold(double gold)
-        {
-            var goldList = new ObservableCollection<int>();
-            var temp = gold;
-            int g = (int)Math.Truncate(temp);
-            temp = (temp - (double)g) * 100;
-            int s = (int)Math.Truncate(temp);
-            temp = (temp - (double)s) * 100;
-            int c = (int)Math.Truncate(temp);
-            goldList.Add(g);
-            goldList.Add(s);
-            goldList.Add(c);
-            return goldList;
-        }
-
         #region Attributes
 
         public int Charisma
@@ -387,7 +362,7 @@ namespace ICSheet5e.ViewModels
             }
             set
             {
-                character.MutateAbilityScore(AbilityType.Charisma, value);
+                character.ModifyAbilityScore(AbilityType.Charisma, value);
                 NotifyPropertyChanged();
             }
         }
@@ -401,7 +376,7 @@ namespace ICSheet5e.ViewModels
             }
             set
             {
-                character.MutateAbilityScore(AbilityType.Constitution, value);
+                character.ModifyAbilityScore(AbilityType.Constitution, value);
                 NotifyPropertyChanged();
             }
         }
@@ -415,7 +390,7 @@ namespace ICSheet5e.ViewModels
             }
             set
             {
-                character.MutateAbilityScore(AbilityType.Dexterity, value);
+                character.ModifyAbilityScore(AbilityType.Dexterity, value);
                 NotifyPropertyChanged();
             }
         }
@@ -429,7 +404,7 @@ namespace ICSheet5e.ViewModels
             }
             set
             {
-                character.MutateAbilityScore(AbilityType.Intelligence, value);
+                character.ModifyAbilityScore(AbilityType.Intelligence, value);
                 NotifyPropertyChanged();
             }
         }
@@ -443,7 +418,7 @@ namespace ICSheet5e.ViewModels
             }
             set
             {
-                character.MutateAbilityScore(AbilityType.Strength, value);
+                character.ModifyAbilityScore(AbilityType.Strength, value);
                 NotifyPropertyChanged();
             }
         }
@@ -457,7 +432,7 @@ namespace ICSheet5e.ViewModels
             }
             set
             {
-                character.MutateAbilityScore(AbilityType.Wisdom, value);
+                character.ModifyAbilityScore(AbilityType.Wisdom, value);
                 NotifyPropertyChanged();
             }
         }
@@ -468,23 +443,15 @@ namespace ICSheet5e.ViewModels
 
         public int ArmorClass
         {
-            get { return character.ArmorClass; }
-            set
-            {
-                character.ArmorClass = value;
-                NotifyPropertyChanged();
-            }
+            get { return character.ArmorClassBonus; }
         }
 
-        public IList<Defense> Defenses
-        {
-            get { return character.Defenses; }
-        }
-
-        public IReadOnlyCollection<bool> ProficientDefenses
-        {
-            get { return character.ProficientDefenses; }
-        }
+        public Tuple<int, bool> StrengthSave { get { return character.DefenseBonusFor(DefenseType.Strength); } }
+        public Tuple<int, bool> ConstitutionSave { get { return character.DefenseBonusFor(DefenseType.Constitution); } }
+        public Tuple<int, bool> DexteritySave { get { return character.DefenseBonusFor(DefenseType.Dexterity); } }
+        public Tuple<int, bool> IntelligenceSave { get { return character.DefenseBonusFor(DefenseType.Intelligence); } }
+        public Tuple<int, bool> WisdomSave { get { return character.DefenseBonusFor(DefenseType.Wisdom); } }
+        public Tuple<int, bool> CharismaSave { get { return character.DefenseBonusFor(DefenseType.Charisma); } }
 
         #endregion Defenses
 
@@ -509,34 +476,24 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public void SkillProficiencyChanged(Skill5e skill)
+        public void SkillProficiencyChanged(IndividualSkillViewModel sender, ProficiencyType proficiency)
         {
-            var skillVM = _skills.Single(x => x.Skill.Name == skill.Name);
-            if (skillVM.IsProficient)
-            {
-                skillVM.Bonus += Proficiency;
-            }
-            else
-            {
-                skillVM.Bonus -= Proficiency;
-            }
-            character.Skills.SetSkillBonusFor(skill);
-            NotifyPropertyChanged("Skills");
+            sender.Bonus = character.SkillBonusFor(sender.Name, proficiency);
         }
 
         private ObservableCollection<bool> _proficientSkills = new ObservableCollection<bool>();
         private ObservableCollection<IndividualSkillViewModel> _skills = new ObservableCollection<IndividualSkillViewModel>();
 
-        private void _setSkills(SkillList<Skill5e> skills)
+        private void _setSkills()
         {
-            var names = skills.SkillNames;
+            var names = XMLFeatureFactory.SkillNames;
             Skills = new ObservableCollection<IndividualSkillViewModel>();
             foreach (var name in names)
             {
-                IndividualSkillViewModel skillVM = new IndividualSkillViewModel();
-                skillVM.Skill = skills.SkillForName(name);
+                var bonus = character.SkillBonusFor(name, ProficiencyType.None);
+                IndividualSkillViewModel skillVM = new IndividualSkillViewModel(name, bonus);
                 skillVM.delegateProficiencyChanged = SkillProficiencyChanged;
-                skillVM.Parent = this.Parent;
+                skillVM.Parent = Parent;
                 Skills.Add(skillVM);
             }
             NotifyPropertyChanged("Skills");
@@ -551,7 +508,7 @@ namespace ICSheet5e.ViewModels
         private AttackViewModel attackModelFor(IItem item)
         {
             var weapon = item as WeaponItem;
-            if (weapon == null) { return AttackViewModel.DefaultModel(character.AbilityModifierFor(AbilityType.Strength)); }
+            if (weapon == null) { return AttackViewModel.DefaultModel(character.AttackBonusWith(item)); }
             var vm = new AttackViewModel();
             vm.Name = weapon.Name;
             vm.AttackBonus = character.AttackBonusWith(weapon);
@@ -562,9 +519,9 @@ namespace ICSheet5e.ViewModels
 
         #endregion Attacks
 
-        static private string slotListAsString(List<int> slots)
+        static private string slotListAsString(IEnumerable<int> slots)
         {
-            return string.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
+            return string.Join(" / ", slots);
         }
 
         private void TakeDamageCommandExecuted(object obj)

@@ -15,11 +15,9 @@ namespace ICSheet5e.ViewModels
         public string FeatureText { get; set; }
         public int StartingLevel { get; set; }
 
-        public MartialFeature ToFeature()
+        public IFeature ToFeature()
         {
-            var feature = new MartialFeature(FeatureName, FeatureText, Uses ?? "");
-            feature.MinimumLevel = StartingLevel;
-            return feature;
+            return new ClassFeature(FeatureName, StartingLevel, false, FeatureText);
         }
     }
 }

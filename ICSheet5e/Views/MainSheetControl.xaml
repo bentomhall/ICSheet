@@ -99,18 +99,18 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[0]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[1]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[2]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[3]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[4]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[5]}"/>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[0].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Defenses[1].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Defenses[2].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Defenses[3].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding Defenses[4].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding Defenses[5].Value}"></Label>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="False" IsChecked="{Binding Path=StrengthSave.Item2}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="False" IsChecked="{Binding Path=DexteritySave.Item2}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=ConstitutionSave.Item2}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=IntelligenceSave.Item2}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=WisdomSave.Item2}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=CharismaSave.Item2}"/>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Path=StrengthSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Path=DexteritySave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Path=ConstitutionSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Path=IntelligenceSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding Path=WisdomSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding Path=CharismaSave.Item1}"></Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16">Strength</Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1">Dexterity</Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2">Constitution</Label>
@@ -196,7 +196,7 @@
                     <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
                     <TextBlock TextAlignment="Right" MinWidth="90" VerticalAlignment="Center" Text="{Binding Path=PreparedSpellsCount}"/>
                 </StackPanel>
-                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
+                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" >
                     
                 </ListBox>
             </DockPanel>

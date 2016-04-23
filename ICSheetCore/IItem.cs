@@ -12,6 +12,7 @@
         bool IsArmor { get; }
         string BaseEffect { get; }
         int Count { get; set; }
+        string Properties { get; set; }
 
     }
 

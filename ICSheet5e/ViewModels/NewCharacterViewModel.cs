@@ -7,146 +7,54 @@ namespace ICSheet5e.ViewModels
 {
     public class NewCharacterViewModel : BaseViewModel
     {
-        public NewCharacterViewModel() : base()
+        private XMLFeatureFactory _nameSource;
+        public NewCharacterViewModel(XMLFeatureFactory nameSource) : base()
         {
-            RaceList = new List<Race>();
-            foreach (var rtype in _allRaceTypes)
-            {
-                RaceList.Add(new Race(rtype));
-            }
+            _nameSource = nameSource;
         }
 
         public string CharacterName { get; set; }
-        public Race CharacterRace { get; set; }
-        public List<string> Classes
+        public string CharacterRace { get; set; }
+        public string CharacterSubrace { get; set; }
+        public string CharacterAlignment { get; set; }
+        public string CharacterBackground { get; set; }
+        public IEnumerable<string> Classes
         {
-            get { return classes; }
+            get { return _nameSource.ExtractClassNames(); }
         }
 
-        static private List<string> classes = new List<string>()
+
+
+        public IEnumerable<string> RaceList { get { return _nameSource.ExtractRaceNames(); } }
+        public IEnumerable<string> SubraceList
         {
-            "Barbarian",
-            "Bard",
-            "Cleric",
-            "Druid",
-            "Fighter",
-            "Monk",
-            "Paladin",
-            "Ranger",
-            "Rogue",
-            "Sorcerer",
-            "Warlock",
-            "Wizard",
-            "Eldritch Knight*",
-            "Arcane Trickster*",
-        };
-
-        static private Dictionary<string, CharacterClassType> classMap = new Dictionary<string, CharacterClassType>()
-        {
-            {"Barbarian", CharacterClassType.Barbarian},
-            {"Bard", CharacterClassType.Bard},
-            {"Cleric", CharacterClassType.Cleric},
-            {"Druid", CharacterClassType.Druid},
-            {"Fighter", CharacterClassType.Fighter},
-            {"Monk", CharacterClassType.Monk},
-            {"Paladin", CharacterClassType.Paladin},
-            {"Ranger", CharacterClassType.Ranger},
-            {"Rogue", CharacterClassType.Rogue},
-            {"Sorcerer", CharacterClassType.Sorcerer},
-            {"Warlock", CharacterClassType.Warlock},
-            {"Wizard", CharacterClassType.Wizard},
-            {"Eldritch Knight*", CharacterClassType.EldritchKnight},
-            {"Arcane Trickster*", CharacterClassType.ArcaneTrickster}
-        };
-
-        private List<Race.RaceType> _allRaceTypes = new List<Race.RaceType>()
-        {
-            Race.RaceType.DarkElf,
-            Race.RaceType.Dragonborn,
-            Race.RaceType.Dwarf,
-            Race.RaceType.Elf,
-            Race.RaceType.ForestGnome,
-            Race.RaceType.Gnome,
-            Race.RaceType.HalfElf,
-            Race.RaceType.Halfling,
-            Race.RaceType.HalfOrc,
-            Race.RaceType.HighElf,
-            Race.RaceType.HillDwarf,
-            Race.RaceType.Human,
-            Race.RaceType.Lightheart,
-            Race.RaceType.MountainDwarf,
-            Race.RaceType.RockGnome,
-            Race.RaceType.Stout,
-            Race.RaceType.Tiefling,
-            Race.RaceType.VariantHuman,
-            Race.RaceType.WoodElf
-        };
-
-        public List<Race> RaceList { get; set; }
-
-        private List<CharacterClassItem> levels =  new List<CharacterClassItem>();
-
-        private string _class1 = "";
-        private string _class2 = "";
-        private string _class3 = "";
-        private int _levels1 = 0;
-        private int _levels2 = 0;
-        private int _levels3 = 0;
-
-        public string Class1
-        {
-            get { return _class1; }
-            set
+            get
             {
-                _class1 = value;
-                NotifyPropertyChanged();
-                UpdateNewCharacterCommandCanExecute();
+                if (CharacterRace == null) { return new List<string>(); }
+                return _nameSource.ExtractSubraceNames(CharacterRace);
             }
         }
-        public string Class2
+
+        private string _characterClass = "";
+
+        private int _level = 0;
+
+        public string CharacterClass
         {
-            get { return _class2; }
+            get { return _characterClass; }
             set
             {
-                _class2 = value;
-                NotifyPropertyChanged();
-            }
-        }
-        public string Class3
-        {
-            get { return _class3; }
-            set
-            {
-                _class3 = value;
+                _characterClass = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public int Levels1
+        public int Level
         {
-            get { return _levels1; }
+            get { return _level; }
             set
             {
-                _levels1 = value;
-                NotifyPropertyChanged();
-                UpdateNewCharacterCommandCanExecute();
-            }
-        }
-        public int Levels2
-        {
-            get { return _levels2; }
-            set
-            {
-                _levels2 = value;
-                NotifyPropertyChanged();
-            }
-        }
-        public int Levels3
-        {
-            get { return _levels3; }
-            set
-            {
-                _levels3 = value;
+                _level = value;
                 NotifyPropertyChanged();
             }
         }
@@ -154,55 +62,28 @@ namespace ICSheet5e.ViewModels
 
         public ICommand StartNewCharacterCommand
         {
-            get { return new Views.DelegateCommand<object>(StartNewCharacterCommandExecuted); }
+            get { return new Views.DelegateCommand<object>(StartNewCharacterCommandExecuted, NewCharacterCommandCanExecute); }
         }
 
         private void StartNewCharacterCommandExecuted(object sender)
         {
-            var c1 = new CharacterClassItem(classMap[_class1], _levels1);
-            levels.Add(c1);
-            if (!string.IsNullOrEmpty(_class2) && _levels2 != 0)
-            { 
-                var c2 = new CharacterClassItem(classMap[_class2], _levels2);
-                levels.Add(c2);
-            }
-            if (!string.IsNullOrEmpty(_class3) && _levels3 != 0)
-            {
-                var c3 = new CharacterClassItem(classMap[_class3], _levels3);
-                levels.Add(c3);
-            }
-
-            if (delegateAction != null)
-            {
-                delegateAction(CharacterName, CharacterRace, levels);
-            }
-
-        }
-
-        public bool CanExecute
-        {
-            get
-            {
-                return _canExecute;
-            }
-            set
-            {
-                _canExecute = value;
-                NotifyPropertyChanged();
-            }
+            var raceData = new Tuple<string, string>(CharacterRace, CharacterSubrace);
+            var classesAndLevels = new Dictionary<string, int>() { { CharacterClass, Level } };
+            delegateAction?.Invoke(CharacterName, raceData, classesAndLevels);
         }
 
         private bool _canExecute = false;
-        private void UpdateNewCharacterCommandCanExecute()
+        private bool NewCharacterCommandCanExecute(object sender)
         {
+            if (sender == null) { return false; }
             bool canExecute = true;
             canExecute = canExecute && (CharacterName != null);
             canExecute = canExecute && (CharacterRace != null);
-            canExecute = canExecute && (_levels1 != 0);
-            canExecute = canExecute && !string.IsNullOrEmpty(_class1);
-            CanExecute = canExecute;
+            canExecute = canExecute && (_level != 0);
+            canExecute = canExecute && !string.IsNullOrEmpty(_characterClass);
+            return canExecute;
         }
 
-        public Action<string, Race, IEnumerable<CharacterClassItem>> delegateAction { get; set; }
+        public Action<string, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
     }
 }

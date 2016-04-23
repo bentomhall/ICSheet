@@ -1,43 +1,67 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ICSheetCore;
+using System.Windows.Input;
 
 namespace ICSheet5e.ViewModels
 {
     public class IndividualSkillViewModel: BaseViewModel
     {
-        public bool IsProficient 
+        public IndividualSkillViewModel(string name, int bonus)
         {
-            get { return Skill.IsTagged; }
-            set
-            {
-                Skill.IsTagged = value;
-                delegateProficiencyChanged(Skill);
-                NotifyPropertyChanged();
+            _bonus = bonus;
+            Name = name;
+        }
 
+        public string Proficiency 
+        {
+            get
+            {
+                switch(proficiency)
+                {
+                    case ProficiencyType.Expertise:
+                        return "2x";
+                    case ProficiencyType.Full:
+                        return "1x";
+                    case ProficiencyType.Half:
+                        return "1/2x";
+                    case ProficiencyType.None:
+                        return "--";
+                }
+                return "--";
             }
         }
-        public string Name { get { return Skill.Name; } }
+        public string Name { get; private set; }
 
         public int Bonus
         {
-            get { return Skill.Bonus; }
+            get { return _bonus; }
             set
             {
-                Skill.Bonus = value;
+                _bonus = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public Skill5e Skill { get; set; }
-        public Action<Skill5e> delegateProficiencyChanged;
+        public Action<IndividualSkillViewModel, ProficiencyType> delegateProficiencyChanged;
 
         public string FullDescription
         {
             get { return Name; }
         }
+
+        public ICommand ToggleProficiency
+        {
+            get { return new Views.DelegateCommand<object>(ToggleProficiencyCommandExecuted); }
+        }
+
+        private void ToggleProficiencyCommandExecuted(object obj)
+        {
+            proficiency = (ProficiencyType)((int)((proficiency) + 1) % 4);
+            delegateProficiencyChanged?.Invoke(this, proficiency);
+            NotifyPropertyChanged("Proficiency");
+        }
+
+        private int _bonus;
+        private ProficiencyType proficiency;
     }
 }

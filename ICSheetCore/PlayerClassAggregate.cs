@@ -98,7 +98,7 @@ namespace ICSheetCore
                 var features = new List<IFeature>();
                 foreach (var c in _playerClasses)
                 {
-                    features.AddRange(c.Features);
+                    features.AddRange(c.Features.Where(x => x.StartsFromLevel < c.Level));
                 }
                 features.AddRange(_customFeatures);
                 return features;
@@ -184,6 +184,24 @@ namespace ICSheetCore
         internal void UnprepareSpell(string spellName, string asClass)
         {
             _spellcastingAggregate.UnprepareSpell(spellName, asClass);
+        }
+
+        internal int MovementSpeed(IInventoryDataSource inventory)
+        {
+            var armorType = (inventory.EquippedItemForSlot(ItemSlot.Armor) as ArmorItem).ArmorClassType;
+            var hasShield = inventory.EquippedItemForSlot(ItemSlot.Offhand) as ArmorItem != null;
+            return _playerClasses.Max(x => x.speedBonus(armorType, hasShield));
+        }
+
+        internal int InitiativeBonus(IAbilityDataSource abilities)
+        {
+            var hasBonus = _playerClasses.Count(x => x.HasFeature("Jack of All Trades")) > 0;
+            return abilities.AbilityModifierFor(AbilityType.Dexterity) + (hasBonus ? ProficiencyBonus / 2 : 0);
+        }
+
+        internal IDictionary<string, int> Levels
+        {
+            get { return _playerClasses.ToDictionary(x => x.Name, x => x.Level); }
         }
     }
 
