@@ -12,18 +12,18 @@ namespace ICSheet5e.ViewModels
         private SpellManager spellDB;
         private List<Spell> _allSpells = new List<Spell>();
 
-        public AddNewSpellViewModel(SpellManager dB)
+        public AddNewSpellViewModel(SpellManager dB, IEnumerable<string> classNames)
         {
             spellDB = dB;
-            loadSpells();
+            loadSpells(classNames);
         }
 
-        private void loadSpells()
+        private void loadSpells(IEnumerable<string> names)
         {
-            foreach (var typeName in Enum.GetNames(typeof(CharacterClassType)))
+            foreach (var typeName in names)
             {
-                var type = (CharacterClassType)Enum.Parse(typeof(CharacterClassType), typeName);
-                foreach (var spellName in spellDB.SpellNamesFor(type))
+ 
+                foreach (var spellName in spellDB.SpellNamesFor(typeName))
                 {
                     if (_allSpells.SingleOrDefault(x => x.Name == spellName) == null)
                     {

@@ -10,15 +10,17 @@ namespace ICSheet5e.ViewModels
     //TODO: needs significant surgery
     public class SpellBookViewModel : BaseViewModel
     {
-        public SpellBookViewModel(PlayerCharacter caster, SpellManager dB)
+        public SpellBookViewModel(PlayerCharacter caster, SpellManager dB, XMLFeatureFactory classNamesSource)
         {
             _caster = caster;
             _dB = dB;
+            _classNamesSource = classNamesSource;
             LoadAllSpells();
             _spellsForSelectedLevel = spellViewModelsForLevel(0);
             reconcilePreparedSpells();
         }
 
+        private XMLFeatureFactory _classNamesSource;
         private void reconcilePreparedSpells()
         {
             var master = _caster.PreparedSpells;
@@ -149,7 +151,7 @@ namespace ICSheet5e.ViewModels
         private void LearnNewSpellCommandExecuted(object obj)
         {
             var type = Views.WindowManager.DialogType.AddNewSpellsDialog;
-            var model = new AddNewSpellViewModel(_dB);
+            var model = new AddNewSpellViewModel(_dB, _classNamesSource.ExtractClassNames());
             Views.WindowManager.DisplayDialog(type, model, AddNewSpellDelegate);
         }
 
