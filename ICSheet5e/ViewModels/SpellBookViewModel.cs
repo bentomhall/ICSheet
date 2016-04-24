@@ -16,7 +16,6 @@ namespace ICSheet5e.ViewModels
             _dB = dB;
             _classNamesSource = classNamesSource;
             LoadAllSpells();
-            _spellsForSelectedLevel = spellViewModelsForLevel(0);
             reconcilePreparedSpells();
             _spellcastingClasses = _caster.SpellcastingClasses;
 
@@ -40,7 +39,7 @@ namespace ICSheet5e.ViewModels
         {
             get
             {
-                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Level == _selectedLevel));
+                return new ObservableCollection<Spell>(_caster.KnownSpells.Where(x => x.Level == _selectedLevel));
             }
         }
 
@@ -71,7 +70,6 @@ namespace ICSheet5e.ViewModels
             {
                 _selectedLevel = value;
                 NotifyPropertyChanged();
-                _spellsForSelectedLevel = spellViewModelsForLevel(value);
                 NotifyPropertyChanged("AllSpells");
             }
         }
@@ -103,16 +101,12 @@ namespace ICSheet5e.ViewModels
             if (model is AddNewSpellViewModel)
             {
                 var spell = (model as AddNewSpellViewModel).SpellToLearn;
-                _caster.Learn(spell.Name, _spellcastingClasses.First()); //wrong
-                var vm = new SpellViewModel(spell);
-                vm.SpellKnown = true;
-                _allSpellModels.Add(vm);
+                _caster.Learn(spell.Name, _spellcastingClasses.First());
                 _allSpells.Add(spell);
                 NotifyPropertyChanged("AllSpells");
             }
         }
 
-        private List<SpellViewModel> _allSpellModels = new List<SpellViewModel>();
         private List<Spell> _allSpells = new List<Spell>();
         private PlayerCharacter _caster;
         private SpellManager _dB;
@@ -168,24 +162,21 @@ namespace ICSheet5e.ViewModels
         private void LoadAllSpells()
         {
             _allSpells.AddRange(_caster.KnownSpells);
-            foreach (var spell in _allSpells)
-            {
-                var vm = new SpellViewModel(spell);
-                vm.SpellKnown = true;
-                _allSpellModels.Add(vm);
-            }
         }
 
-        private ObservableCollection<SpellViewModel> spellViewModelsForLevel(int level)
-        {
-            return new ObservableCollection<SpellViewModel>(_allSpellModels.Where(x => x.Level == level));
-        }
 
         private void ToggleSpellPreparationExecuted(object obj)
         {
             var spell = SelectedSpell;
-
-            _caster.Prepare(spell.Name, _spellcastingClasses.First());
+            if (spell.IsPrepared)
+            {
+                _caster.Unprepare(spell.Name, _spellcastingClasses.First());
+            }
+            else
+            {
+                _caster.Prepare(spell.Name, _spellcastingClasses.First());
+            }
+            
             NotifyPropertyChanged("AllSpells");
             NotifyPropertyChanged("IsPrepared");
         }
