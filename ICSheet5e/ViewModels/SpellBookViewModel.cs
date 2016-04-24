@@ -127,8 +127,6 @@ namespace ICSheet5e.ViewModels
             "Level 9"
         };
 
-        private ObservableCollection<SpellViewModel> _spellsForSelectedLevel;
-
         private void CastSpellCommandExecuted(object obj)
         {
             if (_selectedLevel == 0)
@@ -155,7 +153,7 @@ namespace ICSheet5e.ViewModels
         private void LearnSpellCommandExecuted(object obj)
         {
             var spell = SelectedSpell;
-            _caster.Learn(spell.Name, _spellcastingClasses.First());
+            _caster.Learn(spell.Name, spell.InSpellbook);
             NotifyPropertyChanged("SpellKnown");
         }
 
@@ -170,11 +168,11 @@ namespace ICSheet5e.ViewModels
             var spell = SelectedSpell;
             if (spell.IsPrepared)
             {
-                _caster.Unprepare(spell.Name, _spellcastingClasses.First());
+                _caster.Unprepare(spell.Name, spell.InSpellbook);
             }
             else
             {
-                _caster.Prepare(spell.Name, _spellcastingClasses.First());
+                _caster.Prepare(spell.Name, spell.InSpellbook);
             }
             
             NotifyPropertyChanged("AllSpells");

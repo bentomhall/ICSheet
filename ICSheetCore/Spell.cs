@@ -38,6 +38,23 @@ namespace ICSheetCore
         [DataMember]
         public string Duration { get; set; }
 
+        [DataMember]
+        public string InSpellbook { get; set; }
+
+        [DataMember]
+        public bool IsBonusSpell { get; set; }
+
+        public string PreparationStatus
+        {
+            get
+            {
+                if (IsBonusSpell) { return "D"; }
+                if (IsPrepared) { return "\u2714"; }
+                else { return "--"; }
+
+            }
+        }
+
         public override string ToString()
         {
             return Name;

@@ -9,10 +9,11 @@
              d:DesignHeight="900" d:DesignWidth="900" Background="White">
     <UserControl.Resources>
         <DataTemplate x:Key="SpellItemTemplate">
-            <Border BorderBrush="Black" BorderThickness="0,1,0,0">
+            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
                 <StackPanel Orientation="Horizontal">
-                    <Button MinWidth="25" Content="{Binding Path=IsPrepared}" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
-                    <Label MinWidth="150" Content="{Binding Path=Name}" HorizontalContentAlignment="Center"/>
+                    <Button MinWidth="50" Content="{Binding Path=PreparationStatus}" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
+                    <Label MinWidth="250" Content="{Binding Path=Name}" HorizontalContentAlignment="Center"/>
+                    <Label MinWidth="200" Content="{Binding Path=InSpellbook}" />
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -28,16 +29,9 @@
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
         <StackPanel Grid.Row="1">
-        <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" MinHeight="600">
-            <ListView.Resources>
-                <ContextMenu x:Key="SpellContextMenu">
-                    <MenuItem Header="Toggle Prepared" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
-                    <!--<MenuItem Header="Learn Spell" Command="{Binding Path=DataContext.LearnSpellCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
-                --></ContextMenu>
-            </ListView.Resources>
-            <ListView.ItemContainerStyle>
+            <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" MinHeight="600">
+                <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="ContextMenu" Value="{StaticResource SpellContextMenu}"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="IsSelected" Value="True"/>

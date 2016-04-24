@@ -17,10 +17,13 @@ namespace ICSheetCore
         private List<Spell> _allSpells = new List<Spell>();
         [DataMember]
         private List<Spell> _knownSpells = new List<Spell>();
+        [DataMember]
+        private string _name;
 
         public SpellBook(SpellManager spellDB, string className, bool isPreparedCaster)
         {
             dB = spellDB;
+            _name = className;
             loadSpells(className, isPreparedCaster);
         }
 
@@ -32,6 +35,7 @@ namespace ICSheetCore
             foreach (var name in spellNames)
             {
                 var spell = dB.SpellDetailsFor(name);
+                spell.InSpellbook = className;
                 _allSpells.Add(spell);
             }
             if (isPrepared) { setKnownSpells(_allSpells); }
@@ -75,6 +79,7 @@ namespace ICSheetCore
             if (!IsSpellKnown(withName))
             {
                 var spell = dB.SpellDetailsFor(withName);
+                spell.InSpellbook = _name;
                 _knownSpells.Add(spell);
             }
         }
