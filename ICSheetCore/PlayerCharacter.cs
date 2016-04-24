@@ -75,6 +75,11 @@ namespace ICSheetCore
             get { return _classAggregate.PreparedSpells; }
         }
 
+        public IEnumerable<Spell> KnownSpells
+        {
+            get { return _classAggregate.KnownSpells; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -511,6 +516,48 @@ namespace ICSheetCore
             var abilities = _abilityAggregate as IAbilityDataSource;
             return abilities.AbilityModifierFor(ability);
         }
+
+
+        #region Serialization
+        /// <summary>
+        /// Collects all data to reconstruct character.
+        /// </summary>
+        /// <returns></returns>
+        public Data.CharacterData ToCharacterData()
+        {
+            var d = new Data.CharacterData();
+            d.Name = _name;
+            d.Alignment = _alignment;
+            d.Background = _background;
+            d.Notes = _notes;
+            d.Experience = Experience;
+            d.AbilityScores = abilityScores();
+            d.RaceInformation = _race.GetInformation();
+            d.ClassLevelInformation = Levels;
+            d.Items = ItemsMatching(x => true);
+            d.EquippedItems = _inventory.GetEquippedItems();
+            d.Cash = Cash;
+            d.CustomFeatures = _classAggregate.CustomFeatures;
+            d.HealthInformation = new Tuple<int, int, int>(_health.CurrentHealth, _health.MaxHealth, _health.TemporaryHP);
+            d.KnownSpells = KnownSpells;
+            d.DefenseOverrides = _defenseAggregate.AllDefenseAdjustments;
+            return d;
+
+        }
+
+        private IDictionary<AbilityType, int> abilityScores()
+        {
+            var abilities = new Dictionary<AbilityType, int>();
+            abilities[AbilityType.Strength] = AbilityScoreFor(AbilityType.Strength);
+            abilities[AbilityType.Dexterity] = AbilityScoreFor(AbilityType.Dexterity);
+            abilities[AbilityType.Constitution] = AbilityScoreFor(AbilityType.Constitution);
+            abilities[AbilityType.Intelligence] = AbilityScoreFor(AbilityType.Intelligence);
+            abilities[AbilityType.Wisdom] = AbilityScoreFor(AbilityType.Wisdom);
+            abilities[AbilityType.Charisma] = AbilityScoreFor(AbilityType.Charisma);
+            return abilities;
+        }
+
+        #endregion
     }
 
     /// <summary>

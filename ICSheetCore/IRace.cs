@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ICSheetCore
 {
@@ -24,5 +25,6 @@ namespace ICSheetCore
         IEnumerable<IFeature> Features { get; }
 
         void AddFeature(IFeature feature);
+        Tuple<string, string> GetInformation();
     }
 }

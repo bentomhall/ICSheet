@@ -203,6 +203,16 @@ namespace ICSheetCore
         {
             get { return _playerClasses.ToDictionary(x => x.Name, x => x.Level); }
         }
+
+        internal IEnumerable<IFeature> CustomFeatures
+        {
+            get { return _customFeatures; }
+        }
+
+        public IEnumerable<Spell> KnownSpells
+        {
+            get { return _spellcastingAggregate.KnownSpells; }
+        }
     }
 
     internal class ClassInformationChangedEventArgs : EventArgs

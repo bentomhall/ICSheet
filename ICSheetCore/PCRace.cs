@@ -90,5 +90,10 @@ namespace ICSheetCore
         {
             throw new NotImplementedException();
         }
+
+        internal Tuple<string, string> GetInformation()
+        {
+            return new Tuple<string, string>(_baseraceName, _subraceName);
+        }
     }
 }

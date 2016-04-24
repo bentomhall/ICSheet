@@ -88,6 +88,20 @@ namespace ICSheetCore
             return _defenses[defense].Adjustment;
         }
 
+        internal IDictionary<DefenseType, int> AllDefenseAdjustments
+        {
+            get
+            {
+                var d = new Dictionary<DefenseType, int>();
+                foreach (var entry in _defenses)
+                {
+                    d[entry.Key] = entry.Value.Adjustment;
+                }
+                return d;
+            }
+        }
+
+
         internal void ChangeACFromArmor(ArmorItem item, IAbilityDataSource abilities, int baseAC)
         {
             int ac = 10;

@@ -199,5 +199,18 @@ namespace ICSheetCore
             catch (KeyNotFoundException) { return; }
         }
 
+        internal IEnumerable<Spell> KnownSpells
+        {
+            get
+            {
+                var spells = new List<Spell>();
+                foreach (var sb in _spellBooks)
+                {
+                    spells.AddRange(sb.Value.AllKnownSpells);
+                }
+                return spells;
+            }
+        }
+
     }
 }

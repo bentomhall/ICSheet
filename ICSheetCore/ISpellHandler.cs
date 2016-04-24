@@ -13,6 +13,7 @@ namespace ICSheetCore
         bool IsSpellcaster { get; }
         IReadOnlyDictionary<string, int> SpellAttackBonuses { get; }
         IReadOnlyDictionary<string, int> SpellDCs { get; }
+        IEnumerable<Spell> KnownSpells { get; }
     }
 
     interface ISpellcastingDelegate

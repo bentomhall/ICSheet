@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using ICSheetCore.Data;
 
 namespace ICSheetCore
 {
@@ -91,5 +92,83 @@ namespace ICSheetCore
             c.Background = _background ?? "";
             return c;
         }
+
+        #region Deserialization
+        /// <summary>
+        /// Replaces ToPlayerCharacter for restoring from serialization. Same preconditions.
+        /// </summary>
+        /// <param name="dataObject"></param>
+        /// <returns></returns>
+        public PlayerCharacter BuildFromStoredData(CharacterData dataObject)
+        {
+            _alignment = dataObject.Alignment;
+            _background = dataObject.Background;
+            var c = ToPlayerCharacter();
+            c.Notes = dataObject.Notes;
+            c.Experience = dataObject.Experience;
+            setAbilityScores(c, dataObject);
+            setInventory(c, dataObject);
+            setFeatures(c, dataObject);
+            setSpells(c, dataObject);
+            setHealth(c, dataObject);
+            setDefenseOverrides(c, dataObject);
+            return c;
+        }
+
+        private void setDefenseOverrides(PlayerCharacter c, CharacterData dataObject)
+        {
+            foreach (var entry in dataObject.DefenseOverrides)
+            {
+                if (entry.Key == DefenseType.Armor) { c.ArmorClassOverride = entry.Value; }
+                else { c.SetNonACDefenseOverride(entry.Key, entry.Value); }
+            }
+        }
+
+        private void setHealth(PlayerCharacter c, CharacterData dataObject)
+        {
+            c.MaxHealth = dataObject.HealthInformation.Item2;
+            c.HealDamage(dataObject.HealthInformation.Item1);
+            c.AddTHP(dataObject.HealthInformation.Item3);
+        }
+
+        private void setSpells(PlayerCharacter c, CharacterData dataObject)
+        {
+            var spellcastingClass = c.SpellAttackBonuses.Keys.First();
+            foreach (var sp in dataObject.KnownSpells)
+            {
+                c.Learn(sp.Name, spellcastingClass);
+                if (sp.IsPrepared) { c.Prepare(sp.Name, spellcastingClass); }
+            }
+        }
+
+        private void setFeatures(PlayerCharacter c, CharacterData dataObject)
+        {
+            foreach (var f in dataObject.CustomFeatures)
+            {
+                c.AddFeature(f);
+            }
+        }
+
+        private void setInventory(PlayerCharacter c, CharacterData dataObject)
+        {
+            foreach (var item in dataObject.Items)
+            {
+                c.AddItemToInventory(item);
+            }
+            foreach (var entry in dataObject.EquippedItems)
+            {
+                c.Equip(entry.Value);
+            }
+            c.DoGoldTransaction(dataObject.Cash.Total);
+        }
+
+        private void setAbilityScores(PlayerCharacter pc, CharacterData data)
+        {
+            foreach (var entry in data.AbilityScores)
+            {
+                pc.ModifyAbilityScore(entry.Key, entry.Value);
+            }
+        }
+        #endregion
     }
 }

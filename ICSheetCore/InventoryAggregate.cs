@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
+    [DataContract]
     /// <summary>
     /// Represents a sum of money. Automatically converts types
     /// </summary>
@@ -16,6 +18,7 @@ namespace ICSheetCore
         public int Copper { get { return (int)((_cash * 100) % 10); } }
         public int Silver { get { return (int)((_cash * 10) % 10); } }
         public decimal Total { get { return _cash; } }
+        [DataMember]
         private decimal _cash;
 
         /// <summary>
@@ -151,5 +154,10 @@ namespace ICSheetCore
         private WeaponItem _unarmedStrike = new WeaponItem("Unarmed Strike", 0, 0, ItemSlot.Mainhand, false, "", WeaponCategory.SimpleMelee, 0);
         private ArmorItem _clothing = new ArmorItem("Clothing", 0, 0, true, "", ArmorType.None, 0);
         private Money _cash = new Money();
+
+        internal IDictionary<ItemSlot, IItem> GetEquippedItems()
+        {
+            return _equippedItems;
+        }
     }
 }
