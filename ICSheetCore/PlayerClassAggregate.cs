@@ -213,6 +213,11 @@ namespace ICSheetCore
         {
             get { return _spellcastingAggregate.KnownSpells; }
         }
+
+        public IEnumerable<string> SpellcastingClasses
+        {
+            get { return _playerClasses.Where(x => x.HasFeature("Spellcasting")).Select(x => x.Spellcasting.SpellBookName); }
+        }
     }
 
     internal class ClassInformationChangedEventArgs : EventArgs

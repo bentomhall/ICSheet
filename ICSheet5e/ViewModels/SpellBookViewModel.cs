@@ -18,8 +18,11 @@ namespace ICSheet5e.ViewModels
             LoadAllSpells();
             _spellsForSelectedLevel = spellViewModelsForLevel(0);
             reconcilePreparedSpells();
+            _spellcastingClasses = _caster.SpellcastingClasses;
+
         }
 
+        private IEnumerable<string> _spellcastingClasses;
         private XMLFeatureFactory _classNamesSource;
         private void reconcilePreparedSpells()
         {
@@ -100,7 +103,7 @@ namespace ICSheet5e.ViewModels
             if (model is AddNewSpellViewModel)
             {
                 var spell = (model as AddNewSpellViewModel).SpellToLearn;
-                _caster.Learn(spell.Name, "Wizard"); //wrong
+                _caster.Learn(spell.Name, _spellcastingClasses.First()); //wrong
                 var vm = new SpellViewModel(spell);
                 vm.SpellKnown = true;
                 _allSpellModels.Add(vm);
@@ -158,28 +161,19 @@ namespace ICSheet5e.ViewModels
         private void LearnSpellCommandExecuted(object obj)
         {
             var spell = SelectedSpell;
-            _caster.Learn(spell.Name, "Wizard");
+            _caster.Learn(spell.Name, _spellcastingClasses.First());
             NotifyPropertyChanged("SpellKnown");
         }
 
         private void LoadAllSpells()
         {
-            for (int i = 0; i <= 9; i++)
+            _allSpells.AddRange(_caster.KnownSpells);
+            foreach (var spell in _allSpells)
             {
-                LoadSpellsOfLevel(i);
+                var vm = new SpellViewModel(spell);
+                vm.SpellKnown = true;
+                _allSpellModels.Add(vm);
             }
-        }
-
-        private void LoadSpellsOfLevel(int level)
-        {
-            //var spells = _caster.AllSpellsForLevel(level);
-            //foreach (var spell in spells)
-            //{
-            //    var vm = new SpellViewModel(spell);
-            //    if (_caster.IsSpellKnown(spell)) { vm.SpellKnown = true; }
-            //    _allSpellModels.Add(vm);
-            //    _allSpells.Add(spell);
-            //}
         }
 
         private ObservableCollection<SpellViewModel> spellViewModelsForLevel(int level)
@@ -191,7 +185,7 @@ namespace ICSheet5e.ViewModels
         {
             var spell = SelectedSpell;
 
-            _caster.Prepare(spell.Name, "Wizard");
+            _caster.Prepare(spell.Name, _spellcastingClasses.First());
             NotifyPropertyChanged("AllSpells");
             NotifyPropertyChanged("IsPrepared");
         }

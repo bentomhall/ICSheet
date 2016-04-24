@@ -75,9 +75,17 @@ namespace ICSheetCore
             get { return _classAggregate.PreparedSpells; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<Spell> KnownSpells
         {
             get { return _classAggregate.KnownSpells; }
+        }
+
+        public IEnumerable<string> SpellcastingClasses
+        {
+            get { return _classAggregate.SpellcastingClasses; }
         }
 
         /// <summary>
