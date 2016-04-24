@@ -92,7 +92,7 @@ namespace ICSheetCore
 
         internal void IncreaseLevel(string name)
         {
-            var indx = _features.FindIndex(x => x.Name == name);
+            var indx = _features.FindIndex(x => x.SpellBookName == name);
             _levels[indx] += 1;
             setSpellSlots(_levels);
         }
@@ -101,7 +101,7 @@ namespace ICSheetCore
         {
             var s = feature as ISpellcastingFeature;
             if (s == null) { throw new ArgumentException($"Must be spellcasting feature: Got {feature.Name}"); }
-            _spellBooks[feature.Name] = new SpellBook(_spellDB, feature.Name, s.IsPreparedCaster);
+            _spellBooks[s.SpellBookName] = new SpellBook(_spellDB, s.SpellBookName, s.IsPreparedCaster);
             _features.Add(s);
             _levels.Add(1);
             setSpellSlots(_levels);

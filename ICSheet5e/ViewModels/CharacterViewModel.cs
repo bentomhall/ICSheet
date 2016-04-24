@@ -22,7 +22,9 @@ namespace ICSheet5e.ViewModels
             Parent = parent;
             Parent.PropertyChanged += ParentEditingPropertyChanged;
             Attacks = new ObservableCollection<AttackViewModel>();
-            Attacks.Add(attackModelFor(null));
+            Attacks.Add(attackModelFor(c.EquippedItemForSlot(ItemSlot.Mainhand)));
+            var oh = c.EquippedItemForSlot(ItemSlot.Offhand) as WeaponItem;
+            if (oh != null) { Attacks.Add(attackModelFor(oh)); }
             //character.PropertyChanged += ParentEditingPropertyChanged;
         }
 
@@ -502,7 +504,18 @@ namespace ICSheet5e.ViewModels
             Skills = new ObservableCollection<IndividualSkillViewModel>();
             foreach (var name in names)
             {
-                var proficiency = character.SkillProficiencies[name];
+                ProficiencyType proficiency;
+                try { proficiency = character.SkillProficiencies[name]; }
+                catch (NullReferenceException)
+                {
+                    character.SkillProficiencies = new Dictionary<string, ProficiencyType>();
+                    proficiency = ProficiencyType.None;
+                }
+                catch (KeyNotFoundException)
+                {
+                    character.SkillProficiencies[name] = ProficiencyType.None;
+                    proficiency = ProficiencyType.None;
+                }
                 var bonus = character.SkillBonusFor(name, proficiency);
                 IndividualSkillViewModel skillVM = new IndividualSkillViewModel(name, bonus, proficiency);
                 skillVM.delegateProficiencyChanged = SkillProficiencyChanged;

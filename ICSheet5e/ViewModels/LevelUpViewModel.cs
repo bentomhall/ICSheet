@@ -26,7 +26,7 @@ namespace ICSheet5e.ViewModels
                 var level = (entry.Key == newClass) ? entry.Value + 1: entry.Value;
                 s.Add($"{entry.Key} {level}");
             }
-            if (!currentLevels.Keys.Contains(newClass))
+            if ( !string.IsNullOrWhiteSpace(newClass) && !currentLevels.Keys.Contains(newClass))
             {
                 s.Add($"{newClass} 1");
             }

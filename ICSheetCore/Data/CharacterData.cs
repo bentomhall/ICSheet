@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace ICSheetCore.Data
 {
-    [DataContract]
+    [DataContract, KnownType(typeof(ArmorItem)), KnownType(typeof(WeaponItem))]
     public class CharacterData
     {
         [DataMember]

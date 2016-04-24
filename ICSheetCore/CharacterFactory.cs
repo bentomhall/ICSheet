@@ -120,6 +120,7 @@ namespace ICSheetCore
 
         private void setSkillProficiencies(PlayerCharacter c, CharacterData dataObject)
         {
+            c.SkillProficiencies = new Dictionary<string, ProficiencyType>();
             foreach (var entry in dataObject.Skills)
             {
                 c.SkillProficiencies[entry.Key] = entry.Value;
