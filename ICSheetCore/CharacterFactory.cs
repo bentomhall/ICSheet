@@ -95,12 +95,14 @@ namespace ICSheetCore
 
         #region Deserialization
         /// <summary>
-        /// Replaces ToPlayerCharacter for restoring from serialization. Same preconditions.
+        /// Replaces ToPlayerCharacter for restoring from serialization. No preconditions--the needed information is constructed from the stored data.
         /// </summary>
         /// <param name="dataObject"></param>
         /// <returns></returns>
         public PlayerCharacter BuildFromStoredData(CharacterData dataObject)
         {
+            AssignRace(dataObject.RaceInformation.Item1, dataObject.RaceInformation.Item2);
+            AssignClassLevels(dataObject.ClassLevelInformation);
             _alignment = dataObject.Alignment;
             _background = dataObject.Background;
             var c = ToPlayerCharacter();
@@ -112,7 +114,16 @@ namespace ICSheetCore
             setSpells(c, dataObject);
             setHealth(c, dataObject);
             setDefenseOverrides(c, dataObject);
+            setSkillProficiencies(c, dataObject);
             return c;
+        }
+
+        private void setSkillProficiencies(PlayerCharacter c, CharacterData dataObject)
+        {
+            foreach (var entry in dataObject.Skills)
+            {
+                c.SkillProficiencies[entry.Key] = entry.Value;
+            }
         }
 
         private void setDefenseOverrides(PlayerCharacter c, CharacterData dataObject)

@@ -338,6 +338,9 @@ namespace ICSheetCore
             get { return _classAggregate.InitiativeBonus(_abilityAggregate); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IDictionary<string, int> Levels
         {
             get { return _classAggregate.Levels; }
@@ -412,6 +415,14 @@ namespace ICSheetCore
                     break;
             }
             return _skillAggregate.SkillBonusFor(skillName, _abilityAggregate, p);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IDictionary<string, ProficiencyType> SkillProficiencies
+        {
+            get; set;
         }
         
         /// <summary>
@@ -541,6 +552,7 @@ namespace ICSheetCore
             d.HealthInformation = new Tuple<int, int, int>(_health.CurrentHealth, _health.MaxHealth, _health.TemporaryHP);
             d.KnownSpells = KnownSpells;
             d.DefenseOverrides = _defenseAggregate.AllDefenseAdjustments;
+            d.Skills = SkillProficiencies;
             return d;
 
         }

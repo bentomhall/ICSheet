@@ -6,10 +6,11 @@ namespace ICSheet5e.ViewModels
 {
     public class IndividualSkillViewModel: BaseViewModel
     {
-        public IndividualSkillViewModel(string name, int bonus)
+        public IndividualSkillViewModel(string name, int bonus, ProficiencyType proficiencyType)
         {
             _bonus = bonus;
             Name = name;
+            proficiency = proficiencyType;
         }
 
         public string Proficiency 

@@ -490,6 +490,7 @@ namespace ICSheet5e.ViewModels
         public void SkillProficiencyChanged(IndividualSkillViewModel sender, ProficiencyType proficiency)
         {
             sender.Bonus = character.SkillBonusFor(sender.Name, proficiency);
+            character.SkillProficiencies[sender.Name] = proficiency;
         }
 
         private ObservableCollection<bool> _proficientSkills = new ObservableCollection<bool>();
@@ -501,8 +502,9 @@ namespace ICSheet5e.ViewModels
             Skills = new ObservableCollection<IndividualSkillViewModel>();
             foreach (var name in names)
             {
-                var bonus = character.SkillBonusFor(name, ProficiencyType.None);
-                IndividualSkillViewModel skillVM = new IndividualSkillViewModel(name, bonus);
+                var proficiency = character.SkillProficiencies[name];
+                var bonus = character.SkillBonusFor(name, proficiency);
+                IndividualSkillViewModel skillVM = new IndividualSkillViewModel(name, bonus, proficiency);
                 skillVM.delegateProficiencyChanged = SkillProficiencyChanged;
                 skillVM.Parent = Parent;
                 Skills.Add(skillVM);

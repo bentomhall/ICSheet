@@ -161,28 +161,27 @@ namespace ICSheet5e.ViewModels
 
         public void OpenCommandExecute(object sender)
         {
-            //var location = Views.WindowManager.SelectExistingFile();
-            //if (location == null) { return; } //user canceled open dialog
-            //var serializer = new DataContractSerializer(typeof(Character));
-            //System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
-            //var c = (Character)serializer.ReadObject(reader);
-            //reader.Close();
-            //currentCharacter = c;
-            //currentCharacter.ItemDB = itemDB;
-            //currentCharacter.SpellDB = spellDB;
-            //setViewModels();
+            var location = Views.WindowManager.SelectExistingFile();
+            if (location == null) { return; } //user canceled open dialog
+            var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
+            System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
+            var cData = (ICSheetCore.Data.CharacterData)serializer.ReadObject(reader);
+            reader.Close();
+            var builder = new CharacterFactory(cData.Name, spellDB, featureFactory);
+            currentCharacter = builder.BuildFromStoredData(cData);
+            setViewModels();
         }
 
         
         public void SaveCommandExecuted(object sender)
         {
-            //if (!IsCharacterInitialized) return;
-            //var saveLocation = Views.WindowManager.SelectSaveLocation();
-            //if (saveLocation == null) { return; } //user canceled save dialog
-            //var serializer = new DataContractSerializer(typeof(Character));
-            //System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
-            //serializer.WriteObject(stream, currentCharacter);
-            //stream.Close();
+            if (!IsCharacterInitialized) return;
+            var saveLocation = Views.WindowManager.SelectSaveLocation();
+            if (saveLocation == null) { return; } //user canceled save dialog
+            var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
+            System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
+            serializer.WriteObject(stream, currentCharacter.ToCharacterData());
+            stream.Close();
         }
 
         public bool SaveCommandCanExecute(object sender)
