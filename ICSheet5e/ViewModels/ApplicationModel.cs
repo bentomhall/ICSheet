@@ -206,6 +206,8 @@ namespace ICSheet5e.ViewModels
             if (currentCharacter != null)
             {
                 currentCharacter.TakeLongRest();
+                NotifyPropertyChanged("AvailableSpellSlots");
+                NotifyPropertyChanged("CurrentHealth");
             }
         }
 

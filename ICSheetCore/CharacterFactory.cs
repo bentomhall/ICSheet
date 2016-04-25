@@ -115,7 +115,23 @@ namespace ICSheetCore
             setHealth(c, dataObject);
             setDefenseOverrides(c, dataObject);
             setSkillProficiencies(c, dataObject);
+            setSpellSlots(c, dataObject);
             return c;
+        }
+
+        private void setSpellSlots(PlayerCharacter c, CharacterData dataObject)
+        {
+            var savedSlots = dataObject.CurrentSpellSlots.ToList();
+            var maxSlots = c.SpellSlots.ToList();
+            for (var ii = 0; ii < 9; ii++)
+            {
+                if (maxSlots[ii] == 0) { continue; } //no point in working when there are no slots for that level. Single-caster warlocks only have one spell level, so can't break the loop here.
+                while (maxSlots[ii] > savedSlots[ii])
+                {
+                    c.UseSpellSlot(ii + 1);
+                    maxSlots[ii] -= 1;
+                } //slots are 1 indexed, list is 0 indexed.
+            }
         }
 
         private void setSkillProficiencies(PlayerCharacter c, CharacterData dataObject)

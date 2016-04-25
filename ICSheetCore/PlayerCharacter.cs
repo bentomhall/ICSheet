@@ -360,7 +360,7 @@ namespace ICSheetCore
         /// </summary>
         public int Movement
         {
-            get { return _classAggregate.MovementSpeed(this); }
+            get { return _classAggregate.MovementSpeed(this) + _race.BaseMovement; }
         }
 
         /// <summary>
@@ -562,6 +562,7 @@ namespace ICSheetCore
             d.KnownSpells = KnownSpells;
             d.DefenseOverrides = _defenseAggregate.AllDefenseAdjustments;
             d.Skills = SkillProficiencies;
+            d.CurrentSpellSlots = SpellSlots;
             return d;
 
         }

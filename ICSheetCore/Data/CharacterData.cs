@@ -54,5 +54,8 @@ namespace ICSheetCore.Data
 
         [DataMember]
         public IDictionary<string, ProficiencyType> Skills{ get; set;}
+
+        [DataMember]
+        public IEnumerable<int> CurrentSpellSlots { get; set; }
     }
 }
