@@ -24,7 +24,7 @@ namespace ICSheet5e.ViewModels
             {
                 foreach (var spellName in spellDB.SpellNamesFor(typeName))
                 {
-                    if (_allSpells.SingleOrDefault(x => x.Name == spellName) == null)
+                    if (_allSpells.SingleOrDefault(x => x.Name.Equals(spellName, StringComparison.CurrentCultureIgnoreCase)) == null)
                     {
                         _allSpells.Add(spellDB.SpellDetailsFor(spellName));
                     }
@@ -43,10 +43,15 @@ namespace ICSheet5e.ViewModels
         {
             get {
                 if (SearchString == null) { return new ObservableCollection<Spell>(_allSpells); }
-                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Name.Contains(SearchString))); 
+                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Name.ToLower().Contains(SearchString.ToLower()))); 
             
             }
         }
+
+        public bool IsBonusSpell { get; set; }
+
+        public List<string> CastingClasses { get; set; }
+        public string SelectedClass { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand FindMatchingSpellsCommand

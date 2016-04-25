@@ -128,9 +128,10 @@ namespace ICSheetCore
         /// </summary>
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
-        public void Learn(string spellName, string asClass)
+        /// <param name="isBonus"></param>
+        public void Learn(string spellName, string asClass, bool isBonus)
         {
-            _classAggregate.LearnSpell(spellName, asClass);
+            _classAggregate.LearnSpell(spellName, asClass, isBonus);
         }
 
         /// <summary>

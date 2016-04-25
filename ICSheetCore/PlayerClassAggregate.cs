@@ -166,9 +166,9 @@ namespace ICSheetCore
             return _playerClasses.Max(x => x.BaseArmorClass(abilities, armorWeight, hasShield));
         }
 
-        internal void LearnSpell(string spellName, string asClass)
+        internal void LearnSpell(string spellName, string asClass, bool isBonus)
         {
-            _spellcastingAggregate.LearnSpell(spellName, asClass);
+            _spellcastingAggregate.LearnSpell(spellName, asClass, isBonus);
         }
 
         internal void UnlearnSpell(string spellName, string asClass)

@@ -67,5 +67,18 @@ namespace ICSheetCore
                 return string.Format("Level: {0}\r\nCast Time: {1}\r\nRange: {2}\r\n{3}", Level, CastTime, Range, Description);
             }
         }
+
+        /// <summary>
+        /// Creates a copy that shares all the same details except for the associate spellbook (InSpellbook) and the preparation status flags (IsBonusSpell and IsPrepared)
+        /// </summary>
+        /// <returns></returns>
+        public Spell DeepCopyInvariants()
+        {
+            var s = (Spell)MemberwiseClone();
+            s.InSpellbook = "";
+            s.IsBonusSpell = false;
+            s.IsPrepared = false;
+            return s;
+        }
     }
 }

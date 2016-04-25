@@ -74,12 +74,14 @@ namespace ICSheetCore
             if (!IsSpellKnown(spell)) { _knownSpells.Add(spell); }
         }
 
-        public void AddKnownSpell(string withName)
+        public void AddKnownSpell(string withName, bool isBonus)
         {
             if (!IsSpellKnown(withName))
             {
                 var spell = dB.SpellDetailsFor(withName);
                 spell.InSpellbook = _name;
+                spell.IsBonusSpell = isBonus;
+                if (isBonus) { spell.IsPrepared = true; }
                 _knownSpells.Add(spell);
             }
         }

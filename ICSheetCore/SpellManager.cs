@@ -68,6 +68,7 @@ namespace ICSheetCore
 
         public IEnumerable<string> SpellNamesFor(string className)
         {
+            if (!classNameSpellsMap.ContainsKey(className.ToLower())) { return new List<string>(); }
             return classNameSpellsMap[className.ToLower()];
         }
 
@@ -75,7 +76,7 @@ namespace ICSheetCore
         {
             if (hasSpellDetails(spellName))
             {
-                return _spellDetails.Single(x => x.Name == spellName);
+                return _spellDetails.Single(x => x.Name == spellName).DeepCopyInvariants();
             }
             else
             {

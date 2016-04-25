@@ -148,7 +148,7 @@ namespace ICSheetCore
             var spellcastingClass = c.SpellAttackBonuses.Keys.First();
             foreach (var sp in dataObject.KnownSpells)
             {
-                c.Learn(sp.Name, spellcastingClass);
+                c.Learn(sp.Name, spellcastingClass, false);
                 if (sp.IsPrepared) { c.Prepare(sp.Name, spellcastingClass); }
             }
         }

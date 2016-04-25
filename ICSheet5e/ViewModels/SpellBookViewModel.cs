@@ -15,25 +15,25 @@ namespace ICSheet5e.ViewModels
             _caster = caster;
             _dB = dB;
             _classNamesSource = classNamesSource;
-            LoadAllSpells();
-            reconcilePreparedSpells();
+            //LoadAllSpells();
+            //reconcilePreparedSpells();
             _spellcastingClasses = _caster.SpellcastingClasses;
 
         }
 
         private IEnumerable<string> _spellcastingClasses;
         private XMLFeatureFactory _classNamesSource;
-        private void reconcilePreparedSpells()
-        {
-            var master = _caster.PreparedSpells;
-            foreach (var s in _allSpells)
-            {
-                if (master.Count(x => x.Name == s.Name) != 0)
-                {
-                    s.IsPrepared = true;
-                }
-            }
-        }
+        //private void reconcilePreparedSpells()
+        //{
+        //    var master = _caster.PreparedSpells;
+        //    foreach (var s in _allSpells)
+        //    {
+        //        if (master.Count(x => x.Name == s.Name) != 0)
+        //        {
+        //            s.IsPrepared = true;
+        //        }
+        //    }
+        //}
 
         public ObservableCollection<Spell> AllSpells
         {
@@ -100,14 +100,15 @@ namespace ICSheet5e.ViewModels
         {
             if (model is AddNewSpellViewModel)
             {
-                var spell = (model as AddNewSpellViewModel).SpellToLearn;
-                _caster.Learn(spell.Name, _spellcastingClasses.First());
-                _allSpells.Add(spell);
+                var vm = model as AddNewSpellViewModel;
+                var spell = vm.SpellToLearn;
+                _caster.Learn(spell.Name, vm.SelectedClass, vm.IsBonusSpell);
+                //_allSpells.Add(spell);
                 NotifyPropertyChanged("AllSpells");
             }
         }
 
-        private List<Spell> _allSpells = new List<Spell>();
+        //private List<Spell> _allSpells = new List<Spell>();
         private PlayerCharacter _caster;
         private SpellManager _dB;
         private int _selectedLevel = 0;
@@ -147,20 +148,22 @@ namespace ICSheet5e.ViewModels
         {
             var type = Views.WindowManager.DialogType.AddNewSpellsDialog;
             var model = new AddNewSpellViewModel(_dB, _classNamesSource.ExtractClassNames());
+            model.CastingClasses = _spellcastingClasses.ToList();
+            model.SelectedClass = _spellcastingClasses.First();
             Views.WindowManager.DisplayDialog(type, model, AddNewSpellDelegate);
         }
 
         private void LearnSpellCommandExecuted(object obj)
         {
             var spell = SelectedSpell;
-            _caster.Learn(spell.Name, spell.InSpellbook);
+            _caster.Learn(spell.Name, spell.InSpellbook, false);
             NotifyPropertyChanged("SpellKnown");
         }
 
-        private void LoadAllSpells()
-        {
-            _allSpells.AddRange(_caster.KnownSpells);
-        }
+        //private void LoadAllSpells()
+        //{
+        //    _allSpells.AddRange(_caster.KnownSpells);
+        //}
 
 
         private void ToggleSpellPreparationExecuted(object obj)

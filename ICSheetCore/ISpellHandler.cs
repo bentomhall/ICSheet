@@ -19,7 +19,7 @@ namespace ICSheetCore
     interface ISpellcastingDelegate
     {
         void UseSpellSlot(int level);
-        void Learn(string spellName, string asClass);
+        void Learn(string spellName, string asClass, bool isBonus);
         void Prepare(string spellName, string asClass);
         void Unprepare(string spellName, string asClass);
         void Unlearn(string spellName, string asClass);

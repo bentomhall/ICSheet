@@ -159,12 +159,12 @@ namespace ICSheetCore
             return output;
         }
 
-        internal void LearnSpell(string spellName, string asClass)
+        internal void LearnSpell(string spellName, string asClass, bool isBonusSpell)
         {
             try
             {
                 var sb = _spellBooks[asClass];
-                sb.AddKnownSpell(spellName);
+                sb.AddKnownSpell(spellName, isBonusSpell);
             }
             catch (KeyNotFoundException) { return; }
         }
