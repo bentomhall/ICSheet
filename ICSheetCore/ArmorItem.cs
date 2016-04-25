@@ -54,6 +54,7 @@ namespace ICSheetCore
         None,
         Light,
         Medium,
-        Heavy
+        Heavy,
+        Shield
     }
 }

@@ -55,7 +55,6 @@
     <Feature Name="Weapon Proficiencies">Simple</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
     <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
-    <Feature Name="Ritual Casting">Can cast prepared Cleric ritual spells as rituals</Feature>
     <Feature Name="Spellcasting">
       <CastingType>Full</CastingType>
       <IsPreparedCaster>True</IsPreparedCaster>

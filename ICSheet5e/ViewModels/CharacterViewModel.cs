@@ -291,7 +291,6 @@ namespace ICSheet5e.ViewModels
 
         private void CastSpellCommandExecuted(object obj)
         {
-            if (SelectedPreparedSpell == null || SelectedSpellLevel < SelectedPreparedSpell.Level) { return; }
             character.UseSpellSlot(SelectedSpellLevel);
             NotifyPropertyChanged("AvailableSpellSlots");
         }

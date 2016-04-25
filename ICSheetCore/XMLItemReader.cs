@@ -35,20 +35,11 @@ namespace ICSheetCore
                 var properties = armor.Element("Properties").Value;
                 var ac = armor.Element("ArmorClass").Value;
                 var armorType = armor.Attribute("ArmorType").Value;
-                ArmorType type = ArmorType.None;
-                if (armorType == "Light")
-                {
-                    type = ArmorType.Light;
-                }
-                else if (armorType == "Medium")
-                {
-                    type = ArmorType.Medium;
-                }
-                else if (armorType == "Heavy")
-                {
-                    type = ArmorType.Heavy;
-                }
+                ArmorType type = (ArmorType)Enum.Parse(typeof(ArmorType), armorType);
+                
                 var newItem = new ArmorItem(name, weight, value, false, properties, type, 0); //all default items are unenchanted, so bonus of 0
+                if (type != ArmorType.Shield) { newItem.Slot = ItemSlot.Armor; }
+                else { newItem.Slot = ItemSlot.Offhand; }
                 newItem.BaseEffect = ac;
                 output.Add(newItem);
             }
@@ -73,19 +64,7 @@ namespace ICSheetCore
                 var damage = weapon.Element("Damage").Value;
                 var dType = weapon.Element("DamageType").Value;
                 var cat = weapon.Attribute("Category").Value;
-                var category = WeaponCategory.SimpleMelee;
-                if (cat == "SimpleRanged")
-                {
-                    category = WeaponCategory.SimpleRanged;
-                }
-                else if (cat == "MartialMelee")
-                {
-                    category = WeaponCategory.MartialMelee;
-                }
-                else if (cat == "MartialRanged")
-                {
-                    category = WeaponCategory.MartialRanged;
-                }
+                var category = (WeaponCategory)Enum.Parse(typeof(WeaponCategory), cat);
                 var slot = ItemSlot.Mainhand;
                 if (properties.Contains("Two-handed")) { slot = ItemSlot.TwoHanded; }
                 var newItem = new WeaponItem(name, weight, value, slot, false, properties, category, 0);

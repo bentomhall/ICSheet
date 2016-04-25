@@ -119,6 +119,9 @@ namespace ICSheetCore
                 case ArmorType.Heavy:
                     ac = item.ArmorBonus + item.EnhancementBonus;
                     break;
+                case ArmorType.Shield:
+                    ac = ArmorClass + item.ArmorBonus + item.EnhancementBonus;
+                    break;
             }
             ModifyAC(ac);
         }
