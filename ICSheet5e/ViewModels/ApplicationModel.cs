@@ -228,6 +228,7 @@ namespace ICSheet5e.ViewModels
             var newLevels = vm.ChosenClassLevels;
             var newFeatures = featureFactory.ExtractFeaturesFor(newLevels);
             currentCharacter.DoLevelUp(newLevels, newFeatures);
+            NotifyPropertyChanged("Levels");
             if (currentCharacter.IsSpellcaster)
             {
                 NotifyPropertyChanged("CanCastSpells");

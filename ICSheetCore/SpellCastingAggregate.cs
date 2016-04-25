@@ -99,6 +99,7 @@ namespace ICSheetCore
 
         internal void AddSpellcasting(IFeature feature)
         {
+            if (feature == null) { return; }
             var s = feature as ISpellcastingFeature;
             if (s == null) { throw new ArgumentException($"Must be spellcasting feature: Got {feature.Name}"); }
             _spellBooks[s.SpellBookName] = new SpellBook(_spellDB, s.SpellBookName, s.IsPreparedCaster);
