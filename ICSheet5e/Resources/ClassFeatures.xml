@@ -189,6 +189,11 @@
     <Feature Name="Hit Dice">d10</Feature>
     <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
     <Feature Name="Saving Throw Proficiencies">Strength, Dexterity</Feature>
+    <Feature Name="Armor Proficiencies">Light and Medium armor, shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple and Martial weapons</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Favored Enemy">Advantage on Wisdom (Survival) checks and Intelligence checks relating to one type of enemy. Increases by 1 at 6th and 14th levels.</Feature>
+    <Feature Name="Natural Explorer">See PHB for benefits</Feature>
     <Feature Name="Spellcasting" StartLevel="2">
       <CastingType>Half</CastingType>
       <IsPreparedCaster>False</IsPreparedCaster>
@@ -197,6 +202,22 @@
       <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
       <Spells>0 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11</Spells>
     </Feature>
+    <Feature Name="Fighting Style" StartLevel="2" xml:space="preserve">
+      You gain one of the following benefits:
+    Archery: You gain a +2 bonus to attacks made with ranged weapons.
+    Defense: Gain +1 AC while wearing armor.
+    Dueling: Gain +2 to attacks with 1H melee weapons while no weapon is in the other hand.
+    Two-Weapon Fighting: When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.
+    </Feature>
+    <Feature Name="Ranger Archetype" StartLevel="3">See PHB.</Feature>
+    <Feature Name="Primeval Awareness" StartLevel="3">Spend an action and a ranger spell slot to sense presence of aberrations,	celestials,	
+dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored terrain). Does not reveal location or number.</Feature>
+    <Feature Name="Extra Attack" StartLevel="5">You can make an extra attack when you take the Attack action. Does not stack.</Feature>
+    <Feature Name="Land's Stride" StartLevel="8">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+    <Feature Name="Hide in Plain Sight" StartLevel="10">You can spend a minute to create camouflage; this grants +10 to Dex (Stealth) rolls until you move or use an action.</Feature>
+    <Feature Name="Vanish" StartLevel="14">You can hide as a bonus action and cannot be tracked unless you want to be.</Feature>
+    <Feature Name="Feral Senses" StartLevel="18">You no longer have automatic disadvantage when attacking creatures you can't see.</Feature>
+    <Feature Name="Foe Slayer" StartLevel="20">You can add +WIS to attack or damage roll against favored enemies 1x per turn. </Feature>
   </PCClass>
   <PCClass Name="Rogue">
     <Feature Name="Hit Dice">d8</Feature>
