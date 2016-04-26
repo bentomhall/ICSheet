@@ -109,16 +109,16 @@ namespace ICSheetCore
             if (s != null) { _knownSpells.Remove(s); }
         }
 
-        public void PrepareSpell(string spellName)
+        public void PrepareSpell(string spellName, bool asBonus)
         {
             var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
-            if (s != null) { s.IsPrepared = true; }
+            if (s != null) { s.IsPrepared = true; s.IsBonusSpell = asBonus; }
         }
 
         public void UnprepareSpell(string spellName)
         {
             var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
-            if (s != null) { s.IsPrepared = false; }
+            if (s != null) { s.IsPrepared = false; s.IsBonusSpell = false; }
         }
 
         public bool IsSpellKnown(Spell spell)

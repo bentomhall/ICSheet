@@ -180,12 +180,12 @@ namespace ICSheetCore
             catch (KeyNotFoundException) { return; }
         }
 
-        internal void PrepareSpell(string spellName, string asClass)
+        internal void PrepareSpell(string spellName, string asClass, bool asBonus)
         {
             try
             {
                 var sb = _spellBooks[asClass];
-                sb.PrepareSpell(spellName);
+                sb.PrepareSpell(spellName, asBonus);
             }
             catch (KeyNotFoundException) { return; }
         }

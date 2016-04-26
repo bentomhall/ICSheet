@@ -20,7 +20,7 @@ namespace ICSheetCore
     {
         void UseSpellSlot(int level);
         void Learn(string spellName, string asClass, bool isBonus);
-        void Prepare(string spellName, string asClass);
+        void Prepare(string spellName, string asClass, bool asBonus);
         void Unprepare(string spellName, string asClass);
         void Unlearn(string spellName, string asClass);
     }

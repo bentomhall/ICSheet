@@ -44,6 +44,25 @@ namespace ICSheetCore
             _skillAggregate = new SkillAggregate();
             _inventory = new InventoryAggregate();
             _health = new HealthManager();
+            SkillProficiencies = new Dictionary<string, ProficiencyType>()
+            {
+                {"Acrobatics", 0 },
+                {"Animal Handling", 0 },
+                {"Arcana", 0 },
+                {"Athletics", 0 },
+                {"Deception", 0 },
+                {"History", 0 },
+                {"Insight", 0 },
+                {"Intimidation", 0 },
+                {"Medicine", 0 },
+                {"Perception", 0 },
+                {"Performance", 0 },
+                {"Persuasion", 0 },
+                {"Religion", 0 },
+                {"Sleight of Hand", 0 },
+                {"Stealth", 0 },
+                {"Survival", 0 }
+            };
         }
 
         /// <summary>
@@ -146,7 +165,8 @@ namespace ICSheetCore
         /// </summary>
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
-        public void Prepare(string spellName, string asClass) { _classAggregate.PrepareSpell(spellName, asClass); }
+        /// <param name="asBonus"></param>
+        public void Prepare(string spellName, string asClass, bool asBonus) { _classAggregate.PrepareSpell(spellName, asClass, asBonus); }
 
         /// <summary>
         /// 

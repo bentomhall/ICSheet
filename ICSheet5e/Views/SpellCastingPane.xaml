@@ -30,8 +30,14 @@
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
         <StackPanel Grid.Row="1">
             <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="750">
+                <ListView.Resources>
+                    <ContextMenu x:Key="ItemContextMenu">
+                        <MenuItem Header="Set as Bonus Spell" Command="{Binding Path=DataContext.SetDomainSpell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Background="AntiqueWhite"/>
+                    </ContextMenu>
+                </ListView.Resources>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="IsSelected" Value="True"/>

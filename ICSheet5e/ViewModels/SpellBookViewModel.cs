@@ -96,6 +96,11 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleSpellPreparationExecuted); }
         }
 
+        public ICommand SetDomainSpell
+        {
+            get { return new Views.DelegateCommand<object>(SetSpellAsDomainSpellExecuted); }
+        }
+
         public void AddNewSpellDelegate(IViewModel model)
         {
             if (model is AddNewSpellViewModel)
@@ -160,6 +165,13 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("SpellKnown");
         }
 
+        private void SetSpellAsDomainSpellExecuted(object obj)
+        {
+            if (SelectedSpell.IsBonusSpell) { _caster.Unprepare(SelectedSpell.Name, SelectedSpell.InSpellbook); }
+            _caster.Prepare(SelectedSpell.Name, SelectedSpell.InSpellbook, true);
+            NotifyPropertyChanged("AllSpells");
+        }
+
         //private void LoadAllSpells()
         //{
         //    _allSpells.AddRange(_caster.KnownSpells);
@@ -169,13 +181,14 @@ namespace ICSheet5e.ViewModels
         private void ToggleSpellPreparationExecuted(object obj)
         {
             var spell = SelectedSpell;
+            if (spell.IsBonusSpell) { return; } //bonus spells are always prepared.
             if (spell.IsPrepared)
             {
                 _caster.Unprepare(spell.Name, spell.InSpellbook);
             }
             else
             {
-                _caster.Prepare(spell.Name, spell.InSpellbook);
+                _caster.Prepare(spell.Name, spell.InSpellbook, spell.IsBonusSpell);
             }
             
             NotifyPropertyChanged("AllSpells");

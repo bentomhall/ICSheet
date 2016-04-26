@@ -176,9 +176,9 @@ namespace ICSheetCore
             _spellcastingAggregate.UnlearnSpell(spellName, asClass);
         }
 
-        internal void PrepareSpell(string spellName, string asClass)
+        internal void PrepareSpell(string spellName, string asClass, bool asBonus)
         {
-            _spellcastingAggregate.PrepareSpell(spellName, asClass);
+            _spellcastingAggregate.PrepareSpell(spellName, asClass, asBonus);
         }
 
         internal void UnprepareSpell(string spellName, string asClass)

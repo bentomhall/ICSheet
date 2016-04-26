@@ -165,7 +165,7 @@ namespace ICSheetCore
             foreach (var sp in dataObject.KnownSpells)
             {
                 c.Learn(sp.Name, spellcastingClass, false);
-                if (sp.IsPrepared) { c.Prepare(sp.Name, spellcastingClass); }
+                if (sp.IsPrepared) { c.Prepare(sp.Name, spellcastingClass, sp.IsBonusSpell); }
             }
         }
 
