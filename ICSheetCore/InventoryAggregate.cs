@@ -88,7 +88,7 @@ namespace ICSheetCore
 
         internal void EquipItem(IItem item)
         {
-            if (!_inventoryItems.Contains(item)) { AddItem(item); }
+            if (_inventoryItems.Count(x => x.Name == item.Name) == 0) { AddItem(item); }
             if (item.Slot == ItemSlot.None) { return; }
             if (item.Slot == ItemSlot.TwoHanded)
             {
