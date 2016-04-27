@@ -20,6 +20,12 @@
     <Feature Name="Indomitable Might" StartLevel="18">Use the larger of your STR score or STR check result.</Feature>
     <Feature Name="Primal Champion" StartLevel="20">STR and CON scores increase by 4 each, up to 24 max.</Feature>
     <Feature Name="Primal Path" StartLevel="3">See PHB for details.</Feature>
+    <Subclass Name="Path of the Berserker">
+      <Feature Name="Frenzy" StartLevel="3">You can frenzy when you rage. If you do so you can make a single melee weapon attack as a bonus action on each turn after the first until the rage ends. When your rage ends, you suffer one level of exhaustion.</Feature>
+      <Feature Name="Mindless Rage" StartLevel="6">You cannot be frightened or charmed while raging and pre-existing effects are suspended for the duration of the rage.</Feature>
+      <Feature Name="Intimidating Presence" StartLevel="10">As an action, choose a creature you can see within 30 feet. If they can see or hear you, they must succeed on a WIS save (DC = 8 + proficiency + CHA) or be frightened of you until the ned of your next turn. You can use your action to extend this effect; it ends if the creature ends its turn out of line of sight or more than 60 feet away.</Feature>
+      <Feature Name="Retaliation" StartLevel="14">You can use your reaction to make a melee weapon attack against any creature that damages you while within 5 feet of you.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Bard">
     <Feature Name="Hit Dice">d8</Feature>
