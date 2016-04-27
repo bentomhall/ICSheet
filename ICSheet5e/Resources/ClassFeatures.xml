@@ -223,11 +223,30 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
     <Feature Name="Hit Dice">d8</Feature>
     <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
     <Feature Name="Saving Throw Proficiencies">Dexterity, Intelligence</Feature>
+    <Feature Name="Armor Proficiencies">Light armor</Feature>
+    <Feature Name="Weapon Proficiencies">Simple weapons, hand crossbows, longswords, rapiers, shortswords</Feature>
+    <Feature Name="Tool Proficiencies">Thieves' tools</Feature>
+    <Feature Name="Expertise">Choose 2 skill proficiencies: add double your proficiency bonus instead of your regular bonus. At 6th level choose two more.</Feature>
+    <Feature Name="Sneak Attack">Once per turn deal (rogue level/2)d6 (rounded up) extra damage when you hit with advantage, or with an ally within 5 feet of the target and you don't have disadvantage. This attack must use a finesse or ranged weapon.</Feature>
+    <Feature Name="Thieves' Cant">You can convey secret messages in thieves' cant. See PHB for details.</Feature>
+    <Feature Name="Cunning Action" StartLevel="2">You can Dash, Disengage, or Hide as a bonus action.</Feature>
+    <Feature Name="Roguish Archetype" StartLevel="3">Choose a roguish archetype. See PHB for details.</Feature>
+    <Feature Name="Extra Ability Score Increases">In addition to the regular ones (every 4th level) you get an ASI at 10th level.</Feature>
+    <Feature Name="Uncanny Dodge" StartLevel="5">When an attacker you can see hits you with an attack, you can use a reaction to take half damage instead.</Feature>
+    <Feature Name="Evasion" StartLevel="7">When you make a DEX save for half damage, instead take half damage on a failed save and no damage on a successful save.</Feature>
+    <Feature Name="Reliable Talent" StartLevel="11">When you make an ability check that includes proficiency, treat a roll of 9 or lower as a 10.</Feature>
+    <Feature Name="Blindsense" StartLevel="14">If you are able to hear, you are aware of the location of any hidden or invisible creatures within 10 feet of you.</Feature>
+    <Feature Name="Slippery Mind" StartLevel="15">Gain proficiency in Wisdom saving throws.</Feature>
+    <Feature Name="Elusive" StartLevel="18">No attack roll against you has advantage if you are not incapacitated.</Feature>
+    <Feature Name="Stroke of Luck" StartLevel="20">Once per rest (long or short) either: turn a miss into a hit, or treat the d20 roll for a failed ability check as a 20.</Feature>
   </PCClass>
   <PCClass Name="Sorcerer">
     <Feature Name="Hit Dice">d6</Feature>
     <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
     <Feature Name="Saving Throw Proficiencies">Constitution, Charisma</Feature>
+    <Feature Name="Armor Proficiencies">None</Feature>
+    <Feature Name="Weapon Proficiencies">Daggers, darts, slings, quarterstaffs, light crossbows</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
     <Feature Name="Spellcasting">
       <CastingType>Full</CastingType>
       <IsPreparedCaster>False</IsPreparedCaster>
@@ -236,11 +255,39 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
       <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
       <Spells>2 3 4 5 6 7 8 9 10 11 12 12 13 13 14 14 15 15 15 15</Spells>
     </Feature>
+    <Feature Name="Spellcasting Focus">You can use an arcane focus.</Feature>
+    <Feature Name="Sorcerous Origin">Choose a sorcerous origin as described in the PHB.</Feature>
+    <Feature Name="Font of Magic" StartLevel="2">You gain the sorcery point and flexible casting features (described below).</Feature>
+    <Feature Name="Sorcery Points" StartLevel="2">You have sorcery points equal to your sorcerer level. You can never have more than this; you regain all spent points when you finish a long rest.</Feature>
+    <Feature Name="Flexible Casting" StartLevel="2" xml:space="preserve">You can create spell slots out of spell points (up to 5th level).
+    Slot Level | Cost
+    1st        |  2
+    2nd        |  3
+    3rd        |  5
+    4th        |  6
+    5th        |  7
+    As a bonus action on your turn you can spend a spell slot (no level restriction) and gain sorcery points equal to the spell slot level.</Feature>
+    <Feature Name="Metamagic" StartLevel="3" xml:space="preserve">You gain 2 metamagic options; gain one more at each of 10th and 17th level. Only one can be used per spell unless otherwise noted.
+    Careful Spell: Spend 1 sorcery point to allow a number of creatures up to CHA to automatically succeed on saving throw against the spell you modify.
+    Distant Spell: When you cast a spell with range of 5 feet or greater, spend a sorcery point to double the range. Touch spells gain a range of 30 feet if this is used with them (same cost).
+    Empowered Spell (stacks): Spend 1 point to reroll up to CHA damage dice and use the new rolls instead.
+    Extended Spell: Spend 1 point to double the duration of a spell (of natural duration 1 minute or longer). The maximum duration is 24 hours.
+    Heightened Spell: Spend 3 points to give one target disadvantage on the first saving throw against this spell.
+    Quickened Spell: Spend 2 points to change a casting time of 1 action to a bonus action for this casting.
+    Subtle Spell: Spend 1 point to cast a spell ignoring verbal or somatic components.
+    Twinned Spell: Spend (spell slot level) points to target a second target when casting a spell that can only target one creature (and not self).
+    </Feature>
+    <Feature Name="Sorcerous Restoration"> Regain 4 sorcery points when you finish a short rest.</Feature>
   </PCClass>
   <PCClass Name="Warlock">
     <Feature Name="Hit Dice">d8</Feature>
     <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
     <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
+    <Feature Name="Armor Proficiencies">Light armor</Feature>
+    <Feature Name="Weapon Proficiencies">Simple weapons</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Otherworldly Patron">Choose a patron as described in the PHB at level 1.</Feature>
+    <Feature Name="Pact Magic">Warlocks cast spells differently than others. They do not contribute to multi-class casting slots.</Feature>
     <Feature Name="Spellcasting">
       <CastingType>Warlock</CastingType>
       <IsPreparedCaster>False</IsPreparedCaster>
@@ -249,12 +296,20 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
       <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
       <Spells>2 3 4 5 6 7 8 9 10 10 11 11 12 12 13 13 14 14 15 15</Spells>
     </Feature>
+    <Feature Name="Spellcasting Focus">You can use an arcane focus.</Feature>
+    <Feature Name="Eldritch Invocations" StartLevel="2">See PHB for list of invocations known/level (2 at 2nd level). You can replace an invocation at each level-up. The list of invocations and their prerequisites are in the PHB and SRD.</Feature>
+    <Feature Name="Pact Boon" StartLevel="3">You gain one of the following features: Pact of the Chain, Pact of the Blade, or Pact of the Tome. Details are in the PHB.</Feature>
+    <Feature Name="Mystic Arcanum" StartLevel="11">Choose one spell of appropriate level (every odd level) from the warlock list. You can cast this spell once per long rest without using a spell slot.</Feature>
+    <Feature Name="Eldritch Master" StartLevel="20">Once per long rest, you can spend a minute to regain all pact magic spell slots.</Feature>
   </PCClass>
   <PCClass Name="Wizard">
     <Feature Name="Hit Dice">d6</Feature>
     <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
     <Feature Name="Saving Throw Proficiencies">Intelligence, Wisdom</Feature>
-    <Feature Name="Spellcasting" StartLevel="2">
+    <Feature Name="Armor Proficiencies">None</Feature>
+    <Feature Name="Weapon Proficiencies">Daggers, darts, slings, quarterstaffs, light crossbows</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Spellcasting" StartLevel="1">
       <CastingType>True</CastingType>
       <IsPreparedCaster>True</IsPreparedCaster>
       <CastingAbility>Intelligence</CastingAbility>
@@ -263,5 +318,12 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
       <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
       <!--meaningless-->
     </Feature>
+    <Feature Name="Spellbook">Your spells (except cantrips) are stored in a spellbook.</Feature>
+    <Feature Name="Ritual Casting">You can cast wizard (ritual) spells. You do not have to have them prepared, but they must be in your spellbook.</Feature>
+    <Feature Name="Spellcasting Focus">You can use an arcane focus.</Feature>
+    <Feature Name="Arcane Recovery">Once per day when you finish a short rest you can regain up to level/2 (rounded up) spell levels of slots. None of the recovered slots can be 6th level or higher.</Feature>
+    <Feature Name="Arcane Tradition" StartLevel="2">Choose an arcane tradition as outlined in the PHB.</Feature>
+    <Feature Name="Spell Mastery" StartLevel="18">Choose a 1st and a 2nd level wizard spell in your book--you can cast them at their lowest level without expending a slot.</Feature>
+    <Feature Name="Signature Spells" StartLevel="20">Choose 2 3rd level spells. You always have them prepared and they don't count against the number of spells you can prepare. You can cast them each without expending a spell slot once per short or long rest.</Feature>
   </PCClass>
 </ClassFeatures>
