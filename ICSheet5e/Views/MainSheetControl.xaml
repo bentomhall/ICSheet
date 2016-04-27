@@ -126,7 +126,7 @@
                 <Popup Name="OverrideACPopup">
                     <StackPanel Background="White">
                         <Label>Miscellaneous AC Bonus:</Label>
-                        <TextBox Text="{Binding ArmorClassBonus}"/>
+                        <TextBox Text="{Binding ArmorClassBonus, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </Popup>
             </StackPanel>

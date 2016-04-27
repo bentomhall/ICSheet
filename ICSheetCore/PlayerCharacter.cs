@@ -102,6 +102,9 @@ namespace ICSheetCore
             get { return _classAggregate.KnownSpells; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<string> SpellcastingClasses
         {
             get { return _classAggregate.SpellcastingClasses; }

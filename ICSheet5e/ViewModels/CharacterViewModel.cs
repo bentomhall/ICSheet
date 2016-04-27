@@ -184,12 +184,12 @@ namespace ICSheet5e.ViewModels
             get
             {
                 var values = character.SpellAttackBonuses;
-                var sb = new StringBuilder();
+                var sb = new List<string>();
                 foreach (KeyValuePair<string, int> entry in values)
                 {
-                    sb.AppendLine($"{entry.Key}: {entry.Value}");
+                    sb.Add($"{entry.Key}: {entry.Value}");
                 }
-                return sb.ToString();
+                return string.Join(Environment.NewLine, sb);
             }
         }
 
@@ -198,12 +198,12 @@ namespace ICSheet5e.ViewModels
             get
             {
                 var values = character.SpellDCs;
-                var sb = new StringBuilder();
+                var sb = new List<string>() ;
                 foreach (KeyValuePair<string, int> entry in values)
                 {
-                    sb.AppendLine($"{entry.Key}: {entry.Value}");
+                    sb.Add($"{entry.Key}: {entry.Value}");
                 }
-                return sb.ToString();
+                return string.Join(Environment.NewLine, sb);
             }
         }
 

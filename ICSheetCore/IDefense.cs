@@ -21,6 +21,7 @@ namespace ICSheetCore
             _baseValue = baseValue;
             _proficiency = proficiency;
             _type = type;
+            _defenseAdjustment = adjustment;
         }
 
         [DataMember]
