@@ -261,6 +261,7 @@ namespace ICSheet5e.ViewModels
             var vm = (AddFeatureViewModel)obj;
             var feature = vm.ToFeature();
             currentCharacter.AddFeature(feature);
+            NotifyPropertyChanged("Features");
         }
 
 

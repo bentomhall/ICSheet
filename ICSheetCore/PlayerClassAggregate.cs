@@ -88,7 +88,7 @@ namespace ICSheetCore
 
         internal bool HasFeature(string withName)
         {
-            return _playerClasses.Count(x => x.HasFeature(withName)) > 0;
+            return _playerClasses.Count(x => x.HasFeature(withName)) > 0 || _customFeatures.Count(x => x.Name == withName) > 0;
         }
 
         internal IEnumerable<IFeature> AllFeatures

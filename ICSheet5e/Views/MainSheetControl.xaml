@@ -7,7 +7,7 @@
              xmlns:views="clr-namespace:ICSheet5e.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="900">
+             d:DesignHeight="900" Width="959">
     <UserControl.Resources>
         <Style TargetType="ListBoxItem">
             <Setter Property="ToolTip">
@@ -204,7 +204,7 @@
         <Border Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White" Padding="4">
             <DockPanel>
                 <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="18">Campaign Notes</Label>
-                <TextBox DockPanel.Dock="Top" Text="{Binding Path=Notes}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+                <TextBox DockPanel.Dock="Top" Text="{Binding Path=Notes, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"></TextBox>
             </DockPanel>
         </Border>
         <Border Grid.Column="8" Grid.ColumnSpan="1" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
