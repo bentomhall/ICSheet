@@ -168,7 +168,7 @@ namespace ICSheet5e.ViewModels
         private void SetSpellAsDomainSpellExecuted(object obj)
         {
             if (SelectedSpell.IsBonusSpell) { _caster.Unprepare(SelectedSpell.Name, SelectedSpell.InSpellbook); }
-            _caster.Prepare(SelectedSpell.Name, SelectedSpell.InSpellbook, true);
+            else { _caster.Prepare(SelectedSpell.Name, SelectedSpell.InSpellbook, true); }
             NotifyPropertyChanged("AllSpells");
         }
 
