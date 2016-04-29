@@ -103,6 +103,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ViewModels\AddFeatureViewModel.cs" />
     <Compile Include="ViewModels\AddNewSpellViewModel.cs" />
+    <Compile Include="ViewModels\AddSubclassViewModel.cs" />
     <Compile Include="ViewModels\ApplicationModel.cs" />
     <Compile Include="ViewModels\AttackViewModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
@@ -122,6 +123,9 @@
     </Compile>
     <Compile Include="Views\AddNewFeatureWindow.xaml.cs">
       <DependentUpon>AddNewFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddSubClassWindow.xaml.cs">
+      <DependentUpon>AddSubClassWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AttacksView.xaml.cs">
       <DependentUpon>AttacksView.xaml</DependentUpon>
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNewFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddSubClassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

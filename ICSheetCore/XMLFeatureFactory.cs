@@ -37,6 +37,11 @@ namespace ICSheetCore
             return (e == null) ? null : e.Value;
         }
 
+        public IEnumerable<string> ExtractSubclassesFor(string _selectedClass)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Gets all valid race names as strings from the provided xml
@@ -45,6 +50,11 @@ namespace ICSheetCore
         public IEnumerable<string> ExtractRaceNames()
         {
             return _raceFeatures.Root.Elements().Select(x => x.Attribute("Name").Value);
+        }
+
+        public IEnumerable<IFeature> ExtractSubclassFeaturesFor(string _selectedSubclass)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
