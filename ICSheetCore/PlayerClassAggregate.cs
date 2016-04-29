@@ -218,6 +218,20 @@ namespace ICSheetCore
         {
             get { return _playerClasses.Where(x => x.HasFeature("Spellcasting")).Select(x => x.Spellcasting.SpellBookName); }
         }
+
+        internal void AddSubclass(string forClass, string withName, IEnumerable<IFeature> features)
+        {
+            var pcClass = _playerClasses.SingleOrDefault(x => x.Name == forClass);
+            foreach (var f in features)
+            {
+                if (f.Name != withName) { AddFeature(f); }
+            }
+            var newSpellcasting = features.SingleOrDefault(x => x.Name == "Spellcasting");
+            if (newSpellcasting != null)
+            {
+                _spellcastingAggregate.AddSpellcasting(newSpellcasting);
+            }
+        }
     }
 
     internal class ClassInformationChangedEventArgs : EventArgs

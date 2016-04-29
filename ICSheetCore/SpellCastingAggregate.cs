@@ -57,7 +57,7 @@ namespace ICSheetCore
         private void setSpellSlots(IList<int> levels)
         {
             if (_features.Count == 0) { _totalSpellSlots = Enumerable.Repeat(0, 9).ToList(); }
-            if (_features.Count == 1)
+            else if (_features.Count == 1)
             {
                 _totalSpellSlots = _features[0].SpellSlots(levels[0]).ToList();
             }
@@ -93,8 +93,11 @@ namespace ICSheetCore
         internal void IncreaseLevel(string name)
         {
             var indx = _features.FindIndex(x => x.SpellBookName == name);
-            _levels[indx] += 1;
-            setSpellSlots(_levels);
+            if (indx >= 0)
+            {
+                _levels[indx] += 1;
+                setSpellSlots(_levels);
+            }
         }
 
         internal void AddSpellcasting(IFeature feature)

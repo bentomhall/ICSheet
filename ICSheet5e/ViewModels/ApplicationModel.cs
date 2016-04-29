@@ -125,10 +125,7 @@ namespace ICSheet5e.ViewModels
             var vm = obj as AddSubclassViewModel;
             if (vm != null)
             {
-                foreach (var f in vm.Features)
-                {
-                    currentCharacter.AddFeature(f);
-                }
+                currentCharacter.AddSubclass(vm.SelectedClass, vm.SelectedSubclass, vm.Features);
                 NotifyPropertyChanged("Features");
             }
             
@@ -250,6 +247,7 @@ namespace ICSheet5e.ViewModels
             var newFeatures = featureFactory.ExtractFeaturesFor(newLevels);
             currentCharacter.DoLevelUp(newLevels, newFeatures);
             NotifyPropertyChanged("Levels");
+            NotifyPropertyChanged("Features");
             if (currentCharacter.IsSpellcaster)
             {
                 NotifyPropertyChanged("CanCastSpells");

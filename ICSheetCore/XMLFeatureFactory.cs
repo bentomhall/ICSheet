@@ -37,9 +37,15 @@ namespace ICSheetCore
             return (e == null) ? null : e.Value;
         }
 
+        /// <summary>
+        /// Gets all defined subclass names for the given player character class.
+        /// </summary>
+        /// <param name="_selectedClass"></param>
+        /// <returns></returns>
         public IEnumerable<string> ExtractSubclassesFor(string _selectedClass)
         {
-            throw new NotImplementedException();
+            var classElement = FindSingleElementByNameAttribute("PCClass", _selectedClass, _classFeatures.Root);
+            return classElement.Elements("Subclass").Select(x => x.Attribute("Name").Value);
         }
 
 
@@ -52,9 +58,25 @@ namespace ICSheetCore
             return _raceFeatures.Root.Elements().Select(x => x.Attribute("Name").Value);
         }
 
+        /// <summary>
+        /// Gets all features unique to the given subclass name. Throws InvalidOperationException if the subclass name is not found.
+        /// </summary>
+        /// <param name="_selectedSubclass"></param>
+        /// <returns></returns>
         public IEnumerable<IFeature> ExtractSubclassFeaturesFor(string _selectedSubclass)
         {
-            throw new NotImplementedException();
+            var e = _classFeatures.Descendants("Subclass").SingleOrDefault(x => x.Attribute("Name").Value == _selectedSubclass);
+            if (e == null) { throw new InvalidOperationException("Not a valid subclass name"); }
+            else
+            {
+                var features = new List<IFeature>();
+                foreach (var node in e.Elements("Feature"))
+                {
+                    features.Add(featureFactoryFrom(node));
+                }
+                return features;
+            }
+
         }
 
         /// <summary>
@@ -138,7 +160,7 @@ namespace ICSheetCore
             var features = new List<IFeature>();
             var element = FindSingleElementByNameAttribute("PCClass", pcClassName, _classFeatures.Root);
             if (element == null) { throw new ArgumentException("Invalid class name supplied."); }
-            foreach (var node in element.Elements())
+            foreach (var node in element.Elements("Feature"))
             {
                 features.Add(featureFactoryFrom(node));
             }

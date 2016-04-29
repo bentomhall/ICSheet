@@ -560,6 +560,17 @@ namespace ICSheetCore
             return abilities.AbilityModifierFor(ability);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="forClass"></param>
+        /// <param name="features"></param>
+        /// <param name="withName"></param>
+        public void AddSubclass(string forClass, string withName, IEnumerable<IFeature> features)
+        {
+            _classAggregate.AddSubclass(forClass, withName, features);
+        }
+
 
         #region Serialization
         /// <summary>
@@ -603,6 +614,8 @@ namespace ICSheetCore
         }
 
         #endregion
+
+
     }
 
     /// <summary>
