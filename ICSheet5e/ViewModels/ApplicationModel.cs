@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Runtime.CompilerServices;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using ICSheetCore;
 
@@ -113,6 +106,32 @@ namespace ICSheet5e.ViewModels
         public ICommand ToggleEditingCommand
         {
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
+        }
+
+        public ICommand AddSubclassCommand
+        {
+            get { return new Views.DelegateCommand<object>(AddSubclassCommandExecuted); }
+        }
+
+        private void AddSubclassCommandExecuted(object obj)
+        {
+            var classes = currentCharacter.Levels.Keys;
+            var vm = new AddSubclassViewModel(classes, featureFactory);
+            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.AddSubclassDialog, vm, OnAddSubclass);
+        }
+
+        private void OnAddSubclass(IViewModel obj)
+        {
+            var vm = obj as AddSubclassViewModel;
+            if (vm != null)
+            {
+                foreach (var f in vm.Features)
+                {
+                    currentCharacter.AddFeature(f);
+                }
+                NotifyPropertyChanged("Features");
+            }
+            
         }
 
         public void NewCharacterInformationReceived(string name, string alignment, string background, Tuple<string, string> race, IDictionary<string, int> classes)

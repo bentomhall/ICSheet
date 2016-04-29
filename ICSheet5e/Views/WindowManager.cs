@@ -22,7 +22,8 @@ namespace ICSheet5e.Views
             HealthDialog,
             LevelUpDialog,
             AddNewSpellsDialog,
-            AddNewFeatureDialog
+            AddNewFeatureDialog,
+            AddSubclassDialog
         }
 
         public static void DisplayDialog(DialogType type, IViewModel model, Action<IViewModel> completionHandler)
@@ -41,6 +42,9 @@ namespace ICSheet5e.Views
                     break;
                 case DialogType.AddNewFeatureDialog:
                     dlg = new AddNewFeatureWindow();
+                    break;
+                case DialogType.AddSubclassDialog:
+                    dlg = new AddSubClassWindow();
                     break;
                 default:
                     throw new NotImplementedException("OOPs!, wrong dialog type");
