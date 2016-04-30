@@ -168,6 +168,9 @@
     <Compile Include="Views\SpellDetailView.xaml.cs">
       <DependentUpon>SpellDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SRDViewWindow.xaml.cs">
+      <DependentUpon>SRDViewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TabItemDataTemplateSelector.cs" />
     <Compile Include="Views\WindowManager.cs" />
     <Page Include="MainWindow.xaml">
@@ -250,6 +253,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SRDViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -275,7 +282,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\SpellList5e.json" />
+    <Content Include="Resources\5eSRD.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\SpellList5e.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -287,17 +299,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\BasicArmors.xml" />
-    <Resource Include="Resources\BasicWeapons.xml" />
+    <Resource Include="Resources\BasicArmors.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\BasicWeapons.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\spell_list.xml" />
+    <Resource Include="Resources\spell_list.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ClassFeatures.xml" />
-    <Resource Include="Resources\RacialFeatures.xml" />
+    <Resource Include="Resources\ClassFeatures.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\RacialFeatures.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\tall-human-silhouette.png" />
-    <None Include="Resources\BasicItems.xml" />
+    <None Include="Resources\BasicItems.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\tall-human-silhouette.svg" />
     <Resource Include="credits.txt" />
   </ItemGroup>

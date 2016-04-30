@@ -264,6 +264,12 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(AddFeatureCommandExecuted); }
         }
 
+        public ICommand OpenSRDCommand
+        {
+            get { return new Views.DelegateCommand<object>(OpenSRDCommandExecuted); }
+        }
+
+
         private void AddFeatureCommandExecuted(object obj)
         {
             if (currentCharacter == null) { return; }
@@ -279,6 +285,11 @@ namespace ICSheet5e.ViewModels
             var feature = vm.ToFeature();
             currentCharacter.AddFeature(feature);
             NotifyPropertyChanged("Features");
+        }
+
+        private void OpenSRDCommandExecuted(object obj)
+        {
+            Views.WindowManager.OpenSRD();
         }
 
 

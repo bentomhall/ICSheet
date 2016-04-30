@@ -48,6 +48,7 @@
                 <MenuItem Header="_Add Feature..." Command="{Binding Path=AddFeatureCommand}"/>
                 <MenuItem Header="Add _Subclass..." Command="{Binding Path=AddSubclassCommand}" />
             </MenuItem>
+            <MenuItem Header="_SRD" Command="{Binding Path=OpenSRDCommand}"/>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
             <TabControl.Resources>
