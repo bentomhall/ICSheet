@@ -240,7 +240,13 @@
     <Feature Name="Extra Attack" StartLevel="5">You can attack 2x per attack action. This increases to 3x at 11th level and 4x at 20th level.</Feature>
     <Feature Name="Ability Score Improvemnents">You can increase one ability score by 2 or two scores by 1 at 4th, 6th, 8th, 12th, 14th, 16th, and 19th level.</Feature>
     <Feature Name="Indomitable" StartLevel="9" Uses="1/long rest">Reroll a failed saving throw. Use the new roll.</Feature>
-    
+    <Subclass Name="Champion">
+      <Feature Name="Improved Critical" StartLevel="3">Your weapon attacks score critical hits on a roll of 19 or 20.</Feature>
+      <Feature Name="Remarkable Athlete" StartLevel="7">You gain half proficiency (round up) to any strength, dexterity, or constitution check. Your running long jump distance increases by your strength modifier in feet.</Feature>
+      <Feature Name="Additional Fighting Style" StartLevel="10">Choose a second fighting style option.</Feature>
+      <Feature Name="Superior Critical" StartLevel="15">Your weapon attacks score critical hits on a roll of 18-20.</Feature>
+      <Feature Name="Survivor" StartLevel="18">You regain 5 + CON HP at the beginning of any turn that you have less than half of your HP left. This does not function at 0 HP.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Monk">
     <Feature Name="Hit Dice">d8</Feature>
