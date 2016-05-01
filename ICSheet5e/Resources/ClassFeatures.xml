@@ -135,6 +135,90 @@
     <Feature Name="Timeless Body" StartLevel="18">You age only 1 year for every 10.</Feature>
     <Feature Name="Beast Spells" StartLevel="18">You can cast spells (V, S only) while wildshaped. Cannot supply material components.</Feature>
     <Feature Name="Archdruid" StartLevel="20">You can use Wild Shape an unlimited number of times per day. Ignore V/S components and also any M components without cost listed.</Feature>
+    <Subclass Name="Circle of the Land: Arctic">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : hold person, spike growth
+      5th : sleet storm, slow
+      7th : freedom of movement, ice storm
+      9th : commune with nature, cone of cold</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+  <Subclass Name="Circle of the Land: Coast">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : mirror image, misty step
+      5th : water breathing, water walk
+      7th : control water, freedom of movement
+      9th : conjure elemental, scrying</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+  <Subclass Name="Circle of the Land: Desert">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : blur, silence
+      5th : create food and water, protection from energy
+      7th : blight, hallucinatory terrain
+      9th : insect plague, wall of stone</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+  <Subclass Name="Circle of the Land: Forest">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : barkskin, spider climb
+      5th : call lightning, plant growth
+      7th : divination, freedom of movement
+      9th : commune with nature, tree stride</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <Subclass Name="Circle of the Land: Grassland">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : invisibility, pass without trace
+      5th : daylight, haste
+      7th : divination, freedom of movement
+      9th : dream, insect plague</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <Subclass Name="Circle of the Land: Mountain">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : spider climb, spike growth
+      5th : lightning bolt, meld into stone
+      7th : stone shape, stoneskin
+      9th : passwall, wall of stone</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <Subclass Name="Circle of the Land: Swamp">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : acid arrow, darkness
+      5th : water walk, stinking cloud
+      7th : freedom of movement, locate creature
+      9th : insect plague, scrying</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Fighter">
     <Feature Name="Hit Dice">d10</Feature>
@@ -156,6 +240,7 @@
     <Feature Name="Extra Attack" StartLevel="5">You can attack 2x per attack action. This increases to 3x at 11th level and 4x at 20th level.</Feature>
     <Feature Name="Ability Score Improvemnents">You can increase one ability score by 2 or two scores by 1 at 4th, 6th, 8th, 12th, 14th, 16th, and 19th level.</Feature>
     <Feature Name="Indomitable" StartLevel="9" Uses="1/long rest">Reroll a failed saving throw. Use the new roll.</Feature>
+    
   </PCClass>
   <PCClass Name="Monk">
     <Feature Name="Hit Dice">d8</Feature>

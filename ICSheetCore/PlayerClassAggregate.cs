@@ -132,7 +132,7 @@ namespace ICSheetCore
                     _spellcastingAggregate.ResetAllSlots();
                     return;
                 }
-                else if (HasFeature("Arcane Recovery") || HasFeature("Pact Magic") ||HasFeature("Flexible Casting"))
+                else if (HasFeature("Arcane Recovery") || HasFeature("Pact Magic") ||HasFeature("Flexible Casting") || HasFeature("Natural Recovery"))
                 {
                     _spellcastingAggregate.RegainSpellSlot(entry.Key, entry.Value);
                 }
