@@ -111,6 +111,7 @@
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
+    <Compile Include="ViewModels\InventoryItemViewModel.cs" />
     <Compile Include="ViewModels\InventoryViewModel.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\LevelUpViewModel.cs" />

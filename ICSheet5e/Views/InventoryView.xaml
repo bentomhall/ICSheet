@@ -11,6 +11,14 @@
              d:DesignHeight="900" d:DesignWidth="900">
     <UserControl.Resources>
         <ImageBrush x:Key="HumanImageSource" ImageSource="../Resources/tall-human-silhouette.png"/>
+        <DataTemplate x:Key="InventoryItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Path=Name}" Width="150"/>
+                <Label Content="{Binding Path=Slot}" Width="100"/>
+                <Label Content="{Binding Path=Count}" Width="50"/>
+                <Button Content="{Binding Path=IsEquipped}" Command="{Binding Path=ToggleEquippedStatusCommand}" Width="50"/>
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -21,39 +29,7 @@
             <ColumnDefinition Width="119*"/>
             <ColumnDefinition Width="181*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="InventoryListView" Grid.RowSpan="1" ItemsSource="{Binding Path=Items}" SelectedItem="{Binding Path=SelectedItem}">
-            <ListView.Resources>
-                <ContextMenu x:Key="EquipmentContextMenu">
-                    <MenuItem Header="Toggle Equipped" Command="{Binding Path=DataContext.EquipItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
-                </ContextMenu>
-            </ListView.Resources>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="ContextMenu" Value="{StaticResource EquipmentContextMenu}"/>
-                    <Setter Property="ToolTip">
-                        <Setter.Value>
-                            <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" IsHyphenationEnabled="True" MaxWidth="200"/>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn Header="Name" Width="210" DisplayMemberBinding="{Binding Name}">
-
-                        </GridViewColumn>
-                        <GridViewColumn Header="Count" Width="80" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
-                        <GridViewColumn Header="Equipped">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding IsEquipped, Mode=TwoWay}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
+        <ListView x:Name="InventoryListView" Grid.RowSpan="1" ItemsSource="{Binding Path=Items}" SelectedItem="{Binding Path=SelectedItem}" ItemTemplate="{StaticResource InventoryItemTemplate}">
         </ListView>
         <Grid Margin="5" Grid.Column="1" >
             <Grid.ColumnDefinitions>

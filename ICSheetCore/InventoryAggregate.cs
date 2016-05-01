@@ -95,6 +95,7 @@ namespace ICSheetCore
             {
                 _equippedItems.Remove(ItemSlot.Offhand);
                 _equippedItems[ItemSlot.Mainhand] = item;
+
             }
             else { _equippedItems[item.Slot] = item; }
 
