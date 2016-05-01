@@ -25,8 +25,6 @@ namespace ICSheetCore
         }
 
         [DataMember]
-        private int _value = 10;
-        [DataMember]
         private DefenseType _type;
         [DataMember]
         private int _baseValue = 10;

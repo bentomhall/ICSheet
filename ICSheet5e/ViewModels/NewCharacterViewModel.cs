@@ -99,6 +99,7 @@ namespace ICSheet5e.ViewModels
             return canExecute;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public Action<string, string, string, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
 
         public IEnumerable<string> Alignments { get { return alignments; } }

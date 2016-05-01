@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
-    [DataContract]
+
     /// <summary>
     /// Represents a sum of money. Automatically converts types
     /// </summary>
+    [DataContract]
     public class Money
     {
         public int Platinum { get { return (int)(_cash / 10); } }

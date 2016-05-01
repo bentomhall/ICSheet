@@ -128,6 +128,7 @@ namespace ICSheet5e.ViewModels
                 currentCharacter.AddSubclass(vm.SelectedClass, vm.SelectedSubclass, vm.Features);
                 NotifyPropertyChanged("Features");
             }
+            DoAutosave();
             
         }
 
@@ -209,6 +210,7 @@ namespace ICSheet5e.ViewModels
         public void ToggleEditingCommandExecuted(object sender)
         {
             IsEditingModeEnabled = !canEdit;
+            if (!IsEditingModeEnabled) { DoAutosave(); }//save when exiting editing
             return;
         }
 
@@ -257,6 +259,7 @@ namespace ICSheet5e.ViewModels
                     NotifyPropertyChanged("ViewModels");
                 }
             }
+            DoAutosave();
         }
 
         public ICommand AddFeatureCommand
@@ -290,6 +293,16 @@ namespace ICSheet5e.ViewModels
         private void OpenSRDCommandExecuted(object obj)
         {
             Views.WindowManager.OpenSRD();
+        }
+
+        private void DoAutosave()
+        {
+            if (!IsCharacterInitialized) return;
+            var saveLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "autosave.dnd5e");
+            var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
+            System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
+            serializer.WriteObject(stream, currentCharacter.ToCharacterData());
+            stream.Close();
         }
 
 

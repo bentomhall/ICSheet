@@ -86,7 +86,7 @@ namespace ICSheet5e.ViewModels
         public string WaistItemName { get { return waistItemName; } set { waistItemName = value; NotifyPropertyChanged(); } }
         public string FeetItemName { get { return feetItemName; } set { feetItemName = value; NotifyPropertyChanged(); } }
 
-        public Array SlotNames
+        static public Array SlotNames
         {
             get { return Enum.GetValues(typeof(ItemSlot)); }
         }
@@ -209,7 +209,7 @@ namespace ICSheet5e.ViewModels
 
     public class NewItemFactory : BaseViewModel
     {
-        string name;
+        string _name;
         string properties;
         int enhancement;
         ObservableCollection<string> baseItems;
@@ -334,10 +334,10 @@ namespace ICSheet5e.ViewModels
 
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
-                name = value;
+                _name = value;
                 NotifyPropertyChanged();
                 CommandManager.InvalidateRequerySuggested();
             }
@@ -368,11 +368,11 @@ namespace ICSheet5e.ViewModels
 
         private void CreateItemCommandExecuted(object obj)
         {
-            if (string.IsNullOrEmpty(name)) { return; }
+            if (string.IsNullOrEmpty(_name)) { return; }
 
 
             
-            if (Slot == ItemSlot.Armor || (name.Contains("Shield") && Slot == ItemSlot.Offhand))
+            if (Slot == ItemSlot.Armor || (_name.Contains("Shield") && Slot == ItemSlot.Offhand))
             {
                 var baseItem = ArmorWithName(SelectedItemName);
                 var armor = new ArmorItem(Name, Weight, Value, true, Properties, baseItem.ArmorClassType, Enhancement);
