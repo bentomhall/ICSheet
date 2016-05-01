@@ -279,6 +279,15 @@
     <Feature Name="Timeless Body" StartLevel="15">You do not suffer the effects of old age and cannot be magically aged. Your lifespan does not increase however. You need no food or water.</Feature>
     <Feature Name="Empty Body" StartLevel="18">You can use your action to spend 4 ki points to become invisible for 1 minute. During that time you have resistance to all damage except force damage. You can cast Astral Projection using 8 ki points.</Feature>
     <Feature Name="Perfect Self">When you roll initiative and have no ki points left, you regain 4 ki points.</Feature>
+    <Subclass Name="Way of the Open Hand">
+      <Feature Name="Open Hand Technique" StartLevel="3" xml:space="preserve">When you hit a creature with an attack granted by Flurry of Blows, you can impose one of the following conditions:
+      --It must succeed on a DEX saving throw or be knocked prone.
+      --It must succeed on a STR saving throw or be pushed up to 15 feet away from you
+      --It cannot take reactions until the end of your next turn.</Feature>
+      <Feature Name="Wholeness of Body" StartLevel="6">As an action (once per long rest) you can regain HP up to 3x(monk level).</Feature>
+      <Feature Name="Tranquility" StartLevel="11">At the end of a long rest you gain the effect of a sanctuary spell that lasts until the start of your next long rest unless it ends early as normal. The DC for this is 8 + WIS + proficiency.</Feature>
+      <Feature Name="Quivering Palm" StartLevel="17">When you hit with an unarmed strike you can spend 3 ki points to start vibrations in the target that last up to (monk level) days. These vibrations are harmless unless you use an action to end them--if so the creature must succeded on a CON save or be reduced to 0 HP. If it succeeds, it takes 10d10 necrotic damage. You can end the vibrations harmlessly without using an action.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Paladin">
     <Feature Name="Hit Dice">d10</Feature>
