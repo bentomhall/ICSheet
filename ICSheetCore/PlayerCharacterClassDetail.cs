@@ -94,6 +94,11 @@ namespace ICSheetCore
             return _features.Count(x => x.Name == name) > 0;
         }
 
+        internal void AddClassFeature(IFeature feature)
+        {
+            _features.Add(feature);
+        }
+
         private void setFeatures(IEnumerable<IFeature> features)
         {
             _features = new List<IFeature>(features);

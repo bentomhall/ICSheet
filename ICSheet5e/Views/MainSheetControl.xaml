@@ -7,7 +7,7 @@
              xmlns:views="clr-namespace:ICSheet5e.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="900" Width="959">
+             d:DesignHeight="900" d:DesignWidth="959">
     <UserControl.Resources>
         <Style TargetType="ListBoxItem">
             <Setter Property="ToolTip">

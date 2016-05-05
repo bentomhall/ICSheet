@@ -224,7 +224,7 @@ namespace ICSheetCore
             var pcClass = _playerClasses.SingleOrDefault(x => x.Name == forClass);
             foreach (var f in features)
             {
-                if (f.Name != withName) { AddFeature(f); }
+                if (f.Name != withName) { pcClass.AddClassFeature(f); }
             }
             var newSpellcasting = features.SingleOrDefault(x => x.Name == "Spellcasting");
             if (newSpellcasting != null)
