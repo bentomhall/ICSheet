@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -8,7 +7,9 @@ using System.ComponentModel;
 
 namespace ICSheetCore
 {
-
+    /// <summary>
+    /// A base class for inventory items. Also represents any generic non-weapon, non-armor item. More specific types should be subclassed.
+    /// </summary>
     [DataContract, KnownType(typeof(ArmorItem)), KnownType(typeof(WeaponItem))]
     public class Item: IItem
     {
@@ -26,19 +27,33 @@ namespace ICSheetCore
         [DataMember]
         private int _stackSize = 1;
 
+        /// <summary></summary>
         public IEnumerable<AbilityType> AssociatedAbilities { get { return associatedAbility; } }
+        /// <summary></summary>
         public string Name { get { return _name; } }
+        /// <summary></summary>
         public bool IsProficient { get { return _isProficient; } }
+        /// <summary></summary>
         public double Weight { get { return _weight; } }
+        /// <summary></summary>
         public double Value { get { return _value; } }
+        /// <summary></summary>
         public ItemSlot Slot { get { return _slot; } set { _slot = value; NotifyPropertyChanged(); } }
+        /// <summary></summary>
         public int EnhancementBonus { get { return _enhancement; } }
+        /// <summary></summary>
         public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
+        /// <summary></summary>
         public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }
+        /// <summary></summary>
         public int Count { get { return _stackSize; } set { _stackSize = value; NotifyPropertyChanged(); } }
+        /// <summary></summary>
         public string Properties { get { return properties; } set { properties = value; NotifyPropertyChanged(); } }
+        /// <summary></summary>
         public string Description { get { return CollectDescription(); } }
+        /// <summary></summary>
         [DataMember] public string BaseEffect { get; set; }
+        /// <summary>Unused</summary>
         [DataMember] public bool IsEquipped 
         {
             get { return _isEquipped; }
@@ -48,7 +63,18 @@ namespace ICSheetCore
                 NotifyPropertyChanged();
             }
         }
+        /// <summary></summary>
         [DataMember] public bool isRanged { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="weight"></param>
+        /// <param name="value"></param>
+        /// <param name="slot"></param>
+        /// <param name="proficient"></param>
+        /// <param name="properties"></param>
+        /// <param name="bonus"></param>
         public Item(string name, double weight, double value, ItemSlot slot, bool proficient, string properties, int bonus)
         {
             _name = name;
@@ -73,29 +99,36 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual string CollectDescription()
         {
             StringBuilder output = new StringBuilder(_name);
             output.Append(Environment.NewLine);
-            //if (_enhancement != 0) 
-            //{
-            //    output.Append(string.Format(" +{0}", _enhancement));
-            //    output.Append(Environment.NewLine);
-            //}
             output.Append(properties);
             return output.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString() { return description; }
 
         #region INotifyPropertyChanged Implementation
+        /// <summary>
+        /// INotifyPropertyChanged implementation
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        /// <summary>
+        /// INotifyPropertyChanged implementation
+        /// </summary>
+        /// <param name="propertyName"></param>
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 

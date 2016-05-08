@@ -14,10 +14,15 @@ namespace ICSheetCore
     [DataContract]
     public class Money
     {
+        /// <summary>1 PP = 10 GP</summary>
         public int Platinum { get { return (int)(_cash / 10); } }
+        /// <summary>Base unit</summary>
         public int Gold { get { return (int)(_cash % 10); } }
+        /// <summary>10 CP = 1 SP</summary>
         public int Copper { get { return (int)((_cash * 100) % 10); } }
+        /// <summary>10 SP = 1 GP</summary>
         public int Silver { get { return (int)((_cash * 10) % 10); } }
+        /// <summary>The total amount (base unit of gp)</summary>
         public decimal Total { get { return _cash; } }
         [DataMember]
         private decimal _cash;
@@ -49,14 +54,17 @@ namespace ICSheetCore
     /// </summary>
     public class OutOfMoneyExeption : Exception
     {
+        /// <summary></summary>
         public OutOfMoneyExeption()
         {
         }
 
+        /// <summary></summary>
         public OutOfMoneyExeption(string message) : base(message)
         {
         }
 
+        /// <summary></summary>
         public OutOfMoneyExeption(string message, Exception innerException) : base(message, innerException)
         {
         }

@@ -8,17 +8,30 @@
         private string _name;
         private string _description;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
         public RaceFeature(string name, string description)
         {
             _name = name;
             _description = description;
         }
 
+        /// <summary>
+        /// Concats the two descriptions together if the names match.
+        /// </summary>
+        /// <param name="other"></param>
         public void CombineDescriptions(RaceFeature other)
         {
+            if (Name != other.Name) { return; }
             _description = $"{_description}. {other.Description}";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Description
         {
             get
@@ -27,6 +40,9 @@
             }
         }
 
+        /// <summary>
+        /// Not applicable to race features.
+        /// </summary>
         public bool IsMulticlassInheritable
         {
             get
@@ -35,6 +51,9 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get
@@ -43,6 +62,9 @@
             }
         }
 
+        /// <summary>
+        /// All racial features start at level 1.
+        /// </summary>
         public int StartsFromLevel
         {
             get
@@ -51,6 +73,9 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullDescription
         {
             get
@@ -59,6 +84,10 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{_name}: {_description}";

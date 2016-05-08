@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace ICSheetCore
 {
+    /// <summary></summary>
     public interface IRace
     {
         /// <summary>
@@ -23,8 +24,9 @@ namespace ICSheetCore
         /// A collection of all racial features (including subrace features).
         /// </summary>
         IEnumerable<IFeature> Features { get; }
-
+        /// <summary></summary>
         void AddFeature(IFeature feature);
+        /// <summary>Returns the base race name and subrace name (in that order).</summary>
         Tuple<string, string> GetInformation();
     }
 }

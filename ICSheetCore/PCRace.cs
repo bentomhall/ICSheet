@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// A race that a player character can be.
+    /// </summary>
     public class PCRace : IRace
     {
         private List<IFeature> _features;
@@ -27,7 +30,12 @@ namespace ICSheetCore
             if (movement <= 0) { return 30; }
             return movement;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="baseName"></param>
+        /// <param name="subName"></param>
+        /// <param name="features"></param>
         public PCRace(string baseName, string subName, IEnumerable<IFeature> features)
         {
             _baseraceName = baseName;
@@ -36,11 +44,18 @@ namespace ICSheetCore
             _baseMovement = calculateMovement();
         } 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return RaceName;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int BaseMovement
         {
             get
@@ -49,6 +64,9 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<IFeature> Features
         {
             get
@@ -83,14 +101,17 @@ namespace ICSheetCore
 
         /// <summary>
         /// Adds a custom racial feature.
-        /// Not implemented yet
         /// </summary>
         /// <param name="feature"></param>
         public void AddFeature(IFeature feature)
         {
-            throw new NotImplementedException();
+            _features.Add(feature as RaceFeature);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Tuple<string, string> GetInformation()
         {
             return new Tuple<string, string>(_baseraceName, _subraceName);

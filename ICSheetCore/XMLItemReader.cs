@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class XMLItemReader
     {
         private string _armorsXML;
         private string _weaponsXML;
         private string _itemsXML;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="armors"></param>
+        /// <param name="weapons"></param>
+        /// <param name="items"></param>
         public XMLItemReader(string armors, string weapons, string items)
         {
             if (string.IsNullOrWhiteSpace(armors)) { throw new ArgumentNullException("armors"); }
@@ -23,6 +29,10 @@ namespace ICSheetCore
             _itemsXML = items;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<ArmorItem> ParseBasicArmors()
         {
             var doc = XDocument.Parse(_armorsXML);
@@ -46,11 +56,19 @@ namespace ICSheetCore
             return output;
         }
 
+        /// <summary>
+        /// Returns an empty list (no items defined yet).
+        /// </summary>
+        /// <returns></returns>
         public List<Item> ParseItems()
         {
             return new List<Item>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<WeaponItem> ParseBasicWeapons()
         {
             var doc = XDocument.Parse(_weaponsXML);

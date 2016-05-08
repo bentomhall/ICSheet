@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using ICSheetCore.Data;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// Creates a player character.
+    /// </summary>
     public class CharacterFactory
     {
         private string _characterName;

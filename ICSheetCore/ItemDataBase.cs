@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Xml;
-using System.Xml.Linq;
-using System.IO;
+using System.Linq;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// Data source for all items defined in XML.
+    /// </summary>
     [DataContract]
     public class ItemDataBase
     {
@@ -20,17 +17,31 @@ namespace ICSheetCore
         [DataMember]
         private List<WeaponItem> _weapons;
 
+        /// <summary>
+        /// All armors defined in XML.
+        /// </summary>
         public ICollection<ArmorItem> Armors { get { return _armors; } }
+        /// <summary>
+        /// All weapons defined in XML
+        /// </summary>
         public ICollection<WeaponItem> Weapons { get { return _weapons; } }
+        /// <summary>
+        /// All non-weapon, non-armor items in XML.
+        /// </summary>
         public ICollection<Item> Items { get { return _items; } }
 
+        /// <summary></summary>
         public bool Contains(IItem item)
         {
-            if (item.IsArmor) { return _armors.Contains(item as ArmorItem); }
-            if (item.IsWeapon) { return _weapons.Contains(item as WeaponItem); }
-            else { return _items.Contains(item as Item); }
+            if (item.IsArmor) { return _armors.Count(x => x.Name == item.Name) > 0; }
+            if (item.IsWeapon) { return _weapons.Count(x => x.Name == item.Name) > 0; }
+            else { return _items.Count(x => x.Name == item.Name) > 0; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemReader"></param>
         public ItemDataBase(XMLItemReader itemReader)
         {
             _armors = itemReader.ParseBasicArmors();

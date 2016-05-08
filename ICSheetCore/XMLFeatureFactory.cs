@@ -15,10 +15,15 @@ namespace ICSheetCore
         private XDocument _classFeatures;
         private XDocument _raceFeatures;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="raceFeatures"></param>
+        /// <param name="classFeatures"></param>
         public XMLFeatureFactory(string raceFeatures, string classFeatures)
         {
-            if (raceFeatures == null) { throw new System.ArgumentNullException("raceFeatures"); }
-            if (classFeatures == null) { throw new System.ArgumentNullException("classFeatures"); }
+            if (raceFeatures == null) { throw new ArgumentNullException("raceFeatures"); }
+            if (classFeatures == null) { throw new ArgumentNullException("classFeatures"); }
             _raceFeaturesXML = raceFeatures;
             _classFeaturesXML = classFeatures;
             _classFeatures = XDocument.Parse(_classFeaturesXML);

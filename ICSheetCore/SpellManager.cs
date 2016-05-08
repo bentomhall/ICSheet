@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Runtime.Serialization;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// Data source for spell information from XML
+    /// </summary>
     [DataContract]
     public class SpellManager
     {
@@ -60,18 +62,33 @@ namespace ICSheetCore
         [DataMember]
         private List<string> _spellNames;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellNames"></param>
+        /// <param name="spellDetails"></param>
         public SpellManager(string spellNames, string spellDetails)
         {
             loadSpellNames(spellNames);
             loadSpellDetails(spellDetails);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
         public IEnumerable<string> SpellNamesFor(string className)
         {
             if (!classNameSpellsMap.ContainsKey(className.ToLower())) { return new List<string>(); }
             return classNameSpellsMap[className.ToLower()];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <returns></returns>
         public Spell SpellDetailsFor(string spellName)
         {
             if (hasSpellDetails(spellName))

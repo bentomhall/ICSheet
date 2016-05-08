@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ICSheetCore
 {
@@ -51,7 +48,7 @@ namespace ICSheetCore
             }
         }
 
-/// <summary>
+        /// <summary>
         /// This one makes no sense for spellcasting. Use ParticipatesInMulticlassSpellcasting instead.
         /// </summary>
         public bool IsMulticlassInheritable

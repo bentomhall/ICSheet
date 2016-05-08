@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace ICSheetCore
 {
+    /// <summary>
+    /// A set of spells and associated information for a single spellcasting class.
+    /// </summary>
     [DataContract]
     public class SpellBook
     {
@@ -20,6 +19,12 @@ namespace ICSheetCore
         [DataMember]
         private string _name;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellDB"></param>
+        /// <param name="className"></param>
+        /// <param name="isPreparedCaster"></param>
         public SpellBook(SpellManager spellDB, string className, bool isPreparedCaster)
         {
             dB = spellDB;
@@ -27,6 +32,9 @@ namespace ICSheetCore
             loadSpells(className, isPreparedCaster);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int PreparedSpellCount { get { return _knownSpells.Count(x => x.IsPrepared); } }
 
         private void loadSpells(string className, bool isPrepared)
@@ -46,15 +54,23 @@ namespace ICSheetCore
             if (_knownSpells == null) { _knownSpells = new List<Spell>(); }
             foreach (var spell in spells)
             {
-                if (!IsSpellKnown(spell)) { _knownSpells.Add(spell); }
+                if (!IsSpellKnown(spell.Name)) { _knownSpells.Add(spell); }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellLevel"></param>
+        /// <returns></returns>
         public IEnumerable<Spell> AllSpellsFor(int spellLevel)
         {
             return _allSpells.Where(x => x.Level == spellLevel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<Spell> AllPreparedSpells
         {
             get 
@@ -63,17 +79,19 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<Spell> AllKnownSpells
         {
             get { return _knownSpells; }
         }
 
-
-        public void AddKnownSpell(Spell spell)
-        {
-            if (!IsSpellKnown(spell)) { _knownSpells.Add(spell); }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="withName"></param>
+        /// <param name="isBonus"></param>
         public void AddKnownSpell(string withName, bool isBonus)
         {
             if (!IsSpellKnown(withName))
@@ -86,15 +104,9 @@ namespace ICSheetCore
             }
         }
 
-        public void ToggleSpellPreparation(Spell spell)
-        {
-            
-            if (IsSpellKnown(spell)) 
-            {
-                spell.IsPrepared = (!spell.IsPrepared);
-            }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void UnprepareAllSpells()
         {
             foreach (var spell in _knownSpells)
@@ -103,29 +115,42 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
         public void UnlearnSpell(string spellName)
         {
             var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
             if (s != null) { _knownSpells.Remove(s); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <param name="asBonus"></param>
         public void PrepareSpell(string spellName, bool asBonus)
         {
             var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
             if (s != null) { s.IsPrepared = true; s.IsBonusSpell = asBonus; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
         public void UnprepareSpell(string spellName)
         {
             var s = _knownSpells.SingleOrDefault(x => x.Name == spellName);
             if (s != null) { s.IsPrepared = false; s.IsBonusSpell = false; }
         }
 
-        public bool IsSpellKnown(Spell spell)
-        {
-            return (_knownSpells.SingleOrDefault(x => x.Name == spell.Name) != null);
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spellName"></param>
+        /// <returns></returns>
         public bool IsSpellKnown(string spellName)
         {
             return _knownSpells.Count(x => x.Name == spellName) > 0;
