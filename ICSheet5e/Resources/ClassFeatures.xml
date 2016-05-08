@@ -416,6 +416,13 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
     <Feature Name="Slippery Mind" StartLevel="15">Gain proficiency in Wisdom saving throws.</Feature>
     <Feature Name="Elusive" StartLevel="18">No attack roll against you has advantage if you are not incapacitated.</Feature>
     <Feature Name="Stroke of Luck" StartLevel="20">Once per rest (long or short) either: turn a miss into a hit, or treat the d20 roll for a failed ability check as a 20.</Feature>
+    <Subclass Name="Thief">
+      <Feature Name="Fast Hands" StartLevel="3">You can use Cunning Action to make a DEX (Sleight of Hand) check, disarm a trap, open a lock, or take the Use an Object action.</Feature>
+      <Feature Name="Second-Story Work" StartLevel="3">Climbing costs normal movement. Running jumps increase by DEX feet.</Feature>
+      <Feature Name="Supreme Sneak" StartLevel="9">You have advantage on DEX (Stealth) checks if you move more than half your speed that turn.</Feature>
+      <Feature Name="Use Magic Device" StartLevel="13">Ignore all class, race, or level requirements for magic items.</Feature>
+      <Feature Name="Thief's Reflexes" StartLevel="17">You can take 2 turns during the first round of combat--one at normal initiative, the other at initiative minus 10. Cannot use this feature when surprised.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Sorcerer">
     <Feature Name="Hit Dice">d6</Feature>
@@ -454,7 +461,14 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
     Subtle Spell: Spend 1 point to cast a spell ignoring verbal or somatic components.
     Twinned Spell: Spend (spell slot level) points to target a second target when casting a spell that can only target one creature (and not self).
     </Feature>
-    <Feature Name="Sorcerous Restoration"> Regain 4 sorcery points when you finish a short rest.</Feature>
+    <Feature Name="Sorcerous Restoration" StartLevel="20"> Regain 4 sorcery points when you finish a short rest.</Feature>
+    <Subclass Name="Draconic Bloodline">
+      <Feature Name="Dragon Ancestor" StartLevel="1">Choose a type of dragon as your ancestor. Refer to the table for damage types. You also speak, read, and write Draconic. When you make a CHA check when interacting with dragons, you have expertise if you have proficiency.</Feature>
+      <Feature Name="Draconic Resilience" StartLevel="1">Your HP max increase by 1; this happens at each level. When not wearing armor, your AC is 13 + DEX.</Feature>
+      <Feature Name="Elemental Affinity" StartLevel="6">When you cast a spell that deals damage of the type associated with your ancestor, you can add CHA to one damage roll. You can spend 1 sorcery point to gain resistance to that damage type for 1 hour.</Feature>
+      <Feature Name="Dragon Wings" StartLevel="14">As a bonus action, you gain a fly speed equal to your current speed. This is disabled while wearing standard armor.</Feature>
+      <Feature Name="Draconic Presence" StartLevel="18">As an action, spend 5 sorcery points to exude an aura of awe or fear out to 60 feet. For one minute (or concentration) each hostile creature in the aura must make a WIS save or be charmed (awe) or feared (fear) until the aura ends. Creatures that succeed are immune to your aura for 24 hours.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Warlock">
     <Feature Name="Hit Dice">d8</Feature>
@@ -478,6 +492,19 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
     <Feature Name="Pact Boon" StartLevel="3">You gain one of the following features: Pact of the Chain, Pact of the Blade, or Pact of the Tome. Details are in the PHB.</Feature>
     <Feature Name="Mystic Arcanum" StartLevel="11">Choose one spell of appropriate level (every odd level) from the warlock list. You can cast this spell once per long rest without using a spell slot.</Feature>
     <Feature Name="Eldritch Master" StartLevel="20">Once per long rest, you can spend a minute to regain all pact magic spell slots.</Feature>
+    <Subclass Name="Fiend Patron">
+      <Feature Name="Expanded Spell List" StartLevel="1" xml:space="preserve">The following are added to your spell list. They are NOT bonus spells.
+      Spell Level : Spells
+      1st         : burning hands, command
+      2nd         : blindness/deafness, scorching ray
+      3rd         : fireball, stinking cloud
+      4th         : fire shield, wall of fire
+      5th         : flame strike, hallow</Feature>
+      <Feature Name="Dark One's Blessing" StartLevel="1">Gain THP = CHA + class level when you reduced a hostile creature to 0 HP.</Feature>
+      <Feature Name="Dark One's Own Luck" StartLevel="6">Add 1d10 to a saving throw or ability check before the effects occur 1x/rest.</Feature>
+      <Feature Name="Fiendish Resilience" StartLevel="10">Gain resistance to a damage type (except magical weapons or silver weapons). You can change this damage type after a long or short rest.</Feature>
+      <Feature Name="Hurl through Hell" StartLevel="14">When you hit a creature with an attack, you can use this feature to remove the creature until the end of your next turn. If the creature is not a fiend, it takes 10d10 psychich damage when it returns.</Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Wizard">
     <Feature Name="Hit Dice">d6</Feature>
@@ -502,5 +529,12 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
     <Feature Name="Arcane Tradition" StartLevel="2">Choose an arcane tradition as outlined in the PHB.</Feature>
     <Feature Name="Spell Mastery" StartLevel="18">Choose a 1st and a 2nd level wizard spell in your book--you can cast them at their lowest level without expending a slot.</Feature>
     <Feature Name="Signature Spells" StartLevel="20">Choose 2 3rd level spells. You always have them prepared and they don't count against the number of spells you can prepare. You can cast them each without expending a spell slot once per short or long rest.</Feature>
+    <Subclass Name="School of Evocation">
+      <Feature Name="Evocation Savant" StartLevel="2">Gold and time you spend to copy an evocation spell into your spellbook are halved.</Feature>
+      <Feature Name="Sculpt Spells" StartLevel="2">You can exclude 1 + spell level creatures from an evocation spell that requires a save. They take no damage and automatically succeed on any saving throws due to the spell.</Feature>
+      <Feature Name="Potent Cantrip" StartLevel="6">Cantrips that allow a saving throw now do half damage (but nothing else) on a successful save.</Feature>
+      <Feature Name="Empowered Evocation" StartLevel="10">Add INT to the damage of any wizard evocation spell you cast.</Feature>
+      <Feature Name="Overchannel" StartLevel="14">When you cast an evocation spell of levels 1-5, you deal can deal maximum damage. This does (uses - 1)d12 necrotic damage to you. The damage done resets (to zero) on a long rest and ignores resistance and immunity.</Feature>
+    </Subclass>
   </PCClass>
 </ClassFeatures>
