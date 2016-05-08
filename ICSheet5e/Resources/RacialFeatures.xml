@@ -2,7 +2,8 @@
 <FeatureSet>
   <Race Name="Dwarf">
     <Feature Name="Ability Bonus">+2 CON</Feature>
-    <Feature Name="Speed">Your speed is not reduced by wearing heavy armor.</Feature>
+    <Feature Name="Speed">25</Feature>
+    <Feature Name="Stability">Your speed is not reduced by heavy armor.</Feature>
     <Feature Name="Vision">Darkvision: 60ft</Feature>
     <Feature Name="Dwarven Resilience">Advantage on saves vs poison and resistance to poison damage.</Feature>
     <Feature Name="Dwarven Combat Training">You have proficiency with battleaxe, handaxe, light hammer, and warhammer.</Feature>
@@ -21,7 +22,7 @@
 
   <Race Name="Elf">
     <Feature Name="Ability Bonus">+2 DEX</Feature>
-    <Feature Name="Speed">30 feet/round.</Feature>
+    <Feature Name="Speed">30</Feature>
     <Feature Name="Vision">Darkvision: 60ft.</Feature>
     <Feature Name="Keen Senses">Proficiency in Perception.</Feature>
     <Feature Name="Fey Ancestry">Advantage on save vs charm and immunity to magical sleep.</Feature>
@@ -36,7 +37,7 @@
     <Subrace Name="Wood Elf">
       <Feature Name="Ability Bonus">+1 WIS</Feature>
       <Feature Name="Elf Weapon Training">Proficiency in longsword, shortsword, shortbow, and longbow.</Feature>
-      <Feature Name="Fleet of Foot">Base speed is 35 feet/round.</Feature>
+      <Feature Name="Speed">35</Feature>
       <Feature Name="Mask of the Wild">You can attempt to hide when lightly obscured by natural phenomena.</Feature>
     </Subrace>
     <Subrace Name="Dark Elf">
@@ -50,23 +51,23 @@
   <Race Name="Halfling">
     <Feature Name="Ability Bonus">+2 DEX</Feature>
     <Feature Name="Size">Small</Feature>
-    <Feature Name="Speed">25 ft/round</Feature>
+    <Feature Name="Speed">25</Feature>
     <Feature Name="Lucky">When you roll a 1 on the d20 for an attack roll, ability check or saving throw you can reroll and must use the new value.</Feature>
     <Feature Name="Brave">Advantage on save vs fear.</Feature>
     <Feature Name="Halfling Nimbleness">You can move through the space of any creature that has a size larger than yours.</Feature>
     <Feature Name="Languages">Common and Halfling.</Feature>
-    <Subrace Name="Lightfoot">
+    <Subrace Name="Lightfoot Halfling">
       <Feature Name="Ability Bonus">+1 CHA</Feature>
       <Feature Name="Naturally Stealthy">Can attempt to hide when obscured by a creature larger than you.</Feature>
     </Subrace>
-    <Subrace Name="Stout">
+    <Subrace Name="Stout Halfling">
       <Feature Name="Ability Bonus">+1 CON</Feature>
       <Feature Name="Stout Resilience">Advantage on saves vs poison and resistance to poison damage.</Feature>
     </Subrace>
   </Race>
   <Race Name="Human">
     <Feature Name="Ability Bonus">+1 to all.</Feature>
-    <Feature Name="Speed">30 ft/round.</Feature>
+    <Feature Name="Speed">30</Feature>
     <Feature Name="Languages">Common and one extra of your choice.</Feature>
     <Subrace Name="Variant Human" Replaces="Ability Bonus">
       <Feature Name="Ability Bonus">+1 to two of your choice.</Feature>
@@ -76,7 +77,7 @@
   </Race>
   <Race Name="Dragonborn">
     <Feature Name="Ability Bonus">+2 STR, +1 CHA</Feature>
-    <Feature Name="Speed">30 ft/round.</Feature>
+    <Feature Name="Speed">30</Feature>
     <Feature Name="Draconic Ancestry">You have draconic ancestry. See table on PHB 34 for color--type mapping and details on breath weapon.</Feature>
     <Feature Name="Breath Weapon" HasLimitedUse="True">See table on PHB 34 for shape/size. DC is 8 + proficiency + CON. Damage is 2d6 (1st)/3d6 (6th)/4d6 (11th)/5d6 (16th). Recharges on short/long rest.</Feature>
     <Feature Name="Damage Resistance">Resistance to damage type from table on PHB 34.</Feature>
@@ -85,6 +86,7 @@
   <Race Name="Gnome">
     <Feature Name="Ability Bonus">+2 INT</Feature>
     <Feature Name="Size">Small.</Feature>
+    <Feature Name="Speed">25</Feature>
     <Feature Name="Vision">Darkvision: 60ft</Feature>
     <Feature Name="Gnome Cunning">Advantage on INT, WIS, and CHA saves vs magic.</Feature>
     <Feature Name="Languages">Common and Gnomish.</Feature>
@@ -101,6 +103,7 @@
   </Race>
   <Race Name="Half-Elf">
     <Feature Name="Ability Bonus">+2 CHA, +1 to two others of your choice.</Feature>
+    <Feature Name="Speed">30</Feature>
     <Feature Name="Vision">Darkvision: 60 ft.</Feature>
     <Feature Name="Fey Ancestry">Advantage on save vs charm and immunity to magical sleep.</Feature>
     <Feature Name="Skill Versatility">You gain proficiency in two skills of your choice</Feature>
@@ -109,6 +112,7 @@
   <Race Name="Half-Orc">
     <Feature Name="Ability Bonus">+2 STR, +1 CON</Feature>
     <Feature Name="Vision">Darkvision: 60 ft.</Feature>
+    <Feature Name="Speed">30</Feature>
     <Feature Name="Menacing">Proficiency in Intimidate</Feature>
     <Feature Name="Relentless Endurance" HasLimitedUse="True">When you are reduced to 0 HP but not killed outright, you drop to 1 HP instead. Use 1x/Day</Feature>
     <Feature Name="Savage Attacks">Add +1 weapon damage dice on crit.</Feature>
@@ -117,6 +121,7 @@
   <Race Name="Tiefling">
     <Feature Name="Ability Bonus">+1 INT, +2 CHA</Feature>
     <Feature Name="Vision">Darkvision: 60 ft.</Feature>
+    <Feature Name="Speed">30</Feature>
     <Feature Name="Hellish Resistance">Resistance to Fire.</Feature>
     <Feature Name="Infernal Legacy" HasLimitedUse="True">You know Thaumaturgy. At 3rd level: Hellish Rebuke (as 2nd level, 1x/day). At 5th level: Darkness 1x/day. Use CHA.</Feature>
     <Feature Name="Languages">Common and Infernal.</Feature>

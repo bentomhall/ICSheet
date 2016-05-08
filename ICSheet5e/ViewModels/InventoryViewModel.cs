@@ -2,29 +2,25 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Runtime.CompilerServices;
-using ICSheet5e.Model;
-using InteractiveCharacterSheetCore;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
     public class InventoryViewModel : BaseViewModel
     {
-        public InventoryViewModel(Character c, ApplicationModel parent)
+        public InventoryViewModel(PlayerCharacter c, ApplicationModel parent, ItemDataBase itemDB)
         {
             Parent = parent;
             currentCharacter = c;
-            NewItemModel = new NewItemFactory(c.ItemDB.Weapons, c.ItemDB.Armors);
+            NewItemModel = new NewItemFactory(itemDB.Weapons, itemDB.Armors);
             NewItemModel.delegateAddItem = AddItemToInventory;
             setEquippedItems();
         }
 
         private string ItemNameOrDefault(ItemSlot slot)
         {
-            var item = EquippedItems.SingleOrDefault(x => x.Slot == slot);
+            var item = currentCharacter.EquippedItemForSlot(slot);
             if (item == null) { return "Nothing Equipped"; }
             else { return item.Name; }
         }
@@ -35,22 +31,22 @@ namespace ICSheet5e.ViewModels
             headItemName = ItemNameOrDefault(ItemSlot.Head);
             neckItemName = ItemNameOrDefault(ItemSlot.Neck);
             armorItemName = ItemNameOrDefault(ItemSlot.Armor);
-            var twoHand = EquippedItems.SingleOrDefault(x => x.Slot == ItemSlot.TwoHanded);
-            if (twoHand == null)
+            var mainWeapon = currentCharacter.EquippedItemForSlot(ItemSlot.Mainhand);
+            if (mainWeapon.Slot == ItemSlot.Mainhand)
             {
                 mainWeaponName = ItemNameOrDefault(ItemSlot.Mainhand);
                 OffhandWeaponName = ItemNameOrDefault(ItemSlot.Offhand);
             }
             else
             {
-                mainWeaponName = twoHand.Name;
+                mainWeaponName = mainWeapon.Name;
                 OffhandWeaponName = "N/A";
             }
             waistItemName = ItemNameOrDefault(ItemSlot.Waist);
             feetItemName = ItemNameOrDefault(ItemSlot.Feet);
         }
 
-        private Character currentCharacter;
+        private PlayerCharacter currentCharacter;
         private ObservableCollection<Item> _allItems = new ObservableCollection<Item>();
         private string headItemName;
         private string handItemName;
@@ -67,18 +63,21 @@ namespace ICSheet5e.ViewModels
             private set;
         }
 
-        public double Gold { get { return currentCharacter.Gold; } }
+        public Money Gold { get { return currentCharacter.Cash; } }
 
-        public ObservableCollection<Item> EquippedItems
+        public InventoryItemViewModel SelectedItem { get; set; }
+
+        public ObservableCollection<InventoryItemViewModel> Items 
         {
-            get { return new ObservableCollection<Item>(currentCharacter.ItemsMatching(x => x.IsEquipped == true).OrderBy(x => x.Slot)); }
-        }
-
-        public Item SelectedItem { get; set; }
-
-        public ObservableCollection<Item> Items 
-        {
-            get { return new ObservableCollection<Item>(currentCharacter.AllCarriedItems); }
+            get
+            {
+                var items = new ObservableCollection<InventoryItemViewModel>();
+                foreach (var item in currentCharacter.ItemsMatching(x => x.Name != "Unarmed Strike" && x.Name != "Clothing"))
+                {
+                    items.Add(modelForItem(item));
+                }
+                return items;
+            }
         }
 
         public string HeadItemName { get { return headItemName; } set { headItemName = value; NotifyPropertyChanged(); } }
@@ -90,28 +89,102 @@ namespace ICSheet5e.ViewModels
         public string WaistItemName { get { return waistItemName; } set { waistItemName = value; NotifyPropertyChanged(); } }
         public string FeetItemName { get { return feetItemName; } set { feetItemName = value; NotifyPropertyChanged(); } }
 
-        public Array SlotNames
+        static public Array SlotNames
         {
             get { return Enum.GetValues(typeof(ItemSlot)); }
         }
 
-        public void AddItemToInventory(Item item)
+        public void AddItemToInventory(IItem item)
         {
             currentCharacter.AddItemToInventory(item);
             NotifyPropertyChanged("Items");
         }
 
-        public ICommand EquipItemCommand
+        //public ICommand EquipItemCommand
+        //{
+        //    get { return new Views.DelegateCommand<int>(EquipItemCommandExecuted); }
+        //}
+
+        //private void EquipItemCommandExecuted(int index)
+        //{
+        //    //currentCharacter.Equip(SelectedItem);
+        //    //var name = ItemNameOrDefault(SelectedItem.Slot);
+        //    switch (SelectedItem.Slot)
+        //    {
+        //        case ItemSlot.Head:
+        //            HeadItemName = name;
+        //            break;
+        //        case ItemSlot.Hand:
+        //            HandItemName = name;
+        //            break;
+        //        case ItemSlot.Neck:
+        //            NeckItemName = name;
+        //            break;
+        //        case ItemSlot.Armor:
+        //            ArmorItemName = name;
+        //            break;
+        //        case ItemSlot.Feet:
+        //            FeetItemName = name;
+        //            break;
+        //        case ItemSlot.Waist:
+        //            WaistItemName = name;
+        //            break;
+        //        case ItemSlot.Mainhand:
+        //            MainWeaponName = name;
+        //            break;
+        //        case ItemSlot.Offhand:
+        //            OffhandWeaponName = name;
+        //            break;
+        //        case ItemSlot.TwoHanded:
+        //            MainWeaponName = name;
+        //            OffhandWeaponName = "N/A";
+        //            break;
+        //    }
+        //    NotifyPropertyChanged("EquippedItems");
+        //    NotifyPropertyChanged("Items");
+            
+        //}
+
+        private Dictionary<ItemSlot, int> EquipmentSlotMap = new Dictionary<ItemSlot, int>()
         {
-            get { return new Views.DelegateCommand<int>(EquipItemCommandExecuted); }
+            { ItemSlot.Head, 0},
+            { ItemSlot.Neck, 1},
+            { ItemSlot.Armor, 2},
+            { ItemSlot.Hand, 3},
+            { ItemSlot.Waist, 4},
+            { ItemSlot.Feet, 5},
+            { ItemSlot.Mainhand, 6},
+            { ItemSlot.Offhand, 7},
+            { ItemSlot.TwoHanded, 6} //2H weapons get equipped to main hand
+        };
+
+        public bool IsEquipped(IItem item)
+        {
+            IItem current;
+            if (item.Slot == ItemSlot.TwoHanded) { current = currentCharacter.EquippedItemForSlot(ItemSlot.Mainhand); }
+            else { current = currentCharacter.EquippedItemForSlot(item.Slot); }
+            if (current == null) { return false; }
+            else { return current.Name == item.Name; }
         }
 
-        private void EquipItemCommandExecuted(int index)
+        public void ChangeEquipmentStatus(IItem item)
         {
-            var newItem = Items[index];
-            var name = newItem.IsEquipped ? "Nothing Equipped" : newItem.Name;
-            currentCharacter.Equip(newItem);
-            switch (newItem.Slot)
+            if (IsEquipped(item)) { currentCharacter.Unequip(item); }
+            else { currentCharacter.Equip(item); }
+            updateSlotListing(item.Slot);
+            NotifyPropertyChanged("EquippedItems");
+            NotifyPropertyChanged("Items");
+        }
+
+        private void updateSlotListing(ItemSlot slot)
+        {
+            IItem item;
+            if (slot == ItemSlot.TwoHanded) { item = currentCharacter.EquippedItemForSlot(ItemSlot.Mainhand); }
+            else { item = currentCharacter.EquippedItemForSlot(slot); }
+            string name;
+            if (item == null) { name = "No Item Equipped"; }
+            else { name = item.Name; } 
+            switch (slot)
             {
                 case ItemSlot.Head:
                     HeadItemName = name;
@@ -142,25 +215,15 @@ namespace ICSheet5e.ViewModels
                     OffhandWeaponName = "N/A";
                     break;
             }
-            NotifyPropertyChanged("EquippedItems");
-            NotifyPropertyChanged("Items");
         }
 
-        private Dictionary<ItemSlot, int> EquipmentSlotMap = new Dictionary<ItemSlot, int>()
+        private InventoryItemViewModel modelForItem(IItem item)
         {
-            { ItemSlot.Head, 0},
-            { ItemSlot.Neck, 1},
-            { ItemSlot.Armor, 2},
-            { ItemSlot.Hand, 3},
-            { ItemSlot.Waist, 4},
-            { ItemSlot.Feet, 5},
-            { ItemSlot.Mainhand, 6},
-            { ItemSlot.Offhand, 7},
-            { ItemSlot.TwoHanded, 6} //2H weapons get equipped to main hand
-        };
+            return new InventoryItemViewModel(item, ChangeEquipmentStatus, IsEquipped);
+        }
 
-        double transactionAmount;
-        public double TransactionAmount
+        decimal transactionAmount;
+        public decimal TransactionAmount
         {
             get { return transactionAmount; }
             set
@@ -196,15 +259,15 @@ namespace ICSheet5e.ViewModels
         {
             if (obj == "+") 
             { 
-                currentCharacter.AddItemToInventory(SelectedItem);
+                currentCharacter.AddItemToInventory(SelectedItem.Item);
             }
             else if (obj == "-") 
             { 
-                currentCharacter.RemoveItemFromInventory(SelectedItem);
+                currentCharacter.DropItem(SelectedItem.Item);
             }
             else
             {
-                currentCharacter.DropItem(SelectedItem);
+                currentCharacter.DropItem(SelectedItem.Item);
             }
             NotifyPropertyChanged("Items");
         }
@@ -213,7 +276,7 @@ namespace ICSheet5e.ViewModels
 
     public class NewItemFactory : BaseViewModel
     {
-        string name;
+        string _name;
         string properties;
         int enhancement;
         ObservableCollection<string> baseItems;
@@ -232,12 +295,12 @@ namespace ICSheet5e.ViewModels
             set { count = value; NotifyPropertyChanged(); }
         }
 
-        Item ItemWithName(string name)
+        IItem ItemWithName(string name)
         {
             if (name == "N/A") { return null; } //no base item
-            var w = weapons.SingleOrDefault(x => x.Name == name);
-            var a = armors.SingleOrDefault(x => x.Name == name);
-            return w as Item ?? a as Item; //returns null if both are null
+            var w = weapons.SingleOrDefault(x => x.Name == name) as IItem;
+            var a = armors.SingleOrDefault(x => x.Name == name) as IItem;
+            return w ?? a ; //returns null if both are null
         }
 
         ArmorItem ArmorWithName(string name)
@@ -250,7 +313,7 @@ namespace ICSheet5e.ViewModels
             return weapons.SingleOrDefault(x => x.Name == name);
         }
 
-        void SetValuesFromItem(Item item)
+        void SetValuesFromItem(IItem item)
         {
             PropertyChanged -= OnBaseItemChanged; //prevent handler from firing during this function
             if (item == null)
@@ -338,10 +401,10 @@ namespace ICSheet5e.ViewModels
 
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
-                name = value;
+                _name = value;
                 NotifyPropertyChanged();
                 CommandManager.InvalidateRequerySuggested();
             }
@@ -372,11 +435,11 @@ namespace ICSheet5e.ViewModels
 
         private void CreateItemCommandExecuted(object obj)
         {
-            if (string.IsNullOrEmpty(name)) { return; }
+            if (string.IsNullOrEmpty(_name)) { return; }
 
 
             
-            if (Slot == ItemSlot.Armor || (name.Contains("Shield") && Slot == ItemSlot.Offhand))
+            if (Slot == ItemSlot.Armor || (_name.Contains("Shield") && Slot == ItemSlot.Offhand))
             {
                 var baseItem = ArmorWithName(SelectedItemName);
                 var armor = new ArmorItem(Name, Weight, Value, true, Properties, baseItem.ArmorClassType, Enhancement);

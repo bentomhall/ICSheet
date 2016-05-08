@@ -7,6 +7,17 @@
              xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="900" Background="White">
+    <UserControl.Resources>
+        <DataTemplate x:Key="SpellItemTemplate">
+            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal">
+                    <Button MinWidth="50" Content="{Binding Path=PreparationStatus}" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" />
+                    <Label MinWidth="250" Content="{Binding Path=Name}" HorizontalContentAlignment="Center"/>
+                    <Label MinWidth="200" Content="{Binding Path=InSpellbook}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,33 +29,23 @@
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
         <StackPanel Grid.Row="1">
-        <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" MinHeight="600">
-            <ListView.Resources>
-                <ContextMenu x:Key="SpellContextMenu">
-                    <MenuItem Header="Toggle Prepared" Command="{Binding Path=DataContext.ToggleSpellPreparation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
-                    <MenuItem Header="Learn Spell" Command="{Binding Path=DataContext.LearnSpellCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" CommandParameter="{Binding Path=SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
-                </ContextMenu>
-            </ListView.Resources>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="ContextMenu" Value="{StaticResource SpellContextMenu}"/>
-                        <!--<Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=SpellKnown}" Value="False">
-                            <Setter Property="Background" Value="#aaaaaa"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=SpellKnown}" Value="True">
-                            <Setter Property="Background" Value="White"/>
-                        </DataTrigger>
-                    </Style.Triggers> -->
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Spell Name" DisplayMemberBinding="{Binding Name}" Width="250"/>
-                    <GridViewColumn Header="Prepared?" DisplayMemberBinding="{Binding IsPrepared}"/>
-                    <!--<GridViewColumn Header="Known?" DisplayMemberBinding="{Binding SpellKnown}"/>-->
-                </GridView>
-            </ListView.View>
+            <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="750">
+                <ListView.Resources>
+                    <ContextMenu x:Key="ItemContextMenu">
+                        <MenuItem Header="Set as Bonus Spell" Command="{Binding Path=DataContext.SetDomainSpell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Background="AntiqueWhite"/>
+                    </ContextMenu>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="IsSelected" Value="True"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            
         </ListView>
             <Button Command="{Binding Path=LearnNewSpellCommand}">Add Other</Button>
         </StackPanel>

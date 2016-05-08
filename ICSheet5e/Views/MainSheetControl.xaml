@@ -7,7 +7,7 @@
              xmlns:views="clr-namespace:ICSheet5e.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="900">
+             d:DesignHeight="900" d:DesignWidth="959">
     <UserControl.Resources>
         <Style TargetType="ListBoxItem">
             <Setter Property="ToolTip">
@@ -51,7 +51,7 @@
                 </DockPanel>
                 <DockPanel>
                     <Label DockPanel.Dock="Top">XP:</Label>
-                    <TextBox DockPanel.Dock="Top" Text="{Binding Experience}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="100" Margin="0,0,10,0"/>
+                    <TextBox DockPanel.Dock="Top" Text="{Binding Experience, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="100" Margin="0,0,10,0"/>
                 </DockPanel>
             </StackPanel>
         </Border>
@@ -99,18 +99,18 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[0]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[1]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[2]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[3]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[4]}"/>
-                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=ProficientDefenses[5]}"/>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Defenses[0].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Defenses[1].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Defenses[2].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Defenses[3].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding Defenses[4].Value}"></Label>
-                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding Defenses[5].Value}"></Label>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" IsEnabled="False" IsChecked="{Binding StrengthSave.Item2, Mode=OneWay}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" IsEnabled="False" IsChecked="{Binding Path=DexteritySave.Item2, Mode=OneWay}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" IsEnabled="False" IsChecked="{Binding Path=ConstitutionSave.Item2, Mode=OneWay}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" IsEnabled="False" IsChecked="{Binding Path=IntelligenceSave.Item2, Mode=OneWay}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" IsEnabled="False" IsChecked="{Binding Path=WisdomSave.Item2, Mode=OneWay}"/>
+                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="5" IsEnabled="False" IsChecked="{Binding Path=CharismaSave.Item2, Mode=OneWay}"/>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Content="{Binding Path=StrengthSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1"  Content="{Binding Path=DexteritySave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2"  Content="{Binding Path=ConstitutionSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="3"  Content="{Binding Path=IntelligenceSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="4"  Content="{Binding Path=WisdomSave.Item1}"></Label>
+                <Label Grid.Column="1" BorderBrush="Black" BorderThickness="2,0,0,0" FontSize="16" Grid.Row="5"  Content="{Binding Path=CharismaSave.Item1}"></Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16">Strength</Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="1">Dexterity</Label>
                 <Label Grid.Column="2" BorderBrush="Black" BorderThickness="2,0,0,2" FontSize="16" Grid.Row="2">Constitution</Label>
@@ -126,7 +126,7 @@
                 <Popup Name="OverrideACPopup">
                     <StackPanel Background="White">
                         <Label>Miscellaneous AC Bonus:</Label>
-                        <TextBox Text="{Binding ArmorClassBonus}"/>
+                        <TextBox Text="{Binding ArmorClassBonus, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </Popup>
             </StackPanel>
@@ -186,17 +186,17 @@
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label Margin="0,0,12,0">Spell Attack Bonus:</Label>
-                    <TextBlock Text="{Binding Path=SpellAttackBonus}" MinWidth="60" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <TextBlock Text="{Binding Path=SpellAttackBonus}" MinWidth="60" VerticalAlignment="Center" TextAlignment="Right" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label Margin="0,0,65,0">Spell DC:</Label>
-                    <TextBlock Text="{Binding Path=SpellDC}" MinWidth="60" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <TextBlock Text="{Binding Path=SpellDC}" MinWidth="60" VerticalAlignment="Center" TextAlignment="Right" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <Label HorizontalContentAlignment="Center">Prepared Spells:</Label>
                     <TextBlock TextAlignment="Right" MinWidth="90" VerticalAlignment="Center" Text="{Binding Path=PreparedSpellsCount}"/>
                 </StackPanel>
-                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" SelectedItem="{Binding Path=SelectedPreparedSpell}" >
+                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Path=PreparedSpells}" >
                     
                 </ListBox>
             </DockPanel>
@@ -204,17 +204,19 @@
         <Border Grid.Column="4" Grid.ColumnSpan="3" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White" Padding="4">
             <DockPanel>
                 <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="18">Campaign Notes</Label>
-                <TextBox DockPanel.Dock="Top" Text="{Binding Path=Notes}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+                <TextBox DockPanel.Dock="Top" Text="{Binding Path=Notes, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"></TextBox>
             </DockPanel>
         </Border>
         <Border Grid.Column="8" Grid.ColumnSpan="1" Grid.Row="2" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White">
-            <UniformGrid Rows="3" Columns="2">
-                <Label Height="25" Margin="0,0,4,0" VerticalContentAlignment="Center">Gold:</Label>
-                <TextBlock Text="{Binding Path=Gold[0]}" VerticalAlignment="Center" MinWidth="50"/>
+            <UniformGrid Rows="4" Columns="2">
+                <Label Margin="0,0,4,0" VerticalContentAlignment="Center" >Plat:</Label>
+                <TextBlock Text="{Binding Path=Gold.Platinum}" VerticalAlignment="Center" MinWidth="50" HorizontalAlignment="Right"/>
+                <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Gold:</Label>
+                <TextBlock Text="{Binding Path=Gold.Gold}" VerticalAlignment="Center" MinWidth="50" HorizontalAlignment="Right"/>
                 <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Silver:</Label>
-                <TextBlock Text="{Binding Path=Gold[1]}" VerticalAlignment="Center" MinWidth="50"/>
+                <TextBlock Text="{Binding Path=Gold.Silver}" VerticalAlignment="Center" MinWidth="50" HorizontalAlignment="Right"/>
                 <Label Margin="0,0,4,0" VerticalContentAlignment="Center">Copper</Label>
-                <TextBlock Text="{Binding Path=Gold[2]}" VerticalAlignment="Center" MinWidth="50"/>
+                <TextBlock Text="{Binding Path=Gold.Copper}" VerticalAlignment="Center" MinWidth="50" HorizontalAlignment="Right"/>
             </UniformGrid>
         </Border>
         <Border Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="3" CornerRadius="15" BorderBrush="Black" BorderThickness="2" Background="White" Padding="4">

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ICSheet5e.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
@@ -12,20 +12,19 @@ namespace ICSheet5e.ViewModels
         private SpellManager spellDB;
         private List<Spell> _allSpells = new List<Spell>();
 
-        public AddNewSpellViewModel(SpellManager dB)
+        public AddNewSpellViewModel(SpellManager dB, IEnumerable<string> classNames)
         {
             spellDB = dB;
-            loadSpells();
+            loadSpells(classNames);
         }
 
-        private void loadSpells()
+        private void loadSpells(IEnumerable<string> names)
         {
-            foreach (var typeName in Enum.GetNames(typeof(CharacterClassType)))
+            foreach (var typeName in names)
             {
-                var type = (CharacterClassType)Enum.Parse(typeof(CharacterClassType), typeName);
-                foreach (var spellName in spellDB.SpellNamesFor(type))
+                foreach (var spellName in spellDB.SpellNamesFor(typeName))
                 {
-                    if (_allSpells.SingleOrDefault(x => x.Name == spellName) == null)
+                    if (_allSpells.SingleOrDefault(x => x.Name.Equals(spellName, StringComparison.CurrentCultureIgnoreCase)) == null)
                     {
                         _allSpells.Add(spellDB.SpellDetailsFor(spellName));
                     }
@@ -44,10 +43,15 @@ namespace ICSheet5e.ViewModels
         {
             get {
                 if (SearchString == null) { return new ObservableCollection<Spell>(_allSpells); }
-                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Name.Contains(SearchString))); 
+                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Name.ToLower().Contains(SearchString.ToLower()))); 
             
             }
         }
+
+        public bool IsBonusSpell { get; set; }
+
+        public List<string> CastingClasses { get; set; }
+        public string SelectedClass { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand FindMatchingSpellsCommand

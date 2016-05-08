@@ -87,6 +87,17 @@ namespace ICSheet5e.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;BasicItems&gt;
+        ///&lt;/BasicItems&gt;.
+        /// </summary>
+        internal static string BasicItems {
+            get {
+                return ResourceManager.GetString("BasicItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;BasicWeapons&gt;
         ///  &lt;Weapon Name=&quot;Club&quot; Category=&quot;SimpleMelee&quot;&gt;
         ///    &lt;Cost&gt;0.1&lt;/Cost&gt;
@@ -162,16 +173,16 @@ namespace ICSheet5e.Properties {
         ///&lt;Spell Name=&quot;Awaken&quot;/&gt;
         ///&lt;Spell Name=&quot;Bane&quot;/&gt;
         ///&lt;Spell Name=&quot;Bestow Curse&quot;/&gt;
-        ///&lt;Spell Name=&quot;Blade Ward&quot;/&gt;
         ///&lt;Spell Name=&quot;Blindness/Deafness&quot;/&gt;
         ///&lt;Spell Name=&quot;Calm Emotions&quot;/&gt;
         ///&lt;Spell Name=&quot;Charm Person&quot;/&gt;
         ///&lt;Spell Name=&quot;Clairvoyance&quot;/&gt;
-        ///&lt;Spell Name=&quot;Cloud of Daggers&quot;/&gt;
         ///&lt;Spell Name=&quot;Comprehend Languages&quot;/&gt;
         ///&lt;Spell Name=&quot;Compulsion&quot;/&gt;
         ///&lt;Spell Name=&quot;Confusion&quot;/&gt;
-        ///&lt;Spel [rest of string was truncated]&quot;;.
+        ///&lt;Spell Name=&quot;Cure Wounds&quot;/&gt;
+        ///&lt;Spell Name=&quot;Dancing Lights&quot;/&gt;
+        ///&lt;Spell [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string spell_list {
             get {
@@ -188,7 +199,7 @@ namespace ICSheet5e.Properties {
         ///        &quot;Duration&quot;: &quot;Instantaneous&quot;,
         ///        &quot;Components&quot;: &quot;V, S, M (powdered rhubarb leaf and an adder&apos;s stomach)&quot;,
         ///        &quot;Casting Time&quot;: &quot;1 action&quot;,
-        ///        &quot;text&quot;: &quot;A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. O [rest of string was truncated]&quot;;.
+        ///        &quot;text&quot;: &quot;A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SpellList5e {
             get {

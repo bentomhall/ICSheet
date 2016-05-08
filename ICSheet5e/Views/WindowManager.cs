@@ -12,7 +12,7 @@ namespace ICSheet5e.Views
     public static class WindowManager
     {
 
-        public static System.Windows.Window MainWindow
+        public static Window MainWindow
         {
             get { return Application.Current.MainWindow; }
         }
@@ -22,7 +22,8 @@ namespace ICSheet5e.Views
             HealthDialog,
             LevelUpDialog,
             AddNewSpellsDialog,
-            AddNewFeatureDialog
+            AddNewFeatureDialog,
+            AddSubclassDialog,
         }
 
         public static void DisplayDialog(DialogType type, IViewModel model, Action<IViewModel> completionHandler)
@@ -42,6 +43,9 @@ namespace ICSheet5e.Views
                 case DialogType.AddNewFeatureDialog:
                     dlg = new AddNewFeatureWindow();
                     break;
+                case DialogType.AddSubclassDialog:
+                    dlg = new AddSubClassWindow();
+                    break;
                 default:
                     throw new NotImplementedException("OOPs!, wrong dialog type");
             }
@@ -54,6 +58,13 @@ namespace ICSheet5e.Views
             {
                 completionHandler(model);
             }
+        }
+
+        public static void OpenSRD()
+        {
+            var wndow = new SRDViewWindow();
+            wndow.Show();
+            return;
         }
 
         public static string SelectExistingFile()
@@ -77,7 +88,7 @@ namespace ICSheet5e.Views
         public static string SelectSaveLocation()
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "Character";
+            dlg.FileName = "";
             dlg.DefaultExt = ".dnd5e";
             dlg.Filter = "5th Edition Character Sheets (.dnd5e)|*.dnd5e";
 

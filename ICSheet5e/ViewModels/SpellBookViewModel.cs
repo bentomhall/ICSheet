@@ -1,4 +1,4 @@
-﻿using ICSheet5e.Model;
+﻿using ICSheetCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,34 +7,39 @@ using System.Windows.Input;
 
 namespace ICSheet5e.ViewModels
 {
+    //TODO: needs significant surgery
     public class SpellBookViewModel : BaseViewModel
     {
-        public SpellBookViewModel(SpellCaster caster, SpellManager dB)
+        public SpellBookViewModel(PlayerCharacter caster, SpellManager dB, XMLFeatureFactory classNamesSource)
         {
-            this._caster = caster;
+            _caster = caster;
             _dB = dB;
-            LoadAllSpells();
-            _spellsForSelectedLevel = spellViewModelsForLevel(0);
-            reconcilePreparedSpells();
+            _classNamesSource = classNamesSource;
+            //LoadAllSpells();
+            //reconcilePreparedSpells();
+            _spellcastingClasses = _caster.SpellcastingClasses;
+
         }
 
-        private void reconcilePreparedSpells()
-        {
-            var master = _caster.PreparedSpells;
-            foreach (var s in _allSpells)
-            {
-                if (master.Count(x => x.Name == s.Name) != 0)
-                {
-                    s.IsPrepared = true;
-                }
-            }
-        }
+        private IEnumerable<string> _spellcastingClasses;
+        private XMLFeatureFactory _classNamesSource;
+        //private void reconcilePreparedSpells()
+        //{
+        //    var master = _caster.PreparedSpells;
+        //    foreach (var s in _allSpells)
+        //    {
+        //        if (master.Count(x => x.Name == s.Name) != 0)
+        //        {
+        //            s.IsPrepared = true;
+        //        }
+        //    }
+        //}
 
         public ObservableCollection<Spell> AllSpells
         {
             get
             {
-                return new ObservableCollection<Spell>(_allSpells.Where(x => x.Level == _selectedLevel));
+                return new ObservableCollection<Spell>(_caster.KnownSpells.Where(x => x.Level == _selectedLevel));
             }
         }
 
@@ -65,7 +70,6 @@ namespace ICSheet5e.ViewModels
             {
                 _selectedLevel = value;
                 NotifyPropertyChanged();
-                _spellsForSelectedLevel = spellViewModelsForLevel(value);
                 NotifyPropertyChanged("AllSpells");
             }
         }
@@ -92,23 +96,25 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(ToggleSpellPreparationExecuted); }
         }
 
+        public ICommand SetDomainSpell
+        {
+            get { return new Views.DelegateCommand<object>(SetSpellAsDomainSpellExecuted); }
+        }
+
         public void AddNewSpellDelegate(IViewModel model)
         {
             if (model is AddNewSpellViewModel)
             {
-                var spell = (model as AddNewSpellViewModel).SpellToLearn;
-                _caster.AddSpell(spell);
-                var vm = new SpellViewModel(spell);
-                vm.SpellKnown = true;
-                _allSpellModels.Add(vm);
-                _allSpells.Add(spell);
+                var vm = model as AddNewSpellViewModel;
+                var spell = vm.SpellToLearn;
+                _caster.Learn(spell.Name, vm.SelectedClass, vm.IsBonusSpell);
+                //_allSpells.Add(spell);
                 NotifyPropertyChanged("AllSpells");
             }
         }
 
-        private List<SpellViewModel> _allSpellModels = new List<SpellViewModel>();
-        private List<Spell> _allSpells = new List<Spell>();
-        private SpellCaster _caster;
+        //private List<Spell> _allSpells = new List<Spell>();
+        private PlayerCharacter _caster;
         private SpellManager _dB;
         private int _selectedLevel = 0;
         private Spell _selectedSpell;
@@ -127,76 +133,64 @@ namespace ICSheet5e.ViewModels
             "Level 9"
         };
 
-        private ObservableCollection<SpellViewModel> _spellsForSelectedLevel;
-
         private void CastSpellCommandExecuted(object obj)
         {
             if (_selectedLevel == 0)
             {
                 return; //casting these does nothing
             }
-            else if (_caster.CanCastSpell(SpellLevel))
-            {
-                _caster.CastSpell(SpellLevel);
-                NotifyPropertyChanged("AvailableSpellSlots");
-            }
-            else
-            {
-                return;
-            }
+            _caster.UseSpellSlot(_selectedLevel);
+            NotifyPropertyChanged("AvailableSpellSlots");
+            
         }
 
         private string formatSpellSlots()
         {
-            var slots = _caster.Slots.Item2;
-            return String.Format("{0} / {1} / {2} / {3} / {4} / {5} / {6} / {7} / {8}", slots[0], slots[1], slots[2], slots[3], slots[4], slots[5], slots[6], slots[7], slots[8]);
+            return string.Join(" / ", _caster.SpellSlots);
         }
 
         private void LearnNewSpellCommandExecuted(object obj)
         {
             var type = Views.WindowManager.DialogType.AddNewSpellsDialog;
-            var model = new AddNewSpellViewModel(_dB);
+            var model = new AddNewSpellViewModel(_dB, _classNamesSource.ExtractClassNames());
+            model.CastingClasses = _spellcastingClasses.ToList();
+            model.SelectedClass = _spellcastingClasses.First();
             Views.WindowManager.DisplayDialog(type, model, AddNewSpellDelegate);
         }
 
         private void LearnSpellCommandExecuted(object obj)
         {
             var spell = SelectedSpell;
-            _caster.AddSpell(spell);
-            //SelectedSpell.SpellKnown = true;
+            _caster.Learn(spell.Name, spell.InSpellbook, false);
             NotifyPropertyChanged("SpellKnown");
         }
 
-        private void LoadAllSpells()
+        private void SetSpellAsDomainSpellExecuted(object obj)
         {
-            for (int i = 0; i <= 9; i++)
-            {
-                LoadSpellsOfLevel(i);
-            }
+            if (SelectedSpell.IsBonusSpell) { _caster.Unprepare(SelectedSpell.Name, SelectedSpell.InSpellbook); }
+            else { _caster.Prepare(SelectedSpell.Name, SelectedSpell.InSpellbook, true); }
+            NotifyPropertyChanged("AllSpells");
         }
 
-        private void LoadSpellsOfLevel(int level)
-        {
-            var spells = _caster.AllSpellsForLevel(level);
-            foreach (var spell in spells)
-            {
-                var vm = new SpellViewModel(spell);
-                if (_caster.IsSpellKnown(spell)) { vm.SpellKnown = true; }
-                _allSpellModels.Add(vm);
-                _allSpells.Add(spell);
-            }
-        }
+        //private void LoadAllSpells()
+        //{
+        //    _allSpells.AddRange(_caster.KnownSpells);
+        //}
 
-        private ObservableCollection<SpellViewModel> spellViewModelsForLevel(int level)
-        {
-            return new ObservableCollection<SpellViewModel>(_allSpellModels.Where(x => x.Level == level));
-        }
 
         private void ToggleSpellPreparationExecuted(object obj)
         {
             var spell = SelectedSpell;
-            if (!_caster.IsSpellKnown(spell)) { return; }
-            _caster.PrepareSpell(spell);
+            if (spell.IsBonusSpell) { return; } //bonus spells are always prepared.
+            if (spell.IsPrepared)
+            {
+                _caster.Unprepare(spell.Name, spell.InSpellbook);
+            }
+            else
+            {
+                _caster.Prepare(spell.Name, spell.InSpellbook, spell.IsBonusSpell);
+            }
+            
             NotifyPropertyChanged("AllSpells");
             NotifyPropertyChanged("IsPrepared");
         }

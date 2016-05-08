@@ -1,0 +1,11 @@
+﻿<Window x:Class="ICSheet5e.Views.SRDViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICSheet5e.Views"
+        mc:Ignorable="d"
+        Title="System Reference Document v1.1" Height="600" Width="800">
+
+    <WebBrowser Source="pack://siteoforigin:,,,/Resources/5eSRD.pdf"></WebBrowser>
+</Window>
