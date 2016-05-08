@@ -376,6 +376,25 @@ dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored t
     <Feature Name="Vanish" StartLevel="14">You can hide as a bonus action and cannot be tracked unless you want to be.</Feature>
     <Feature Name="Feral Senses" StartLevel="18">You no longer have automatic disadvantage when attacking creatures you can't see.</Feature>
     <Feature Name="Foe Slayer" StartLevel="20">You can add +WIS to attack or damage roll against favored enemies 1x per turn. </Feature>
+    <Subclass Name="Hunter">
+      <Feature Name="Hunter's Prey" StartLevel="3" xml:space="preserve">Choose one of the following:
+      Colossus Slayer: Deal 1d8 extra damage to wounded foes 1x per turn.
+      Giant Killer: When attacked (hit or miss) by a Large or larger creature within 5 feet, use your reaction to counterattack.
+      Horde Breaker: Make an additional weapon attack against a creature within 5 feet of the original target 1x per turn.</Feature>
+      <Feature Name="Defensive Tactics" StartLevel="7" xml:space="preserve">Choose one of the following:
+      Escape the Horde: Opportunity attacks against you have disadvantage
+      Multiattack Defense: When hit with an attack you gain +4 to AC against all other attacks by that creature for the rest of the turn.
+      Steel Will: You have advantage on saves vs fear.</Feature>
+      <Feature Name="Multiattack" StartLevel="11" xml:space="preserve">Choose one:
+        Volley: Use your action to make a ranged attack against any number of creatures within 10 feet of a point you can see. This consumes ammunition as normal. You make a separate attack roll against each target.
+        Whirlwind Attack: Use your action to make a melee attack against any number of creatures within 5 feet of you. Make separate attack rolls for each target.
+      </Feature>
+      <Feature Name="Superior Hunter's Defense" StartLevel="15" xml:space="preserve">Choose one:
+        Evasion: When you make a DEX save for half damage, instead take half damage on a failed save and no damage on a successful save.
+        Stand against the Tide: When missed with a melee attack, use your reaction to force the creature to repeat the same attack against another creature (not itself) of your choice.
+        Uncanny Dodge: When an attacker you can see hits you with an attack, you can use a reaction to take half damage instead.
+      </Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Rogue">
     <Feature Name="Hit Dice">d8</Feature>
