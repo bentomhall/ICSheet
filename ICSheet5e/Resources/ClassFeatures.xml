@@ -79,7 +79,7 @@
     <Feature Name="Ritual Casting">Can cast cleric (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Holy symbols.</Feature>
     <Feature Name="Divine Domain">See PHB 59.</Feature>
-    <Feature Name="Channel Divinity" HasLimitedUse="True" StartLevel="2">Turn Undead: Undead enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
+    <Feature Name="Channel Divinity: Turn Undead" HasLimitedUse="True" StartLevel="2">Undead enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
     <Feature Name="Destroy Undead" StartLevel="5">Turned enemies under CR level (Table PHB 59) are destroyed outright.</Feature>
     <Feature Name="Divine Intervention" HasLimitedUse="True" StartLevel="10">See text in PHB pg 59.</Feature>
     <Feature Name="Domain Spells">You gain bonus spells as domain spells. These are always prepared and do not count against the limit.</Feature>
@@ -97,7 +97,7 @@
       <Feature Name="Divine Strike" StartLevel="8">Once each turn deal 1d8 extra radiant damage when you hit with a weapon attack. Increases to 2d8 at 14th level.</Feature>
       <Feature Name="Supreme Healing" StartLevel="17">All healing dice for spells you cast heal their maximum amount.</Feature>
     </Subclass>
-    <Subclass Name="Knowledge Domain">
+    <Subclass Name="Knowledge Domain" OGL="false">
       <Feature Name="Bonus Spells" StartLevel="1" xml:space="preserve">Gain the following domain spells at the indicated cleric levels:
       1st : identify, command
       3rd : augury, suggestion
@@ -323,6 +323,25 @@
     <Feature Name="Aura of Courage" StartLevel="10">You and allies within 10' cannot be frightened while you are conscious. Range increases to 30' at 18th level.</Feature>
     <Feature Name="Improved Divine Smite" StartLevel="11">You deal 1d8 extra radiant damage on hit. Stacks with Divine Smite.</Feature>
     <Feature Name="Cleansing Touch" StartLevel="14">You can use your action to end one spell on yourself or one willing creature (touch). Uses: CHA/long rest.</Feature>
+    <Subclass Name="Oath of Devotion">
+      <Feature Name="Tenets of Devotion" StartLevel="3" xml:space="preserve">Honesty
+      Courage
+      Compassion
+      Honor
+      Duty</Feature>
+      <Feature Name="Oath Spells" StartLevel="3" xml:space="preserve">
+        3rd : protection from evil and good, sanctuary
+        5th : lesser restoration, zone of truth
+        9th : beacon of hope, dispel magic
+        13th : freedom of movement, guardian of faith
+        17th : commune, flame strike
+      </Feature>
+      <Feature Name="Channel Divinity: Sacred Weapon" StartLevel="3">For 1 minute add CHA to attack rolls made with your weapon; the weapon also emits light as by the light spell. The weapon is considered magical for the duration. You can end this affect at will on your turn or if you are not holding or carrying the weapon (or are unconscious).</Feature>
+      <Feature Name="Channel Divinity: Turn the Unholy" StartLevel="3">Undead or fiendish enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
+      <Feature Name="Aura of Devotion" StartLevel="7">Allies within 10 feet cannot be charmed while you are conscious. The range increases to 30 feet at 18th level.</Feature>
+      <Feature Name="Purity of Spirit" StartLevel="15">You are always under the effect of a protection from evil and good spell.</Feature>
+      <Feature Name="Holy Nimbus" StartLevel="20">As an action you can emanate an aura of sunlight for 1 minute. You shed light for 30/30 feet. Enemies starting turns in the bright light take 10 radiant damage. You have advantage on saving throws against spells cast by fiends and undead. 1x/long rest. </Feature>
+    </Subclass>
   </PCClass>
   <PCClass Name="Ranger">
     <Feature Name="Hit Dice">d10</Feature>
