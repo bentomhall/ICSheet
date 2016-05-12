@@ -555,6 +555,11 @@ namespace ICSheetCore
             _classAggregate.AddSubclass(forClass, withName, features);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public CharacterRPInformation CharacterInformation { get { return _characterInfo; } }
+
 
         #region Serialization
         /// <summary>

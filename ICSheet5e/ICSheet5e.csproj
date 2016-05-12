@@ -108,6 +108,7 @@
     <Compile Include="ViewModels\AttackViewModel.cs" />
     <Compile Include="ViewModels\AttributeBoxViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CharacterInformationViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />

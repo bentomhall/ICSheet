@@ -87,6 +87,10 @@ namespace ICSheetCore
             _weight = weight;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deity"></param>
         public void AssignDeity(string deity)
         {
             _deity = deity;
