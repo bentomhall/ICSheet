@@ -9,11 +9,7 @@ namespace ICSheetCore
     /// </summary>
     public class PlayerCharacter :ISpellcastingDataSource, ISpellcastingDelegate, IInventoryDataSource, IInventoryDelegate
     {
-        private string _name;
-        private string _alignment;
-        private string _notes;
-        private string _background;
-
+        private CharacterRPInformation _characterInfo;
         private HealthManager _health;
         private AbilityAggregate _abilityAggregate; //can construct
         private DefenseAggregate _defenseAggregate; //can construct
@@ -31,10 +27,10 @@ namespace ICSheetCore
             return features;
         }
 
-        internal PlayerCharacter(string name, IRace race, PlayerClassAggregate classesAndLevels)
+        internal PlayerCharacter(CharacterRPInformation info, IRace race, PlayerClassAggregate classesAndLevels)
         {
             _race = race;
-            _name = name;
+            _characterInfo = info;
             _classAggregate = classesAndLevels;
             _abilityAggregate = new AbilityAggregate();
             _defenseAggregate = new DefenseAggregate(_abilityAggregate, _classAggregate.ProficiencyForDefenses);
@@ -62,16 +58,6 @@ namespace ICSheetCore
                 {"Survival", 0 }
             };
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Alignment { get { return _alignment; } set { _alignment = value; } }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Background { get { return _background; } set { _background = value; } }
 
         #region ISpellcastingDataSource
         /// <summary>
@@ -387,7 +373,7 @@ namespace ICSheetCore
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get { return _name; } }
+        public string Name { get { return _characterInfo.Name; } }
 
         /// <summary>
         /// 
@@ -400,7 +386,7 @@ namespace ICSheetCore
         /// <summary>
         /// 
         /// </summary>
-        public string Notes { get { return _notes; } set { _notes = value; } }
+        public string Notes { get { return _characterInfo.Notes; } set { _characterInfo.Notes = value; } }
         /// <summary>
         /// 
         /// </summary>
@@ -578,10 +564,11 @@ namespace ICSheetCore
         public Data.CharacterData ToCharacterData()
         {
             var d = new Data.CharacterData();
-            d.Name = _name;
-            d.Alignment = _alignment;
-            d.Background = _background;
-            d.Notes = _notes;
+            d.Name = _characterInfo.Name;
+            d.Alignment = _characterInfo.Alignment;
+            d.Background = _characterInfo.Background;
+            d.Notes = _characterInfo.Notes;
+            d.Information = _characterInfo;
             d.Experience = Experience;
             d.AbilityScores = abilityScores();
             d.RaceInformation = _race.GetInformation();

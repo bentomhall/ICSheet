@@ -24,6 +24,10 @@ namespace ICSheetCore.Data
 
         /// <summary></summary>
         [DataMember]
+        public CharacterRPInformation Information { get; set; }
+
+        /// <summary></summary>
+        [DataMember]
         public IDictionary<AbilityType, int> AbilityScores { get; set; }
 
         /// <summary></summary>

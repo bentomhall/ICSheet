@@ -18,6 +18,8 @@ namespace ICSheetCore
         private PlayerClassAggregate _classes;
         private string _alignment;
         private string _background;
+        private int _weight;
+        private string _deity;
 
         /// <summary>
         /// Creates an instance of a PlayerCharacterFactory
@@ -76,21 +78,43 @@ namespace ICSheetCore
             _alignment = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="weight"></param>
+        public void AssignWeight(int weight)
+        {
+            _weight = weight;
+        }
+
+        public void AssignDeity(string deity)
+        {
+            _deity = deity;
+        }
+
 
         /// <summary>
         /// Creates a new PlayerCharacter instance. Throws InvalidOperationException if AssignRace and AssignClassLevels not called first.
         /// </summary>
+        /// <param name="info">Can be null</param>
         /// <returns></returns>
-        public PlayerCharacter ToPlayerCharacter()
+        public PlayerCharacter ToPlayerCharacter(CharacterRPInformation info)
         {
             if (_race == null || _classes ==  null)
             {
                 throw new InvalidOperationException("Must set race and classes before building");
             }
-            var c = new PlayerCharacter(_characterName, _race, _classes);
-            c.Alignment = _alignment ?? "";
-            c.Background = _background ?? "";
-            return c;
+            if (info == null)
+            {
+                var newCharInfo = new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _background ?? "", _deity ?? "");
+                return new PlayerCharacter(newCharInfo, _race, _classes);
+            }
+            else { return new PlayerCharacter(info, _race, _classes); }
+        }
+
+        private CharacterRPInformation makeCharacterInfo()
+        {
+            return new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _background ?? "", _deity ?? "");
         }
 
         #region Deserialization
@@ -105,8 +129,17 @@ namespace ICSheetCore
             AssignClassLevels(dataObject.ClassLevelInformation);
             _alignment = dataObject.Alignment;
             _background = dataObject.Background;
-            var c = ToPlayerCharacter();
-            c.Notes = dataObject.Notes;
+
+            PlayerCharacter c;
+            if (dataObject.Information == null)
+            {
+                c = ToPlayerCharacter(null);
+                c.Notes = dataObject.Notes;
+            }
+            else
+            {
+                c = ToPlayerCharacter(dataObject.Information);
+            }
             c.Experience = dataObject.Experience;
             setAbilityScores(c, dataObject);
             setInventory(c, dataObject);

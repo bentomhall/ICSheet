@@ -140,7 +140,7 @@ namespace ICSheet5e.ViewModels
             characterBuilder.AssignRace(race.Item1, race.Item2);
             characterBuilder.AssignAlignment(alignment);
             characterBuilder.AssignBackground(background);
-            currentCharacter = characterBuilder.ToPlayerCharacter();
+            currentCharacter = characterBuilder.ToPlayerCharacter(null); //create a new character
             setViewModels();
         }
 
