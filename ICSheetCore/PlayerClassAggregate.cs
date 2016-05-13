@@ -34,6 +34,7 @@ namespace ICSheetCore
             _proficiencyBonus = calculateProficiencyBonus();
             calculateDefenses();
             _spellcastingAggregate = createSpellcastingAggregate(spellDB);
+            collectFeatures();
         }
 
         private void calculateDefenses()
@@ -75,6 +76,7 @@ namespace ICSheetCore
         internal void AddFeature(IFeature feature)
         {
             _customFeatures.Add(feature);
+            _shouldRefreshFeatures = true;
         }
 
 
@@ -95,14 +97,21 @@ namespace ICSheetCore
         {
             get
             {
-                var features = new List<IFeature>();
-                foreach (var c in _playerClasses)
-                {
-                    features.AddRange(c.Features.Where(x => x.StartsFromLevel <= c.Level));
-                }
-                features.AddRange(_customFeatures);
-                return features;
+                if (_shouldRefreshFeatures) { collectFeatures(); }
+                return _features;
             }
+        }
+
+        private bool _shouldRefreshFeatures = false;
+        private List<IFeature> _features;
+        private void collectFeatures()
+        {
+            _features = new List<IFeature>();
+            foreach (var c in _playerClasses)
+            {
+                _features.AddRange(c.Features.Where(x => x.StartsFromLevel <= c.Level));
+            }
+            _features.AddRange(_customFeatures);
         }
 
         internal IEnumerable<Spell> PreparedSpells { get { return _spellcastingAggregate.PreparedSpells; } }
@@ -144,6 +153,7 @@ namespace ICSheetCore
             _totalLevel += 1;
             _proficiencyBonus = calculateProficiencyBonus();
             calculateDefenses();
+            collectFeatures();
         }
 
         internal void UseSpellSlot(int level)
@@ -231,6 +241,7 @@ namespace ICSheetCore
             {
                 _spellcastingAggregate.AddSpellcasting(newSpellcasting);
             }
+            _shouldRefreshFeatures = true;
         }
     }
 
