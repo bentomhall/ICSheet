@@ -12,7 +12,7 @@ namespace ICSheet5e.ViewModels
     {
         private CharacterRPInformation _characterInfo;
 
-        public CharacterInformationViewModel(PlayerCharacter character)
+        public CharacterInformationViewModel(PlayerCharacter character) : base()
         {
             _characterInfo = character.CharacterInformation;
         }

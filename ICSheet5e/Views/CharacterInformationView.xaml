@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="ICSheet5e.Views.CharacterInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ICSheet5e.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="959">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="106*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="480*"/>
+            <ColumnDefinition Width="480*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+            <StackPanel>
+                <Label>Name:</Label>
+                <TextBlock Text="{Binding Path=Name}" FontSize="36"/>
+            </StackPanel> 
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+            <StackPanel>
+                <Label>Alignment:</Label>
+                <TextBlock Text="{Binding Path=Alignment}" FontSize="18" HorizontalAlignment="Center"/>
+                <Label>Background:</Label>
+                <TextBlock Text="{Binding Path=Background}" FontSize="18" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+            <StackPanel>
+                <Label>Weight:</Label>
+                <TextBlock Text="{Binding Path=BaseWeight}" HorizontalAlignment="Center" FontSize="18"/>
+                <Label>Height:</Label>
+                <TextBlock FontSize="18"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+            <StackPanel>
+                <Label>Tool Proficiencies:</Label>
+                <Button Command="{Binding Path=AddToolCommand}" CommandParameter="{Binding Text, ElementName=NewTool}" Height="24">Add Tool Proficiency</Button>
+                <TextBox x:Name="NewTool"></TextBox>
+                <ListBox ItemsSource="{Binding Path=Tools}"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+            <StackPanel>
+                <Label>Languages:</Label>
+                <Button Command="{Binding Path=AddLanguageCommand}" CommandParameter="{Binding Text, ElementName=NewLanguage}" Height="24">Add Language</Button>
+                <TextBox x:Name="NewLanguage"></TextBox>
+                <ListBox ItemsSource="{Binding Path=Languages}" MinHeight="100"/>
+                <Label>Contacts:</Label>
+                <Button Command="{Binding Path=AddContactCommand}" CommandParameter="{Binding Text, ElementName=NewContact}" Height="24">Add Contact</Button>
+                <TextBox x:Name="NewContact"></TextBox>
+                <ListBox ItemsSource="{Binding Path=Contacts}" MinHeight="100"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+            <StackPanel>
+                <Label>Notes:</Label>
+                <TextBox Text="{Binding Path=Notes, UpdateSourceTrigger=PropertyChanged}" MinHeight="400"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -24,24 +24,28 @@ namespace ICSheet5e.Views {
             ViewModels.BaseViewModel vm = item as ViewModels.BaseViewModel;
             Window window = Application.Current.MainWindow;
 
-            if ( vm as ViewModels.NoCharacterViewModel != null)
+            if ( vm is ViewModels.NoCharacterViewModel)
             {
                 return window.FindResource("NoCharacterTemplate") as DataTemplate;
             }
-            else if ( vm as ViewModels.NewCharacterViewModel != null) {
+            else if ( vm is ViewModels.NewCharacterViewModel) {
                 return window.FindResource("NewCharacterTemplate") as DataTemplate;
             }
-            else if (vm as ViewModels.CharacterViewModel != null)
+            else if (vm is ViewModels.CharacterViewModel)
             {
                 return window.FindResource("CharacterTemplate") as DataTemplate;
             }
-            else if (vm as ViewModels.InventoryViewModel != null)
+            else if (vm is ViewModels.InventoryViewModel)
             {
                 return window.FindResource("InventoryTemplate") as DataTemplate;
             }
-            else if (vm as ViewModels.SpellBookViewModel != null)
+            else if (vm is ViewModels.SpellBookViewModel)
             {
                 return window.FindResource("SpellTemplate") as DataTemplate;
+            }
+            else if (vm is ViewModels.CharacterInformationViewModel)
+            {
+                return window.FindResource("InformationTemplate") as DataTemplate;
             }
             else
             {

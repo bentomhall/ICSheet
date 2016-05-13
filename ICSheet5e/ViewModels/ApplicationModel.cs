@@ -159,6 +159,7 @@ namespace ICSheet5e.ViewModels
             var cvm = new CharacterViewModel(currentCharacter, this);
             ViewModels[0] = cvm;
             ViewModels[1] = new InventoryViewModel(currentCharacter, this, itemDB);
+            ViewModels[2] = new CharacterInformationViewModel(currentCharacter);
             if (CanCastSpells) {
                 var sp = new SpellBookViewModel(currentCharacter, spellDB, featureFactory);
                 sp.PropertyChanged += cvm.OnEquipmentChanged;
