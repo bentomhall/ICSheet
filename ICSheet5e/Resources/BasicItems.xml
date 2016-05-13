@@ -1,3 +1,123 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <BasicItems>
+  <Item Name="Abacus">
+    <Cost>2.0</Cost>
+    <Weight>2.0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Acid (vial)">
+    <Cost>25.0</Cost>
+    <Weight>1.0</Weight>
+    <Count>1</Count>
+    <Properties>Splash (range 5) or throw (range 20); ranged attack as improvised weapon. 2d6 acid damage on hit.</Properties>
+  </Item>
+  <Item Name="Alchemist's fire (flask)">
+    <Cost>50.0</Cost>
+    <Weight>1.0</Weight>
+    <Count>1</Count>
+    <Properties>Throw (range 20); ranged attack as improvised weapon. 1d4 fire damage per turn. DC 10 DEX check to extinguish.</Properties>
+  </Item>
+  <Item Name="Antitoxin (vial)">
+    <Cost>50</Cost>
+    <Weight>0.0</Weight>
+    <Count>1</Count>
+    <Properties>Drinking this gives advantage on saves vs poison for 1 hour.</Properties>
+  </Item>
+  <Item Name="Arrows">
+    <Cost>1</Cost>
+    <Weight>0.05</Weight>
+    <Count>20</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Blowgun Needles">
+    <Cost>1</Cost>
+    <Weight>0.02</Weight>
+    <Count>50</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Crossbow bolts">
+    <Cost>1</Cost>
+    <Weight>0.075</Weight>
+    <Count>20</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Sling bullets">
+    <Cost>0.04</Cost>
+    <Weight>0.075</Weight>
+    <Count>20</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Crystal (Arcane focus)">
+    <Cost>10</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Orb (Arcane focus)">
+    <Cost>20</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Rod (Arcane focus)">
+    <Cost>10</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Staff (Arcane focus)">
+    <Cost>5</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Wand (Arcane focus)">
+    <Cost>10</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Backpack">
+    <Cost>2</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties>Holds 1 cu. ft. and 30 lbs of gear.</Properties>
+  </Item>
+  <Item Name="Ball Bearings (bag)">
+    <Cost>1</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>As action, cover a square 10ft on a side. DEX save vs DC10 or fall prone. Half-speed negates.</Properties>
+  </Item>
+  <Item Name="Barrel">
+    <Cost>2</Cost>
+    <Weight>70</Weight>
+    <Count>1</Count>
+    <Properties>Holds 40 gallons liquid or 4 cu. ft. solid.</Properties>
+  </Item>
+  <Item Name="Basket">
+    <Cost>0.4</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Holds 2 cu. ft. or 40 lbs of gear.</Properties>
+  </Item>
+  <Item Name="Bedroll">
+    <Cost>1</Cost>
+    <Weight>7</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Bell">
+    <Cost>1</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Blanket">
+    <Cost>0.5</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
 </BasicItems>
