@@ -35,7 +35,7 @@
                 <Label>Weight:</Label>
                 <TextBlock Text="{Binding Path=BaseWeight}" HorizontalAlignment="Center" FontSize="18"/>
                 <Label>Height:</Label>
-                <TextBlock FontSize="18"/>
+                <TextBlock FontSize="18" Text="{Binding Path=Height}" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">

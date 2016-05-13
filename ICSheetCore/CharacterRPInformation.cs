@@ -107,7 +107,7 @@ namespace ICSheetCore
             _contacts = new List<string>();
             _tools = new List<string>();
             _languages = new List<string>() { "Common" }; //all character start out with common
-            BaseWeight = BaseWeight;
+            BaseWeight = baseWeight;
             Name = name;
             Alignment = alignment;
             Height = height;
