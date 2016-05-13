@@ -11,9 +11,11 @@ namespace ICSheet5e.ViewModels
     public class CharacterInformationViewModel : BaseViewModel
     {
         private CharacterRPInformation _characterInfo;
+        private PlayerCharacter _character;
 
         public CharacterInformationViewModel(PlayerCharacter character) : base()
         {
+            _character = character;
             _characterInfo = character.CharacterInformation;
         }
 
@@ -21,6 +23,7 @@ namespace ICSheet5e.ViewModels
         public string Alignment { get { return _characterInfo.Alignment; } }
         public string Background { get { return _characterInfo.Background; } }
         public int BaseWeight { get { return _characterInfo.BaseWeight; } }
+        public double TotalWeight { get { return _characterInfo.BaseWeight + _character.CarriedWeight; } }
         
         public IEnumerable<string> Languages { get { return _characterInfo.Languages; } }
         public IEnumerable<string> Contacts { get { return _characterInfo.Contacts; } }

@@ -57,6 +57,12 @@ namespace ICSheetCore
         /// <summary>
         /// 
         /// </summary>
+        [DataMember]
+        public string Height { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<string> Languages { get { return _languages; } }
 
         /// <summary>
@@ -95,7 +101,8 @@ namespace ICSheetCore
         /// <param name="baseWeight"></param>
         /// <param name="background"></param>
         /// <param name="deity"></param>
-        public CharacterRPInformation(string name, string alignment, int baseWeight, string background, string deity)
+        /// <param name="height"></param>
+        public CharacterRPInformation(string name, string alignment, int baseWeight, string height, string background, string deity)
         {
             _contacts = new List<string>();
             _tools = new List<string>();
@@ -103,6 +110,7 @@ namespace ICSheetCore
             BaseWeight = BaseWeight;
             Name = name;
             Alignment = alignment;
+            Height = height;
             Background = background;
             Deity = deity;
         }

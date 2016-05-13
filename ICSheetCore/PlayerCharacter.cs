@@ -251,6 +251,11 @@ namespace ICSheetCore
         /// returns the object representing the cash on hand. Read only. Setters inaccessible outside of the assembly.
         /// </summary>
         public Money Cash { get { return _inventory.CashOnHand; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double CarriedWeight { get { return _inventory.InventoryWeight; } }
         #endregion
 
 

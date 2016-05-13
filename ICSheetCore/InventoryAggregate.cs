@@ -167,5 +167,13 @@ namespace ICSheetCore
         {
             return _equippedItems;
         }
+
+        internal double InventoryWeight
+        {
+            get
+            {
+                return _inventoryItems.Sum(x => x.Weight * x.Count);
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace ICSheetCore
         private string _background;
         private int _weight;
         private string _deity;
+        private string _height;
 
         /// <summary>
         /// Creates an instance of a PlayerCharacterFactory
@@ -96,6 +97,15 @@ namespace ICSheetCore
             _deity = deity;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="height"></param>
+        public void AssignHeight(string height)
+        {
+            _height = height;
+        }
+
 
         /// <summary>
         /// Creates a new PlayerCharacter instance. Throws InvalidOperationException if AssignRace and AssignClassLevels not called first.
@@ -110,7 +120,7 @@ namespace ICSheetCore
             }
             if (info == null)
             {
-                var newCharInfo = new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _background ?? "", _deity ?? "");
+                var newCharInfo = new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _height ?? "5' 0\"", _background ?? "", _deity ?? "");
                 return new PlayerCharacter(newCharInfo, _race, _classes);
             }
             else { return new PlayerCharacter(info, _race, _classes); }
@@ -118,7 +128,7 @@ namespace ICSheetCore
 
         private CharacterRPInformation makeCharacterInfo()
         {
-            return new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _background ?? "", _deity ?? "");
+            return new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _height ?? "5' 0\"", _background ?? "", _deity ?? "");
         }
 
         #region Deserialization

@@ -86,7 +86,8 @@ namespace ICSheet5e.ViewModels
         {
             var raceData = new Tuple<string, string>(CharacterRace, CharacterSubrace);
             var classesAndLevels = new Dictionary<string, int>() { { CharacterClass, Level } };
-            delegateAction?.Invoke(CharacterName, CharacterAlignment, CharacterBackground, raceData, classesAndLevels);
+            var info = new CharacterRPInformation(CharacterName, CharacterAlignment, Weight, Height, CharacterBackground, Deity);
+            delegateAction?.Invoke(CharacterName, info, raceData, classesAndLevels);
         }
 
         private bool NewCharacterCommandCanExecute()
@@ -99,10 +100,15 @@ namespace ICSheet5e.ViewModels
             return canExecute;
         }
 
+        public int Weight { get; set; }
+        public string Height { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
-        public Action<string, string, string, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
+        public Action<string, CharacterRPInformation, Tuple<string, string>, IDictionary<string, int>> delegateAction { get; set; }
 
         public IEnumerable<string> Alignments { get { return alignments; } }
+
+        public string Deity { get; set; }
 
         static private List<string> alignments = new List<string>() { "Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil" };
     }

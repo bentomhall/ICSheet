@@ -132,15 +132,13 @@ namespace ICSheet5e.ViewModels
             
         }
 
-        public void NewCharacterInformationReceived(string name, string alignment, string background, Tuple<string, string> race, IDictionary<string, int> classes)
+        public void NewCharacterInformationReceived(string name, CharacterRPInformation info, Tuple<string, string> race, IDictionary<string, int> classes)
         {
             
             var characterBuilder = new CharacterFactory(name, spellDB, featureFactory);
             characterBuilder.AssignClassLevels(classes);
             characterBuilder.AssignRace(race.Item1, race.Item2);
-            characterBuilder.AssignAlignment(alignment);
-            characterBuilder.AssignBackground(background);
-            currentCharacter = characterBuilder.ToPlayerCharacter(null); //create a new character
+            currentCharacter = characterBuilder.ToPlayerCharacter(info); //create a new character
             setViewModels();
         }
 

@@ -17,5 +17,6 @@ namespace ICSheetCore
         IItem EquippedItemForSlot(ItemSlot slot);
         IEnumerable<IItem> ItemsMatching(Func<IItem, bool> predicate);
         Money Cash { get; }
+        double CarriedWeight { get; }
     }
 }
