@@ -108,7 +108,7 @@ namespace ICSheetCore
         {
             get
             {
-                return $"Level: {Level}\r\nCast Time: {CastTime}\r\nRange: {Range}\r\nComponents: {Components}\r\n{Description}";
+                return $"Level: {Level}\r\nCast Time: {CastTime}\r\nRange: {Range}\r\nDuration: {Duration}\r\nComponents: {Components}\r\n{Description}";
             }
         }
 
