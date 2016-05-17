@@ -24,6 +24,7 @@ namespace ICSheet5e.ViewModels
         public string Background { get { return _characterInfo.Background; } }
         public int BaseWeight { get { return _characterInfo.BaseWeight; } }
         public double TotalWeight { get { return _characterInfo.BaseWeight + _character.CarriedWeight; } }
+        public string Weight { get { return $"{_character.CarriedWeight} / {_characterInfo.BaseWeight}"; } }
         public string Height { get { return _characterInfo.Height; } }
 
         public IEnumerable<string> Languages { get { return _characterInfo.Languages; } }
