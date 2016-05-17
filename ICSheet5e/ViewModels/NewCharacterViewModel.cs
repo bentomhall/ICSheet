@@ -47,7 +47,7 @@ namespace ICSheet5e.ViewModels
         private string _baseRace;
         private string _characterClass = "";
 
-        private int _level = 0;
+        private int _level = 1; //no point starting this at 0, since that's not a valid level
 
         public string CharacterClass
         {
