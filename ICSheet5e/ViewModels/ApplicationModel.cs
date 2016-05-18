@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.Runtime.Serialization;
 using ICSheetCore;
+using System.Linq;
 
 namespace ICSheet5e.ViewModels
 {
@@ -126,8 +127,10 @@ namespace ICSheet5e.ViewModels
             if (vm != null)
             {
                 currentCharacter.AddSubclass(vm.SelectedClass, vm.SelectedSubclass, vm.Features);
+                if (vm.Features.Count(x => x.Name == "Spellcasting") > 0) { setViewModels(); }
                 NotifyPropertyChanged("Features");
             }
+            
             DoAutosave();
             
         }
