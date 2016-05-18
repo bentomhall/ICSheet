@@ -8,9 +8,10 @@
              d:DesignHeight="900" d:DesignWidth="959">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="106*"/>
+            <RowDefinition Height="44*"/>
+            <RowDefinition Height="44*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="155*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="480*"/>
@@ -20,7 +21,7 @@
             <StackPanel>
                 <Label>Name:</Label>
                 <TextBlock Text="{Binding Path=Name}" FontSize="36"/>
-            </StackPanel> 
+            </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="0" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
             <StackPanel>
@@ -38,27 +39,31 @@
                 <TextBlock FontSize="18" Text="{Binding Path=Height}" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
-        <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+        <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
                 <Label>Tool Proficiencies:</Label>
-                <Button Command="{Binding Path=AddToolCommand}" CommandParameter="{Binding Text, ElementName=NewTool}" Height="24">Add Tool Proficiency</Button>
                 <TextBox x:Name="NewTool"></TextBox>
+                <Button Command="{Binding Path=AddToolCommand}" CommandParameter="{Binding Text, ElementName=NewTool}" Height="24">Add Tool Proficiency</Button>
                 <ListBox ItemsSource="{Binding Path=Tools}"/>
             </StackPanel>
         </Border>
-        <Border Grid.Column="0" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
-            <StackPanel>
+        <Border Grid.Column="0" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
+            <StackPanel >
                 <Label>Languages:</Label>
-                <Button Command="{Binding Path=AddLanguageCommand}" CommandParameter="{Binding Text, ElementName=NewLanguage}" Height="24">Add Language</Button>
                 <TextBox x:Name="NewLanguage"></TextBox>
-                <ListBox ItemsSource="{Binding Path=Languages}" MinHeight="100"/>
+                <Button Command="{Binding Path=AddLanguageCommand}" CommandParameter="{Binding Text, ElementName=NewLanguage}" Height="24">Add Language</Button>
+                <ListView ItemsSource="{Binding Path=Languages}" MinHeight="92"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="0" Grid.Row="3" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
+            <StackPanel>
                 <Label>Contacts:</Label>
-                <Button Command="{Binding Path=AddContactCommand}" CommandParameter="{Binding Text, ElementName=NewContact}" Height="24">Add Contact</Button>
                 <TextBox x:Name="NewContact"></TextBox>
+                <Button Command="{Binding Path=AddContactCommand}" CommandParameter="{Binding Text, ElementName=NewContact}" Height="24">Add Contact</Button>
                 <ListBox ItemsSource="{Binding Path=Contacts}" MinHeight="100"/>
             </StackPanel>
         </Border>
-        <Border Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
+        <Border Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Grid.RowSpan="2" Padding="3">
             <StackPanel>
                 <Label>Notes:</Label>
                 <TextBox Text="{Binding Path=Notes, UpdateSourceTrigger=PropertyChanged}" MinHeight="400"/>

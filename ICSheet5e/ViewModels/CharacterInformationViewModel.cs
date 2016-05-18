@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ICSheetCore;
+﻿using ICSheetCore;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace ICSheet5e.ViewModels
 {
@@ -27,9 +23,9 @@ namespace ICSheet5e.ViewModels
         public string Weight { get { return $"{_character.CarriedWeight} / {_characterInfo.BaseWeight}"; } }
         public string Height { get { return _characterInfo.Height; } }
 
-        public IEnumerable<string> Languages { get { return _characterInfo.Languages; } }
-        public IEnumerable<string> Contacts { get { return _characterInfo.Contacts; } }
-        public IEnumerable<string> Tools { get { return _characterInfo.Tools; } }
+        public ObservableCollection<string> Languages { get { return new ObservableCollection<string>(_characterInfo.Languages); } }
+        public ObservableCollection<string> Contacts { get { return new ObservableCollection<string>(_characterInfo.Contacts); } }
+        public ObservableCollection<string> Tools { get { return new ObservableCollection<string>(_characterInfo.Tools); } }
         
         public string Notes { get { return _characterInfo.Notes; } set { _characterInfo.Notes = value; NotifyPropertyChanged(); } }
         
@@ -40,7 +36,11 @@ namespace ICSheet5e.ViewModels
 
         private void AddLanguageCommandExecuted(string obj)
         {
-            if (obj != null) { _characterInfo.AddLanguage(obj); NotifyPropertyChanged("Languages"); }
+            if (obj != null)
+            {
+                _characterInfo.AddLanguage(obj);
+                NotifyPropertyChanged("Languages");
+            }
         }
 
         public ICommand AddContactCommand

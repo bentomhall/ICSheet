@@ -100,51 +100,6 @@ namespace ICSheet5e.ViewModels
             NotifyPropertyChanged("Items");
         }
 
-        //public ICommand EquipItemCommand
-        //{
-        //    get { return new Views.DelegateCommand<int>(EquipItemCommandExecuted); }
-        //}
-
-        //private void EquipItemCommandExecuted(int index)
-        //{
-        //    //currentCharacter.Equip(SelectedItem);
-        //    //var name = ItemNameOrDefault(SelectedItem.Slot);
-        //    switch (SelectedItem.Slot)
-        //    {
-        //        case ItemSlot.Head:
-        //            HeadItemName = name;
-        //            break;
-        //        case ItemSlot.Hand:
-        //            HandItemName = name;
-        //            break;
-        //        case ItemSlot.Neck:
-        //            NeckItemName = name;
-        //            break;
-        //        case ItemSlot.Armor:
-        //            ArmorItemName = name;
-        //            break;
-        //        case ItemSlot.Feet:
-        //            FeetItemName = name;
-        //            break;
-        //        case ItemSlot.Waist:
-        //            WaistItemName = name;
-        //            break;
-        //        case ItemSlot.Mainhand:
-        //            MainWeaponName = name;
-        //            break;
-        //        case ItemSlot.Offhand:
-        //            OffhandWeaponName = name;
-        //            break;
-        //        case ItemSlot.TwoHanded:
-        //            MainWeaponName = name;
-        //            OffhandWeaponName = "N/A";
-        //            break;
-        //    }
-        //    NotifyPropertyChanged("EquippedItems");
-        //    NotifyPropertyChanged("Items");
-            
-        //}
-
         private Dictionary<ItemSlot, int> EquipmentSlotMap = new Dictionary<ItemSlot, int>()
         {
             { ItemSlot.Head, 0},
