@@ -332,7 +332,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ClassFeatures.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\RacialFeatures.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
