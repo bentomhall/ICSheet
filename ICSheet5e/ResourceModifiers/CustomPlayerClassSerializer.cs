@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Resources;
 using ICSheetCore;
 
 namespace ICSheet5e.ResourceModifiers
 {
-    class CustomPlayerClassSerializer
+    public class CustomPlayerClassSerializer
     {
         private XDocument _classDocument;
         private List<string> _classNames = new List<string>();
@@ -18,6 +19,7 @@ namespace ICSheet5e.ResourceModifiers
             var element = new XElement("Feature");
             element.SetAttributeValue("Name", feature.Name);
             element.SetAttributeValue("StartLevel", feature.StartsFromLevel);
+            element.SetAttributeValue(XNamespace.Xml + "space", "preserve");
             element.Value = feature.Description;
             return element;
         }
@@ -33,6 +35,11 @@ namespace ICSheet5e.ResourceModifiers
             return element;
         }
 
+        private void save()
+        {
+            _classDocument.Save(@"Resources\ClassFeatures.xml");
+        }
+
 
         internal CustomPlayerClassSerializer(string classData)
         {
@@ -44,7 +51,21 @@ namespace ICSheet5e.ResourceModifiers
 
         internal void ConstructBaseClass(string className, IEnumerable<IFeature> features, IEnumerable<SubclassData> subclasses)
         {
+            var root = _classDocument.Root;
+            var element = new XElement("PCClass");
+            element.SetAttributeValue("Name", className);
+            foreach (var f in features) { element.Add(_constructFeatureNode(f)); }
+            foreach (var sc in subclasses) { element.Add(_constructSubclassNode(sc)); }
+            root.Add(element);
+            save();
+        }
 
+        internal void ConstructSubclassForExistingClass(string className, SubclassData subclassInformation)
+        {
+            var classElement = _classDocument.Root.Elements().SingleOrDefault(x => x.Attribute("Name").Value == className);
+            if (classElement == null) { throw new ArgumentException("Invalid class name supplied."); }
+            classElement.Add(_constructSubclassNode(subclassInformation));
+            save();
         }
     }
 }

@@ -2,8 +2,14 @@
 
 namespace ICSheetCore
 {
-    static class SpellcastingLookup
+    /// <summary>
+    /// Contains static lookups for spellcasting features
+    /// </summary>
+    public static class SpellcastingLookup
     {
+        /// <summary>
+        /// Spell slots by level for full casters.
+        /// </summary>
         public static Dictionary<int, List<int>> FullCaster = new Dictionary<int, List<int>>()
         {
             { 1, new List<int>() { 2, 0, 0, 0, 0, 0, 0, 0, 0 }},
@@ -28,6 +34,9 @@ namespace ICSheetCore
             { 20, new List<int>() { 4, 3, 3, 3, 3, 2, 2, 1, 1 }}
         };
 
+        /// <summary>
+        /// Spell slots by level for half casters
+        /// </summary>
         public static Dictionary<int, List<int>> HalfCaster = new Dictionary<int, List<int>>()
         {
             { 1, new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 }},
@@ -52,6 +61,9 @@ namespace ICSheetCore
             { 20, new List<int>() { 4, 3, 3, 3, 2, 0, 0, 0, 0 }}
         };
 
+        /// <summary>
+        /// spell slots by level for warlocks
+        /// </summary>
         public static Dictionary<int, List<int>> Warlock = new Dictionary<int, List<int>>()
         {
             { 1, new List<int>() { 1, 0, 0, 0, 0, 0, 0, 0, 0 }},
@@ -76,6 +88,9 @@ namespace ICSheetCore
             { 20, new List<int>() { 0, 0, 0, 0, 4, 0, 0, 0, 0 }}
         };
 
+        /// <summary>
+        /// spell slots by level for martial casters
+        /// </summary>
         public static Dictionary<int, List<int>> Martial = new Dictionary<int, List<int>>()
         {
             { 1, new List<int>() { 0, 0, 0, 0, 0, 0, 0, 0, 0 }},
@@ -100,6 +115,12 @@ namespace ICSheetCore
             { 20, new List<int>() { 4, 3, 3, 1, 0, 0, 0, 0, 0 }}
         };
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public static IEnumerable<int> SpellSlotsFor(CastingType type, int level)
         {
             switch (type)
@@ -119,12 +140,30 @@ namespace ICSheetCore
 
         }
 
+        /// <summary>
+        /// Types of casters
+        /// </summary>
         public enum CastingType
         {
+            /// <summary>
+            /// full progression casters (ie Wizard, multiclass casters)
+            /// </summary>
             Full,
+            /// <summary>
+            /// half-speed progression
+            /// </summary>
             Half,
+            /// <summary>
+            /// 1/3 speed progression (eldritch knight, etc)
+            /// </summary>
             Martial,
+            /// <summary>
+            /// warlock casting progression
+            /// </summary>
             Warlock,
+            /// <summary>
+            /// unused.
+            /// </summary>
             None
         }
         

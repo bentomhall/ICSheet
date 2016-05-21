@@ -1,0 +1,84 @@
+﻿<Window x:Class="ICSheet5e.Views.CreateSubclassWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICSheet5e.Views"
+        xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="CreateSubclassWindow" Height="600" Width="900">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Label>Class Name:</Label>
+            <ComboBox ItemsSource="{Binding Path=ClassNames}" SelectedItem="{Binding Path=SelectedClassName}" MinWidth="600"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Label>Subclass Name:</Label>
+            <TextBox Text="{Binding Path=SubclassName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="600"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Left" Width="300">
+            <Label>Features:</Label>
+            <ListView ItemsSource="{Binding Path=Features}" MinHeight="300" Width="300">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="2">
+                            <Label Content="{Binding Path=Name}"/>
+                            <Label Content="{Binding Path=StartsFromLevel}"/>
+                        </UniformGrid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Command="{Binding Path=AddFeatureCommand}" Content="Add Feature"/>
+            <Button Command="{Binding Path=ClearFeatureCommand}" Content="Clear Feature"/>
+            <Button Command="{Binding Path=AddSubclassCommand}" Content="Add Subclass"/>
+        </StackPanel>
+        <Grid DockPanel.Dock="Left" MaxWidth="600">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="39*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="152*"/>
+                <RowDefinition Height="317*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="500*"/>
+            </Grid.ColumnDefinitions>
+            <Label>Name:</Label>
+            <Label Grid.Row="1">Starting Level:</Label>
+            <Label Grid.Row="2" VerticalContentAlignment="Center">Feature Text:</Label>
+            <CheckBox IsChecked="{Binding Path=IsSpellcastingFeature}" Grid.Row="3">Spellcasting</CheckBox>
+            <TextBox Grid.Column="1" Text="{Binding Path=FeatureName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <tk:IntegerUpDown Grid.Column="1" Grid.Row="1" Minimum="1" Value="{Binding Path=FeatureStartingLevel}" Maximum="20"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=FeatureText}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"/>
+            <Grid Grid.Column="1" Grid.Row="3" IsEnabled="{Binding Path=IsSpellcastingFeature}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="132*"/>
+                    <ColumnDefinition Width="361*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label>Spellcasting Ability:</Label>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Path=CastingAbilities}" SelectedItem="{Binding Path=SelectedCastingAbility}"/>
+                <Label Grid.Row="1">Spell List:</Label>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Path=ClassNames}" SelectedItem="{Binding Path=Spellbook}"/>
+                <Label Grid.Row="2">Caster Type:</Label>
+                <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Path=CastingTypes}" SelectedItem="{Binding Path=SelectedCastingType}"/>
+                <Label Grid.Row="3">Cantrips Known:</Label>
+                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=CantripsKnown}"/>
+                <Label Grid.Row="4">Spells Known:</Label>
+                <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=SpellsKnown}"/>
+                <Label Grid.Row="5">Bonus Spells Known:</Label>
+                <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=BonusSpells}"/>
+                <CheckBox IsChecked="{Binding Path=IsPreparedCaster}" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Is a Prepared Spellcaster</CheckBox>
+            </Grid>
+        </Grid>
+
+    </DockPanel>
+</Window>

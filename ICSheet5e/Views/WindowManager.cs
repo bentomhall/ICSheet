@@ -67,6 +67,13 @@ namespace ICSheet5e.Views
             return;
         }
 
+        public static void OpenSubclassCreationWindow(IViewModel vm)
+        {
+            var window = new CreateSubclassWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
         public static string SelectExistingFile()
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();

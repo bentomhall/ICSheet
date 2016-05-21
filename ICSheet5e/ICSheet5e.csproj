@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterInformationViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
+    <Compile Include="ViewModels\CreateNewSubclassViewModel.cs" />
     <Compile Include="ViewModels\HealthChangeViewModel.cs" />
     <Compile Include="ViewModels\IndividualSkillViewModel.cs" />
     <Compile Include="ViewModels\InventoryItemViewModel.cs" />
@@ -142,6 +143,9 @@
     </Compile>
     <Compile Include="Views\ClassFeatureView.xaml.cs">
       <DependentUpon>ClassFeatureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateSubclassWindow.xaml.cs">
+      <DependentUpon>CreateSubclassWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DelegateCommand.cs" />
     <Compile Include="Views\FeaturesView.xaml.cs">
@@ -224,6 +228,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CreateSubclassWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FeaturesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -297,7 +305,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\SpellList5e.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -310,28 +318,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\BasicArmors.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\BasicWeapons.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="Resources\BasicArmors.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\BasicWeapons.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\spell_list.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="Resources\spell_list.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ClassFeatures.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\RacialFeatures.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="Resources\ClassFeatures.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\RacialFeatures.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Resource Include="Resources\tall-human-silhouette.png" />
     <None Include="Resources\BasicItems.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Resources\tall-human-silhouette.svg" />
     <Resource Include="credits.txt" />

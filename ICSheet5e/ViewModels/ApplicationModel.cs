@@ -7,11 +7,18 @@ using System.Linq;
 
 namespace ICSheet5e.ViewModels
 {
-    public class ApplicationModel: BaseViewModel
+    public class ApplicationModel : BaseViewModel
     {
         PlayerCharacter currentCharacter = null;
         ItemDataBase itemDB;
         SpellManager spellDB;
+        private string itemData;
+        private string armorData;
+        private string weaponData;
+        private string raceData;
+        private string classData;
+
+
         public bool IsEditingModeEnabled
         {
             get { return canEdit; }
@@ -21,7 +28,7 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public bool IsCharacterInitialized 
+        public bool IsCharacterInitialized
         {
             get { return isInitialized; }
             set
@@ -34,9 +41,9 @@ namespace ICSheet5e.ViewModels
 
         public List<BaseViewModel> ViewModels
         {
-            get 
+            get
             {
-                return _viewModels; 
+                return _viewModels;
             }
             set
             {
@@ -56,7 +63,7 @@ namespace ICSheet5e.ViewModels
 
         public bool CanCastSpells
         {
-            get 
+            get
             {
                 if (currentCharacter == null) return false;
                 return currentCharacter.IsSpellcaster;
@@ -68,6 +75,31 @@ namespace ICSheet5e.ViewModels
         private bool isInitialized = false;
         private List<BaseViewModel> _viewModels = new List<BaseViewModel>();
         private XMLFeatureFactory featureFactory;
+        private string spellBookData;
+        private string spellListData;
+
+        private void loadItemResources()
+        {
+            armorData = System.IO.File.ReadAllText(@"Resources\BasicArmors.xml");
+            weaponData = System.IO.File.ReadAllText(@"Resources\BasicWeapons.xml");
+            itemData = System.IO.File.ReadAllText(@"Resources\BasicItems.xml");
+            return;
+        }
+
+        private void loadSpellResources()
+        {
+            
+            spellBookData = System.IO.File.ReadAllText(@"Resources\spell_list.xml");
+            spellListData = System.IO.File.ReadAllText(@"Resources\SpellList5e.json");
+            return;
+        }
+
+        private void loadFeatureResources()
+        {
+            raceData = System.IO.File.ReadAllText(@"Resources\RacialFeatures.xml");
+            classData = System.IO.File.ReadAllText(@"Resources\ClassFeatures.xml");
+            return;
+        }
 
         public ApplicationModel()
         {
@@ -85,10 +117,22 @@ namespace ICSheet5e.ViewModels
                 subModel.Parent = this;
                 _viewModels.Add(subModel);
             }
-            var itemReader = new XMLItemReader(Properties.Resources.BasicArmors, Properties.Resources.BasicWeapons, Properties.Resources.BasicItems);
-            itemDB = new ItemDataBase(itemReader);
-            spellDB = new SpellManager(Properties.Resources.spell_list, Properties.Resources.SpellList5e);
-            featureFactory = new XMLFeatureFactory(Properties.Resources.RacialFeatures, Properties.Resources.ClassFeatures);
+            InvalidateResourceCache(false);
+        }
+
+        public void InvalidateResourceCache(bool classesOnly)
+        {
+            if (!classesOnly)
+            {
+
+                loadItemResources();
+                var itemReader = new XMLItemReader(armorData, weaponData, itemData);
+                itemDB = new ItemDataBase(itemReader);
+                loadSpellResources();
+                spellDB = new SpellManager(spellBookData, spellListData);
+            }
+            loadFeatureResources();
+            featureFactory = new XMLFeatureFactory(raceData, classData);
         }
 
         public ICommand NewCharacterCommand
@@ -107,6 +151,18 @@ namespace ICSheet5e.ViewModels
         public ICommand ToggleEditingCommand
         {
             get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
+        }
+
+        public ICommand CreateNewSubclassCommand
+        {
+            get { return new Views.DelegateCommand<object>(OpenSubclassCreationWindowCommand); }
+        }
+
+        private void OpenSubclassCreationWindowCommand(object obj)
+        {
+            var manager = new ResourceModifiers.CustomPlayerClassSerializer(classData);
+            var vm = new CreateNewSubclassViewModel(manager, InvalidateResourceCache);
+            Views.WindowManager.OpenSubclassCreationWindow(vm);
         }
 
         public ICommand AddSubclassCommand

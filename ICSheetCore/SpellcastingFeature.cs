@@ -3,7 +3,10 @@ using System.Collections.Generic;
 
 namespace ICSheetCore
 {
-    class SpellcastingFeature : ISpellcastingFeature
+    /// <summary>
+    /// A common feature for spellcasters
+    /// </summary>
+    public class SpellcastingFeature : ISpellcastingFeature
     {
         private SpellcastingLookup.CastingType _type;
         private AbilityType _castingAbility;
@@ -13,6 +16,16 @@ namespace ICSheetCore
         private List<int> _spellsKnown;
         private List<int> _cantripsKnown;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="className"></param>
+        /// <param name="castingType"></param>
+        /// <param name="bonusSpells"></param>
+        /// <param name="castingAbility"></param>
+        /// <param name="isPreparedCaster"></param>
+        /// <param name="cantripsKnown"></param>
+        /// <param name="spellsKnown"></param>
         public SpellcastingFeature(string className, string castingType, IEnumerable<int> bonusSpells, AbilityType castingAbility, bool isPreparedCaster, IEnumerable<int> cantripsKnown, IEnumerable<int> spellsKnown)
         {
             _type = (SpellcastingLookup.CastingType)Enum.Parse(typeof(SpellcastingLookup.CastingType), castingType);
@@ -24,6 +37,9 @@ namespace ICSheetCore
             _cantripsKnown = new List<int>(cantripsKnown);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SpellcastingLookup.CastingType CasterType
         {
             get
@@ -32,6 +48,9 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public AbilityType CastingAbility
         {
             get
@@ -40,6 +59,9 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Description
         {
             get
@@ -59,6 +81,9 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name
         {
             get
@@ -67,6 +92,9 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ParticipatesInMulticlassSpellcasting
         {
             get
@@ -75,6 +103,9 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SpellBookName
         {
             get
@@ -90,11 +121,19 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public IEnumerable<int> SpellSlots(int level)
         {
             return SpellcastingLookup.SpellSlotsFor(_type, level);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int StartsFromLevel
         {
             get
@@ -105,23 +144,44 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public int BonusSpells(int level)
         {
             return _bonusSpells[level - 1]; //levels are 1 indexed, 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public int CantripsKnown(int level)
         {
             return _cantripsKnown[level - 1];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
         public int SpellsKnown(int level)
         {
             return _spellsKnown[level - 1];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsPreparedCaster { get { return _isPreparedCaster; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullDescription
         {
             get
@@ -130,6 +190,12 @@ namespace ICSheetCore
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="abilityBonus"></param>
+        /// <returns></returns>
         public int SpellsPrepared(int level, int abilityBonus)
         {
             if (_isPreparedCaster)
