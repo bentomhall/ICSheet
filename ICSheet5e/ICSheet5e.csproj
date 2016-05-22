@@ -123,6 +123,9 @@
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
     <Compile Include="ViewModels\SpellBookViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
+    <Compile Include="Views\AddItemOverlayView.xaml.cs">
+      <DependentUpon>AddItemOverlayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddKnownSpellWindow.xaml.cs">
       <DependentUpon>AddKnownSpellWindow.xaml</DependentUpon>
     </Compile>
@@ -197,6 +200,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PageStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddItemOverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ICSheet5e.Views
 {
     /// <summary>
-    /// Interaction logic for InventoryView.xaml
+    /// Interaction logic for AddItemOverlayView.xaml
     /// </summary>
-    public partial class InventoryView : UserControl
+    public partial class AddItemOverlayView : UserControl
     {
-        public InventoryView()
+        public AddItemOverlayView()
         {
             InitializeComponent();
         }

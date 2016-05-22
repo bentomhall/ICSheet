@@ -7,6 +7,7 @@ using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
+
     public class InventoryViewModel : BaseViewModel
     {
         public InventoryViewModel(PlayerCharacter c, ApplicationModel parent, ItemDataBase itemDB)
@@ -63,6 +64,17 @@ namespace ICSheet5e.ViewModels
             private set;
         }
 
+        private bool _showOverlay;
+        public bool ShowAddItemOverlay
+        {
+            get { return _showOverlay; }
+            set
+            {
+                _showOverlay = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public Money Gold { get { return currentCharacter.Cash; } }
 
         public InventoryItemViewModel SelectedItem { get; set; }
@@ -96,6 +108,11 @@ namespace ICSheet5e.ViewModels
 
         public void AddItemToInventory(IItem item)
         {
+            if (ShowAddItemOverlay)
+            {
+                NewItemModel.Clear();
+                ShowAddItemOverlay = false;
+            }
             currentCharacter.AddItemToInventory(item);
             NotifyPropertyChanged("Items");
         }
@@ -210,6 +227,11 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<string>(ModifyItemCountExecuted); }
         }
 
+        public ICommand ShouldShowItemOverlay
+        {
+            get { return new Views.DelegateCommand<object>(x => ShowAddItemOverlay = true); }
+        }
+
         private void ModifyItemCountExecuted(string obj)
         {
             if (obj == "+") 
@@ -270,7 +292,7 @@ namespace ICSheet5e.ViewModels
 
         void SetValuesFromItem(IItem item)
         {
-            PropertyChanged -= OnBaseItemChanged; //prevent handler from firing during this function
+            //PropertyChanged -= OnBaseItemChanged; //prevent handler from firing during this function
             if (item == null)
             {
                 Slot = ItemSlot.None;
@@ -290,7 +312,7 @@ namespace ICSheet5e.ViewModels
                 Count = item.Count;
                 SlotName = item.Slot.ToString();
             }
-            PropertyChanged += OnBaseItemChanged;
+            //PropertyChanged += OnBaseItemChanged;
             return;
         }
 
@@ -419,6 +441,11 @@ namespace ICSheet5e.ViewModels
                 delegateAddItem(newItem);
             }
             
+        }
+
+        public void Clear()
+        {
+            SetValuesFromItem(null);
         }
 
         public ICommand ClearItemCommand

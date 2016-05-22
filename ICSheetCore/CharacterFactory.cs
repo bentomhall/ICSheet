@@ -158,11 +158,14 @@ namespace ICSheetCore
             setAbilityScores(c, dataObject);
             setInventory(c, dataObject);
             setFeatures(c, dataObject);
-            setSpells(c, dataObject);
             setHealth(c, dataObject);
             setDefenseOverrides(c, dataObject);
             setSkillProficiencies(c, dataObject);
-            setSpellSlots(c, dataObject);
+            if (c.IsSpellcaster)
+            {
+                setSpells(c, dataObject);
+                setSpellSlots(c, dataObject);
+            }
             return c;
         }
 
