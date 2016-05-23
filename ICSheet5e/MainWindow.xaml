@@ -37,6 +37,11 @@
             <views:TabItemDataTemplateSelector x:Key="TabContentSelector"/>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding SaveCharacterCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding OpenCharacterCommand}" Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding NewCharacterCommand}" Key="N" Modifiers="Ctrl"/>
+    </Window.InputBindings>
     <DockPanel >
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">
