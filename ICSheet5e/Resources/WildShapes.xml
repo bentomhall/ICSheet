@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Wildshapes>
+  <Creature Name="Ape">
+    <CR>0.5</CR>
+    <AC>12</AC>
+    <HP>19</HP>
+    <Speed>30 ft, 30 ft climb</Speed>
+    <AbilityScores>
+      <Ability Name="STR">16</Ability>
+      <Ability Name="DEX">14</Ability>
+      <Ability Name="CON">14</Ability>
+      <Ability Name="INT">6</Ability>
+      <Ability Name="WIS">12</Ability>
+      <Ability Name="CHA">7</Ability>
+    </AbilityScores>
+    <Skills>
+      <Skill Name="Athletics">5</Skill>
+      <Skill Name="Perception">3</Skill>
+    </Skills>
+    <Senses></Senses>
+    <Features></Features>
+    <Actions>
+      <Action Name="Multiattack">Make 2 fist attacks.</Action>
+      <Action Name="Fist">Melee Weapon Attack: +5 ATK, 1 target. 1d6 + 3 bludgeoning</Action>
+      <Action Name="Rock">Ranged Weapon Attack: +5 ATK, range 25/50, 1 target. 1d6 + 3 bludgeoning</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Axe Beak">
+    <CR>0.25</CR>
+    <AC>11</AC>
+    <HP>19</HP>
+    <Speed>50 ft</Speed>
+    <AbilityScores>
+      <Ability Name="STR">14</Ability>
+      <Ability Name="DEX">12</Ability>
+      <Ability Name="CON">12</Ability>
+      <Ability Name="INT">2</Ability>
+      <Ability Name="WIS">10</Ability>
+      <Ability Name="CHA">5</Ability>
+    </AbilityScores>
+    <Skills></Skills>
+    <Senses></Senses>
+    <Features></Features>
+    <Actions>
+      <Action Name="Beak">Melee Weapon Attack: +4 ATK, 1 target. 1d8 + 2 slashing</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Baboon">
+    <CR>0</CR>
+    <AC>12</AC>
+    <HP>3</HP>
+    <Speed>30 ft, 30 ft climb</Speed>
+    <AbilityScores>
+      <Ability Name="STR">8</Ability>
+      <Ability Name="DEX">14</Ability>
+      <Ability Name="CON">11</Ability>
+      <Ability Name="INT">4</Ability>
+      <Ability Name="WIS">12</Ability>
+      <Ability Name="CHA">6</Ability>
+    </AbilityScores>
+    <Skills></Skills>
+    <Features>
+      <Feature Name="Pack Tactics">Advantage on ATK if non-incapacitated ally within 5 feet of enemy</Feature>
+    </Features>
+    <Senses></Senses>
+    <Actions>
+      <Action Name="Bite">Melee Weapon Attack: +1 ATK, 1 target. 1d4 - 1 piercing</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Badger">
+    <CR>0</CR>
+    <AC>10</AC>
+    <HP>3</HP>
+    <Speed>20 ft, 5 ft burrow</Speed>
+    <AbilityScores>
+      <Ability Name="STR">4</Ability>
+      <Ability Name="DEX">11</Ability>
+      <Ability Name="CON">12</Ability>
+      <Ability Name="INT">2</Ability>
+      <Ability Name="WIS">12</Ability>
+      <Ability Name="CHA">5</Ability>
+    </AbilityScores>
+    <Skills></Skills>
+    <Senses>
+      <Sense Name="Darkvision">30 ft</Sense>
+    </Senses>
+    <Features>
+      <Feature Name="Keen Smell">Advantage on Wisdom (Perception, smell) checks.</Feature>
+    </Features>
+    <Actions>
+      <Action Name="Bite">Melee Weapon Attack: +2 ATK, 1 target. 1 piercing.</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Bat">
+    <CR>0</CR>
+    <AC>12</AC>
+    <HP>1</HP>
+    <Speed>5 ft, 30 ft fly</Speed>
+    <AbilityScores>
+      <Ability Name="STR">2</Ability>
+      <Ability Name="DEX">15</Ability>
+      <Ability Name="CON">8</Ability>
+      <Ability Name="INT">2</Ability>
+      <Ability Name="WIS">12</Ability>
+      <Ability Name="CHA">4</Ability>
+    </AbilityScores>
+    <Skills></Skills>
+    <Senses>
+      <Sense Name="Blindsight">60 ft</Sense>
+    </Senses>
+    <Features>
+      <Feature Name="Echolocation">Can't use blindsight while deafened.</Feature>
+      <Feature Name="Keen Hearing">Advantage on Wisdom (Perception, Hearing) checks.</Feature>
+    </Features>
+    <Actions>
+      <Action Name="Bite">Melee Weapon Attack: +0 ATK, 1 target. 1 piercing.</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Black Bear">
+    <CR>0.5</CR>
+    <AC>11</AC>
+    <HP>19</HP>
+    <Speed>40 ft, 30 ft climb</Speed>
+    <AbilityScores>
+      <Ability Name="STR">15</Ability>
+      <Ability Name="DEX">10</Ability>
+      <Ability Name="CON">14</Ability>
+      <Ability Name="INT">2</Ability>
+      <Ability Name="WIS">12</Ability>
+      <Ability Name="CHA">7</Ability>
+    </AbilityScores>
+    <Skills></Skills>
+    <Senses></Senses>
+    <Features>
+      <Feature Name="Keen Smell">Advantage on Wisdom (Perception, smell) checks.</Feature>
+    </Features>
+    <Actions>
+      <Action Name="Multiattack">One bite + one claw</Action>
+      <Action Name="Bite">Melee Weapon Attack: +3 ATK, 1 target. 1d6 + 2 piercing</Action>
+      <Action Name="Claws">Melee Weapon Attack: +3 ATK, 1 target. 2d4 + 2 slashing</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Blood Hawk">
+    <CR>0.125</CR>
+    <AC>12</AC>
+    <HP>7</HP>
+    <Speed>10 ft, 60 ft fly</Speed>
+    <AbilityScores>
+      <Ability Name="STR">6</Ability>
+      <Ability Name="DEX">14</Ability>
+      <Ability Name="CON">10</Ability>
+      <Ability Name="INT">3</Ability>
+      <Ability Name="WIS">14</Ability>
+      <Ability Name="CHA">5</Ability>
+    </AbilityScores>
+    <Skills>
+      <Skill Name="Perception">4</Skill>
+    </Skills>
+    <Senses></Senses>
+    <Features>
+      <Feature Name="Keen Sight">Advantage on Wisdom (Perception, sight) checks.</Feature>
+      <Feature Name="Pack Tactics">Advantage on ATK if incapacitated ally within 5 feet of creature.</Feature>
+    </Features>
+    <Actions>
+      <Action Name="Beak">Melee Weapon Attack: +4 ATK, 1 target. 1d4 + 2 piercing.</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Boar">
+    <CR>0.25</CR>
+    <AC>11</AC>
+    <HP>11</HP>
+    <Speed>40 ft</Speed>
+    <AbilityScores>
+      <Ability Name="STR">13</Ability>
+      <Ability Name="DEX">11</Ability>
+      <Ability Name="CON">12</Ability>
+      <Ability Name="INT">2</Ability>
+      <Ability Name="WIS">9</Ability>
+      <Ability Name="CHA">5</Ability>
+    </AbilityScores>
+    <Skills>
+    </Skills>
+    <Senses></Senses>
+    <Features>
+      <Feature Name="Charge">If you move at least 20 feet straight towards a target and hit with a tusk attack on the same turn, the creature takes an extra 1d6 damage and it must save (STR vs DC 11) or be knocked prone.</Feature>
+      <Feature Name="Relentless">If the boar takes 7 or less damage that would reduce it to 0 HP, it is reduced to 1 HP instead. Recharges on long or short rest.</Feature>
+    </Features>
+    <Actions>
+      <Action Name="Tusk">Melee Weapon Attack: +3 ATK, 1 target. 1d6 + 1 slashing</Action>
+    </Actions>
+  </Creature>
+  <Creature Name="Brown Bear">
+    <CR>1</CR>
+    <AC>11</AC>
+    <HP>34</HP>
+    <Speed>40 ft, 30 ft climb</Speed>
+    <AbilityScores>
+      <Ability Name="STR">19</Ability>
+      <Ability Name="DEX">10</Ability>
+      <Ability Name="CON">16</Ability>
+      <Ability Name="INT">2</Ability>
+      <Ability Name="WIS">13</Ability>
+      <Ability Name="CHA">7</Ability>
+    </AbilityScores>
+    <Skills>
+      <Skill Name="Perception">3</Skill>
+    </Skills>
+    <Senses></Senses>
+    <Features>
+      <Feature Name="Keen Smell">Advantage on Wisdom (Perception, smell) checks.</Feature>
+    </Features>
+    <Actions>
+      <Action Name="Multiattack">One bite + one claw</Action>
+      <Action Name="Bite">Melee Weapon Attack: +5 ATK, 1 target. 1d8 + 4 piercing</Action>
+      <Action Name="Claws">Melee Weapon Attack: +5 ATK, 1 target. 2d6 + 4 slashing</Action>
+    </Actions>
+  </Creature>
+</Wildshapes>
