@@ -28,11 +28,6 @@ namespace ICSheet5e.ViewModels
             //character.PropertyChanged += ParentEditingPropertyChanged;
         }
 
-        public ICommand AddTemporaryHealthCommand
-        {
-            get { return new Views.DelegateCommand<object>(AddTHPCommandExecuted); }
-        }
-
         public string AvailableSpellSlots
         {
             get { return slotListAsString(character.SpellSlots); }
@@ -108,11 +103,6 @@ namespace ICSheet5e.ViewModels
         public Money Gold
         {
             get { return character.Cash; }
-        }
-
-        public ICommand HealDamageCommand
-        {
-            get { return new Views.DelegateCommand<object>(HealDamageCommandExecuted); }
         }
 
         public int Initiative
@@ -205,11 +195,6 @@ namespace ICSheet5e.ViewModels
                 }
                 return string.Join(Environment.NewLine, sb);
             }
-        }
-
-        public ICommand TakeDamageCommand
-        {
-            get { return new Views.DelegateCommand<object>(TakeDamageCommandExecuted); }
         }
 
         public int TemporaryHP
@@ -320,23 +305,10 @@ namespace ICSheet5e.ViewModels
         private bool canEdit = false;
         private PlayerCharacter character;
 
-        private void AddTHPCommandExecuted(object obj)
-        {
-            var type = HealthChangeViewModel.HealthChangeType.Temporary;
-            DisplayModalHealthDialog(type);
-        }
-
         private void CastSpellCommandExecuted(object obj)
         {
             character.UseSpellSlot(SelectedSpellLevel);
             NotifyPropertyChanged("AvailableSpellSlots");
-        }
-
-        private void DisplayModalHealthDialog(HealthChangeViewModel.HealthChangeType type)
-        {
-            var vm = new HealthChangeViewModel();
-            vm.Type = type;
-            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.HealthDialog, vm, HandleHealthChange);
         }
 
         private string FormatLevels()
@@ -347,38 +319,6 @@ namespace ICSheet5e.ViewModels
                 s.Add($"{entry.Key} {entry.Value}");
             }
             return string.Join(Environment.NewLine, s);
-        }
-
-        private void HandleHealthChange(IViewModel vm)
-        {
-            var model = vm as HealthChangeViewModel;
-            switch (model.Type)
-            {
-                case HealthChangeViewModel.HealthChangeType.Damage:
-                    character.TakeDamage(model.Amount);
-                    break;
-
-                case HealthChangeViewModel.HealthChangeType.Healing:
-                    character.HealDamage(model.Amount);
-                    break;
-
-                case HealthChangeViewModel.HealthChangeType.Temporary:
-                    character.AddTHP(model.Amount);
-
-                    break;
-
-                default:
-                    break;
-            }
-            NotifyPropertyChanged("CurrentHealth");
-            NotifyPropertyChanged("TemporaryHP");
-            return;
-        }
-
-        private void HealDamageCommandExecuted(object obj)
-        {
-            var type = HealthChangeViewModel.HealthChangeType.Healing;
-            DisplayModalHealthDialog(type);
         }
 
         private void ParentEditingPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -584,12 +524,6 @@ namespace ICSheet5e.ViewModels
         static private string slotListAsString(IEnumerable<int> slots)
         {
             return string.Join(" / ", slots);
-        }
-
-        private void TakeDamageCommandExecuted(object obj)
-        {
-            var type = HealthChangeViewModel.HealthChangeType.Damage;
-            DisplayModalHealthDialog(type);
         }
     }
 }
