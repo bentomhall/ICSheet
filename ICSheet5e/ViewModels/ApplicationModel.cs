@@ -17,6 +17,7 @@ namespace ICSheet5e.ViewModels
         private string weaponData;
         private string raceData;
         private string classData;
+        private string currentCharacterPath;
 
 
         public bool IsEditingModeEnabled
@@ -238,6 +239,7 @@ namespace ICSheet5e.ViewModels
         {
             var location = Views.WindowManager.SelectExistingFile();
             if (location == null) { return; } //user canceled open dialog
+            currentCharacterPath = location;
             var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
             System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
             var cData = (ICSheetCore.Data.CharacterData)serializer.ReadObject(reader);
@@ -251,8 +253,14 @@ namespace ICSheet5e.ViewModels
         public void SaveCommandExecuted(object sender)
         {
             if (!IsCharacterInitialized) return;
-            var saveLocation = Views.WindowManager.SelectSaveLocation();
-            if (saveLocation == null) { return; } //user canceled save dialog
+            string saveLocation;
+            if (currentCharacterPath == null || (string)sender == "Save As")
+            {
+                saveLocation = Views.WindowManager.SelectSaveLocation();
+                if (saveLocation == null) { return; } //user canceled save dialog
+                currentCharacterPath = saveLocation; //update cached path
+            }
+            else { saveLocation = currentCharacterPath; }
             var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
             System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
             serializer.WriteObject(stream, currentCharacter.ToCharacterData());

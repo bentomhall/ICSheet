@@ -48,6 +48,7 @@
                 <MenuItem Command="{Binding Path=NewCharacterCommand}" Header="_New"/>
                 <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open..."/>
                 <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save..."/>
+                <MenuItem Command="{Binding Path=SaveCharacterCommand}" CommandParameter="Save As" Header="Save As..."/>
                 <MenuItem Command="{Binding Path=CreateNewSubclassCommand}" Header="_Create Subclass..."/>
             </MenuItem>
             <MenuItem Header="_Edit" IsCheckable="True" IsChecked="{Binding Path=IsEditingModeEnabled, Mode=TwoWay}" Width="56"/>
