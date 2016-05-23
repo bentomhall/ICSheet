@@ -482,7 +482,7 @@ namespace ICSheetCore
             }
             else if (w.Name == "Unarmed Strike") { return 0; }
             var abilities = w.AssociatedAbilities;
-            if (w.Slot == ItemSlot.Mainhand)
+            if (w.Slot == ItemSlot.Mainhand || w.Slot == ItemSlot.TwoHanded)
             {
                 return abilities.Max(x => abilitiesSource.AbilityModifierFor(x)) + w.EnhancementBonus;
             }

@@ -19,7 +19,6 @@ namespace ICSheet5e.Views
 
         public enum DialogType
         {
-            HealthDialog,
             LevelUpDialog,
             AddNewSpellsDialog,
             AddNewFeatureDialog,
@@ -31,9 +30,6 @@ namespace ICSheet5e.Views
             Window dlg;
             switch (type)
             {
-                case DialogType.HealthDialog:
-                    dlg = new HealthChangeWindow();
-                    break;
                 case DialogType.LevelUpDialog:
                     dlg = new LevelUpWindow();
                     break;

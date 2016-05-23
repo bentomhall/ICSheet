@@ -217,6 +217,43 @@ namespace ICSheet5e.ViewModels
             get { return character.TemporaryHP; }
         }
 
+        private bool _showHealthChangePopup;
+        public bool ShowHealthChangePopup
+        {
+            get { return _showHealthChangePopup; }
+            set
+            {
+                _showHealthChangePopup = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ICommand ShowHealthChangeOverlay
+        {
+            get
+            {
+                return new Views.DelegateCommand<string>(x => { ShowHealthChangePopup = !_showHealthChangePopup; isTHPChange = x == "THP"; });
+            }
+        }
+
+        private bool isTHPChange;
+
+        public int HealthChangeAmount { get; set; }
+
+        public ICommand DoHealthChangeCommand
+        {
+            get { return new Views.DelegateCommand<string>(DoHealthChangeCommandExecuted); }
+        }
+
+        private void DoHealthChangeCommandExecuted(string obj)
+        {
+            if (isTHPChange) { character.AddTHP(Math.Abs(HealthChangeAmount)); NotifyPropertyChanged("TemporaryHP"); }
+            else if (HealthChangeAmount > 0) { character.HealDamage(HealthChangeAmount); }
+            else { character.TakeDamage(HealthChangeAmount); NotifyPropertyChanged("TemporaryHP"); }
+            NotifyPropertyChanged("CurrentHealth");
+            ShowHealthChangePopup = false;
+        }
+
         public void NotifyAttributesDisplayChanged()
         {
             NotifyPropertyChanged("Strength");

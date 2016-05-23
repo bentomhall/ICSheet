@@ -57,12 +57,23 @@ namespace ICSheetCore
         }
 
         /// <summary>
-        /// Returns an empty list (no items defined yet).
+        /// 
         /// </summary>
         /// <returns></returns>
         public List<Item> ParseItems()
         {
-            return new List<Item>();
+            var doc = XDocument.Parse(_itemsXML);
+            var output = new List<Item>();
+            foreach (var item in doc.Root.Elements("Item"))
+            {
+                var name = item.Attribute("Name").Value;
+                var weight = double.Parse(item.Element("Weight").Value);
+                var value = double.Parse(item.Element("Cost").Value);
+                var count = int.Parse(item.Element("Count").Value);
+                var properties = item.Element("Properties").Value;
+                output.Add(new Item(name, weight, value, ItemSlot.None, false, properties, 0));
+            }
+            return output;
         }
 
         /// <summary>

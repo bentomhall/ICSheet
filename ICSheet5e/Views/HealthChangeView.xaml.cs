@@ -10,28 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ICSheet5e.Views
 {
     /// <summary>
-    /// Interaction logic for HealthChangeWindow.xaml
+    /// Interaction logic for HealthChangeView.xaml
     /// </summary>
-    public partial class HealthChangeWindow : Window
+    public partial class HealthChangeView : UserControl
     {
-        public HealthChangeWindow()
+        public HealthChangeView()
         {
             InitializeComponent();
-        }
-
-        //public ICommand DoHealthChangeCommand
-        //{
-        //    get { return new Views.DelegateCommand<object>(DoHealthChangeCommandExecuted); }
-        //}
-
-        private void DoHealthChangeCommandExecuted(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
         }
     }
 }

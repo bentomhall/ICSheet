@@ -21,6 +21,22 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid Background="White">
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=ShowAddItemOverlay}" Value="True">
+                        <Setter Property="Grid.Effect">
+                            <Setter.Value>
+                                <BlurEffect/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=ShowAddItemOverlay}" Value="False">
+                        <Setter Property="Grid.Effect" Value="{x:Null}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="5*"/>
@@ -29,7 +45,11 @@
             <ColumnDefinition Width="119*"/>
             <ColumnDefinition Width="181*"/>
         </Grid.ColumnDefinitions>
-        <v:AddItemOverlayView x:Name="AddItemOverlay" Grid.ColumnSpan="2" Grid.RowSpan="2" Panel.ZIndex="1000" Visibility="{Binding Path=ShowAddItemOverlay, Converter={StaticResource BoolToVisibility}}"/>
+        <Popup IsOpen="{Binding Path=ShowAddItemOverlay}" Placement="Center" StaysOpen="False">
+            <Popup.Child>
+                <v:AddItemOverlayView />
+            </Popup.Child>
+        </Popup>
         <ListView x:Name="InventoryListView" Grid.RowSpan="1" ItemsSource="{Binding Path=Items}" SelectedItem="{Binding Path=SelectedItem}" ItemTemplate="{StaticResource InventoryItemTemplate}">
         </ListView>
         <Grid Margin="5" Grid.Column="1" >

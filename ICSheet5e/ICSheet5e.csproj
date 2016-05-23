@@ -157,8 +157,8 @@
     <Compile Include="Views\HealthBarView.xaml.cs">
       <DependentUpon>HealthBarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HealthChangeWindow.xaml.cs">
-      <DependentUpon>HealthChangeWindow.xaml</DependentUpon>
+    <Compile Include="Views\HealthChangeView.xaml.cs">
+      <DependentUpon>HealthChangeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
@@ -247,7 +247,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HealthChangeWindow.xaml">
+    <Page Include="Views\HealthChangeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

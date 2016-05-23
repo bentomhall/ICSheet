@@ -115,7 +115,7 @@ namespace ICSheetCore
         /// 
         /// </summary>
         /// <returns></returns>
-        public override string ToString() { return description; }
+        public override string ToString() { return _name; }
 
         #region INotifyPropertyChanged Implementation
         /// <summary>

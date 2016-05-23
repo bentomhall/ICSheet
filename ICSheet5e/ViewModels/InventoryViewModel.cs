@@ -14,7 +14,7 @@ namespace ICSheet5e.ViewModels
         {
             Parent = parent;
             currentCharacter = c;
-            NewItemModel = new NewItemFactory(itemDB.Weapons, itemDB.Armors);
+            NewItemModel = new NewItemFactory(itemDB.Weapons, itemDB.Armors, itemDB.Items);
             NewItemModel.delegateAddItem = AddItemToInventory;
             setEquippedItems();
         }
@@ -256,15 +256,27 @@ namespace ICSheet5e.ViewModels
         string _name;
         string properties;
         int enhancement;
-        ObservableCollection<string> baseItems;
+        IEnumerable<IItem> baseItems;
         double weight;
         double gpValue;
-        string selectedItem;
+        IItem selectedItem;
         string slotName;
         ItemSlot slot;
-        List<WeaponItem> weapons;
-        List<ArmorItem> armors;
+        IEnumerable<WeaponItem> weapons;
+        IEnumerable<ArmorItem> armors;
+        IEnumerable<Item> items;
         int count;
+        bool displayEquippableOnly;
+
+        public bool DisplayEquippableOnly
+        {
+            get { return displayEquippableOnly; }
+            set
+            {
+                displayEquippableOnly = value;
+                NotifyPropertyChanged();
+            }
+        }
         
         public int Count
         {
@@ -301,6 +313,7 @@ namespace ICSheet5e.ViewModels
                 Value = 0.0;
                 Weight = 0.0;
                 Count = 1;
+                selectedItem = null;
             }
             else
             {
@@ -310,28 +323,21 @@ namespace ICSheet5e.ViewModels
                 Value = item.Value;
                 Weight = item.Weight;
                 Count = item.Count;
-                SlotName = item.Slot.ToString();
+                //SlotName = item.Slot.ToString();
             }
             //PropertyChanged += OnBaseItemChanged;
             return;
         }
 
-        public NewItemFactory(IEnumerable<WeaponItem> weapons, IEnumerable<ArmorItem> armors)
+        public NewItemFactory(IEnumerable<WeaponItem> weapons, IEnumerable<ArmorItem> armors, IEnumerable<Item> items)
         {
 
-            baseItems = new ObservableCollection<string>();
-            baseItems.Add("N/A");
-            foreach (var w in weapons)
-            {
-                baseItems.Add(w.Name);
-            }
-            foreach (var a in armors)
-            {
-                baseItems.Add(a.Name);
-            }
-            this.armors = armors.ToList();
-            this.weapons = weapons.ToList();
-            this.PropertyChanged += OnBaseItemChanged;
+            baseItems = new ObservableCollection<IItem>();
+            //baseItems.Add("N/A");
+            this.armors = armors;
+            this.weapons = weapons;
+            this.items = items;
+            PropertyChanged += OnBaseItemChanged;
             SetValuesFromItem(null); //initialize all items
         }
 
@@ -341,9 +347,9 @@ namespace ICSheet5e.ViewModels
 
         public void OnBaseItemChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SelectedItemName")
+            if (e.PropertyName == "SelectedItem")
             {
-                SetValuesFromItem(ItemWithName(SelectedItemName));
+                SetValuesFromItem(SelectedItem);
             }
         }
 
@@ -369,10 +375,37 @@ namespace ICSheet5e.ViewModels
             } 
         }
 
-        public ObservableCollection<string> BaseItems
+        public IEnumerable<IItem> BaseItems
         {
-            get { return baseItems; }
-            set { baseItems = value; }
+            get
+            {
+                switch(ItemType)
+                {
+                    case "Item":
+                        return items;
+                    case "Weapon":
+                        return weapons;
+                    case "Armor":
+                        return armors;
+                    default:
+                        return new List<IItem>();
+                }
+            }
+        }
+
+        private List<string> _itemTypes = new List<string>() { "Item", "Weapon", "Armor" };
+        public IEnumerable<string> ItemTypes { get { return _itemTypes; } }
+
+        private string _itemType = "Item";
+        public string ItemType
+        {
+            get { return _itemType; }
+            set
+            {
+                _itemType = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("BaseItems");
+            }
         }
 
 
@@ -402,7 +435,7 @@ namespace ICSheet5e.ViewModels
         public double Value { get { return gpValue; } set { gpValue = value; NotifyPropertyChanged(); } }
 
 
-        public string SelectedItemName { get { return selectedItem; } set { selectedItem = value; NotifyPropertyChanged(); SetValuesFromItem(ItemWithName(value)); } }
+        public IItem SelectedItem { get { return selectedItem; } set { selectedItem = value; NotifyPropertyChanged(); SetValuesFromItem(value); } }
 
 
         public ICommand CreateNewItemCommand
@@ -418,7 +451,7 @@ namespace ICSheet5e.ViewModels
             
             if (Slot == ItemSlot.Armor || (_name.Contains("Shield") && Slot == ItemSlot.Offhand))
             {
-                var baseItem = ArmorWithName(SelectedItemName);
+                var baseItem = selectedItem as ArmorItem;
                 var armor = new ArmorItem(Name, Weight, Value, true, Properties, baseItem.ArmorClassType, Enhancement);
                 armor.Slot = slot;
                 armor.BaseEffect = baseItem.BaseEffect;
@@ -427,7 +460,7 @@ namespace ICSheet5e.ViewModels
             }
             else if (Slot == ItemSlot.Mainhand || Slot == ItemSlot.Offhand || Slot == ItemSlot.TwoHanded)
             {
-                var baseItem = WeaponWithName(SelectedItemName);
+                var baseItem = selectedItem as WeaponItem;
                 var weapon = new WeaponItem(Name, Weight, Value, Slot, true, Properties, baseItem.Category, Enhancement);
                 weapon.BaseEffect = baseItem.BaseEffect;
                 weapon.Count = Count;
