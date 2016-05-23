@@ -163,6 +163,9 @@
     <Compile Include="Views\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LevelUpView.xaml.cs">
+      <DependentUpon>LevelUpView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LevelUpWindow.xaml.cs">
       <DependentUpon>LevelUpWindow.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InventoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LevelUpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ICSheetCore;
+using System.Windows.Input;
 
 namespace ICSheet5e.ViewModels
 {
@@ -14,6 +15,7 @@ namespace ICSheet5e.ViewModels
         }
 
         private string selectedClassName = "";
+        private Action<IViewModel> onCompletionAction;
 
         private IDictionary<string, int> currentLevels;
         private string newClass;
@@ -58,10 +60,16 @@ namespace ICSheet5e.ViewModels
             get { return newClass; }
         }
 
-        public LevelUpViewModel(IDictionary<string, int> current, XMLFeatureFactory dataSource)
+        public LevelUpViewModel(IDictionary<string, int> current, XMLFeatureFactory dataSource, Action<IViewModel> onCompletionHandler)
         {
             Classes = dataSource.ExtractClassNames();
             currentLevels = current;
+            onCompletionAction = onCompletionHandler;
+        }
+
+        public ICommand AddNewLevelCommand
+        {
+            get { return new Views.DelegateCommand<object>(x => onCompletionAction(this)); }
         }
 
 

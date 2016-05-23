@@ -295,17 +295,22 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        private bool _levelUpOverlayOpen;
+
         public ICommand LevelUpCommand
         {
             get { return new Views.DelegateCommand<object>(DoLevelUpCommandExecuted); }
         }
 
+        private LevelUpViewModel _levelUpViewModel;
         private void DoLevelUpCommandExecuted(object obj)
         {
             if (currentCharacter == null) { return; }
-            var vm = new LevelUpViewModel(currentCharacter.Levels, featureFactory);
-            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.LevelUpDialog, vm, OnLevelUpCompleted);
+            LevelUpOverlayOpen = true;
+            LevelUpViewModel = new LevelUpViewModel(currentCharacter.Levels, featureFactory, OnLevelUpCompleted);
         }
+
+        private bool _isOverlayOpen;
 
         private void OnLevelUpCompleted(IViewModel obj)
         {
@@ -314,6 +319,7 @@ namespace ICSheet5e.ViewModels
             var newLevels = vm.ChosenClassLevels;
             var newFeatures = featureFactory.ExtractFeaturesFor(newLevels);
             currentCharacter.DoLevelUp(newLevels, newFeatures);
+            LevelUpOverlayOpen = false;
             NotifyPropertyChanged("Levels");
             NotifyPropertyChanged("Features");
             if (currentCharacter.IsSpellcaster)
@@ -338,6 +344,48 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(OpenSRDCommandExecuted); }
         }
 
+        public bool LevelUpOverlayOpen
+        {
+            get
+            {
+                return _levelUpOverlayOpen;
+            }
+
+            set
+            {
+                _levelUpOverlayOpen = value;
+                IsOverlayOpen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsOverlayOpen
+        {
+            get
+            {
+                return _isOverlayOpen;
+            }
+
+            set
+            {
+                _isOverlayOpen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public LevelUpViewModel LevelUpViewModel
+        {
+            get
+            {
+                return _levelUpViewModel;
+            }
+
+            set
+            {
+                _levelUpViewModel = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private void AddFeatureCommandExecuted(object obj)
         {

@@ -19,7 +19,6 @@ namespace ICSheet5e.Views
 
         public enum DialogType
         {
-            LevelUpDialog,
             AddNewSpellsDialog,
             AddNewFeatureDialog,
             AddSubclassDialog,
@@ -30,9 +29,6 @@ namespace ICSheet5e.Views
             Window dlg;
             switch (type)
             {
-                case DialogType.LevelUpDialog:
-                    dlg = new LevelUpWindow();
-                    break;
                 case DialogType.AddNewSpellsDialog:
                     dlg = new AddKnownSpellWindow();
                     break;

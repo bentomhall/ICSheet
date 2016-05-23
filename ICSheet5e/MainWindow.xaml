@@ -43,6 +43,9 @@
         <KeyBinding Command="{Binding NewCharacterCommand}" Key="N" Modifiers="Ctrl"/>
     </Window.InputBindings>
     <DockPanel >
+        <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=LevelUpOverlayOpen}">
+            <views:LevelUpView/>
+        </Popup>
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">
                 <MenuItem Command="{Binding Path=NewCharacterCommand}" Header="_New"/>
@@ -61,6 +64,22 @@
             <MenuItem Header="_SRD" Command="{Binding Path=OpenSRDCommand}"/>
         </Menu>
         <TabControl VerticalAlignment="Stretch" TabStripPlacement="Left">
+            <TabControl.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsOverlayOpen}" Value="True">
+                            <Setter Property="Grid.Effect">
+                                <Setter.Value>
+                                    <BlurEffect/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsOverlayOpen}" Value="False">
+                            <Setter Property="Grid.Effect" Value="{x:Null}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.Style>
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Template">
