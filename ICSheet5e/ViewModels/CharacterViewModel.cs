@@ -70,8 +70,11 @@ namespace ICSheet5e.ViewModels
             get { return character.ArmorClassOverride; }
             set
             {
-                character.ArmorClassOverride = value;
-                NotifyPropertyChanged("ArmorClass");
+                if (character.ArmorClassOverride != value)
+                {
+                    character.ArmorClassOverride = value;
+                    NotifyPropertyChanged("ArmorClass");
+                }
             }
         }
 
@@ -85,8 +88,11 @@ namespace ICSheet5e.ViewModels
             get { return character.Experience; }
             set
             {
-                character.Experience = value;
-                NotifyPropertyChanged();
+                if (character.Experience != value)
+                {
+                    character.Experience = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 
@@ -120,8 +126,11 @@ namespace ICSheet5e.ViewModels
             get { return character.MaxHealth; }
             set
             {
-                character.MaxHealth = value;
-                NotifyPropertyChanged();
+                if (character.MaxHealth != value)
+                {
+                    character.MaxHealth = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 
@@ -140,8 +149,11 @@ namespace ICSheet5e.ViewModels
             get { return character.Notes; }
             set
             {
-                character.Notes = value;
-                NotifyPropertyChanged();
+                if (character.Notes != value)
+                {
+                    character.Notes = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 
@@ -208,8 +220,11 @@ namespace ICSheet5e.ViewModels
             get { return _showHealthChangePopup; }
             set
             {
-                _showHealthChangePopup = value;
-                NotifyPropertyChanged();
+                if (_showHealthChangePopup != value)
+                {
+                    _showHealthChangePopup = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 
