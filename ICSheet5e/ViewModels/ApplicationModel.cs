@@ -4,8 +4,6 @@ using System.Windows.Input;
 using System.Runtime.Serialization;
 using ICSheetCore;
 using System.Linq;
-using NotificationsExtensions.Toasts;
-using NotificationsExtensions;
 
 namespace ICSheet5e.ViewModels
 {

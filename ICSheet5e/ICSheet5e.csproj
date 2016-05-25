@@ -48,9 +48,6 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PDFClown">
-      <HintPath>..\..\..\..\..\Downloads\PDFClown-0.1.2-Beta\PDFClown\dotNET\pdfclown.lib\build\package\PDFClown.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
