@@ -6,7 +6,7 @@ namespace ICSheetCore
     interface IInventoryDelegate
     {
         void AddItemToInventory(IItem item);
-        void DropItem(IItem item);
+        void DropItem(IItem item, bool dropAll);
         void Equip(IItem item);
         void Unequip(IItem item);
         void DoGoldTransaction(decimal amount);

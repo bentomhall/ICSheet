@@ -136,7 +136,11 @@ namespace ICSheet5e.ViewModels
 
         public int Movement
         {
-            get { return character.Movement; }
+            get
+            {
+                if (isEncumbered) { return character.Movement - 10; }
+                return character.Movement;
+            }
         }
 
         public string Name
@@ -539,6 +543,11 @@ namespace ICSheet5e.ViewModels
         static private string slotListAsString(IEnumerable<int> slots)
         {
             return string.Join(" / ", slots);
+        }
+
+        private bool isEncumbered
+        {
+            get { return (character.CarriedWeight + 0.01 * (double)character.Cash.Total) > 5.0 * character.AbilityScoreFor(AbilityType.Strength); }
         }
     }
 }

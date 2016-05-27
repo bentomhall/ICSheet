@@ -143,7 +143,9 @@ namespace ICSheetCore
         internal void DropItemStack(IItem item)
         {
             _inventoryItems.Remove(item);
-            if (_equippedItems[item.Slot].Name == item.Name) { UnequipItem(item); }
+
+            if (!_equippedItems.ContainsKey(item.Slot)) { return; }
+            else if (_equippedItems[item.Slot].Name == item.Name) { UnequipItem(item); }
         }
 
         internal Money CashOnHand
