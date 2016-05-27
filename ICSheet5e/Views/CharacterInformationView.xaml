@@ -6,6 +6,18 @@
              xmlns:local="clr-namespace:ICSheet5e.Views"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="959">
+    <UserControl.Resources>
+        <Style x:Key="EncumbranceStyle" TargetType="TextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsEncumbered}" Value="True">
+                    <Setter Property="TextBlock.Foreground" Value="Red"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=IsEncumbered}" Value="False">
+                    <Setter Property="TextBlock.Foreground" Value="Black"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="44*"/>
@@ -34,7 +46,7 @@
         <Border Grid.Column="0" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
             <StackPanel>
                 <Label>Weight:</Label>
-                <TextBlock Text="{Binding Path=Weight}" HorizontalAlignment="Center" FontSize="18"/>
+                <TextBlock Text="{Binding Path=Weight}" HorizontalAlignment="Center" FontSize="18" Style="{StaticResource EncumbranceStyle}"/>
                 <Label>Height:</Label>
                 <TextBlock FontSize="18" Text="{Binding Path=Height}" HorizontalAlignment="Center"/>
             </StackPanel>

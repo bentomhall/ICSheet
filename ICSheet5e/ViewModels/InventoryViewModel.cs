@@ -19,6 +19,11 @@ namespace ICSheet5e.ViewModels
             setEquippedItems();
         }
 
+        public bool isEncumbered
+        {
+            get { return (currentCharacter.CarriedWeight + 0.01 * (double)currentCharacter.Cash.Total) > 5.0 * currentCharacter.AbilityScoreFor(AbilityType.Strength); }
+        }
+
         private string ItemNameOrDefault(ItemSlot slot)
         {
             var item = currentCharacter.EquippedItemForSlot(slot);
@@ -240,11 +245,11 @@ namespace ICSheet5e.ViewModels
             }
             else if (obj == "-") 
             { 
-                currentCharacter.DropItem(SelectedItem.Item);
+                currentCharacter.DropItem(SelectedItem.Item, false);
             }
             else
             {
-                currentCharacter.DropItem(SelectedItem.Item);
+                currentCharacter.DropItem(SelectedItem.Item, true);
             }
             NotifyPropertyChanged("Items");
         }

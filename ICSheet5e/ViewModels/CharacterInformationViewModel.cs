@@ -28,7 +28,12 @@ namespace ICSheet5e.ViewModels
         public ObservableCollection<string> Tools { get { return new ObservableCollection<string>(_characterInfo.Tools); } }
         
         public string Notes { get { return _characterInfo.Notes; } set { _characterInfo.Notes = value; NotifyPropertyChanged(); } }
-        
+
+        public bool IsEncumbered
+        {
+            get { return (_character.CarriedWeight + 0.01 * (double)_character.Cash.Total) > 5.0 * _character.AbilityScoreFor(AbilityType.Strength); }
+        }
+
         public ICommand AddLanguageCommand
         {
             get { return new Views.DelegateCommand<string>(AddLanguageCommandExecuted); }

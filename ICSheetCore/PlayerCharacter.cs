@@ -186,10 +186,12 @@ namespace ICSheetCore
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public void DropItem(IItem item)
+        /// <param name="dropAll"></param>
+        public void DropItem(IItem item, bool dropAll)
         {
             _inventory.UnequipItem(item);
-            _inventory.RemoveItem(item);
+            if (dropAll) { _inventory.DropItemStack(item); }
+            else { _inventory.RemoveItem(item); }
         }
 
         /// <summary>
