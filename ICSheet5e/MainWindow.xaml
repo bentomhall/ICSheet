@@ -46,12 +46,17 @@
         <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=LevelUpOverlayOpen}">
             <views:LevelUpView/>
         </Popup>
+        <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=IsSettingsOverlayOpen}">
+            <views:UserPreferencesView/>
+        </Popup>
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">
                 <MenuItem Command="{Binding Path=NewCharacterCommand}" Header="_New"/>
                 <MenuItem Command="{Binding Path=OpenCharacterCommand}" Header="_Open..."/>
                 <MenuItem Command="{Binding Path=SaveCharacterCommand}" Header="_Save..."/>
                 <MenuItem Command="{Binding Path=SaveCharacterCommand}" CommandParameter="Save As" Header="Save As..."/>
+                <Separator/>
+                <MenuItem Command="{Binding Path=OpenSettingsOverlayCommand}" Header="Preferences"/>
                 <MenuItem Command="{Binding Path=CreateNewSubclassCommand}" Header="_Create Subclass..."/>
             </MenuItem>
             <MenuItem Header="_Edit" IsCheckable="True" IsChecked="{Binding Path=IsEditingModeEnabled, Mode=TwoWay}" Width="56"/>

@@ -311,6 +311,8 @@ namespace ICSheet5e.ViewModels
         }
 
         private bool _isOverlayOpen;
+        private bool _isSettingsOverlayOpen;
+        private UserPreferencesViewModel _userPreferencesModel;
 
         private void OnLevelUpCompleted(IViewModel obj)
         {
@@ -385,6 +387,51 @@ namespace ICSheet5e.ViewModels
                 _levelUpViewModel = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        public bool IsSettingsOverlayOpen
+        {
+            get { return _isSettingsOverlayOpen; }
+            set
+            {
+                if (value != _isSettingsOverlayOpen)
+                {
+                    _isSettingsOverlayOpen = value;
+                    _isOverlayOpen = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public void SettingsChangeAction()
+        {
+            IsSettingsOverlayOpen = false;
+            NotifyPropertyChanged("Movement");
+            NotifyPropertyChanged("Weight");
+        }
+
+        public ICommand OpenSettingsOverlayCommand
+        {
+            get { return new Views.DelegateCommand<object>(OpenSettingsCommandExecuted); }
+        }
+
+        public UserPreferencesViewModel UserPreferencesModel
+        {
+            get { return _userPreferencesModel; }
+            set
+            {
+                if (value != _userPreferencesModel)
+                {
+                    _userPreferencesModel = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private void OpenSettingsCommandExecuted(object obj)
+        {
+            UserPreferencesModel = new UserPreferencesViewModel(SettingsChangeAction);
+            IsSettingsOverlayOpen = true;
         }
 
         private void AddFeatureCommandExecuted(object obj)

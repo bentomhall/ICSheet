@@ -120,6 +120,7 @@
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
     <Compile Include="ViewModels\SpellBookViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
+    <Compile Include="ViewModels\UserPreferencesViewModel.cs" />
     <Compile Include="Views\AddItemOverlayView.xaml.cs">
       <DependentUpon>AddItemOverlayView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +187,9 @@
       <DependentUpon>SRDViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabItemDataTemplateSelector.cs" />
+    <Compile Include="Views\UserPreferencesView.xaml.cs">
+      <DependentUpon>UserPreferencesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -284,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SRDViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPreferencesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

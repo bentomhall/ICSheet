@@ -547,7 +547,12 @@ namespace ICSheet5e.ViewModels
 
         private bool isEncumbered
         {
-            get { return (character.CarriedWeight + 0.01 * (double)character.Cash.Total) > 5.0 * character.AbilityScoreFor(AbilityType.Strength); }
+            get
+            {
+                var weight = character.CarriedWeight + Properties.Settings.Default.CashWeight * (double)character.Cash.Total;
+                var limit = Properties.Settings.Default.EncumbranceMultiplier * character.AbilityScoreFor(AbilityType.Strength);
+                return weight > limit;
+            }
         }
     }
 }

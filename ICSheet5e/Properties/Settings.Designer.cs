@@ -22,5 +22,29 @@ namespace ICSheet5e.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public double EncumbranceMultiplier {
+            get {
+                return ((double)(this["EncumbranceMultiplier"]));
+            }
+            set {
+                this["EncumbranceMultiplier"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.02")]
+        public double CashWeight {
+            get {
+                return ((double)(this["CashWeight"]));
+            }
+            set {
+                this["CashWeight"] = value;
+            }
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="ICSheet5e.Views.UserPreferencesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ICSheet5e.Views"
+             xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300">
+    <DockPanel Background="LightGray">
+        <Label DockPanel.Dock="Top" FontSize="18" HorizontalContentAlignment="Center">Preferences</Label>
+        <UniformGrid DockPanel.Dock="Top" Rows="3" Columns="2">
+            <Label VerticalContentAlignment="Center">Encumbrance Multiplier:</Label>
+            <tk:DoubleUpDown Minimum="0.0" Maximum="15.0" Value="{Binding Path=UserPreferencesModel.EncumbranceMultiplier, Mode=TwoWay}" Increment="1.0"/>
+            <Label VerticalContentAlignment="Center">Coin Weight (per coin):</Label>
+            <tk:DoubleUpDown Minimum="0.00" Maximum="0.50" Value="{Binding Path=UserPreferencesModel.CoinWeight, Mode=TwoWay}" Increment="0.01"/>
+            <Button IsCancel="True" Command="{Binding Path=UserPreferencesModel.CancelCommand}">Cancel</Button>
+            <Button IsDefault="True" Command="{Binding Path=UserPreferencesModel.OnSave}">Save</Button>
+        </UniformGrid>
+
+        
+    </DockPanel>
+</UserControl>
