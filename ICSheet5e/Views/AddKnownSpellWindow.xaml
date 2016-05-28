@@ -4,7 +4,7 @@
         Title="New Spell Dialog" Height="300" Width="350">
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <TextBox Width="281" Margin="2,2,5,2" Text="{Binding Path=SearchString}"></TextBox>
+            <TextBox Width="281" Margin="2,2,5,2" Text="{Binding Path=SearchString, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Width="50" Command="{Binding Path=FindMatchingSpellsCommand}" IsDefault="True">Search</Button>
         </StackPanel>
         <ListBox Height="200" Margin="2,5,2,2" DockPanel.Dock="Top" ItemsSource="{Binding Path=MatchingSpells}" SelectedItem="{Binding Path=SpellToLearn}">
@@ -13,7 +13,7 @@
         <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Bottom">
             <Button IsCancel="True">Cancel</Button>
             <Label VerticalAlignment="Center">Class:</Label>
-            <ComboBox MinWidth="100" ItemsSource="{Binding Path=CastingClasses}" SelectedItem="SelectedClass"></ComboBox>
+            <ComboBox MinWidth="100" ItemsSource="{Binding Path=CastingClasses}" SelectedItem="{Binding Path=SelectedClass}"></ComboBox>
             <Button Margin="10,0,0,0" Click="Button_Click" >Learn</Button>
             <CheckBox IsChecked="{Binding Path=IsBonusSpell}" VerticalAlignment="Center" Margin="10,0,0,0">Is Bonus</CheckBox> 
         </StackPanel>

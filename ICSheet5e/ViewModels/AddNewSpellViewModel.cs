@@ -12,10 +12,13 @@ namespace ICSheet5e.ViewModels
         private SpellManager spellDB;
         private List<Spell> _allSpells = new List<Spell>();
 
-        public AddNewSpellViewModel(SpellManager dB, IEnumerable<string> classNames)
+        public AddNewSpellViewModel(SpellManager dB, IEnumerable<string> classNames, IEnumerable<string> castingClasses)
         {
             spellDB = dB;
             loadSpells(classNames);
+            CastingClasses = castingClasses;
+            SelectedClass = castingClasses.First();
+            NotifyPropertyChanged("SelectedClass");
         }
 
         private void loadSpells(IEnumerable<string> names)
@@ -35,8 +38,22 @@ namespace ICSheet5e.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")] //set in XAML
         public Spell SpellToLearn { get; set; }
 
+        private string _searchString;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public string SearchString { get; set; }
+        public string SearchString
+        {
+            get { return _searchString; }
+            set
+            {
+                if (value != _searchString)
+                {
+                    _searchString = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("MatchingSpells");
+                }
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ObservableCollection<Spell> MatchingSpells
@@ -50,7 +67,7 @@ namespace ICSheet5e.ViewModels
 
         public bool IsBonusSpell { get; set; }
 
-        public List<string> CastingClasses { get; set; }
+        public IEnumerable<string> CastingClasses { get; set; }
         public string SelectedClass { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
