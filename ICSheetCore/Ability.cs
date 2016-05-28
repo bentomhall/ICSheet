@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using System;
 
 namespace ICSheetCore
 {
@@ -36,7 +37,11 @@ namespace ICSheetCore
         /// </summary>
         public int Modifier
         {
-            get { return (value - 10)/2; }
+            get
+            {
+                var x = (decimal)(value - 10) / 2;
+                return (int)Math.Floor(x);
+            }
         }
 
         /// <summary>

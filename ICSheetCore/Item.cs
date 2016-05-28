@@ -19,7 +19,6 @@ namespace ICSheetCore
         [DataMember] private double _value;
         [DataMember] private ItemSlot _slot;
         [DataMember] private int _enhancement = 0;
-        [DataMember] private string description = "";
         [DataMember] private bool _isProficient;
         [DataMember] private List<AbilityType> associatedAbility = new List<AbilityType>();
         [DataMember]
@@ -105,10 +104,7 @@ namespace ICSheetCore
         /// <returns></returns>
         protected virtual string CollectDescription()
         {
-            StringBuilder output = new StringBuilder(_name);
-            output.Append(Environment.NewLine);
-            output.Append(properties);
-            return output.ToString();
+            return $"{_name}{Environment.NewLine}{properties}";
         }
 
         /// <summary>
