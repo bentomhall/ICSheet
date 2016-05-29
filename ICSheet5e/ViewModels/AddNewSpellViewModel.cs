@@ -78,4 +78,49 @@ namespace ICSheet5e.ViewModels
 
 
     }
+
+    public class AddCustomSpellViewModel: BaseViewModel
+    {
+        public string Name { get; set; }
+        public string School { get; set; }
+        public bool IsConcentration { get; set; }
+        public IEnumerable<string> ClassNames { get; set; }
+        public string SelectedClass { get; set; }
+        public string ClassToRemove { get; set; }
+        public List<string> ClassesWhichCanCast { get; set; }
+        public int Level { get; set; }
+        public string Range { get; set; }
+        public string Duration { get; set; }
+        public string Test { get; set; }
+
+        public ICommand AddCastingClass
+        {
+            get { return new Views.DelegateCommand<object>(x => { ClassesWhichCanCast.Add(SelectedClass); NotifyPropertyChanged("ClassesWhichCanCast"); }); }
+        }
+
+        public ICommand RemoveCastingClass
+        {
+            get
+            {
+                return new Views.DelegateCommand<object>(x =>
+                {
+                    ClassesWhichCanCast.Remove(ClassToRemove);
+                    NotifyPropertyChanged("ClassesWhichCanCast");
+                });
+            }
+        }
+
+        public AddCustomSpellViewModel(IEnumerable<string> classes, Action<Spell> callback)
+        {
+            ClassNames = classes;
+            _callback = callback;
+        }
+
+        private void _createCustomSpell(object obj)
+        {
+
+        }
+
+        private Action<Spell> _callback;
+    }
 }

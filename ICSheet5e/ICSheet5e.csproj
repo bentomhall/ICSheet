@@ -99,6 +99,8 @@
     <Compile Include="EventCoordinator\IChangeNotificationReceiver.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ResourceModifiers\CustomPlayerClassSerializer.cs" />
+    <Compile Include="ResourceModifiers\CustomSpellSerializer.cs" />
+    <Compile Include="ResourceModifiers\SpellSerializationData.cs" />
     <Compile Include="ResourceModifiers\SubclassData.cs" />
     <Compile Include="ViewModels\AddFeatureViewModel.cs" />
     <Compile Include="ViewModels\AddNewSpellViewModel.cs" />
