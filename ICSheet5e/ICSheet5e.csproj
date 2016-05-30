@@ -123,6 +123,9 @@
     <Compile Include="ViewModels\SpellBookViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
     <Compile Include="ViewModels\UserPreferencesViewModel.cs" />
+    <Compile Include="Views\AddCustomSpellOverlay.xaml.cs">
+      <DependentUpon>AddCustomSpellOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddItemOverlayView.xaml.cs">
       <DependentUpon>AddItemOverlayView.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PageStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddCustomSpellOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,7 +334,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\SpellList5e.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -349,7 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\spell_list.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

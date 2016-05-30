@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="ICSheet5e.Views.AddCustomSpellOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:ICSheet5e.Views"
+             mc:Ignorable="d"
+             DataContext="{Binding Path=NewCustomSpellModel}"
+             d:DesignHeight="600" d:DesignWidth="500">
+    <Grid Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="177*"/>
+            <RowDefinition Height="264*"/>
+            <RowDefinition Height="39*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <Label VerticalContentAlignment="Center" Width="50">Name:</Label>
+            <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged  }" Width="150"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+            <Label VerticalContentAlignment="Center" Width="50">School:</Label>
+            <TextBox Text="{Binding Path=School, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+            <Label VerticalContentAlignment="Center" Width="50">Range:</Label>
+            <TextBox Text="{Binding Path=SpellRange, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
+            <Label VerticalContentAlignment="Center" Width="50">Action:</Label>
+            <TextBox Text="{Binding Path=SpellCastingTime, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <Label VerticalContentAlignment="Center" Width="60">Level:</Label>
+            <tk:IntegerUpDown Maximum="9" Minimum="0" MinWidth="160" Value="{Binding Path=Level}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding Path=IsConcentration}">Concentration?</CheckBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <Label VerticalContentAlignment="Center" Width="60">Duration:</Label>
+            <TextBox Text="{Binding Path=SpellDuration, UpdateSourceTrigger=PropertyChanged}" Width="160"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2">
+            <Label VerticalContentAlignment="Center" Width="70" FontSize="10">Components:</Label>
+            <TextBox Text="{Binding Path=SpellComponents, UpdateSourceTrigger=PropertyChanged}" Width="150" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label VerticalContentAlignment="Center" Width="50">Text:</Label>
+            <TextBox Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}" Width="225" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" Height="144" Margin="12,0"/>
+        </StackPanel>
+        <UniformGrid Rows="1" Columns="3" Grid.Row="5" Grid.ColumnSpan="2">
+            <StackPanel>
+                <Label HorizontalAlignment="Center">Classes:</Label>
+                <ListBox x:Name="AllClasses" ItemsSource="{Binding Path=ClassNames}" Height="225" Width="150"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Width="50">
+                <Button Command="{Binding Path=AddClassCommand}" CommandParameter="{Binding ElementName=AllClasses, Path=SelectedItem}" Content="&#x2192;" />
+                <Button Command="{Binding Path=RemoveClassCommand}" CommandParameter="{Binding ElementName=CastingClasses, Path=SelectedItem}" Content="&#x2190;"/>
+            </StackPanel>
+            <StackPanel>
+                <Label HorizontalAlignment="Center">Castable By:</Label>
+                <ListBox x:Name="CastingClasses" ItemsSource="{Binding Path=ClassesWhichCanCast}" Height="225" Width="150"/>
+            </StackPanel>
+        </UniformGrid>
+        <Button Grid.Row="6" Command="{Binding Path=CreateSpellCommand}" Content="Create" Margin="4"/>
+        <Button Grid.Row="6" Grid.Column="1" Content="Clear" Margin="4"/>
+    </Grid>
+</UserControl>

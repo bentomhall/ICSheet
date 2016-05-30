@@ -31,6 +31,9 @@
         <Popup Placement="Center" IsOpen="{Binding Path=IsKnownSpellOverlayOpen}" StaysOpen="false">
             <views:AddOGLSpellOverlay/>
         </Popup>
+        <Popup Placement="Center" IsOpen="{Binding Path=IsCustomSpellOverlayOpen}" StaysOpen="False">
+            <views:AddCustomSpellOverlay/>
+        </Popup>
         <StackPanel Grid.Row="1">
             <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="750">
                 <ListView.Resources>
@@ -51,6 +54,7 @@
             
         </ListView>
             <Button Command="{Binding Path=LearnNewSpellCommand}" CommandParameter="Known">Add OGL Spell</Button>
+            <Button Command="{Binding Path=LearnNewSpellCommand}" CommandParameter="Custom">Add Custom Spell</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button Content="Cast" Background="Green" Command="{Binding CastSpellCommand}" Margin="0,0,10,0"/>

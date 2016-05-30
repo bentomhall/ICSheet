@@ -18,6 +18,9 @@ namespace ICSheet5e.ViewModels
             _classNamesSource = classNamesSource;
             _spellcastingClasses = _caster.SpellcastingClasses;
             _serializer = serializer;
+            var classNames = _classNamesSource.ExtractClassNames();
+            NewKnownSpellModel = new AddNewSpellViewModel(_dB, classNames, _spellcastingClasses, LearnNewSpell);
+            NewCustomSpellModel = new AddCustomSpellViewModel(classNames, OnCustomSpellCreated, _serializer);
         }
 
         private IEnumerable<string> _spellcastingClasses;
@@ -143,11 +146,11 @@ namespace ICSheet5e.ViewModels
             switch (type)
             {
                 case "Known":
-                    NewKnownSpellModel = new AddNewSpellViewModel(_dB, classNames, _spellcastingClasses, LearnNewSpell);
+                    
                     IsKnownSpellOverlayOpen = true;
                     break;
                 case "Custom":
-                    NewCustomSpellModel = new AddCustomSpellViewModel(classNames, OnCustomSpellCreated, _serializer);
+                    
                     IsCustomSpellOverlayOpen = true;
                     break;
             }

@@ -92,10 +92,16 @@ namespace ICSheet5e.ViewModels
         public string Name { get; set; }
         public string School { get; set; }
         public bool IsConcentration { get; set; }
-        public IEnumerable<string> ClassNames { get; set; }
-        public string SelectedClass { get; set; }
-        public string ClassToRemove { get; set; }
-        public List<string> ClassesWhichCanCast { get; set; }
+        public ObservableCollection<string> ClassNames
+        {
+            get { return _classes; }
+            set { _classes = value; NotifyPropertyChanged(); }
+        }
+        public ObservableCollection<string> ClassesWhichCanCast
+        {
+            get { return _castingClasses; }
+            set { _castingClasses = value;  NotifyPropertyChanged(); }
+        }
         public int Level { get; set; }
         public string SpellRange { get; set; }
         public string SpellDuration { get; set; }
@@ -103,32 +109,35 @@ namespace ICSheet5e.ViewModels
         public string SpellComponents { get; set; }
         public string SpellCastingTime { get; set; }
 
-        public ICommand AddCastingClass
+        public ICommand CreateSpellCommand
         {
-            get { return new Views.DelegateCommand<object>(x => { ClassesWhichCanCast.Add(SelectedClass); NotifyPropertyChanged("ClassesWhichCanCast"); }); }
+            get { return new Views.DelegateCommand<object>(_createCustomSpell); }
         }
 
-        public ICommand RemoveCastingClass
+        public ICommand AddClassCommand
         {
-            get
-            {
-                return new Views.DelegateCommand<object>(x =>
-                {
-                    ClassesWhichCanCast.Remove(ClassToRemove);
-                    NotifyPropertyChanged("ClassesWhichCanCast");
-                });
-            }
+            get { return new Views.DelegateCommand<string>(x => { ClassesWhichCanCast.Add(x); NotifyPropertyChanged("ClassesWhichCanCast"); }); }
+        }
+
+        public ICommand RemoveClassCommand
+        {
+            get { return new Views.DelegateCommand<string>(x => { ClassesWhichCanCast.Remove(x); NotifyPropertyChanged("ClassesWhichCanCast"); }); }
         }
 
         public AddCustomSpellViewModel(IEnumerable<string> classes, Action<Spell> callback, ResourceModifiers.CustomSpellSerializer serializer)
         {
-            ClassNames = classes;
+            ClassNames = new ObservableCollection<string>(classes);
             _callback = callback;
             _serializer = serializer;
         }
 
+        private ObservableCollection<string> _castingClasses = new ObservableCollection<string>();
+
+        private ObservableCollection<string> _classes = new ObservableCollection<string>();
+
         private void _createCustomSpell(object obj)
         {
+            if (string.IsNullOrWhiteSpace(Name)) { return; }
             var details = new ResourceModifiers.SpellSerializationData()
             {
                 name = Name,
