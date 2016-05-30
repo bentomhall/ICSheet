@@ -120,6 +120,8 @@ namespace ICSheet5e.ViewModels
                 subModel.Parent = this;
                 _viewModels.Add(subModel);
             }
+            FeatureModel = new AddFeatureViewModel(AddFeatureCallback);
+            FeatureModel.Parent = this;
             InvalidateResourceCache(false);
         }
 
@@ -436,21 +438,24 @@ namespace ICSheet5e.ViewModels
             IsSettingsOverlayOpen = true;
         }
 
+        public void AddFeatureCallback(IFeature feature)
+        {
+            currentCharacter.AddFeature(feature);
+            NotifyPropertyChanged("Features");
+        }
+
+        private AddFeatureViewModel featureModel;
+
+        public AddFeatureViewModel FeatureModel
+        {
+            get { return featureModel; }
+            set { featureModel = value; NotifyPropertyChanged(); }
+        }
+
         private void AddFeatureCommandExecuted(object obj)
         {
             if (currentCharacter == null) { return; }
-            var vm = new AddFeatureViewModel();
-            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.AddNewFeatureDialog, vm, AddFeatureDelegate);
-
-        }
-
-        private void AddFeatureDelegate(IViewModel obj)
-        {
-            if (!(obj is AddFeatureViewModel)) { return; }
-            var vm = (AddFeatureViewModel)obj;
-            var feature = vm.ToFeature();
-            currentCharacter.AddFeature(feature);
-            NotifyPropertyChanged("Features");
+            FeatureModel.IsOpen = true;
         }
 
         private void OpenSRDCommandExecuted(object obj)

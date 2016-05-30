@@ -49,6 +49,9 @@
         <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=IsSettingsOverlayOpen}">
             <views:UserPreferencesView/>
         </Popup>
+        <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=FeatureModel.IsOpen}">
+            <views:AddNewFeatureOverlay/>
+        </Popup>
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">
                 <MenuItem Command="{Binding Path=NewCharacterCommand}" Header="_New"/>
