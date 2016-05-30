@@ -50,7 +50,7 @@ namespace ICSheetCore
                 spell.School = (string)element["school"];
                 spell.Description = (string)element["text"];
                 spell.Components = (string)element["Components"];
-                spell.CastTime = (string)element["Casting Time"];
+                spell.CastTime = (string)element["CastingTime"];
                 spell.IsPrepared = false;
                 spell.Duration = (string)element["Duration"];
                 _spellDetails.Add(spell);

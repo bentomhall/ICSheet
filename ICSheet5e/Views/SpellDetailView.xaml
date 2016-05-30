@@ -8,6 +8,14 @@
     <UserControl.Background>
         <SolidColorBrush Color="White"/>
     </UserControl.Background>
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="43*"/>
@@ -23,17 +31,17 @@
             <RowDefinition Height="376*"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding Path=SelectedSpell.Name}" Grid.ColumnSpan="2" FontWeight="Bold"></Label>
-        <Label Grid.Row="1" Content="{Binding Path=SelectedSpell.Level}"/>
+        <Label Grid.Row="1" Content="{Binding Path=SelectedSpell.Level}" ContentStringFormat="Level {0}"/>
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=SelectedSpell.School}"/>
         <Label Grid.Row="2" VerticalContentAlignment="Center">Cast Time:</Label>
-        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=SelectedSpell.CastTime}"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedSpell.CastTime}"/>
         <Label Grid.Row="3" VerticalContentAlignment="Center">Range:</Label>
         <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedSpell.Range}" TextWrapping="Wrap"/>
         <Label Grid.Row="4" VerticalContentAlignment="Center">Duration:</Label>
-        <Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=SelectedSpell.Duration}"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=SelectedSpell.Duration}"/>
         <Label Grid.Row="5">Components:</Label>
         <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=SelectedSpell.Components}" TextWrapping="Wrap"/>
-        <Label Grid.Row="6" VerticalContentAlignment="Top">Text:</Label>
-        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Path=SelectedSpell.Description}" IsHyphenationEnabled="True" TextWrapping="Wrap"/>
+        <Label VerticalAlignment="Top" Grid.Row="6" VerticalContentAlignment="Top">Text:</Label>
+        <TextBlock Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" Text="{Binding Path=SelectedSpell.Description}" IsHyphenationEnabled="True" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

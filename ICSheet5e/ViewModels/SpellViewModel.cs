@@ -31,7 +31,7 @@ namespace ICSheet5e.ViewModels
 
         public string Name { get { return _spell.Name; } }
         public bool IsPrepared { get { return _spell.IsPrepared; } }
-        public int Level { get { return _spell.Level; } }
+        public string Level { get { return $"Level {_spell.Level}"; } }
         public string Text { get { return _spell.Description; } }
         public string School { get { return _spell.School; } }
         public string Components { get { return _spell.Components; } }

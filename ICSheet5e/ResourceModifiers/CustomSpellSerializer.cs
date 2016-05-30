@@ -34,18 +34,27 @@ namespace ICSheet5e.ResourceModifiers
 
         public void Add(SpellSerializationData item, IEnumerable<string> toClasses)
         {
-            _spellDetails.Add(item);
+            if (_spellDetails.Count(x => x.name == item.name) == 0)
+            {
+                _spellDetails.Add(item);
+            }
             addToSpellList(item.name, toClasses);
         }
 
         private void addToSpellList(string name, IEnumerable<string> toClasses)
         {
+
             var newElement = new XElement("Spell");
             newElement.SetAttributeValue("Name", name);
             foreach (var cls in toClasses)
             {
                 var e = findSpellListFor(cls, _spellLists);
-                e.Add(newElement);
+                if (e.Elements("Spell").Count(x => x.Attribute("Name").Value == name) == 0)
+                {
+                    // only add if it doesn't already exist
+                    e.Add(newElement);
+                }
+                
             }
         }
 
