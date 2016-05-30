@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using ICSheet5e.ResourceModifiers;
 
 namespace ICSheet5e.ViewModels
 {
     //TODO: needs significant surgery
     public class SpellBookViewModel : BaseViewModel
     {
-        public SpellBookViewModel(PlayerCharacter caster, SpellManager dB, XMLFeatureFactory classNamesSource)
+        public SpellBookViewModel(PlayerCharacter caster, SpellManager dB, XMLFeatureFactory classNamesSource, CustomSpellSerializer serializer)
         {
             _caster = caster;
             _dB = dB;
             _classNamesSource = classNamesSource;
             _spellcastingClasses = _caster.SpellcastingClasses;
-
+            _serializer = serializer;
         }
 
         private IEnumerable<string> _spellcastingClasses;
@@ -42,7 +43,7 @@ namespace ICSheet5e.ViewModels
 
         public ICommand LearnNewSpellCommand
         {
-            get { return new Views.DelegateCommand<object>(LearnNewSpellCommandExecuted); }
+            get { return new Views.DelegateCommand<string>(LearnNewSpellCommandExecuted); }
         }
 
         public ICommand LearnSpellCommand
@@ -117,6 +118,8 @@ namespace ICSheet5e.ViewModels
             "Level 8",
             "Level 9"
         };
+        private CustomSpellSerializer _serializer;
+        private bool _isOverlayOpen;
 
         private void CastSpellCommandExecuted(object obj)
         {
@@ -134,11 +137,90 @@ namespace ICSheet5e.ViewModels
             return string.Join(" / ", _caster.SpellSlots);
         }
 
-        private void LearnNewSpellCommandExecuted(object obj)
+        private void LearnNewSpellCommandExecuted(string type)
         {
-            var type = Views.WindowManager.DialogType.AddNewSpellsDialog;
-            var model = new AddNewSpellViewModel(_dB, _classNamesSource.ExtractClassNames(), _spellcastingClasses);
-            Views.WindowManager.DisplayDialog(type, model, AddNewSpellDelegate);
+            var classNames = _classNamesSource.ExtractClassNames();
+            switch (type)
+            {
+                case "Known":
+                    NewKnownSpellModel = new AddNewSpellViewModel(_dB, classNames, _spellcastingClasses, LearnNewSpell);
+                    IsKnownSpellOverlayOpen = true;
+                    break;
+                case "Custom":
+                    NewCustomSpellModel = new AddCustomSpellViewModel(classNames, OnCustomSpellCreated, _serializer);
+                    IsCustomSpellOverlayOpen = true;
+                    break;
+            }
+        }
+
+        internal void LearnNewSpell(string name, string forClass, bool isBonus)
+        {
+            IsOverlayOpen = false;
+            _caster.Learn(name, forClass, isBonus);
+            NotifyPropertyChanged("AllSpells");
+        }
+
+        internal bool IsOverlayOpen
+        {
+            get { return _isOverlayOpen; }
+            set
+            {
+                _isOverlayOpen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _isKnownSpellOverlayOpen;
+        private bool _isCustomSpellOverlayOpen;
+        private AddNewSpellViewModel _knownSpellModel;
+
+        public AddNewSpellViewModel NewKnownSpellModel
+        {
+            get { return _knownSpellModel; }
+            set { _knownSpellModel = value; NotifyPropertyChanged(); }
+        }
+        public AddCustomSpellViewModel NewCustomSpellModel { get; set; }
+
+        public bool IsKnownSpellOverlayOpen
+        {
+            get
+            {
+                return _isKnownSpellOverlayOpen;
+            }
+
+            set
+            {
+                _isKnownSpellOverlayOpen = value;
+                _isOverlayOpen = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("IsOverlayOpen");
+            }
+        }
+
+        public bool IsCustomSpellOverlayOpen
+        {
+            get
+            {
+                return _isCustomSpellOverlayOpen;
+            }
+
+            set
+            {
+                _isCustomSpellOverlayOpen = value;
+                _isOverlayOpen = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("IsOverlayOpen");
+            }
+        }
+
+        public void OnCustomSpellCreated(Spell newSpell)
+        {
+            IsOverlayOpen = false;
+            var names = _serializer.RawSpellList();
+            var details = _serializer.RawSpellDetails();
+            _dB.ReloadSpellDetails(names, details);
+            _caster.Learn(newSpell.Name, newSpell.InSpellbook, false);
+            NotifyPropertyChanged("AllSpells");
         }
 
         private void LearnSpellCommandExecuted(object obj)
@@ -154,12 +236,6 @@ namespace ICSheet5e.ViewModels
             else { _caster.Prepare(SelectedSpell.Name, SelectedSpell.InSpellbook, true); }
             NotifyPropertyChanged("AllSpells");
         }
-
-        //private void LoadAllSpells()
-        //{
-        //    _allSpells.AddRange(_caster.KnownSpells);
-        //}
-
 
         private void ToggleSpellPreparationExecuted(object obj)
         {

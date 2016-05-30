@@ -108,5 +108,14 @@ namespace ICSheetCore
                 return spell;
             }
         }
+
+        /// <summary>
+        /// Reloads the details cache after changes to backing store (eg custom spell added).
+        /// </summary>
+        public void ReloadSpellDetails(string spellList, string spellDetails)
+        {
+            loadSpellDetails(spellDetails);
+            loadSpellNames(spellList);
+        }
     }
 }

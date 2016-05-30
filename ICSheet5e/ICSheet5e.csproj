@@ -132,6 +132,9 @@
     <Compile Include="Views\AddNewFeatureWindow.xaml.cs">
       <DependentUpon>AddNewFeatureWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddOGLSpellOverlay.xaml.cs">
+      <DependentUpon>AddOGLSpellOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddSubClassWindow.xaml.cs">
       <DependentUpon>AddSubClassWindow.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNewFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddOGLSpellOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

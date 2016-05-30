@@ -28,6 +28,9 @@
             <ColumnDefinition Width="113*"/>
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
+        <Popup Placement="Center" IsOpen="{Binding Path=IsKnownSpellOverlayOpen}" StaysOpen="false">
+            <views:AddOGLSpellOverlay/>
+        </Popup>
         <StackPanel Grid.Row="1">
             <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="750">
                 <ListView.Resources>
@@ -47,7 +50,7 @@
                 </ListView.ItemContainerStyle>
             
         </ListView>
-            <Button Command="{Binding Path=LearnNewSpellCommand}">Add Other</Button>
+            <Button Command="{Binding Path=LearnNewSpellCommand}" CommandParameter="Known">Add OGL Spell</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button Content="Cast" Background="Green" Command="{Binding CastSpellCommand}" Margin="0,0,10,0"/>

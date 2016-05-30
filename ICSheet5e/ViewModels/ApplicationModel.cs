@@ -78,6 +78,7 @@ namespace ICSheet5e.ViewModels
         private XMLFeatureFactory featureFactory;
         private string spellBookData;
         private string spellListData;
+        private ResourceModifiers.CustomSpellSerializer _serializer;
 
         private void loadItemResources()
         {
@@ -92,6 +93,7 @@ namespace ICSheet5e.ViewModels
             
             spellBookData = System.IO.File.ReadAllText(@"Resources\spell_list.xml");
             spellListData = System.IO.File.ReadAllText(@"Resources\SpellList5e.json");
+            _serializer = new ResourceModifiers.CustomSpellSerializer(@"Resources\spell_list.xml", @"Resources\SpellList5e.json");
             return;
         }
 
@@ -219,7 +221,7 @@ namespace ICSheet5e.ViewModels
             ViewModels[1] = new InventoryViewModel(currentCharacter, this, itemDB);
             ViewModels[2] = new CharacterInformationViewModel(currentCharacter);
             if (CanCastSpells) {
-                var sp = new SpellBookViewModel(currentCharacter, spellDB, featureFactory);
+                var sp = new SpellBookViewModel(currentCharacter, spellDB, featureFactory, _serializer);
                 sp.PropertyChanged += cvm.OnEquipmentChanged;
                 ViewModels[3] = sp;
             }
@@ -329,7 +331,7 @@ namespace ICSheet5e.ViewModels
                 NotifyPropertyChanged("CanCastSpells");
                 if (ViewModels[3] is BaseViewModel && CanCastSpells) //change enabled spellcasting
                 {
-                    ViewModels[3] = new SpellBookViewModel(currentCharacter, spellDB, featureFactory);
+                    ViewModels[3] = new SpellBookViewModel(currentCharacter, spellDB, featureFactory, _serializer);
                     NotifyPropertyChanged("ViewModels");
                 }
             }

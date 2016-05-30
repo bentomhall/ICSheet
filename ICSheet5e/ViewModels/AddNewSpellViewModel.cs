@@ -7,17 +7,18 @@ using ICSheetCore;
 
 namespace ICSheet5e.ViewModels
 {
-    class AddNewSpellViewModel : BaseViewModel
+    public class AddNewSpellViewModel : BaseViewModel
     {
         private SpellManager spellDB;
         private List<Spell> _allSpells = new List<Spell>();
 
-        public AddNewSpellViewModel(SpellManager dB, IEnumerable<string> classNames, IEnumerable<string> castingClasses)
+        public AddNewSpellViewModel(SpellManager dB, IEnumerable<string> classNames, IEnumerable<string> castingClasses, Action<string, string, bool> callback)
         {
             spellDB = dB;
             loadSpells(classNames);
             CastingClasses = castingClasses;
             SelectedClass = castingClasses.First();
+            _callback = callback;
             NotifyPropertyChanged("SelectedClass");
         }
 
@@ -76,6 +77,13 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(x => NotifyPropertyChanged("MatchingSpells")); }
         }
 
+        public ICommand LearnSpellCommand
+        {
+            get { return new Views.DelegateCommand<object>(x => _callback(SpellToLearn.Name, SelectedClass, IsBonusSpell)); }
+        }
+
+        private Action<string, string, bool> _callback;
+
 
     }
 
@@ -89,9 +97,11 @@ namespace ICSheet5e.ViewModels
         public string ClassToRemove { get; set; }
         public List<string> ClassesWhichCanCast { get; set; }
         public int Level { get; set; }
-        public string Range { get; set; }
-        public string Duration { get; set; }
-        public string Test { get; set; }
+        public string SpellRange { get; set; }
+        public string SpellDuration { get; set; }
+        public string Text { get; set; }
+        public string SpellComponents { get; set; }
+        public string SpellCastingTime { get; set; }
 
         public ICommand AddCastingClass
         {
@@ -110,17 +120,49 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public AddCustomSpellViewModel(IEnumerable<string> classes, Action<Spell> callback)
+        public AddCustomSpellViewModel(IEnumerable<string> classes, Action<Spell> callback, ResourceModifiers.CustomSpellSerializer serializer)
         {
             ClassNames = classes;
             _callback = callback;
+            _serializer = serializer;
         }
 
         private void _createCustomSpell(object obj)
         {
-
+            var details = new ResourceModifiers.SpellSerializationData()
+            {
+                name = Name,
+                text = Text,
+                Range = SpellRange,
+                level = Level.ToString(),
+                school = School,
+                Duration = $"{(IsConcentration ? "Concentration": "")}, {SpellDuration}",
+                Components = SpellComponents,
+                CastingTime = SpellCastingTime
+            };
+            _serializer.Add(details, ClassesWhichCanCast);
+            _serializer.Save();
+            _callback(_spellFromData(details));
         }
 
+        private Spell _spellFromData(ResourceModifiers.SpellSerializationData data)
+        {
+            var sp = new Spell();
+            sp.CastTime = data.CastingTime;
+            sp.Components = data.Components;
+            sp.Duration = data.Duration;
+            sp.Description = data.text;
+            sp.InSpellbook = ClassesWhichCanCast[0];
+            sp.IsBonusSpell = false;
+            sp.IsPrepared = false;
+            sp.Level = Level;
+            sp.Name = Name;
+            sp.Range = SpellRange;
+            sp.School = School;
+            return sp;
+        }
+
+        private ResourceModifiers.CustomSpellSerializer _serializer;
         private Action<Spell> _callback;
     }
 }
