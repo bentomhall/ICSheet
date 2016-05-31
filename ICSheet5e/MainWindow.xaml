@@ -49,8 +49,11 @@
         <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=IsSettingsOverlayOpen}">
             <views:UserPreferencesView/>
         </Popup>
-        <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=FeatureModel.IsOpen}">
+        <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=FeatureModel.IsOpen, Mode=TwoWay}">
             <views:AddNewFeatureOverlay/>
+        </Popup>
+        <Popup Placement="Center" StaysOpen="False" IsOpen="{Binding Path=SubclassModel.IsOpen, Mode=TwoWay}">
+            <views:AddSubclassOverlay/>
         </Popup>
         <Menu DockPanel.Dock="Top" Height="20">
             <MenuItem Header="_File" Margin="0" Width="56">

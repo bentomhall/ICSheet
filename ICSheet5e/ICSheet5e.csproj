@@ -132,14 +132,11 @@
     <Compile Include="Views\AddNewFeatureOverlay.xaml.cs">
       <DependentUpon>AddNewFeatureOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddNewFeatureWindow.xaml.cs">
-      <DependentUpon>AddNewFeatureWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\AddOGLSpellOverlay.xaml.cs">
       <DependentUpon>AddOGLSpellOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddSubClassWindow.xaml.cs">
-      <DependentUpon>AddSubClassWindow.xaml</DependentUpon>
+    <Compile Include="Views\AddSubclassOverlay.xaml.cs">
+      <DependentUpon>AddSubclassOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AttacksView.xaml.cs">
       <DependentUpon>AttacksView.xaml</DependentUpon>
@@ -153,9 +150,7 @@
     <Compile Include="Views\ClassFeatureView.xaml.cs">
       <DependentUpon>ClassFeatureView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateSubclassWindow.xaml.cs">
-      <DependentUpon>CreateSubclassWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\CreateSubclassWindow.xaml.cs" />
     <Compile Include="Views\DelegateCommand.cs" />
     <Compile Include="Views\FeaturesView.xaml.cs">
       <DependentUpon>FeaturesView.xaml</DependentUpon>
@@ -227,15 +222,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddNewFeatureWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AddOGLSpellOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddSubClassWindow.xaml">
+    <Page Include="Views\AddSubclassOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,8 +247,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateSubclassWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FeaturesView.xaml">
       <SubType>Designer</SubType>

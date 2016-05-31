@@ -5,6 +5,7 @@ using System.Linq;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ICSheet5e.ViewModels
 {
@@ -15,12 +16,13 @@ namespace ICSheet5e.ViewModels
         private XMLFeatureFactory _factory;
         private IEnumerable<IFeature> _features;
 
-        public AddSubclassViewModel(IEnumerable<string> validClassNames, XMLFeatureFactory featureFactory)
+        public AddSubclassViewModel(IEnumerable<string> validClassNames, XMLFeatureFactory featureFactory, Action<string, string, IEnumerable<IFeature>> callback)
         {
             _factory = featureFactory;
             Classes = validClassNames;
             PropertyChanged += SelectionChanged;
-            SelectedClass = validClassNames.First();
+            SelectedClass = validClassNames.FirstOrDefault();
+            _onSelectSubclass = callback;
         }
 
         public IEnumerable<string> Classes { get; private set; }
@@ -57,9 +59,29 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        public ICommand OnSubclassSelectedCommand
+        {
+            get { return new Views.DelegateCommand<object>(x => { _onSelectSubclass(SelectedClass, SelectedSubclass, _features); IsOpen = false; }); }
+        }
+
+        public bool IsOpen
+        {
+            get
+            {
+                return _isOpen;
+            }
+
+            set
+            {
+                _isOpen = value;
+                Parent.IsOverlayOpen = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         void SelectionChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "SelectedClass")
+            if (e.PropertyName == "SelectedClass" && !string.IsNullOrWhiteSpace(_selectedClass))
             {
                 Subclasses = _factory.ExtractSubclassesFor(_selectedClass);
                 SelectedSubclass = Subclasses.First();
@@ -70,6 +92,9 @@ namespace ICSheet5e.ViewModels
                 Features = _factory.ExtractSubclassFeaturesFor(_selectedSubclass);
             }
         }
+
+        private bool _isOpen;
+        private Action<string, string, IEnumerable<IFeature>> _onSelectSubclass;
 
     }
 }

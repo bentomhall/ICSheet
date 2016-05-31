@@ -17,37 +17,6 @@ namespace ICSheet5e.Views
             get { return Application.Current.MainWindow; }
         }
 
-        public enum DialogType
-        {
-            AddNewFeatureDialog,
-            AddSubclassDialog,
-        }
-
-        public static void DisplayDialog(DialogType type, IViewModel model, Action<IViewModel> completionHandler)
-        {
-            Window dlg;
-            switch (type)
-            {
-                case DialogType.AddNewFeatureDialog:
-                    dlg = new AddNewFeatureWindow();
-                    break;
-                case DialogType.AddSubclassDialog:
-                    dlg = new AddSubClassWindow();
-                    break;
-                default:
-                    throw new NotImplementedException("OOPs!, wrong dialog type");
-            }
-
-            dlg.Owner = MainWindow;
-            dlg.DataContext = model;
-            var result = dlg.ShowDialog();
-
-            if (result == true)
-            {
-                completionHandler(model);
-            }
-        }
-
         public static void OpenSRD()
         {
             var wndow = new SRDViewWindow();

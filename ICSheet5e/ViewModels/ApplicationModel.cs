@@ -122,6 +122,8 @@ namespace ICSheet5e.ViewModels
             }
             FeatureModel = new AddFeatureViewModel(AddFeatureCallback);
             FeatureModel.Parent = this;
+            SubclassModel = new AddSubclassViewModel(new List<string>(), featureFactory, OnAddSubclass);
+            
             InvalidateResourceCache(false);
         }
 
@@ -178,8 +180,25 @@ namespace ICSheet5e.ViewModels
         private void AddSubclassCommandExecuted(object obj)
         {
             var classes = currentCharacter.Levels.Keys;
-            var vm = new AddSubclassViewModel(classes, featureFactory);
-            Views.WindowManager.DisplayDialog(Views.WindowManager.DialogType.AddSubclassDialog, vm, OnAddSubclass);
+            SubclassModel = new AddSubclassViewModel(classes, featureFactory, OnAddSubclass);
+            SubclassModel.Parent = this;
+            SubclassModel.IsOpen = true;
+            IsOverlayOpen = true;
+        }
+
+        public void OnAddSubclass(string selectedClass, string selectedSubclass, IEnumerable<IFeature> features)
+        {
+            currentCharacter.AddSubclass(selectedClass, selectedSubclass, features);
+            if (features.Count(x => x.Name == "Spellcasting") > 0) { setViewModels(); }
+            NotifyPropertyChanged("Features");
+            DoAutosave();
+            IsOverlayOpen = false;
+        }
+
+        public AddSubclassViewModel SubclassModel
+        {
+            get { return _subclassModel; }
+            set { _subclassModel = value; NotifyPropertyChanged(); }
         }
 
         private void OnAddSubclass(IViewModel obj)
@@ -193,6 +212,7 @@ namespace ICSheet5e.ViewModels
             }
             
             DoAutosave();
+            
             
         }
 
@@ -442,9 +462,11 @@ namespace ICSheet5e.ViewModels
         {
             currentCharacter.AddFeature(feature);
             NotifyPropertyChanged("Features");
+            IsOverlayOpen = false;
         }
 
         private AddFeatureViewModel featureModel;
+        private AddSubclassViewModel _subclassModel;
 
         public AddFeatureViewModel FeatureModel
         {
@@ -456,6 +478,7 @@ namespace ICSheet5e.ViewModels
         {
             if (currentCharacter == null) { return; }
             FeatureModel.IsOpen = true;
+            IsOverlayOpen = true;
         }
 
         private void OpenSRDCommandExecuted(object obj)
@@ -472,7 +495,6 @@ namespace ICSheet5e.ViewModels
             serializer.WriteObject(stream, currentCharacter.ToCharacterData());
             stream.Close();
         }
-
 
     }
 }

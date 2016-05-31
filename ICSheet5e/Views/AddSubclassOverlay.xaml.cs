@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ICSheet5e.Views
 {
     /// <summary>
-    /// Interaction logic for AddSubClassWindow.xaml
+    /// Interaction logic for AddSubclassOverlay.xaml
     /// </summary>
-    public partial class AddSubClassWindow : Window
+    public partial class AddSubclassOverlay : UserControl
     {
-        public AddSubClassWindow()
+        public AddSubclassOverlay()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
     }
 }

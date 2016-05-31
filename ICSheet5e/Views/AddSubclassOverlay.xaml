@@ -1,20 +1,21 @@
-﻿<Window x:Class="ICSheet5e.Views.AddSubClassWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ICSheet5e.Views"
-        mc:Ignorable="d"
-        Title="Choose a Path" Height="300" Width="300">
-    <Window.Resources>
+﻿<UserControl x:Class="ICSheet5e.Views.AddSubclassOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ICSheet5e.Views"
+             mc:Ignorable="d"
+             DataContext="{Binding Path=SubclassModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
         <DataTemplate x:Key="FeatureTemplate">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{Binding Path=Name}"/>
                 <Label Content="{Binding Path=StartsFromLevel}"/>
             </StackPanel>
         </DataTemplate>
-    </Window.Resources>
-    <DockPanel>
+    </UserControl.Resources>
+    <DockPanel Background="LightGray">
         <Label DockPanel.Dock="Top">Class:</Label>
         <ComboBox ItemsSource="{Binding Path=Classes}" SelectedItem="{Binding Path=SelectedClass}" DockPanel.Dock="Top"></ComboBox>
         <Label DockPanel.Dock="Top">Subclass:</Label>
@@ -22,8 +23,7 @@
         <ListBox ItemsSource="{Binding Path=Features}" DockPanel.Dock="Top" MinHeight="135" ItemTemplate="{StaticResource FeatureTemplate}"/>
 
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Button Height="30" IsCancel="True">Cancel</Button>
-            <Button Height="30" IsDefault="True" Margin="10,0,0,0" Click="Button_Click" >Add Subclass</Button>
+            <Button Height="30" IsDefault="True" Margin="10,0,0,0" Command="{Binding Path=OnSubclassSelectedCommand}" >Add Subclass</Button>
         </StackPanel>
     </DockPanel>
-</Window>
+</UserControl>
