@@ -26,6 +26,8 @@ namespace ICSheet5e.ViewModels
         private IEnumerable<string> _spellcastingClasses;
         private XMLFeatureFactory _classNamesSource;
 
+        private SpellSlotReplenishmentViewModel _replenishSlotsModel;
+
         public ObservableCollection<Spell> AllSpells
         {
             get
@@ -194,9 +196,8 @@ namespace ICSheet5e.ViewModels
             set
             {
                 _isKnownSpellOverlayOpen = value;
-                _isOverlayOpen = value;
+                IsOpen = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged("IsOverlayOpen");
             }
         }
 
@@ -210,10 +211,39 @@ namespace ICSheet5e.ViewModels
             set
             {
                 _isCustomSpellOverlayOpen = value;
-                _isOverlayOpen = value;
+                IsOpen = value;
                 NotifyPropertyChanged();
-                NotifyPropertyChanged("IsOverlayOpen");
             }
+        }
+
+        public SpellSlotReplenishmentViewModel ReplenishSlotsModel
+        {
+            get
+            {
+                return _replenishSlotsModel;
+            }
+
+            set
+            {
+                _replenishSlotsModel = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ICommand OpenReplenishmentMenuCommand
+        {
+            get { return new Views.DelegateCommand<object>(openReplenishmentMenuCommandExecuted); }
+        }
+
+        private void openReplenishmentMenuCommandExecuted(object obj)
+        {
+            ReplenishSlotsModel = new SpellSlotReplenishmentViewModel(this, OnReplenishSlots);
+            ReplenishSlotsModel.IsOpen = true;
+            IsOpen = true;
+        }
+
+        private void OnReplenishSlots(IDictionary<int, int> obj)
+        {
         }
 
         public void OnCustomSpellCreated(Spell newSpell)
