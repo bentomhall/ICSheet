@@ -136,6 +136,7 @@ namespace ICSheetCore
         {
             foreach (KeyValuePair<int, int> entry in slotsToRecover)
             {
+                if (entry.Value == 0) { continue; }
                 if (entry.Key == -1)
                 {
                     _spellcastingAggregate.ResetAllSlots();
@@ -185,6 +186,22 @@ namespace ICSheetCore
         {
             _spellcastingAggregate.UnlearnSpell(spellName, asClass);
         }
+
+        internal SpellcastingLookup.CastingType CastingType
+        {
+            get
+            {
+                var f = _features.FindAll(x => x.Name == "Spellcasting");
+                if (f.Count == 0) { return SpellcastingLookup.CastingType.None; }
+                else 
+                {
+                    var sf = f[0] as SpellcastingFeature;
+                    if (sf != null) { return sf.CasterType; }
+                }
+                return SpellcastingLookup.CastingType.None;
+            }
+        }
+
 
         internal void PrepareSpell(string spellName, string asClass, bool asBonus)
         {

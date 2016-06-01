@@ -23,5 +23,6 @@ namespace ICSheetCore
         void Prepare(string spellName, string asClass, bool asBonus);
         void Unprepare(string spellName, string asClass);
         void Unlearn(string spellName, string asClass);
+        void RestoreSpellSlots(IDictionary<int, int> slots);
     }
 }

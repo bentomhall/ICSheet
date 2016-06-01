@@ -143,6 +143,14 @@ namespace ICSheetCore
         /// <summary>
         /// 
         /// </summary>
+        public SpellcastingLookup.CastingType CastingType
+        {
+            get { return _classAggregate.CastingType; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
         public void Unlearn(string spellName, string asClass) { _classAggregate.UnlearnSpell(spellName, asClass); }
@@ -161,6 +169,15 @@ namespace ICSheetCore
         /// <param name="spellName"></param>
         /// <param name="asClass"></param>
         public void Unprepare(string spellName, string asClass) { _classAggregate.UnprepareSpell(spellName, asClass); }
+
+        /// <summary>
+        /// Used for arcane recovery, warlock casting, etc.
+        /// </summary>
+        /// <param name="slots">slot level: number of slots</param>
+        public void RestoreSpellSlots(IDictionary<int, int> slots)
+        {
+            _classAggregate.ResetSpellSlots(slots);
+        }
         #endregion
 
         #region IInventoryDelegate

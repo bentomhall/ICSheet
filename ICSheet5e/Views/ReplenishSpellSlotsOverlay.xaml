@@ -7,7 +7,7 @@
              xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:s="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
-             DataContext="{Binding Path=ReplenishSlotsModel}"
+             DataContext="{Binding Path=SpellReplenishModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <s:Boolean x:Key="True">True</s:Boolean>
@@ -18,7 +18,7 @@
         <Label HorizontalContentAlignment="Center" DockPanel.Dock="Top" MinHeight="20" Content="{Binding Path=Slots}"/>
         <Label HorizontalContentAlignment="Center" DockPanel.Dock="Top" MinHeight="20" Content="{Binding Path=TotalPossible}" ContentStringFormat="Spell Levels Remaining: {0}"/>
         <Label HorizontalContentAlignment="Center" DockPanel.Dock="Top" MinHeight="20" Content="{Binding Path=SlotsToReplenish}" ContentStringFormat="These slots will be restored: {0}"/>
-        <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=SlotNames}" SelectedItem="{Binding Path=SelectedSpellLevel}" IsEnabled="{Binding Path=CanChoose}"/>
+        <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=SlotNames}" SelectedItem="{Binding Path=SelectedSlotLevel}" IsEnabled="{Binding Path=CanChoose}"/>
         <tk:IntegerUpDown DockPanel.Dock="Top" Minimum="0" Maximum="6" Value="{Binding Path=NumberOfSlots}" IsEnabled="{Binding Path=CanChoose}"/>
         <Button DockPanel.Dock="Top" Command="{Binding Path=OnCompletionCommand}" CommandParameter="{StaticResource True}" Content="Refresh Slots"/>
     </DockPanel>

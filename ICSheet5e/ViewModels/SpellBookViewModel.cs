@@ -21,6 +21,7 @@ namespace ICSheet5e.ViewModels
             var classNames = _classNamesSource.ExtractClassNames();
             NewKnownSpellModel = new AddNewSpellViewModel(_dB, classNames, _spellcastingClasses, LearnNewSpell);
             NewCustomSpellModel = new AddCustomSpellViewModel(classNames, OnCustomSpellCreated, _serializer);
+            SpellReplenishModel = new SpellSlotReplenishmentViewModel(this, OnReplenishSlots);
         }
 
         private IEnumerable<string> _spellcastingClasses;
@@ -160,7 +161,8 @@ namespace ICSheet5e.ViewModels
 
         internal void LearnNewSpell(string name, string forClass, bool isBonus)
         {
-            IsOverlayOpen = false;
+            IsOpen = false;
+            IsKnownSpellOverlayOpen = false;
             _caster.Learn(name, forClass, isBonus);
             NotifyPropertyChanged("AllSpells");
         }
@@ -216,7 +218,7 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        public SpellSlotReplenishmentViewModel ReplenishSlotsModel
+        public SpellSlotReplenishmentViewModel SpellReplenishModel
         {
             get
             {
@@ -237,13 +239,15 @@ namespace ICSheet5e.ViewModels
 
         private void openReplenishmentMenuCommandExecuted(object obj)
         {
-            ReplenishSlotsModel = new SpellSlotReplenishmentViewModel(this, OnReplenishSlots);
-            ReplenishSlotsModel.IsOpen = true;
+            SpellReplenishModel.SetData(_caster.SpellSlots, _caster.CastingType, _caster.Levels[_spellcastingClasses.First()]);
+            SpellReplenishModel.IsOpen = true;
             IsOpen = true;
         }
 
         private void OnReplenishSlots(IDictionary<int, int> obj)
         {
+            _caster.RestoreSpellSlots(obj);
+            NotifyPropertyChanged("AvailableSpellSlots");
         }
 
         public void OnCustomSpellCreated(Spell newSpell)

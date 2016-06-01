@@ -113,7 +113,13 @@ namespace ICSheetCore
 
         internal void RegainSpellSlot(int level, int numberOfSlots)
         {
-            _availableSpellSlots[level - 1] += Math.Min(numberOfSlots, _totalSpellSlots[level - 1]);
+            var current = _availableSpellSlots[level - 1];
+            var max = _totalSpellSlots[level - 1];
+            if (current + numberOfSlots > max)
+            {
+                _availableSpellSlots[level - 1] = max;
+            }
+            else { _availableSpellSlots[level - 1] += numberOfSlots; }
         }
 
         internal void ResetAllSlots()

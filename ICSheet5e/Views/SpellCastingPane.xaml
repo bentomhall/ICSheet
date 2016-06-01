@@ -28,17 +28,17 @@
             <ColumnDefinition Width="113*"/>
         </Grid.ColumnDefinitions>
         <ComboBox ItemsSource="{Binding SpellLevels}" SelectedIndex="{Binding SelectedLevel}"/>
-        <Popup Placement="Center" IsOpen="{Binding Path=IsKnownSpellOverlayOpen}" StaysOpen="false">
+        <Popup Placement="Center" IsOpen="{Binding Path=IsKnownSpellOverlayOpen}" StaysOpen="False">
             <views:AddOGLSpellOverlay/>
         </Popup>
         <Popup Placement="Center" IsOpen="{Binding Path=IsCustomSpellOverlayOpen}" StaysOpen="False">
             <views:AddCustomSpellOverlay/>
         </Popup>
-        <Popup Placement="Top" IsOpen="{Binding Path=SpellReplenishModel.IsOpen}" StaysOpen="False">
+        <Popup Placement="Center" IsOpen="{Binding Path=SpellReplenishModel.IsOpen}" StaysOpen="False">
             <views:ReplenishSpellSlotsOverlay/>
         </Popup>
         <StackPanel Grid.Row="1">
-            <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="750">
+            <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="650">
                 <ListView.Resources>
                     <ContextMenu x:Key="ItemContextMenu">
                         <MenuItem Header="Set as Bonus Spell" Command="{Binding Path=DataContext.SetDomainSpell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Background="AntiqueWhite"/>
@@ -58,6 +58,7 @@
         </ListView>
             <Button Command="{Binding Path=LearnNewSpellCommand}" CommandParameter="Known">Add OGL Spell</Button>
             <Button Command="{Binding Path=LearnNewSpellCommand}" CommandParameter="Custom">Add Custom Spell</Button>
+            <Button Command="{Binding Path=OpenReplenishmentMenuCommand}">Replenish Spell Slots</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button Content="Cast" Background="Green" Command="{Binding CastSpellCommand}" Margin="0,0,10,0"/>

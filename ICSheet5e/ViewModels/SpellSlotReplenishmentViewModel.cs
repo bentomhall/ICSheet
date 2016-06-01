@@ -31,12 +31,12 @@ namespace ICSheet5e.ViewModels
         private int _selectedSlotLevel;
         private int _numberOfSlots;
         private int _totalPossible;
-        private int _level;
 
         public string Slots
         {
             get
             {
+                if (_slots == null) { return ""; }
                 return string.Join(" / ", _slots);
             }
         }
@@ -126,7 +126,6 @@ namespace ICSheet5e.ViewModels
         public void SetData(IEnumerable<int> currentSlots, SpellcastingLookup.CastingType castingType, int level)
         {
             _slots = currentSlots;
-            NotifyPropertyChanged("Slots");
             IsWarlock = castingType == SpellcastingLookup.CastingType.Warlock;
             if (isWarlock)
             {
@@ -135,12 +134,15 @@ namespace ICSheet5e.ViewModels
                 var n = allSlots[SelectedSlotLevel - 1]; //indexes are 0-based
                 TotalPossible = SelectedSlotLevel * n;
                 NumberOfSlots = n;
+                _slotsToReplenish[SelectedSlotLevel] = n;
+                NotifyPropertyChanged("SlotsToReplenish");
             }
             else { TotalPossible = level / 2; SelectedSlotLevel = 1; }
             
             switch (castingType)
             {
                 case SpellcastingLookup.CastingType.Full:
+                case SpellcastingLookup.CastingType.Warlock:
                     MaxSlotLevel = Math.Min((int)Math.Ceiling((double)level / 2), 6);
                     break;
                 case SpellcastingLookup.CastingType.Half:
@@ -150,6 +152,8 @@ namespace ICSheet5e.ViewModels
                     MaxSlotLevel = Math.Min((int)Math.Ceiling((double)level / 6), 6);
                     break;
             }
+            NotifyPropertyChanged("Slots");
+            
         }
 
         public ICommand OnCompletionCommand
@@ -166,13 +170,21 @@ namespace ICSheet5e.ViewModels
         {
             IsOpen = false;
             Parent.IsOpen = false;
-
-            if (obj) { _callback(_slotsToReplenish); }
+            _callback(_slotsToReplenish);
         }
 
         public bool CanChoose
         {
             get { return !isWarlock; }
+        }
+
+        public string SlotsToReplenish
+        {
+            get
+            {
+                var formatted = _slotsToReplenish.Select(x => $"{x.Key}: {x.Value}");
+                return string.Join(", ", formatted);
+            }
         }
     }
 }
