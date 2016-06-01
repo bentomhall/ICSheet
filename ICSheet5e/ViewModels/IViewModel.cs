@@ -2,7 +2,8 @@
 {
     public interface IViewModel
     {
-        ApplicationModel Parent { get; set; }
+        IViewModel Parent { get; set; }
         event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        bool IsOpen { get; set; }
     }
 }

@@ -78,14 +78,14 @@
             <TabControl.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=IsOverlayOpen}" Value="True">
+                        <DataTrigger Binding="{Binding Path=IsOpen}" Value="True">
                             <Setter Property="Grid.Effect">
                                 <Setter.Value>
                                     <BlurEffect/>
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=IsOverlayOpen}" Value="False">
+                        <DataTrigger Binding="{Binding Path=IsOpen}" Value="False">
                             <Setter Property="Grid.Effect" Value="{x:Null}"/>
                         </DataTrigger>
                     </Style.Triggers>

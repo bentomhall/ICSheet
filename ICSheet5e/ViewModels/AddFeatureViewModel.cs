@@ -28,7 +28,7 @@ namespace ICSheet5e.ViewModels
             set
             {
                 _isOpen = value;
-                Parent.IsOverlayOpen = value;
+                Parent.IsOpen = value;
                 NotifyPropertyChanged();
             }
         }

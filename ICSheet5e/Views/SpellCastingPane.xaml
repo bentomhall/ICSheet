@@ -34,6 +34,9 @@
         <Popup Placement="Center" IsOpen="{Binding Path=IsCustomSpellOverlayOpen}" StaysOpen="False">
             <views:AddCustomSpellOverlay/>
         </Popup>
+        <Popup Placement="Top" IsOpen="{Binding Path=SpellReplenishModel.IsOpen}" StaysOpen="False">
+            <views:ReplenishSpellSlotsOverlay/>
+        </Popup>
         <StackPanel Grid.Row="1">
             <ListView ItemsSource="{Binding AllSpells}" SelectedItem="{Binding Path=SelectedSpell}" ItemTemplate="{StaticResource SpellItemTemplate}" Height="750">
                 <ListView.Resources>

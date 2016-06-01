@@ -121,6 +121,7 @@
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
     <Compile Include="ViewModels\SpellBookViewModel.cs" />
+    <Compile Include="ViewModels\SpellSlotReplenishmentViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
     <Compile Include="ViewModels\UserPreferencesViewModel.cs" />
     <Compile Include="Views\AddCustomSpellOverlay.xaml.cs">
@@ -177,6 +178,9 @@
       <DependentUpon>NewCharacterCreationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PopupBehavior.cs" />
+    <Compile Include="Views\ReplenishSpellSlotsOverlay.xaml.cs">
+      <DependentUpon>ReplenishSpellSlotsOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SkillsControl.xaml.cs">
       <DependentUpon>SkillsControl.xaml</DependentUpon>
     </Compile>
@@ -279,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewCharacterCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReplenishSpellSlotsOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

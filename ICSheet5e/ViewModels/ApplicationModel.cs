@@ -183,7 +183,7 @@ namespace ICSheet5e.ViewModels
             SubclassModel = new AddSubclassViewModel(classes, featureFactory, OnAddSubclass);
             SubclassModel.Parent = this;
             SubclassModel.IsOpen = true;
-            IsOverlayOpen = true;
+            IsOpen = true;
         }
 
         public void OnAddSubclass(string selectedClass, string selectedSubclass, IEnumerable<IFeature> features)
@@ -192,7 +192,7 @@ namespace ICSheet5e.ViewModels
             if (features.Count(x => x.Name == "Spellcasting") > 0) { setViewModels(); }
             NotifyPropertyChanged("Features");
             DoAutosave();
-            IsOverlayOpen = false;
+            IsOpen = false;
         }
 
         public AddSubclassViewModel SubclassModel
@@ -380,21 +380,7 @@ namespace ICSheet5e.ViewModels
             set
             {
                 _levelUpOverlayOpen = value;
-                IsOverlayOpen = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool IsOverlayOpen
-        {
-            get
-            {
-                return _isOverlayOpen;
-            }
-
-            set
-            {
-                _isOverlayOpen = value;
+                IsOpen = value;
                 NotifyPropertyChanged();
             }
         }
@@ -421,7 +407,7 @@ namespace ICSheet5e.ViewModels
                 if (value != _isSettingsOverlayOpen)
                 {
                     _isSettingsOverlayOpen = value;
-                    _isOverlayOpen = value;
+                    IsOpen = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -462,7 +448,7 @@ namespace ICSheet5e.ViewModels
         {
             currentCharacter.AddFeature(feature);
             NotifyPropertyChanged("Features");
-            IsOverlayOpen = false;
+            IsOpen = false;
         }
 
         private AddFeatureViewModel featureModel;
@@ -478,7 +464,7 @@ namespace ICSheet5e.ViewModels
         {
             if (currentCharacter == null) { return; }
             FeatureModel.IsOpen = true;
-            IsOverlayOpen = true;
+            IsOpen = true;
         }
 
         private void OpenSRDCommandExecuted(object obj)
