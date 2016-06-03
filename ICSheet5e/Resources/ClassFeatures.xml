@@ -7,7 +7,7 @@
     <Feature Name="Weapon Proficiencies">Simple, martial</Feature>
     <Feature Name="Tool Proficiencies">None</Feature>
     <Feature Name="Saving Throw Proficiencies">Strength, Constitution</Feature>
-    <Feature Name="Rage">Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon attacks. Resistance to bludgeoning, piercing, slashing. Can't cast spells while raging. Duration: 1 minute or end of first round that you haven't taken damage or attacked a hostile creature.</Feature>
+    <Feature Name="Rage" IsClassSpecial="True" IsToggle="True">Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon attacks. Resistance to bludgeoning, piercing, slashing. Can't cast spells while raging. Duration: 1 minute or end of first round that you haven't taken damage or attacked a hostile creature.</Feature>
     <Feature Name="Unarmored Defense">Armor Class when unarmored is 10 + DEX + CON (stacks with shields).</Feature>
     <Feature Name="Reckless Attack" StartLevel="2">Gives/grants advantage on attack rolls (toggle on first attack of turn).</Feature>
     <Feature Name="Danger Sense" StartLevel="2">Advantage on Dex saves against effects you can see. Inactive if blinded, deafened, or incapacitated.</Feature>
@@ -26,6 +26,10 @@
       <Feature Name="Intimidating Presence" StartLevel="10">As an action, choose a creature you can see within 30 feet. If they can see or hear you, they must succeed on a WIS save (DC = 8 + proficiency + CHA) or be frightened of you until the ned of your next turn. You can use your action to extend this effect; it ends if the creature ends its turn out of line of sight or more than 60 feet away.</Feature>
       <Feature Name="Retaliation" StartLevel="14">You can use your reaction to make a melee weapon attack against any creature that damages you while within 5 feet of you.</Feature>
     </Subclass>
+    <SpecialFeature>
+      <Uses>2 2 3 3 3 4 4 4 4 4 4 5 5 5 5 5 6 6 6 -1</Uses>
+      <Bonus>2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 4 4 4 4 4 4</Bonus>
+    </SpecialFeature>
   </PCClass>
   <PCClass Name="Bard">
     <Feature Name="Hit Dice">d8</Feature>
@@ -44,7 +48,7 @@
     </Feature>
     <Feature Name="Ritual Casting">Can cast bard (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Musical instruments</Feature>
-    <Feature Name="Bardic Inspiration" HasLimitedUse="True">See PHB 53.</Feature>
+    <Feature Name="Bardic Inspiration" IsClassSpecial="True" IsToggle="False">See PHB 53.</Feature>
     <Feature Name="Jack of All Trades" StartLevel="2">Add 1/2 proficiency to ability checks that do not include proficiency bonus.</Feature>
     <Feature Name="Song of Rest" StartLevel="2">Friendly creatures gain 1d6 (1d8 at 9th, 1d10 at 13th, 1d12 at 17th) extra health from using HD on short rests.</Feature>
     <Feature Name="Bard College" StartLevel="3">See PHB 54.</Feature>
@@ -59,6 +63,10 @@
       <Feature Name="Additional Magical Secrets" StartLevel="6">Learn 2 spells of your choice from any class (that you can cast). These count as bard spells but do not count against the spells known cap.</Feature>
       <Feature Name="Peerless Skill" StartLevel="14">Expend a bardic inspiration use when you make an ability check to add the amount rolled to the check.</Feature>
     </Subclass>
+    <SpecialFeature>
+      <Uses UsesStat="Charisma">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Uses>
+      <Bonus>d6 d6 d6 d6 d8 d8 d8 d8 d8 d10 d10 d10 d10 d10 d12 d12 d12 d12 d12 d12</Bonus>
+    </SpecialFeature>
   </PCClass>
   <PCClass Name="Cleric">
     <Feature Name="Hit Dice">d8</Feature>
@@ -79,6 +87,7 @@
     <Feature Name="Ritual Casting">Can cast cleric (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Holy symbols.</Feature>
     <Feature Name="Divine Domain">See PHB 59.</Feature>
+    <Feature Name="Channel Divinity" IsClassSpecial="True" IsToggle="False">You may use one of the options listed below a limited number of times a day. All clerics have Turn Undead and one other from the domain choice.</Feature>
     <Feature Name="Channel Divinity: Turn Undead" HasLimitedUse="True" StartLevel="2">Undead enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
     <Feature Name="Destroy Undead" StartLevel="5">Turned enemies under CR level (Table PHB 59) are destroyed outright.</Feature>
     <Feature Name="Divine Intervention" HasLimitedUse="True" StartLevel="10">See text in PHB pg 59.</Feature>
@@ -110,6 +119,10 @@
       <Feature Name="Potent Spellcasting" StartLevel="8">You add WIS to the damage of any cleric cantrip.</Feature>
       <Feature Name="Visions of the Past" StartLevel="17">Spend at least 1 minute (up to wisdom score) meditating. Either learn about the history of an object or the immediate surroundings (see PHB for more details).</Feature>
     </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3</Uses>
+      <Bonus>* * * * * * * * * * * * * * * * * * * *</Bonus>
+    </SpecialFeature>
   </PCClass>
   <PCClass Name="Druid">
     <Feature Name="Hit Dice">d8</Feature>
@@ -130,7 +143,7 @@
     </Feature>
     <Feature Name="Ritual Casting">Can cast Druid (ritual) spells as rituals.</Feature>
     <Feature Name="Spellcasting Focus">Druidic focus.</Feature>
-    <Feature Name="Wild Shape" Uses="2/short or long rest">You can change shape up to 2x/short or long rest. The max CR of the animal and other restrictions, limitations, etc. are found on PHB 66-67.</Feature>
+    <Feature Name="Wild Shape" IsClassSpecial="True" IsToggle="True">You can change shape up to 2x/short or long rest. The max CR of the animal and other restrictions, limitations, etc. are found on PHB 66-67.</Feature>
     <Feature Name="Druid Circle" StartLevel="2">See PHB.</Feature>
     <Feature Name="Timeless Body" StartLevel="18">You age only 1 year for every 10.</Feature>
     <Feature Name="Beast Spells" StartLevel="18">You can cast spells (V, S only) while wildshaped. Cannot supply material components.</Feature>
@@ -219,6 +232,10 @@
       <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
       <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
     </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 -1</Uses>
+      <Bonus>* * * * * * * * * * * * * * * * * * * *</Bonus>
+    </SpecialFeature>
   </PCClass>
   <PCClass Name="Fighter">
     <Feature Name="Hit Dice">d10</Feature>
@@ -234,7 +251,7 @@
     Great Weapon Fighting: When you roll a 1 or 2 on the damage die with a weapon you are wielding in two hands, you may reroll that die and use the new result.
     Protection: When a creature you can see attacks a target other than you within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.
     Two-Weapon Fighting: When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.</Feature>
-    <Feature Name="Second Wind" Uses="1/short or long rest">On your turn you can use a bonus action to regain 1d10 + fighter level HP. Recharges on short or long rest.</Feature>
+    <Feature Name="Second Wind" IsClassSpecial="True" IsToggle="False">On your turn you can use a bonus action to regain 1d10 + fighter level HP. Recharges on short or long rest.</Feature>
     <Feature Name="Action Surge" StartLevel="2" Uses="1/short or long rest">On your turn you can take an additional action.</Feature>
     <Feature Name="Martial Archetype" StartLevel="3">Choose a martial archetype. Note: if you choose Eldritch Knight, please level as Eldritch knight from level 1.</Feature>
     <Feature Name="Extra Attack" StartLevel="5">You can attack 2x per attack action. This increases to 3x at 11th level and 4x at 20th level.</Feature>
@@ -247,6 +264,10 @@
       <Feature Name="Superior Critical" StartLevel="15">Your weapon attacks score critical hits on a roll of 18-20.</Feature>
       <Feature Name="Survivor" StartLevel="18">You regain 5 + CON HP at the beginning of any turn that you have less than half of your HP left. This does not function at 0 HP.</Feature>
     </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</Uses>
+      <Bonus StaticMod="1d10">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</Bonus>
+    </SpecialFeature>
   </PCClass>
   <PCClass Name="Monk">
     <Feature Name="Hit Dice">d8</Feature>
@@ -260,7 +281,7 @@
     Use DEX instead of STR for attack and damage.
     Use d4 instead of regular unarmed strike damage. Damage increases with level.
     Bonus action unarmed strike when you use the Attack action.</Feature>
-    <Feature Name="Ki" StartLevel="2">You gain Ki points equal to your level. You regain these points on short/long rests. Ki save DC = 8 + proficiency + WIS.</Feature>
+    <Feature Name="Ki" StartLevel="2" IsClassSpecial="True" IsToggle="False">You gain Ki points equal to your level. You regain these points on short/long rests. Ki save DC = 8 + proficiency + WIS.</Feature>
     <Feature Name="Flurry of Blows" StartLevel="2">Spend 1 ki point immediately after using Attack action to make 2 unarmed strikes as bonus action.</Feature>
     <Feature Name="Patient Defense" StartLevel="2">Spend 1 ki point to take dodge action as bonus action on your turn.</Feature>
     <Feature Name="Step of the Wind" StartLevel="2">Spend 1 ki point to take disengage or dash as bonus action; jump distance doubled for the turn.</Feature>
@@ -288,6 +309,10 @@
       <Feature Name="Tranquility" StartLevel="11">At the end of a long rest you gain the effect of a sanctuary spell that lasts until the start of your next long rest unless it ends early as normal. The DC for this is 8 + WIS + proficiency.</Feature>
       <Feature Name="Quivering Palm" StartLevel="17">When you hit with an unarmed strike you can spend 3 ki points to start vibrations in the target that last up to (monk level) days. These vibrations are harmless unless you use an action to end them--if so the creature must succeded on a CON save or be reduced to 0 HP. If it succeeds, it takes 10d10 necrotic damage. You can end the vibrations harmlessly without using an action.</Feature>
     </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</Uses>
+      <Bonus>* * * * * * * * * * * * * * * * * * * *</Bonus>
+    </SpecialFeature>
   </PCClass>
   <PCClass Name="Paladin">
     <Feature Name="Hit Dice">d10</Feature>
