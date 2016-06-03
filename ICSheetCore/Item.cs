@@ -41,9 +41,9 @@ namespace ICSheetCore
         /// <summary></summary>
         public int EnhancementBonus { get { return _enhancement; } }
         /// <summary></summary>
-        public bool IsWeapon { get { return (_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded; } }
+        public bool IsWeapon { get { return !_name.Contains("Shield") && ((_slot == ItemSlot.Mainhand || _slot == ItemSlot.Offhand) || _slot == ItemSlot.TwoHanded); } }
         /// <summary></summary>
-        public bool IsArmor { get { return (_slot == ItemSlot.Armor); } }
+        public bool IsArmor { get { return (_slot == ItemSlot.Armor || _name.Contains("Shield")); } }
         /// <summary></summary>
         public int Count { get { return _stackSize; } set { _stackSize = value; NotifyPropertyChanged(); } }
         /// <summary></summary>

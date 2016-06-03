@@ -52,6 +52,31 @@ namespace ICSheet5e.ViewModels
             }
         }
 
+        public double Weight { get { return _item.Weight; } }
+        public double Value { get { return _item.Value; } }
+        public int Enhancement { get { return _item.EnhancementBonus; } }
+        public string BaseEffect { get { return _item.BaseEffect; } }
+        public string TypeLabel
+        {
+            get
+            {
+                if (_item.IsArmor) { return "Armor Type"; }
+                else if (_item.IsWeapon) { return "Weapon Type"; }
+                else { return ""; }
+            }
+        }
+
+        public string TypeIdentifier
+        {
+            get
+            {
+                if (_item.IsArmor) { return (_item as ArmorItem).ArmorClassType.ToString(); }
+                else if (_item.IsWeapon) { return (_item as WeaponItem).Category.ToString(); }
+                else { return ""; }
+            }
+        }
+        public string Properties { get { return _item.Properties; } }
+
         private void ToggleEquippedStatusCommandExecuted(object obj)
         {
             _changeEquipmentCommand(_item);

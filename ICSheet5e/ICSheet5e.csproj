@@ -162,6 +162,9 @@
     <Compile Include="Views\HealthChangeView.xaml.cs">
       <DependentUpon>HealthChangeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InventoryItemView.xaml.cs">
+      <DependentUpon>InventoryItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HealthChangeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventoryItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

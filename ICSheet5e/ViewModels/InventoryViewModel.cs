@@ -82,7 +82,17 @@ namespace ICSheet5e.ViewModels
 
         public Money Gold { get { return currentCharacter.Cash; } }
 
-        public InventoryItemViewModel SelectedItem { get; set; }
+        public InventoryItemViewModel SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private InventoryItemViewModel _selectedItem;
 
         public ObservableCollection<InventoryItemViewModel> Items 
         {
