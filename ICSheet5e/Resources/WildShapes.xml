@@ -18,11 +18,24 @@
       <Skill Name="Perception">3</Skill>
     </Skills>
     <Senses></Senses>
-    <Features></Features>
+    <Features>
+      <Feature Name="Multiattack">Make 2 fist attacks.</Feature>
+    </Features>
     <Actions>
-      <Action Name="Multiattack">Make 2 fist attacks.</Action>
-      <Action Name="Fist">Melee Weapon Attack: +5 ATK, 1 target. 1d6 + 3 bludgeoning</Action>
-      <Action Name="Rock">Ranged Weapon Attack: +5 ATK, range 25/50, 1 target. 1d6 + 3 bludgeoning</Action>
+      <Action Name="Fist">
+        <Type>Melee Weapon Attack</Type>
+        <Range>5 ft</Range>
+        <AttackBonus>5</AttackBonus>
+        <Targets>1</Targets>
+        <BaseDamage>1d6 3</BaseDamage>
+      </Action>
+      <Action Name="Rock">
+        <Type>Ranged Weapon Attack</Type>
+        <Range>25/50</Range>
+        <AttackBonus>5</AttackBonus>
+        <Targets>1</Targets>
+        <BaseDamage>1d6 3</BaseDamage>
+      </Action>
     </Actions>
   </Creature>
   <Creature Name="Axe Beak">
@@ -42,7 +55,13 @@
     <Senses></Senses>
     <Features></Features>
     <Actions>
-      <Action Name="Beak">Melee Weapon Attack: +4 ATK, 1 target. 1d8 + 2 slashing</Action>
+      <Action Name="Beak">
+        <Type>Melee Weapon Attack</Type>
+        <Range>5 ft</Range>
+        <AttackBonus>4</AttackBonus>
+        <Targets>1</Targets>
+        <BaseDamage>1d8 2</BaseDamage>
+      </Action>
     </Actions>
   </Creature>
   <Creature Name="Baboon">

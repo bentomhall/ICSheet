@@ -96,6 +96,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Auxiliary\ShapechangeData.cs" />
+    <Compile Include="Auxiliary\ShapechangeXMLReader.cs" />
     <Compile Include="EventCoordinator\IChangeNotificationReceiver.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ResourceModifiers\CustomPlayerClassSerializer.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="ViewModels\LevelUpViewModel.cs" />
     <Compile Include="ViewModels\NewCharacterViewModel.cs" />
     <Compile Include="ViewModels\NoCharacterViewModel.cs" />
+    <Compile Include="ViewModels\ShapechangeViewModel.cs" />
     <Compile Include="ViewModels\SpellBookViewModel.cs" />
     <Compile Include="ViewModels\SpellSlotReplenishmentViewModel.cs" />
     <Compile Include="ViewModels\SpellViewModel.cs" />
