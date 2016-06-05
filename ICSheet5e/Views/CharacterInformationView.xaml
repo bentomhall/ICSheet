@@ -103,19 +103,19 @@
         <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
                 <Label>Ideals:</Label>
-                <TextBox Text="{Binding Path=Ideals, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+                <TextBox Text="{Binding Path=Ideals, UpdateSourceTrigger=PropertyChanged}" MinHeight="140" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="3" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
                 <Label>Bonds:</Label>
-                <TextBox Text="{Binding Path=Bonds, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+                <TextBox Text="{Binding Path=Bonds, UpdateSourceTrigger=PropertyChanged}" MinHeight="140" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="4" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
                 <Label>Flaws:</Label>
-                <TextBox Text="{Binding Path=Flaws, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+                <TextBox Text="{Binding Path=Flaws, UpdateSourceTrigger=PropertyChanged}" MinHeight="140" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
     </Grid>

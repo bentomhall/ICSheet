@@ -48,6 +48,7 @@ namespace ICSheetCore
                 {"History", 0 },
                 {"Insight", 0 },
                 {"Intimidation", 0 },
+                {"Investigation", 0 },
                 {"Medicine", 0 },
                 {"Perception", 0 },
                 {"Performance", 0 },
