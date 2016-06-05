@@ -97,7 +97,7 @@
         <Border Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
                 <Label>Personality Traits:</Label>
-                <TextBox Text="{Binding Path=PersonalityTraits, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+                <TextBox Text="{Binding Path=CharacterTraits, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
