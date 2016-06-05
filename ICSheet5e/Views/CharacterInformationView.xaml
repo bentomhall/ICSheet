@@ -20,10 +20,11 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="44*"/>
-            <RowDefinition Height="44*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="155*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="480*"/>
@@ -36,49 +37,85 @@
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="0" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
-            <StackPanel>
-                <Label>Alignment:</Label>
-                <TextBlock Text="{Binding Path=Alignment}" FontSize="18" HorizontalAlignment="Center"/>
-                <Label>Background:</Label>
-                <TextBlock Text="{Binding Path=Background}" FontSize="18" HorizontalAlignment="Center"/>
-            </StackPanel>
+            <UniformGrid Rows="3">
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150">Alignment:</Label>
+                    <TextBox Text="{Binding Path=Alignment}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150">Background:</Label>
+                    <TextBlock Text="{Binding Path=Background}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150">Worships:</Label>
+                    <TextBox Text="{Binding Path=Deity}" FontSize="18" HorizontalAlignment="Center" MinWidth="150" VerticalAlignment="Center"/>
+                </StackPanel>
+            </UniformGrid>
         </Border>
         <Border Grid.Column="0" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15">
-            <StackPanel>
-                <Label>Weight:</Label>
-                <TextBlock Text="{Binding Path=Weight}" HorizontalAlignment="Center" FontSize="18" Style="{StaticResource EncumbranceStyle}"/>
-                <Label>Height:</Label>
-                <TextBlock FontSize="18" Text="{Binding Path=Height}" HorizontalAlignment="Center"/>
-            </StackPanel>
+            <UniformGrid Rows="2">
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150" VerticalContentAlignment="Center">Weight:</Label>
+                    <TextBlock Text="{Binding Path=Weight}" HorizontalAlignment="Center" FontSize="18" Style="{StaticResource EncumbranceStyle}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="150" VerticalContentAlignment="Center">Height:</Label>
+                    <TextBlock FontSize="18" Text="{Binding Path=Height}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </UniformGrid>
         </Border>
-        <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
+        <Border Grid.Row="4" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3" >
             <StackPanel>
                 <Label>Tool Proficiencies:</Label>
-                <TextBox x:Name="NewTool"></TextBox>
-                <Button Command="{Binding Path=AddToolCommand}" CommandParameter="{Binding Text, ElementName=NewTool}" Height="24">Add Tool Proficiency</Button>
-                <ListBox ItemsSource="{Binding Path=Tools}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="NewTool" MinWidth="300"></TextBox>
+                    <Button Command="{Binding Path=AddToolCommand}" CommandParameter="{Binding Text, ElementName=NewTool}"  Height="24" Width="24" Click="Button_Click" Tag="NewTool">+</Button>
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Path=Tools}" MinHeight="120"/>
             </StackPanel>
         </Border>
         <Border Grid.Column="0" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel >
                 <Label>Languages:</Label>
-                <TextBox x:Name="NewLanguage"></TextBox>
-                <Button Command="{Binding Path=AddLanguageCommand}" CommandParameter="{Binding Text, ElementName=NewLanguage}" Height="24">Add Language</Button>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="NewLanguage" MinWidth="300"></TextBox>
+                    <Button Command="{Binding Path=AddLanguageCommand}" CommandParameter="{Binding Text, ElementName=NewLanguage}" Height="24" Click="Button_Click" Tag="NewLanguage" Width="24">+</Button>
+                </StackPanel>
                 <ListView ItemsSource="{Binding Path=Languages}" MinHeight="92"/>
             </StackPanel>
         </Border>
         <Border Grid.Column="0" Grid.Row="3" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
                 <Label>Contacts:</Label>
-                <TextBox x:Name="NewContact"></TextBox>
-                <Button Command="{Binding Path=AddContactCommand}" CommandParameter="{Binding Text, ElementName=NewContact}" Height="24">Add Contact</Button>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="NewContact" MinWidth="300"></TextBox>
+                    <Button Command="{Binding Path=AddContactCommand}" CommandParameter="{Binding Text, ElementName=NewContact}" Height="24" Click="Button_Click" Tag="NewContact" Width="24">+</Button>
+                </StackPanel>
                 <ListBox ItemsSource="{Binding Path=Contacts}" MinHeight="100"/>
             </StackPanel>
         </Border>
-        <Border Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Grid.RowSpan="2" Padding="3">
+        <Border Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
             <StackPanel>
-                <Label>Notes:</Label>
-                <TextBox Text="{Binding Path=Notes, UpdateSourceTrigger=PropertyChanged}" MinHeight="400"/>
+                <Label>Personality Traits:</Label>
+                <TextBox Text="{Binding Path=PersonalityTraits, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
+            <StackPanel>
+                <Label>Ideals:</Label>
+                <TextBox Text="{Binding Path=Ideals, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="3" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
+            <StackPanel>
+                <Label>Bonds:</Label>
+                <TextBox Text="{Binding Path=Bonds, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="4" Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="15" Padding="3">
+            <StackPanel>
+                <Label>Flaws:</Label>
+                <TextBox Text="{Binding Path=Flaws, UpdateSourceTrigger=PropertyChanged}" MinHeight="140"/>
             </StackPanel>
         </Border>
     </Grid>

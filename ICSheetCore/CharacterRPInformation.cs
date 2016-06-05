@@ -22,7 +22,31 @@ namespace ICSheetCore
         /// 
         /// </summary>
         [DataMember]
-        public string Deity { get; private set; }
+        public string CharacterTraits { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember]
+        public string Bonds { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember]
+        public string Ideals { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember]
+        public string Flaws { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember]
+        public string Deity { get; set; }
 
         /// <summary>
         /// 
@@ -34,7 +58,7 @@ namespace ICSheetCore
         /// 
         /// </summary>
         [DataMember]
-        public string Alignment { get; private set; }
+        public string Alignment { get; set; }
 
         /// <summary>
         /// 

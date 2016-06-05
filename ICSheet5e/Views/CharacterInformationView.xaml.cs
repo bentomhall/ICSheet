@@ -24,5 +24,13 @@ namespace ICSheet5e.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var textEntry = (TextBox)FindName(button.Tag.ToString());
+            button.Command.Execute(button.CommandParameter);
+            textEntry.Text = "";
+        }
     }
 }
