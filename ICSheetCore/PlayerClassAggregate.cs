@@ -249,6 +249,7 @@ namespace ICSheetCore
         internal void AddSubclass(string forClass, string withName, IEnumerable<IFeature> features)
         {
             var pcClass = _playerClasses.SingleOrDefault(x => x.Name == forClass);
+            pcClass.SubclassName = withName;
             foreach (var f in features)
             {
                 if (f.Name != withName) { pcClass.AddClassFeature(f); }
@@ -259,6 +260,16 @@ namespace ICSheetCore
                 _spellcastingAggregate.AddSpellcasting(newSpellcasting);
             }
             _shouldRefreshFeatures = true;
+        }
+
+        internal IDictionary<string, string> RetrieveSubclasses()
+        {
+            var output = new Dictionary<string, string>();
+            foreach (var c in _playerClasses.Where(x => !string.IsNullOrWhiteSpace(x.SubclassName)))
+            {
+                output[c.Name] = c.SubclassName;
+            }
+            return output;
         }
     }
 

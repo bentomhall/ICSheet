@@ -120,7 +120,7 @@ namespace ICSheetCore
             }
             if (info == null)
             {
-                var newCharInfo = new CharacterRPInformation(_characterName, _alignment ?? "", _weight, _height ?? "5' 0\"", _background ?? "", _deity ?? "");
+                var newCharInfo = makeCharacterInfo();
                 return new PlayerCharacter(newCharInfo, _race, _classes);
             }
             else { return new PlayerCharacter(info, _race, _classes); }
@@ -161,6 +161,7 @@ namespace ICSheetCore
             setHealth(c, dataObject);
             setDefenseOverrides(c, dataObject);
             setSkillProficiencies(c, dataObject);
+            setSubclasses(c, dataObject);
             if (c.IsSpellcaster)
             {
                 setSpells(c, dataObject);
@@ -245,6 +246,16 @@ namespace ICSheetCore
             foreach (var entry in data.AbilityScores)
             {
                 pc.ModifyAbilityScore(entry.Key, entry.Value);
+            }
+        }
+
+        private void setSubclasses(PlayerCharacter pc, CharacterData data)
+        {
+            if (data.Subclasses == null) { return; }
+            foreach (var entry in data.Subclasses)
+            {
+                var features = _featureFactory.ExtractSubclassFeaturesFor(entry.Value);
+                pc.AddSubclass(entry.Key, entry.Value, features);
             }
         }
         #endregion
