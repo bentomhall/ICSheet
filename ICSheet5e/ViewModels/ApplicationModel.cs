@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Runtime.Serialization;
 using ICSheetCore;
 using System.Linq;
+using System.IO;
 
 namespace ICSheet5e.ViewModels
 {
@@ -79,28 +80,31 @@ namespace ICSheet5e.ViewModels
         private string spellBookData;
         private string spellListData;
         private ResourceModifiers.CustomSpellSerializer _serializer;
+        private ResourceModifiers.ResourceFileManager _fileManager = new ResourceModifiers.ResourceFileManager();
+
+
 
         private void loadItemResources()
         {
-            armorData = System.IO.File.ReadAllText(@"Resources\BasicArmors.xml");
-            weaponData = System.IO.File.ReadAllText(@"Resources\BasicWeapons.xml");
-            itemData = System.IO.File.ReadAllText(@"Resources\BasicItems.xml");
+            armorData = File.ReadAllText(_fileManager.ArmorListPath);
+            weaponData = File.ReadAllText(_fileManager.WeaponListPath);
+            itemData = File.ReadAllText(_fileManager.ItemListPath);
             return;
         }
 
         private void loadSpellResources()
         {
             
-            spellBookData = System.IO.File.ReadAllText(@"Resources\spell_list.xml");
-            spellListData = System.IO.File.ReadAllText(@"Resources\SpellList5e.json");
-            _serializer = new ResourceModifiers.CustomSpellSerializer(@"Resources\spell_list.xml", @"Resources\SpellList5e.json");
+            spellBookData = File.ReadAllText(_fileManager.SpelllistPath);
+            spellListData = File.ReadAllText(_fileManager.SpellDetailsPath);
+            _serializer = new ResourceModifiers.CustomSpellSerializer(_fileManager.SpelllistPath, _fileManager.SpellDetailsPath);
             return;
         }
 
         private void loadFeatureResources()
         {
-            raceData = System.IO.File.ReadAllText(@"Resources\RacialFeatures.xml");
-            classData = System.IO.File.ReadAllText(@"Resources\ClassFeatures.xml");
+            raceData = File.ReadAllText(_fileManager.RacialFeaturesPath);
+            classData = File.ReadAllText(_fileManager.ClassFeaturesPath);
             return;
         }
 

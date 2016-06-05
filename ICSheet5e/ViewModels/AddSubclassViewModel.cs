@@ -64,21 +64,6 @@ namespace ICSheet5e.ViewModels
             get { return new Views.DelegateCommand<object>(x => { _onSelectSubclass(SelectedClass, SelectedSubclass, _features); IsOpen = false; }); }
         }
 
-        public bool IsOpen
-        {
-            get
-            {
-                return _isOpen;
-            }
-
-            set
-            {
-                _isOpen = value;
-                Parent.IsOpen = value;
-                NotifyPropertyChanged();
-            }
-        }
-
         void SelectionChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SelectedClass" && !string.IsNullOrWhiteSpace(_selectedClass))
@@ -93,7 +78,6 @@ namespace ICSheet5e.ViewModels
             }
         }
 
-        private bool _isOpen;
         private Action<string, string, IEnumerable<IFeature>> _onSelectSubclass;
 
     }

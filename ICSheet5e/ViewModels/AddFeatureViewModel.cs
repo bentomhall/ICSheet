@@ -22,17 +22,6 @@ namespace ICSheet5e.ViewModels
         public string FeatureText { get; set; }
         public int StartingLevel { get; set; }
 
-        public bool IsOpen
-        {
-            get { return _isOpen; }
-            set
-            {
-                _isOpen = value;
-                Parent.IsOpen = value;
-                NotifyPropertyChanged();
-            }
-        }
-
         public ICommand CreateFeatureCommand
         {
             get { return new Views.DelegateCommand<object>(x => { _callback(ToFeature()); IsOpen = false; }); }

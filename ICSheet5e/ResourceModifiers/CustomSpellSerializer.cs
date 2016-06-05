@@ -27,9 +27,6 @@ namespace ICSheet5e.ResourceModifiers
         {
             _spellLists = XDocument.Load(spellListPath);
             _spellDetails = parseDetails(spellDetailPath);
-            _spellListPath = spellListPath;
-            _spellDetailPath = spellDetailPath;
-
         }
 
         public void Add(SpellSerializationData item, IEnumerable<string> toClasses)
@@ -66,6 +63,10 @@ namespace ICSheet5e.ResourceModifiers
 
         public void Save()
         {
+            var fileManager = new ResourceFileManager();
+            _spellListPath = fileManager.CreatePathForResource("spell_list.xml");
+            _spellDetailPath = fileManager.CreatePathForResource("SpellList5e.json");
+        
             _spellLists.Save(_spellListPath);
             var output = JsonConvert.SerializeObject(_spellDetails);
             File.WriteAllText(_spellDetailPath, output);

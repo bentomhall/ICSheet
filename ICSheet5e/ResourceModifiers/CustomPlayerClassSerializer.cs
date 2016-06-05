@@ -13,6 +13,7 @@ namespace ICSheet5e.ResourceModifiers
     {
         private XDocument _classDocument;
         private List<string> _classNames = new List<string>();
+        private ResourceFileManager _fileManager = new ResourceFileManager();
 
         private XElement _constructFeatureNode(IFeature feature)
         {
@@ -37,7 +38,8 @@ namespace ICSheet5e.ResourceModifiers
 
         private void save()
         {
-            _classDocument.Save(@"Resources\ClassFeatures.xml");
+            var path = _fileManager.CreatePathForResource("ClassFeatures.xml");
+            _classDocument.Save(path);
         }
 
 
