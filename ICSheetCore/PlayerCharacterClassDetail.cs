@@ -9,6 +9,17 @@ namespace ICSheetCore
         private readonly string _className;
         private int _level;
         private List<IFeature> _features;
+        private string _subclassName;
+
+        internal string SubclassName
+        {
+            get { return _subclassName ?? ""; }
+            set
+            {
+                _subclassName = value;
+            }
+        }
+
 
         internal PlayerCharacterClassDetail(string className, int level, IEnumerable<IFeature> features)
         {

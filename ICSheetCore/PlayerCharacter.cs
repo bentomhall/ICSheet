@@ -611,6 +611,7 @@ namespace ICSheetCore
             d.DefenseOverrides = _defenseAggregate.AllDefenseAdjustments;
             d.Skills = SkillProficiencies;
             d.CurrentSpellSlots = SpellSlots;
+            d.Subclasses = _classAggregate.RetrieveSubclasses();
             return d;
 
         }
