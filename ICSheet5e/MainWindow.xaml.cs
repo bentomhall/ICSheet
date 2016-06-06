@@ -12,7 +12,5 @@ namespace ICSheet5e
         {
             InitializeComponent();
         }
-
-        
     }
 }
