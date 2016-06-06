@@ -23,5 +23,12 @@ namespace ICSheet5e.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            btn.Command.Execute(null);
+            Close();
+        }
     }
 }

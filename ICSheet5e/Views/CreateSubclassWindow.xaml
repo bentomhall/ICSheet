@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ICSheet5e.Views"
         xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="CreateSubclassWindow" Height="600" Width="900">
+        Title="{Binding Path=WindowTitle}" Height="600" Width="900">
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label>Class Name:</Label>
@@ -28,9 +28,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Command="{Binding Path=AddFeatureCommand}" Content="Add Feature"/>
+            <Button Command="{Binding Path=AddFeatureCommand}" Content="Add Feature" />
             <Button Command="{Binding Path=ClearFeatureCommand}" Content="Clear Feature"/>
-            <Button Command="{Binding Path=AddSubclassCommand}" Content="Add Subclass"/>
+            <Button Command="{Binding Path=AddSubclassCommand}" Content="Add Subclass" Click="Button_Click"/>
         </StackPanel>
         <Grid DockPanel.Dock="Left" MaxWidth="600">
             <Grid.RowDefinitions>

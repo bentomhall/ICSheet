@@ -66,8 +66,14 @@ namespace ICSheet5e.ResourceModifiers
         {
             var classElement = _classDocument.Root.Elements().SingleOrDefault(x => x.Attribute("Name").Value == className);
             if (classElement == null) { throw new ArgumentException("Invalid class name supplied."); }
+            if (subclassExists(classElement, subclassInformation.Name)) { return; }
             classElement.Add(_constructSubclassNode(subclassInformation));
             save();
+        }
+
+        private bool subclassExists(XElement classElement, string subclassName)
+        {
+            return classElement.Elements("Subclass").Count(x => x.Attribute("Name").Value == subclassName) > 0;
         }
     }
 }
