@@ -30,7 +30,12 @@ namespace ICSheet5e.ViewModels
                 {
                     if (_allSpells.SingleOrDefault(x => x.Name.Equals(spellName, StringComparison.CurrentCultureIgnoreCase)) == null)
                     {
-                        _allSpells.Add(spellDB.SpellDetailsFor(spellName));
+                        var details = spellDB.SpellDetailsFor(spellName);
+                        if (details.Level != -1)
+                        {
+                            _allSpells.Add(spellDB.SpellDetailsFor(spellName));
+                        }
+                        
                     }
                 }
             }
