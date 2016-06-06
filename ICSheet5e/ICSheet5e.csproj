@@ -39,6 +39,9 @@
   <PropertyGroup>
     <StartupObject>ICSheet5e.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>appicon32.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -98,6 +101,11 @@
     </ApplicationDefinition>
     <Compile Include="EventCoordinator\IChangeNotificationReceiver.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ResourceModifiers\CustomPlayerClassSerializer.cs" />
     <Compile Include="ResourceModifiers\CustomSpellSerializer.cs" />
     <Compile Include="ResourceModifiers\ResourceFileManager.cs" />
@@ -323,11 +331,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -344,6 +347,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="appicon32.ico" />
     <Content Include="Resources\5eSRD.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -384,6 +388,7 @@
     <None Include="Resources\BasicItems.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Resources\appicon32.ico" />
     <Content Include="Resources\tall-human-silhouette.svg" />
     <Resource Include="credits.txt" />
   </ItemGroup>

@@ -61,6 +61,16 @@ namespace ICSheet5e.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AppIcon32 {
+            get {
+                object obj = ResourceManager.GetObject("AppIcon32", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;BasicArmors&gt;
         ///  &lt;Armor Name=&quot;Padded&quot; ArmorType=&quot;Light&quot;&gt;
@@ -88,7 +98,21 @@ namespace ICSheet5e.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;BasicItems&gt;
-        ///&lt;/BasicItems&gt;.
+        ///  &lt;Item Name=&quot;Abacus&quot;&gt;
+        ///    &lt;Cost&gt;2.0&lt;/Cost&gt;
+        ///    &lt;Weight&gt;2.0&lt;/Weight&gt;
+        ///    &lt;Count&gt;1&lt;/Count&gt;
+        ///    &lt;Properties&gt;&lt;/Properties&gt;
+        ///  &lt;/Item&gt;
+        ///  &lt;Item Name=&quot;Acid (vial)&quot;&gt;
+        ///    &lt;Cost&gt;25.0&lt;/Cost&gt;
+        ///    &lt;Weight&gt;1.0&lt;/Weight&gt;
+        ///    &lt;Count&gt;1&lt;/Count&gt;
+        ///    &lt;Properties&gt;Splash (range 5) or throw (range 20); ranged attack as improvised weapon. 2d6 acid damage on hit.&lt;/Properties&gt;
+        ///  &lt;/Item&gt;
+        ///  &lt;Item Name=&quot;Alchemist&apos;s fire (flask)&quot;&gt;
+        ///    &lt;Cost&gt;50.0&lt;/Cost&gt;
+        ///    &lt;Weight&gt;1.0&lt;/ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string BasicItems {
             get {
@@ -130,7 +154,8 @@ namespace ICSheet5e.Properties {
         ///    &lt;Feature Name=&quot;Armor Proficiencies&quot;&gt;Light, Medium, Shields&lt;/Feature&gt;
         ///    &lt;Feature Name=&quot;Weapon Proficiencies&quot;&gt;Simple, martial&lt;/Feature&gt;
         ///    &lt;Feature Name=&quot;Tool Proficiencies&quot;&gt;None&lt;/Feature&gt;
-        ///    &lt;Feature Name=&quot;Rage&quot;&gt;Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon att [rest of string was truncated]&quot;;.
+        ///    &lt;Feature Name=&quot;Saving Throw Proficiencies&quot;&gt;Strength, Constitution&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Rage&quot;  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ClassFeatures {
             get {
@@ -153,10 +178,11 @@ namespace ICSheet5e.Properties {
         ///&lt;FeatureSet&gt;
         ///  &lt;Race Name=&quot;Dwarf&quot;&gt;
         ///    &lt;Feature Name=&quot;Ability Bonus&quot;&gt;+2 CON&lt;/Feature&gt;
-        ///    &lt;Feature Name=&quot;Speed&quot;&gt;Your speed is not reduced by wearing heavy armor.&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Speed&quot;&gt;25&lt;/Feature&gt;
+        ///    &lt;Feature Name=&quot;Stability&quot;&gt;Your speed is not reduced by heavy armor.&lt;/Feature&gt;
         ///    &lt;Feature Name=&quot;Vision&quot;&gt;Darkvision: 60ft&lt;/Feature&gt;
         ///    &lt;Feature Name=&quot;Dwarven Resilience&quot;&gt;Advantage on saves vs poison and resistance to poison damage.&lt;/Feature&gt;
-        ///    &lt;Feature Name=&quot;Dwarven Combat Training&quot;&gt;You have proficiency with battleaxe, handaxe, light hammer, and warhammer.&lt;/Feature&gt; [rest of string was truncated]&quot;;.
+        ///    &lt;Feature Name=&quot;Dwarven Combat Training&quot;&gt;You have proficiency with battleaxe, handaxe, li [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RacialFeatures {
             get {
@@ -198,8 +224,8 @@ namespace ICSheet5e.Properties {
         ///        &quot;school&quot;: &quot;evocation&quot;,
         ///        &quot;Duration&quot;: &quot;Instantaneous&quot;,
         ///        &quot;Components&quot;: &quot;V, S, M (powdered rhubarb leaf and an adder&apos;s stomach)&quot;,
-        ///        &quot;Casting Time&quot;: &quot;1 action&quot;,
-        ///        &quot;text&quot;: &quot;A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next [rest of string was truncated]&quot;;.
+        ///        &quot;CastingTime&quot;: &quot;1 action&quot;,
+        ///        &quot;text&quot;: &quot;A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SpellList5e {
             get {
