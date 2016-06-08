@@ -48,6 +48,7 @@ namespace ICSheetCore
                 {"History", 0 },
                 {"Insight", 0 },
                 {"Intimidation", 0 },
+                {"Investigation", 0 },
                 {"Medicine", 0 },
                 {"Perception", 0 },
                 {"Performance", 0 },
@@ -611,6 +612,7 @@ namespace ICSheetCore
             d.DefenseOverrides = _defenseAggregate.AllDefenseAdjustments;
             d.Skills = SkillProficiencies;
             d.CurrentSpellSlots = SpellSlots;
+            d.Subclasses = _classAggregate.RetrieveSubclasses();
             return d;
 
         }

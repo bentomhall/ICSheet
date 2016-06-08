@@ -186,6 +186,7 @@ namespace ICSheetCore
             "History",
             "Insight",
             "Intimidation",
+            "Investigation",
             "Medicine",
             "Nature",
             "Perception",

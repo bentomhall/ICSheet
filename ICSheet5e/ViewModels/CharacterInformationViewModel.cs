@@ -16,12 +16,43 @@ namespace ICSheet5e.ViewModels
         }
 
         public string Name { get { return _characterInfo.Name; } }
-        public string Alignment { get { return _characterInfo.Alignment; } }
+        public string Alignment { get { return _characterInfo.Alignment; } set { _characterInfo.Alignment = value; NotifyPropertyChanged(); } }
         public string Background { get { return _characterInfo.Background; } }
         public int BaseWeight { get { return _characterInfo.BaseWeight; } }
         public double TotalWeight { get { return _characterInfo.BaseWeight + _character.CarriedWeight; } }
         public string Weight { get { return $"{_character.CarriedWeight} / {_characterInfo.BaseWeight}"; } }
         public string Height { get { return _characterInfo.Height; } }
+
+        public string CharacterTraits
+        {
+            get { return _characterInfo.CharacterTraits; }
+            set { _characterInfo.CharacterTraits = value;  NotifyPropertyChanged(); }
+        }
+
+        public string Ideals
+        {
+            get { return _characterInfo.Ideals; }
+            set { _characterInfo.Ideals = value;  NotifyPropertyChanged(); }
+        }
+
+        public string Bonds
+        {
+            get { return _characterInfo.Bonds; }
+            set { _characterInfo.Bonds = value;  NotifyPropertyChanged(); }
+        }
+
+        public string Flaws
+        {
+            get { return _characterInfo.Flaws; }
+            set { _characterInfo.Flaws = value;  NotifyPropertyChanged(); }
+        }
+
+        public string Deity
+        {
+            get { return _characterInfo.Deity; }
+            set { _characterInfo.Deity = value; NotifyPropertyChanged(); }
+        }
+
 
         public ObservableCollection<string> Languages { get { return new ObservableCollection<string>(_characterInfo.Languages); } }
         public ObservableCollection<string> Contacts { get { return new ObservableCollection<string>(_characterInfo.Contacts); } }

@@ -11,14 +11,26 @@ namespace ICSheet5e.ViewModels
 {
     public class CreateNewSubclassViewModel : BaseViewModel
     {
-        public string SubclassName { get; set; }
+        private string _windowTitle;
+        private string _featureName;
+        private int _featureStartingLevel = 1;
+        private string _featureText;
+        private string _cantripsKnown;
+        private string _spellsKnown;
+        private string _bonusSpells;
+        private string _spellbook;
+        private bool _isPreparedCaster;
+        private string _subclassName;
+
+        public string WindowTitle { get { return _windowTitle; } set { _windowTitle = value;  NotifyPropertyChanged(); } }
+        public string SubclassName { get { return _subclassName; } set { _subclassName = value; NotifyPropertyChanged(); setWindowTitle(true); } }
         public ObservableCollection<string> ClassNames { get; set; }
         public ObservableCollection<IFeature> Features { get; set; }
         public string SelectedClassName { get; set; }
 
-        public string FeatureName { get; set; }
-        public int FeatureStartingLevel { get; set; }
-        public string FeatureText { get; set; }
+        public string FeatureName { get { return _featureName; } set { _featureName = value; NotifyPropertyChanged(); } }
+        public int FeatureStartingLevel { get { return _featureStartingLevel; } set { _featureStartingLevel = value; NotifyPropertyChanged(); } }
+        public string FeatureText { get { return _featureText; } set { _featureText = value; NotifyPropertyChanged(); } }
 
         public bool IsSpellcastingFeature { get { return _isSpellcastingFeature; } set { _isSpellcastingFeature = value; NotifyPropertyChanged(); } }
         public IEnumerable<string> CastingTypes { get; set; }
@@ -77,6 +89,13 @@ namespace ICSheet5e.ViewModels
             Spellbook = "Wizard";
         }
 
+        private void setWindowTitle(bool needsSaving)
+        {
+            if (string.IsNullOrWhiteSpace(SubclassName) || string.IsNullOrWhiteSpace(SelectedClassName)) { WindowTitle = ""; return; }
+            if (needsSaving) { WindowTitle = $"{SelectedClassName} : {SubclassName} *"; }
+            else { WindowTitle = $"{SelectedClassName} : {SubclassName}"; }
+        }
+
         private ResourceModifiers.CustomPlayerClassSerializer _resourceManager;
         private Action<bool> cacheDelegate;
         private void createFeature()
@@ -95,6 +114,7 @@ namespace ICSheet5e.ViewModels
                 var f = new ClassFeature(FeatureName, FeatureStartingLevel, false, FeatureText);
                 Features.Add(f);
             }
+            setWindowTitle(true);
             clearFeature();
         }
 
@@ -110,6 +130,7 @@ namespace ICSheet5e.ViewModels
         {
             var subclassData = createSubclass();
             _resourceManager.ConstructSubclassForExistingClass(SelectedClassName, subclassData);
+            setWindowTitle(false);
             cacheDelegate(true);
         }
 

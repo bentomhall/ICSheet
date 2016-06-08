@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Runtime.Serialization;
 using ICSheetCore;
 using System.Linq;
+using System.IO;
 
 namespace ICSheet5e.ViewModels
 {
@@ -18,7 +19,17 @@ namespace ICSheet5e.ViewModels
         private string raceData;
         private string classData;
         private string currentCharacterPath;
+        private string _windowTitle = "Interactive Character Sheet v1.0";
 
+        public string WindowTitle
+        {
+            get { return _windowTitle; }
+            set
+            {
+                _windowTitle = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public bool IsEditingModeEnabled
         {
@@ -26,6 +37,7 @@ namespace ICSheet5e.ViewModels
             set
             {
                 canEdit = value;
+                if (!canEdit) { DoAutosave(); SetWindowTitle(true); }
                 NotifyPropertyChanged();
             }
         }
@@ -79,28 +91,42 @@ namespace ICSheet5e.ViewModels
         private string spellBookData;
         private string spellListData;
         private ResourceModifiers.CustomSpellSerializer _serializer;
+        private ResourceModifiers.ResourceFileManager _fileManager = new ResourceModifiers.ResourceFileManager();
+
+        private void SetWindowTitle(bool needsSaving)
+        {
+            if (!isInitialized) { WindowTitle = "Interactive Character Sheet 5e"; return; }
+            if (needsSaving)
+            {
+                WindowTitle = currentCharacterPath + " *";
+            }
+            else
+            {
+                WindowTitle = currentCharacterPath;
+            }
+        }
 
         private void loadItemResources()
         {
-            armorData = System.IO.File.ReadAllText(@"Resources\BasicArmors.xml");
-            weaponData = System.IO.File.ReadAllText(@"Resources\BasicWeapons.xml");
-            itemData = System.IO.File.ReadAllText(@"Resources\BasicItems.xml");
+            armorData = File.ReadAllText(_fileManager.ArmorListPath);
+            weaponData = File.ReadAllText(_fileManager.WeaponListPath);
+            itemData = File.ReadAllText(_fileManager.ItemListPath);
             return;
         }
 
         private void loadSpellResources()
         {
             
-            spellBookData = System.IO.File.ReadAllText(@"Resources\spell_list.xml");
-            spellListData = System.IO.File.ReadAllText(@"Resources\SpellList5e.json");
-            _serializer = new ResourceModifiers.CustomSpellSerializer(@"Resources\spell_list.xml", @"Resources\SpellList5e.json");
+            spellBookData = File.ReadAllText(_fileManager.SpelllistPath);
+            spellListData = File.ReadAllText(_fileManager.SpellDetailsPath);
+            _serializer = new ResourceModifiers.CustomSpellSerializer(_fileManager.SpelllistPath, _fileManager.SpellDetailsPath);
             return;
         }
 
         private void loadFeatureResources()
         {
-            raceData = System.IO.File.ReadAllText(@"Resources\RacialFeatures.xml");
-            classData = System.IO.File.ReadAllText(@"Resources\ClassFeatures.xml");
+            raceData = File.ReadAllText(_fileManager.RacialFeaturesPath);
+            classData = File.ReadAllText(_fileManager.ClassFeaturesPath);
             return;
         }
 
@@ -123,7 +149,7 @@ namespace ICSheet5e.ViewModels
             FeatureModel = new AddFeatureViewModel(AddFeatureCallback);
             FeatureModel.Parent = this;
             SubclassModel = new AddSubclassViewModel(new List<string>(), featureFactory, OnAddSubclass);
-            
+            SetWindowTitle(false);
             InvalidateResourceCache(false);
         }
 
@@ -155,10 +181,10 @@ namespace ICSheet5e.ViewModels
         {
             get { return new Views.DelegateCommand<object>(SaveCommandExecuted); }
         }
-        public ICommand ToggleEditingCommand
-        {
-            get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
-        }
+        //public ICommand ToggleEditingCommand
+        //{
+        //    get { return new Views.DelegateCommand<object>(ToggleEditingCommandExecuted); }
+        //}
 
         public ICommand CreateNewSubclassCommand
         {
@@ -265,12 +291,13 @@ namespace ICSheet5e.ViewModels
             if (location == null) { return; } //user canceled open dialog
             currentCharacterPath = location;
             var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
-            System.IO.FileStream reader = new System.IO.FileStream(location, System.IO.FileMode.Open);
+            FileStream reader = new FileStream(location, System.IO.FileMode.Open);
             var cData = (ICSheetCore.Data.CharacterData)serializer.ReadObject(reader);
             reader.Close();
             var builder = new CharacterFactory(cData.Name, spellDB, featureFactory);
             currentCharacter = builder.BuildFromStoredData(cData);
             setViewModels();
+            SetWindowTitle(false);
         }
 
         
@@ -286,9 +313,10 @@ namespace ICSheet5e.ViewModels
             }
             else { saveLocation = currentCharacterPath; }
             var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
-            System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
+            FileStream stream = new FileStream(saveLocation, System.IO.FileMode.Create);
             serializer.WriteObject(stream, currentCharacter.ToCharacterData());
             stream.Close();
+            SetWindowTitle(false);
         }
 
         public bool SaveCommandCanExecute(object sender)
@@ -297,12 +325,16 @@ namespace ICSheet5e.ViewModels
             return IsCharacterInitialized;
         }
 
-        public void ToggleEditingCommandExecuted(object sender)
-        {
-            IsEditingModeEnabled = !canEdit;
-            if (!IsEditingModeEnabled) { DoAutosave(); }//save when exiting editing
-            return;
-        }
+        //public void ToggleEditingCommandExecuted(object sender)
+        //{
+        //    IsEditingModeEnabled = !canEdit;
+        //    if (!IsEditingModeEnabled)
+        //    {
+        //        DoAutosave();
+        //        SetWindowTitle(true);
+        //    }//save when exiting editing
+        //    return;
+        //}
 
         public ICommand DoLongRestCommand
         {
@@ -316,6 +348,7 @@ namespace ICSheet5e.ViewModels
                 currentCharacter.TakeLongRest();
                 NotifyPropertyChanged("AvailableSpellSlots");
                 NotifyPropertyChanged("CurrentHealth");
+                SetWindowTitle(true);
             }
         }
 
@@ -358,6 +391,7 @@ namespace ICSheet5e.ViewModels
                 }
             }
             DoAutosave();
+            SetWindowTitle(true);
         }
 
         public ICommand AddFeatureCommand
@@ -475,9 +509,9 @@ namespace ICSheet5e.ViewModels
         private void DoAutosave()
         {
             if (!IsCharacterInitialized) return;
-            var saveLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "autosave.dnd5e");
+            var saveLocation = _fileManager.CreatePathForResource("autosave.dnd5e");
             var serializer = new DataContractSerializer(typeof(ICSheetCore.Data.CharacterData));
-            System.IO.FileStream stream = new System.IO.FileStream(saveLocation, System.IO.FileMode.Create);
+            FileStream stream = new FileStream(saveLocation, FileMode.Create);
             serializer.WriteObject(stream, currentCharacter.ToCharacterData());
             stream.Close();
         }

@@ -13,6 +13,7 @@ namespace ICSheetCore
             { "History", AbilityType.Intelligence },
             { "Insight", AbilityType.Wisdom },
             { "Intimidation", AbilityType.Charisma },
+            { "Investigation", AbilityType.Intelligence },
             { "Medicine", AbilityType.Wisdom },
             { "Nature", AbilityType.Intelligence },
             { "Perception", AbilityType.Wisdom },

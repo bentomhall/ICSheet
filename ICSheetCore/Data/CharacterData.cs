@@ -81,5 +81,9 @@ namespace ICSheetCore.Data
         /// <summary></summary>
         [DataMember]
         public IEnumerable<int> CurrentSpellSlots { get; set; }
+
+        /// <summary></summary>
+        [DataMember]
+        public IDictionary<string, string> Subclasses { get; set; }
     }
 }
