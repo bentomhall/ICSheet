@@ -6,6 +6,8 @@ namespace ICSheetIOS
 {
     public partial class OverviewViewController : UIViewController
     {
+        public Models.OverviewModel Model { get; set; }
+
         public OverviewViewController(IntPtr handle) : base(handle)
         {
         }
@@ -14,12 +16,21 @@ namespace ICSheetIOS
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
+            if (Model != null)
+            {
+                loadFromModel();
+            }
         }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
+        }
+
+        private void loadFromModel()
+        {
+            NameLabel.Text = Model.Name;
         }
     }
 }
