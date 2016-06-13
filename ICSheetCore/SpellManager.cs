@@ -57,6 +57,31 @@ namespace ICSheetCore
             }
         }
 
+        private string getElementValueByElementName(XElement e, string name)
+        {
+            return e.Element(name).Value;
+        }
+
+        private void loadXMLSpellDetails(string details)
+        {
+            var root = XDocument.Parse(details).Root;
+            _spellDetails = new List<Spell>();
+            foreach (var s in root.Elements("Spell"))
+            {
+                var spell = new Spell();
+                spell.Name = getElementValueByElementName(s, "Name");
+                spell.Level = int.Parse(getElementValueByElementName(s, "Level"));
+                spell.Range = getElementValueByElementName(s, "Range");
+                spell.School = getElementValueByElementName(s, "School");
+                spell.Description = getElementValueByElementName(s, "Text");
+                spell.Components = getElementValueByElementName(s, "Components");
+                spell.CastTime = getElementValueByElementName(s, "Castingtime");
+                spell.IsPrepared = false;
+                spell.Duration = getElementValueByElementName(s, "Duration");
+                _spellDetails.Add(spell);
+            }
+        }
+
         [DataMember]
         private List<Spell> _spellDetails;
         [DataMember]
@@ -67,10 +92,18 @@ namespace ICSheetCore
         /// </summary>
         /// <param name="spellNames"></param>
         /// <param name="spellDetails"></param>
-        public SpellManager(string spellNames, string spellDetails)
+        /// <param name="isXML"></param>
+        public SpellManager(string spellNames, string spellDetails, bool isXML=false)
         {
+            if (isXML)
+            {
+                loadXMLSpellDetails(spellDetails);
+            }
+            else
+            {
+                loadSpellDetails(spellDetails);
+            }
             loadSpellNames(spellNames);
-            loadSpellDetails(spellDetails);
         }
 
         /// <summary>
