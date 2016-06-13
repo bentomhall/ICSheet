@@ -1,12 +1,14 @@
 ﻿using Foundation;
 using UIKit;
+using ICSheetCore;
 
 namespace ICSheetIOS
 {
-    // The UIApplicationDelegate for the application. This class is responsible for launching the
-    // User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
+    // The UIApplicationDelegate for the application. This class is responsible for launching the 
+    // User Interface of the application, as well as listening (and optionally responding) to 
+    // application events from iOS.
     [Register("AppDelegate")]
-    public class AppDelegate : UIApplicationDelegate, IUISplitViewControllerDelegate
+    public class AppDelegate : UIApplicationDelegate
     {
         // class-level declarations
 
@@ -16,14 +18,15 @@ namespace ICSheetIOS
             set;
         }
 
+        public PlayerCharacter Character
+        {
+            get; set;
+        }
+
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             // Override point for customization after application launch.
-            var splitViewController = (UISplitViewController)Window.RootViewController;
-            var navigationController = (UINavigationController)splitViewController.ViewControllers[1];
-            navigationController.TopViewController.NavigationItem.LeftBarButtonItem = splitViewController.DisplayModeButtonItem;
-            splitViewController.WeakDelegate = this;
-
+            // If not required for your application you can safely delete this method
             return true;
         }
 
@@ -57,20 +60,5 @@ namespace ICSheetIOS
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
         }
-
-        [Export("splitViewController:collapseSecondaryViewController:ontoPrimaryViewController:")]
-        public bool CollapseSecondViewController(UISplitViewController splitViewController, UIViewController secondaryViewController, UIViewController primaryViewController)
-        {
-            if (secondaryViewController.GetType() == typeof(UINavigationController) &&
-                ((UINavigationController)secondaryViewController).TopViewController.GetType() == typeof(DetailViewController) &&
-                ((DetailViewController)((UINavigationController)secondaryViewController).TopViewController).DetailItem == null)
-            {
-                // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-                return true;
-            }
-            return false;
-        }
     }
 }
-
-

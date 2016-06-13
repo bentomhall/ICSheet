@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ClassFeatures>
+  <PCClass Name="Barbarian">
+    <Feature Name="Hit Dice">d12</Feature>
+    <Feature Name="Hit Points">12 + CON; 1d12 (7) + CON after 1st</Feature>
+    <Feature Name="Armor Proficiencies">Light, Medium, Shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, martial</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Constitution</Feature>
+    <Feature Name="Rage" IsClassSpecial="True" IsToggle="True">Advantage on STR checks/saving throws. Bonus Damage (see table) on STR weapon attacks. Resistance to bludgeoning, piercing, slashing. Can't cast spells while raging. Duration: 1 minute or end of first round that you haven't taken damage or attacked a hostile creature.</Feature>
+    <Feature Name="Unarmored Defense">Armor Class when unarmored is 10 + DEX + CON (stacks with shields).</Feature>
+    <Feature Name="Reckless Attack" StartLevel="2">Gives/grants advantage on attack rolls (toggle on first attack of turn).</Feature>
+    <Feature Name="Danger Sense" StartLevel="2">Advantage on Dex saves against effects you can see. Inactive if blinded, deafened, or incapacitated.</Feature>
+    <Feature Name="Extra Attack" StartLevel="5">You can attack 2x per Attack action.</Feature>
+    <Feature Name="Fast Movement" StartLevel="5">Gain 10 ft/round speed while not wearing Heavy Armor.</Feature>
+    <Feature Name="Feral Instinct" StartLevel="7">Advantage on initiative. You can act on surprise rounds if you rage first thing.</Feature>
+    <Feature Name="Brutal Critical" StartLevel="9">Extra weapon damage on crit increases by 1 weapon dice. Increases to +2 at 13th and +3 at 17th.</Feature>
+    <Feature Name="Relentless Rage" StartLevel="11">If you drop to 0 HP while raging you can make a DC 10 CON save and drop to 1 HP instead. Each time you use it the DC increases by 5. DC resets after long rest.</Feature>
+    <Feature Name="Persistent Rage" StartLevel="15">Rage only ends early if you fall unconscious or choose to end it.</Feature>
+    <Feature Name="Indomitable Might" StartLevel="18">Use the larger of your STR score or STR check result.</Feature>
+    <Feature Name="Primal Champion" StartLevel="20">STR and CON scores increase by 4 each, up to 24 max.</Feature>
+    <Feature Name="Primal Path" StartLevel="3">See PHB for details.</Feature>
+    <Subclass Name="Path of the Berserker">
+      <Feature Name="Frenzy" StartLevel="3">You can frenzy when you rage. If you do so you can make a single melee weapon attack as a bonus action on each turn after the first until the rage ends. When your rage ends, you suffer one level of exhaustion.</Feature>
+      <Feature Name="Mindless Rage" StartLevel="6">You cannot be frightened or charmed while raging and pre-existing effects are suspended for the duration of the rage.</Feature>
+      <Feature Name="Intimidating Presence" StartLevel="10">As an action, choose a creature you can see within 30 feet. If they can see or hear you, they must succeed on a WIS save (DC = 8 + proficiency + CHA) or be frightened of you until the ned of your next turn. You can use your action to extend this effect; it ends if the creature ends its turn out of line of sight or more than 60 feet away.</Feature>
+      <Feature Name="Retaliation" StartLevel="14">You can use your reaction to make a melee weapon attack against any creature that damages you while within 5 feet of you.</Feature>
+    </Subclass>
+    <SpecialFeature>
+      <Uses>2 2 3 3 3 4 4 4 4 4 4 5 5 5 5 5 6 6 6 -1</Uses>
+      <Bonus>2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 4 4 4 4 4 4</Bonus>
+    </SpecialFeature>
+  </PCClass>
+  <PCClass Name="Bard">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">Light</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, hand crossbows, longswords, rapiers, shortswords.</Feature>
+    <Feature Name="Tool Proficiencies">3 musical instruments of your choice.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Dexterity, Charisma</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Full</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+    </Feature>
+    <Feature Name="Ritual Casting">Can cast bard (ritual) spells as rituals.</Feature>
+    <Feature Name="Spellcasting Focus">Musical instruments</Feature>
+    <Feature Name="Bardic Inspiration" IsClassSpecial="True" IsToggle="False">See PHB 53.</Feature>
+    <Feature Name="Jack of All Trades" StartLevel="2">Add 1/2 proficiency to ability checks that do not include proficiency bonus.</Feature>
+    <Feature Name="Song of Rest" StartLevel="2">Friendly creatures gain 1d6 (1d8 at 9th, 1d10 at 13th, 1d12 at 17th) extra health from using HD on short rests.</Feature>
+    <Feature Name="Bard College" StartLevel="3">See PHB 54.</Feature>
+    <Feature Name="Expertise" StartLevel="3">Choose 2 skills to get double proficiency. At 10th level choose 2 more.</Feature>
+    <Feature Name="Font of Inspiration" StartLevel="5">Regain Bardic Inspiration uses on short or long rest.</Feature>
+    <Feature Name="Countercharm" StartLevel="6">As action grant friendlies within 30 feet advantage on saves vs fear or charm until end of your next turn.</Feature>
+    <Feature Name="Magical Secrets" StartLevel="10">Learn 2 extra spells from any class. Choose 2 more at 14th and at 18th.</Feature>
+    <Feature Name="Superior Inspiration" StartLevel="20">If you roll initiative with no Bardic Inspiration uses left, you regain one use.</Feature>
+    <Subclass Name="College of Lore">
+      <Feature Name="Bonus Proficiencies" StartLevel="3">Gain proficiency in 3 skills of your choice.</Feature>
+      <Feature Name="Cutting Words" StartLevel="3">When a creature you can see within 60 feet of you makes an attack roll, ability check or damage roll you can expend a bardic inspiration use to reduce the number rolled by the bardic inspiration dice roll.</Feature>
+      <Feature Name="Additional Magical Secrets" StartLevel="6">Learn 2 spells of your choice from any class (that you can cast). These count as bard spells but do not count against the spells known cap.</Feature>
+      <Feature Name="Peerless Skill" StartLevel="14">Expend a bardic inspiration use when you make an ability check to add the amount rolled to the check.</Feature>
+    </Subclass>
+    <SpecialFeature>
+      <Uses UsesStat="Charisma">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Uses>
+      <Bonus>d6 d6 d6 d6 d8 d8 d8 d8 d8 d10 d10 d10 d10 d10 d12 d12 d12 d12 d12 d12</Bonus>
+    </SpecialFeature>
+  </PCClass>
+  <PCClass Name="Cleric">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">Light, Medium, Shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Full</CastingType>
+      <IsPreparedCaster>True</IsPreparedCaster>
+      <CastingAbility>Wisdom</CastingAbility>
+      <Cantrips>3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5</Cantrips>
+      <BonusSpells>2 2 4 4 6 6 8 8 10 10 10 10 10 10 10 10 10 10 10 10</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+      <!--meaningless-->
+    </Feature>
+    <Feature Name="Ritual Casting">Can cast cleric (ritual) spells as rituals.</Feature>
+    <Feature Name="Spellcasting Focus">Holy symbols.</Feature>
+    <Feature Name="Divine Domain">See PHB 59.</Feature>
+    <Feature Name="Channel Divinity" IsClassSpecial="True" IsToggle="False">You may use one of the options listed below a limited number of times a day. All clerics have Turn Undead and one other from the domain choice.</Feature>
+    <Feature Name="Channel Divinity: Turn Undead" HasLimitedUse="True" StartLevel="2">Undead enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
+    <Feature Name="Destroy Undead" StartLevel="5">Turned enemies under CR level (Table PHB 59) are destroyed outright.</Feature>
+    <Feature Name="Divine Intervention" HasLimitedUse="True" StartLevel="10">See text in PHB pg 59.</Feature>
+    <Feature Name="Domain Spells">You gain bonus spells as domain spells. These are always prepared and do not count against the limit.</Feature>
+    <Subclass Name="Life Domain">
+      <Feature Name="Bonus Spells" StartLevel="1" xml:space="preserve">Gain the following domain spells at the indicated cleric levels:
+      1st : bless, cure wounds
+      3rd : lesser restoration, spiritual weapon
+      5th : beacon of hope, revivify
+      7th : death ward, guardian of faith
+      9th : mass cure wounds, raise dead</Feature>
+      <Feature Name="Bonus Proficiency" StartLevel="1">You gain proficiency with heavy armor</Feature>
+      <Feature Name="Disciple of Life" StartLevel="1">Healing spells (of 1st or greater level) you cast restore 2 + spell level extra HP.</Feature>
+      <Feature Name="Channel Divinity: Preserve Life" StartLevel="2">As an action, restore HP up to 5 x (cleric level) divided among chosen creatures within 30 feet. This feature cannot restore a creature to more than half health--it also cannot be used on undead or constructs.</Feature>
+      <Feature Name="Blessed Healer" StartLevel="6">Healing spells (of 1st or greater level) you cast on others restore 2 + spell level HP to you as well.</Feature>
+      <Feature Name="Divine Strike" StartLevel="8">Once each turn deal 1d8 extra radiant damage when you hit with a weapon attack. Increases to 2d8 at 14th level.</Feature>
+      <Feature Name="Supreme Healing" StartLevel="17">All healing dice for spells you cast heal their maximum amount.</Feature>
+    </Subclass>
+    <Subclass Name="Knowledge Domain" OGL="false">
+      <Feature Name="Bonus Spells" StartLevel="1" xml:space="preserve">Gain the following domain spells at the indicated cleric levels:
+      1st : identify, command
+      3rd : augury, suggestion
+      5th : nondetection, speak with dead
+      7th : arcane eye, confusion
+      9th : legend lore, scrying</Feature>
+      <Feature Name="Blessings of Knowledge" StartLevel="1">You learn 2 extra languages. You also gain double proficiency in 2 of Arcana, History, Nature, or Religion.</Feature>
+      <Feature Name="Channel Divinity: Knowledge of the Ages" StartLevel="2">As an action gain proficiency with a skill or tool for 10 minutes.</Feature>
+      <Feature Name="Channel Divinity: Read Thoughts" StartLevel="6">Expend Channel Divinity to force a creature within 60 ft to make a Wisdom save. If it fails, you can read its surface thoughts and emotions for 1 minute. During this time you can use an action to end the effect and cast suggestion on it without spending a spell slot. The creature automatically fails its saving throw against the spell.</Feature>
+      <Feature Name="Potent Spellcasting" StartLevel="8">You add WIS to the damage of any cleric cantrip.</Feature>
+      <Feature Name="Visions of the Past" StartLevel="17">Spend at least 1 minute (up to wisdom score) meditating. Either learn about the history of an object or the immediate surroundings (see PHB for more details).</Feature>
+    </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3</Uses>
+      <Bonus>* * * * * * * * * * * * * * * * * * * *</Bonus>
+    </SpecialFeature>
+  </PCClass>
+  <PCClass Name="Druid">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">Light, Medium, Shields (No metal armor or shields).</Feature>
+    <Feature Name="Weapon Proficiencies">Clubs, daggers, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears</Feature>
+    <Feature Name="Tool Proficiencies">Herbalism Kit</Feature>
+    <Feature Name="Saving Throw Proficiencies">Intelligence, Wisdom</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Full</CastingType>
+      <IsPreparedCaster>True</IsPreparedCaster>
+      <CastingAbility>Wisdom</CastingAbility>
+      <Cantrips>2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <!--overrides in subclass-->
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+      <!--meaningless-->
+    </Feature>
+    <Feature Name="Ritual Casting">Can cast Druid (ritual) spells as rituals.</Feature>
+    <Feature Name="Spellcasting Focus">Druidic focus.</Feature>
+    <Feature Name="Wild Shape" IsClassSpecial="True" IsToggle="True">You can change shape up to 2x/short or long rest. The max CR of the animal and other restrictions, limitations, etc. are found on PHB 66-67.</Feature>
+    <Feature Name="Druid Circle" StartLevel="2">See PHB.</Feature>
+    <Feature Name="Timeless Body" StartLevel="18">You age only 1 year for every 10.</Feature>
+    <Feature Name="Beast Spells" StartLevel="18">You can cast spells (V, S only) while wildshaped. Cannot supply material components.</Feature>
+    <Feature Name="Archdruid" StartLevel="20">You can use Wild Shape an unlimited number of times per day. Ignore V/S components and also any M components without cost listed.</Feature>
+    <Subclass Name="Circle of the Land: Arctic">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : hold person, spike growth
+      5th : sleet storm, slow
+      7th : freedom of movement, ice storm
+      9th : commune with nature, cone of cold</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+  <Subclass Name="Circle of the Land: Coast">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : mirror image, misty step
+      5th : water breathing, water walk
+      7th : control water, freedom of movement
+      9th : conjure elemental, scrying</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+  <Subclass Name="Circle of the Land: Desert">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : blur, silence
+      5th : create food and water, protection from energy
+      7th : blight, hallucinatory terrain
+      9th : insect plague, wall of stone</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+  <Subclass Name="Circle of the Land: Forest">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : barkskin, spider climb
+      5th : call lightning, plant growth
+      7th : divination, freedom of movement
+      9th : commune with nature, tree stride</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <Subclass Name="Circle of the Land: Grassland">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : invisibility, pass without trace
+      5th : daylight, haste
+      7th : divination, freedom of movement
+      9th : dream, insect plague</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <Subclass Name="Circle of the Land: Mountain">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : spider climb, spike growth
+      5th : lightning bolt, meld into stone
+      7th : stone shape, stoneskin
+      9th : passwall, wall of stone</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <Subclass Name="Circle of the Land: Swamp">
+      <Feature Name="Bonus Cantrip" StartLevel="2">Learn an additional druid cantrip of your choice.</Feature>
+      <Feature Name="Natural Recovery" StartLevel="2">During a short rest (once per long rest) you can regain up to (druid level)/2 rounded up total spell slots; none of the slots can be higher than 6th level.</Feature>
+      <Feature Name="Circle Spells" StartLevel="3" xml:space="preserve">You gain the following as bonus spells:
+      3rd : acid arrow, darkness
+      5th : water walk, stinking cloud
+      7th : freedom of movement, locate creature
+      9th : insect plague, scrying</Feature>
+      <Feature Name="Land's Stride" StartLevel="6">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+      <Feature Name="Nature's Ward" StartLevel="10">You cannot be cnarmed or frightened by elementals or fey and are immune to poison and disease</Feature>
+      <Feature Name="Nature's Sanctuary" StartLevel="14">When a beast or plant creature attacks you, it must pass a Will save against your spellcasting DC. If it fails, the creature must choose a different target or the attack will automatically miss. On a success, the creature is immune to this effect for 24 hours. The creature is aware of this effect before making the attack.</Feature>
+    </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 -1</Uses>
+      <Bonus>* * * * * * * * * * * * * * * * * * * *</Bonus>
+    </SpecialFeature>
+  </PCClass>
+  <PCClass Name="Fighter">
+    <Feature Name="Hit Dice">d10</Feature>
+    <Feature Name="Hit Points">10 + CON; 1d12 (6) + CON after 1st</Feature>
+    <Feature Name="Armor Proficiencies">All</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, martial</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Constitution</Feature>
+    <Feature xml:space="preserve" Name="Fighting Style">You gain one of the following benefits:
+    Archery: You gain a +2 bonus to attacks made with ranged weapons.
+    Defense: Gain +1 AC while wearing armor.
+    Dueling: Gain +2 to attacks with 1H melee weapons while no weapon is in the other hand.
+    Great Weapon Fighting: When you roll a 1 or 2 on the damage die with a weapon you are wielding in two hands, you may reroll that die and use the new result.
+    Protection: When a creature you can see attacks a target other than you within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.
+    Two-Weapon Fighting: When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.</Feature>
+    <Feature Name="Second Wind" IsClassSpecial="True" IsToggle="False">On your turn you can use a bonus action to regain 1d10 + fighter level HP. Recharges on short or long rest.</Feature>
+    <Feature Name="Action Surge" StartLevel="2" Uses="1/short or long rest">On your turn you can take an additional action.</Feature>
+    <Feature Name="Martial Archetype" StartLevel="3">Choose a martial archetype. Note: if you choose Eldritch Knight, please level as Eldritch knight from level 1.</Feature>
+    <Feature Name="Extra Attack" StartLevel="5">You can attack 2x per attack action. This increases to 3x at 11th level and 4x at 20th level.</Feature>
+    <Feature Name="Ability Score Improvemnents">You can increase one ability score by 2 or two scores by 1 at 4th, 6th, 8th, 12th, 14th, 16th, and 19th level.</Feature>
+    <Feature Name="Indomitable" StartLevel="9" Uses="1/long rest">Reroll a failed saving throw. Use the new roll.</Feature>
+    <Subclass Name="Champion">
+      <Feature Name="Improved Critical" StartLevel="3">Your weapon attacks score critical hits on a roll of 19 or 20.</Feature>
+      <Feature Name="Remarkable Athlete" StartLevel="7">You gain half proficiency (round up) to any strength, dexterity, or constitution check. Your running long jump distance increases by your strength modifier in feet.</Feature>
+      <Feature Name="Additional Fighting Style" StartLevel="10">Choose a second fighting style option.</Feature>
+      <Feature Name="Superior Critical" StartLevel="15">Your weapon attacks score critical hits on a roll of 18-20.</Feature>
+      <Feature Name="Survivor" StartLevel="18">You regain 5 + CON HP at the beginning of any turn that you have less than half of your HP left. This does not function at 0 HP.</Feature>
+    </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</Uses>
+      <Bonus StaticMod="1d10">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</Bonus>
+    </SpecialFeature>
+  </PCClass>
+  <PCClass Name="Monk">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">None</Feature>
+    <Feature Name="Weapon Proficiencies">Simple, shortswords</Feature>
+    <Feature Name="Tool Proficiencies">One type of artisan's tools or one musical instrument</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Dexterity</Feature>
+    <Feature Name="Unarmored Defense">While not wearing armor and not wielding a shield, AC is 10 + DEX + WIS</Feature>
+    <Feature xml:space="preserve" Name="Martial Arts">While unarmed or wielding monk weapons (shortswords or any simple non-two-handed/heavy weapon) and unarmored (no shield):
+    Use DEX instead of STR for attack and damage.
+    Use d4 instead of regular unarmed strike damage. Damage increases with level.
+    Bonus action unarmed strike when you use the Attack action.</Feature>
+    <Feature Name="Ki" StartLevel="2" IsClassSpecial="True" IsToggle="False">You gain Ki points equal to your level. You regain these points on short/long rests. Ki save DC = 8 + proficiency + WIS.</Feature>
+    <Feature Name="Flurry of Blows" StartLevel="2">Spend 1 ki point immediately after using Attack action to make 2 unarmed strikes as bonus action.</Feature>
+    <Feature Name="Patient Defense" StartLevel="2">Spend 1 ki point to take dodge action as bonus action on your turn.</Feature>
+    <Feature Name="Step of the Wind" StartLevel="2">Spend 1 ki point to take disengage or dash as bonus action; jump distance doubled for the turn.</Feature>
+    <Feature Name="Unarmored Movement" StartLevel="2">Your speed increases by 10 ft/round while not armored. This increases by 5 ft/round every 4 levels. At 9th level you gain the ability to run across vertical surfaces and liquids.</Feature>
+    <Feature Name="Monastic Tradition" StartLevel="3">See PHB.</Feature>
+    <Feature Name="Deflect Missiles" StartLevel="3">Use reaction to catch or deflect a missile when hit with ranged weapon attack. Damage reduced by 1d10 + DEX + level. If the damage is reduced to 0, you can catch it and throw it back. See PHB 78 for details.</Feature>
+    <Feature Name="Slow Fall" StartLevel="4">Use your reaction to reduce falling damage by 5 x monk level.</Feature>
+    <Feature Name="Extra Attack (Monk)" StartLevel="5">You can attack 2x when you use the Attack action. Does not stack.</Feature>
+    <Feature Name="Stunning Strike" StartLevel="5">When you hit with a melee weapon attack you can spend 1 ki point. Target must succeed on a CON save or be stunned until the end of your next turn.</Feature>
+    <Feature Name="Ki-empowered Strikes" StartLevel="6">Unarmed strikes count as magical for overcoming resistances and immunities.</Feature>
+    <Feature Name="Evasion" StartLevel="7">When you can make a DEX save and take half damage, you instead take no damage on success and half damage on failure.</Feature>
+    <Feature Name="Stillness of Mind" StartLevel="7">You can use your action to end one effect on yourself that causes charm or fear.</Feature>
+    <Feature Name="Purity of Body" StartLevel="10">You are immune to disease and poison.</Feature>
+    <Feature Name="Tongue of the Sun and Moon" StartLevel="13">You understand (and can be understood) in all spoken languages.</Feature>
+    <Feature Name="Diamond Soul" StartLevel="14">You have proficiency in all saving throws. You can use a ki point to reroll any failed saves.</Feature>
+    <Feature Name="Timeless Body" StartLevel="15">You do not suffer the effects of old age and cannot be magically aged. Your lifespan does not increase however. You need no food or water.</Feature>
+    <Feature Name="Empty Body" StartLevel="18">You can use your action to spend 4 ki points to become invisible for 1 minute. During that time you have resistance to all damage except force damage. You can cast Astral Projection using 8 ki points.</Feature>
+    <Feature Name="Perfect Self">When you roll initiative and have no ki points left, you regain 4 ki points.</Feature>
+    <Subclass Name="Way of the Open Hand">
+      <Feature Name="Open Hand Technique" StartLevel="3" xml:space="preserve">When you hit a creature with an attack granted by Flurry of Blows, you can impose one of the following conditions:
+      --It must succeed on a DEX saving throw or be knocked prone.
+      --It must succeed on a STR saving throw or be pushed up to 15 feet away from you
+      --It cannot take reactions until the end of your next turn.</Feature>
+      <Feature Name="Wholeness of Body" StartLevel="6">As an action (once per long rest) you can regain HP up to 3x(monk level).</Feature>
+      <Feature Name="Tranquility" StartLevel="11">At the end of a long rest you gain the effect of a sanctuary spell that lasts until the start of your next long rest unless it ends early as normal. The DC for this is 8 + WIS + proficiency.</Feature>
+      <Feature Name="Quivering Palm" StartLevel="17">When you hit with an unarmed strike you can spend 3 ki points to start vibrations in the target that last up to (monk level) days. These vibrations are harmless unless you use an action to end them--if so the creature must succeded on a CON save or be reduced to 0 HP. If it succeeds, it takes 10d10 necrotic damage. You can end the vibrations harmlessly without using an action.</Feature>
+    </Subclass>
+    <SpecialFeature>
+      <Uses RestoresOnShortRest="True">0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</Uses>
+      <Bonus>* * * * * * * * * * * * * * * * * * * *</Bonus>
+    </SpecialFeature>
+  </PCClass>
+  <PCClass Name="Paladin">
+    <Feature Name="Hit Dice">d10</Feature>
+    <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
+    <Feature Name="Armor Proficiencies">All armor, shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple and martial weapons.</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
+    <Feature Name="Divine Sense">As an action you can sense the presence of any undead, celestial or fiend within 60 ft. You know the type but not the identity. You also detect the presence of any hallowed or desecrated areas within range. You can use this up to 1 + CHA times per long rest.</Feature>
+    <Feature xml:space="preserve" Name="Lay on Hands">You have a pool healing up to 5 x paladin level. With this pool you can:
+    Touch and heal any creature as an action.
+    Spend 5 points to cure any disease or neutralize poison on a target.
+    This has no effect on undead or constructs.</Feature>
+    <Feature xml:space="preserve" Name="Fighting Style" StartLevel="2">You gain one of the following:
+    Defese: While wearing armor you gain +1 to AC.
+    Dueling: While you are wielding a melee weapon in 1 hand and no other weapon you gain +2 to damage with that weapon.
+    Great Weapon Fighting: Can reroll 1s or 2s on damage dice for two-handed weapons.
+    Protection: When a visible creature attacks a target within 5 feet of you you can use your reaction to impose disadvantage. Must be wielding a shield.</Feature>
+    <Feature Name="Spellcasting" StartLevel="2">
+      <CastingType>Half</CastingType>
+      <IsPreparedCaster>True</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Cantrips>
+      <BonusSpells>0 0 2 2 4 4 6 6 8 8 10 10 10 10 10 10 10 10 10 10</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+      <!--meaningless-->
+    </Feature>
+    <Feature Name="Divine Smite" StartLevel="2">When you hit a creature with a melee weapon attack you can expend a spell slot to add 2d8 + (n-1)d8 radiant damage; n = level of slot. Max is 5d8. Damage increases by 1d8 on undead and fiends.</Feature>
+    <Feature Name="Divine Health" StartLevel="3">You are immune to disease.</Feature>
+    <Feature Name="Sacred Oath" StartLevel="3">See PHB 85.</Feature>
+    <Feature Name="Extra Attack (Paladin)" StartLevel="5">You can attack 2x when you use the Attack action. Does not stack.</Feature>
+    <Feature Name="Aura of Protection" StartLevel="6">You and allies within 10' gain +CHA bonus to saving throws while you are conscious. Range increases to 30' at 18th level.</Feature>
+    <Feature Name="Aura of Courage" StartLevel="10">You and allies within 10' cannot be frightened while you are conscious. Range increases to 30' at 18th level.</Feature>
+    <Feature Name="Improved Divine Smite" StartLevel="11">You deal 1d8 extra radiant damage on hit. Stacks with Divine Smite.</Feature>
+    <Feature Name="Cleansing Touch" StartLevel="14">You can use your action to end one spell on yourself or one willing creature (touch). Uses: CHA/long rest.</Feature>
+    <Subclass Name="Oath of Devotion">
+      <Feature Name="Tenets of Devotion" StartLevel="3" xml:space="preserve">Honesty
+      Courage
+      Compassion
+      Honor
+      Duty</Feature>
+      <Feature Name="Oath Spells" StartLevel="3" xml:space="preserve">
+        3rd : protection from evil and good, sanctuary
+        5th : lesser restoration, zone of truth
+        9th : beacon of hope, dispel magic
+        13th : freedom of movement, guardian of faith
+        17th : commune, flame strike
+      </Feature>
+      <Feature Name="Channel Divinity: Sacred Weapon" StartLevel="3">For 1 minute add CHA to attack rolls made with your weapon; the weapon also emits light as by the light spell. The weapon is considered magical for the duration. You can end this affect at will on your turn or if you are not holding or carrying the weapon (or are unconscious).</Feature>
+      <Feature Name="Channel Divinity: Turn the Unholy" StartLevel="3">Undead or fiendish enemies within 30 feet must save (Wis) or be turned for 1 min (or until they take damage). Turned enemies must flee.</Feature>
+      <Feature Name="Aura of Devotion" StartLevel="7">Allies within 10 feet cannot be charmed while you are conscious. The range increases to 30 feet at 18th level.</Feature>
+      <Feature Name="Purity of Spirit" StartLevel="15">You are always under the effect of a protection from evil and good spell.</Feature>
+      <Feature Name="Holy Nimbus" StartLevel="20">As an action you can emanate an aura of sunlight for 1 minute. You shed light for 30/30 feet. Enemies starting turns in the bright light take 10 radiant damage. You have advantage on saving throws against spells cast by fiends and undead. 1x/long rest. </Feature>
+    </Subclass>
+  </PCClass>
+  <PCClass Name="Ranger">
+    <Feature Name="Hit Dice">d10</Feature>
+    <Feature Name="Hit Points">10 + CON; 1d10 (6) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Strength, Dexterity</Feature>
+    <Feature Name="Armor Proficiencies">Light and Medium armor, shields</Feature>
+    <Feature Name="Weapon Proficiencies">Simple and Martial weapons</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Favored Enemy">Advantage on Wisdom (Survival) checks and Intelligence checks relating to one type of enemy. Increases by 1 at 6th and 14th levels.</Feature>
+    <Feature Name="Natural Explorer">See PHB for benefits</Feature>
+    <Feature Name="Spellcasting" StartLevel="2">
+      <CastingType>Half</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Wisdom</CastingAbility>
+      <Cantrips>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>0 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 11 11</Spells>
+    </Feature>
+    <Feature Name="Fighting Style" StartLevel="2" xml:space="preserve">
+      You gain one of the following benefits:
+    Archery: You gain a +2 bonus to attacks made with ranged weapons.
+    Defense: Gain +1 AC while wearing armor.
+    Dueling: Gain +2 to attacks with 1H melee weapons while no weapon is in the other hand.
+    Two-Weapon Fighting: When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.
+    </Feature>
+    <Feature Name="Ranger Archetype" StartLevel="3">See PHB.</Feature>
+    <Feature Name="Primeval Awareness" StartLevel="3">Spend an action and a ranger spell slot to sense presence of aberrations,	celestials,	
+dragons,	elementals,	fey,	fiends,	and	undead within 1 mile (6 miles on favored terrain). Does not reveal location or number.</Feature>
+    <Feature Name="Extra Attack" StartLevel="5">You can make an extra attack when you take the Attack action. Does not stack.</Feature>
+    <Feature Name="Land's Stride" StartLevel="8">You are no longer slowed by non-magical terrain and take no damage from plant hazards. You also have advantage on saves against slowing effects from magical plants.</Feature>
+    <Feature Name="Hide in Plain Sight" StartLevel="10">You can spend a minute to create camouflage; this grants +10 to Dex (Stealth) rolls until you move or use an action.</Feature>
+    <Feature Name="Vanish" StartLevel="14">You can hide as a bonus action and cannot be tracked unless you want to be.</Feature>
+    <Feature Name="Feral Senses" StartLevel="18">You no longer have automatic disadvantage when attacking creatures you can't see.</Feature>
+    <Feature Name="Foe Slayer" StartLevel="20">You can add +WIS to attack or damage roll against favored enemies 1x per turn. </Feature>
+    <Subclass Name="Hunter">
+      <Feature Name="Hunter's Prey" StartLevel="3" xml:space="preserve">Choose one of the following:
+      Colossus Slayer: Deal 1d8 extra damage to wounded foes 1x per turn.
+      Giant Killer: When attacked (hit or miss) by a Large or larger creature within 5 feet, use your reaction to counterattack.
+      Horde Breaker: Make an additional weapon attack against a creature within 5 feet of the original target 1x per turn.</Feature>
+      <Feature Name="Defensive Tactics" StartLevel="7" xml:space="preserve">Choose one of the following:
+      Escape the Horde: Opportunity attacks against you have disadvantage
+      Multiattack Defense: When hit with an attack you gain +4 to AC against all other attacks by that creature for the rest of the turn.
+      Steel Will: You have advantage on saves vs fear.</Feature>
+      <Feature Name="Multiattack" StartLevel="11" xml:space="preserve">Choose one:
+        Volley: Use your action to make a ranged attack against any number of creatures within 10 feet of a point you can see. This consumes ammunition as normal. You make a separate attack roll against each target.
+        Whirlwind Attack: Use your action to make a melee attack against any number of creatures within 5 feet of you. Make separate attack rolls for each target.
+      </Feature>
+      <Feature Name="Superior Hunter's Defense" StartLevel="15" xml:space="preserve">Choose one:
+        Evasion: When you make a DEX save for half damage, instead take half damage on a failed save and no damage on a successful save.
+        Stand against the Tide: When missed with a melee attack, use your reaction to force the creature to repeat the same attack against another creature (not itself) of your choice.
+        Uncanny Dodge: When an attacker you can see hits you with an attack, you can use a reaction to take half damage instead.
+      </Feature>
+    </Subclass>
+  </PCClass>
+  <PCClass Name="Rogue">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Dexterity, Intelligence</Feature>
+    <Feature Name="Armor Proficiencies">Light armor</Feature>
+    <Feature Name="Weapon Proficiencies">Simple weapons, hand crossbows, longswords, rapiers, shortswords</Feature>
+    <Feature Name="Tool Proficiencies">Thieves' tools</Feature>
+    <Feature Name="Expertise">Choose 2 skill proficiencies: add double your proficiency bonus instead of your regular bonus. At 6th level choose two more.</Feature>
+    <Feature Name="Sneak Attack">Once per turn deal (rogue level/2)d6 (rounded up) extra damage when you hit with advantage, or with an ally within 5 feet of the target and you don't have disadvantage. This attack must use a finesse or ranged weapon.</Feature>
+    <Feature Name="Thieves' Cant">You can convey secret messages in thieves' cant. See PHB for details.</Feature>
+    <Feature Name="Cunning Action" StartLevel="2">You can Dash, Disengage, or Hide as a bonus action.</Feature>
+    <Feature Name="Roguish Archetype" StartLevel="3">Choose a roguish archetype. See PHB for details.</Feature>
+    <Feature Name="Extra Ability Score Increases">In addition to the regular ones (every 4th level) you get an ASI at 10th level.</Feature>
+    <Feature Name="Uncanny Dodge" StartLevel="5">When an attacker you can see hits you with an attack, you can use a reaction to take half damage instead.</Feature>
+    <Feature Name="Evasion" StartLevel="7">When you make a DEX save for half damage, instead take half damage on a failed save and no damage on a successful save.</Feature>
+    <Feature Name="Reliable Talent" StartLevel="11">When you make an ability check that includes proficiency, treat a roll of 9 or lower as a 10.</Feature>
+    <Feature Name="Blindsense" StartLevel="14">If you are able to hear, you are aware of the location of any hidden or invisible creatures within 10 feet of you.</Feature>
+    <Feature Name="Slippery Mind" StartLevel="15">Gain proficiency in Wisdom saving throws.</Feature>
+    <Feature Name="Elusive" StartLevel="18">No attack roll against you has advantage if you are not incapacitated.</Feature>
+    <Feature Name="Stroke of Luck" StartLevel="20">Once per rest (long or short) either: turn a miss into a hit, or treat the d20 roll for a failed ability check as a 20.</Feature>
+    <Subclass Name="Thief">
+      <Feature Name="Fast Hands" StartLevel="3">You can use Cunning Action to make a DEX (Sleight of Hand) check, disarm a trap, open a lock, or take the Use an Object action.</Feature>
+      <Feature Name="Second-Story Work" StartLevel="3">Climbing costs normal movement. Running jumps increase by DEX feet.</Feature>
+      <Feature Name="Supreme Sneak" StartLevel="9">You have advantage on DEX (Stealth) checks if you move more than half your speed that turn.</Feature>
+      <Feature Name="Use Magic Device" StartLevel="13">Ignore all class, race, or level requirements for magic items.</Feature>
+      <Feature Name="Thief's Reflexes" StartLevel="17">You can take 2 turns during the first round of combat--one at normal initiative, the other at initiative minus 10. Cannot use this feature when surprised.</Feature>
+    </Subclass>
+  </PCClass>
+  <PCClass Name="Sorcerer">
+    <Feature Name="Hit Dice">d6</Feature>
+    <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Constitution, Charisma</Feature>
+    <Feature Name="Armor Proficiencies">None</Feature>
+    <Feature Name="Weapon Proficiencies">Daggers, darts, slings, quarterstaffs, light crossbows</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Full</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 6 6</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>2 3 4 5 6 7 8 9 10 11 12 12 13 13 14 14 15 15 15 15</Spells>
+    </Feature>
+    <Feature Name="Spellcasting Focus">You can use an arcane focus.</Feature>
+    <Feature Name="Sorcerous Origin">Choose a sorcerous origin as described in the PHB.</Feature>
+    <Feature Name="Font of Magic" StartLevel="2">You gain the sorcery point and flexible casting features (described below).</Feature>
+    <Feature Name="Sorcery Points" StartLevel="2">You have sorcery points equal to your sorcerer level. You can never have more than this; you regain all spent points when you finish a long rest.</Feature>
+    <Feature Name="Flexible Casting" StartLevel="2" xml:space="preserve">You can create spell slots out of spell points (up to 5th level).
+    Slot Level | Cost
+    1st        |  2
+    2nd        |  3
+    3rd        |  5
+    4th        |  6
+    5th        |  7
+    As a bonus action on your turn you can spend a spell slot (no level restriction) and gain sorcery points equal to the spell slot level.</Feature>
+    <Feature Name="Metamagic" StartLevel="3" xml:space="preserve">You gain 2 metamagic options; gain one more at each of 10th and 17th level. Only one can be used per spell unless otherwise noted.
+    Careful Spell: Spend 1 sorcery point to allow a number of creatures up to CHA to automatically succeed on saving throw against the spell you modify.
+    Distant Spell: When you cast a spell with range of 5 feet or greater, spend a sorcery point to double the range. Touch spells gain a range of 30 feet if this is used with them (same cost).
+    Empowered Spell (stacks): Spend 1 point to reroll up to CHA damage dice and use the new rolls instead.
+    Extended Spell: Spend 1 point to double the duration of a spell (of natural duration 1 minute or longer). The maximum duration is 24 hours.
+    Heightened Spell: Spend 3 points to give one target disadvantage on the first saving throw against this spell.
+    Quickened Spell: Spend 2 points to change a casting time of 1 action to a bonus action for this casting.
+    Subtle Spell: Spend 1 point to cast a spell ignoring verbal or somatic components.
+    Twinned Spell: Spend (spell slot level) points to target a second target when casting a spell that can only target one creature (and not self).
+    </Feature>
+    <Feature Name="Sorcerous Restoration" StartLevel="20"> Regain 4 sorcery points when you finish a short rest.</Feature>
+    <Subclass Name="Draconic Bloodline">
+      <Feature Name="Dragon Ancestor" StartLevel="1">Choose a type of dragon as your ancestor. Refer to the table for damage types. You also speak, read, and write Draconic. When you make a CHA check when interacting with dragons, you have expertise if you have proficiency.</Feature>
+      <Feature Name="Draconic Resilience" StartLevel="1">Your HP max increase by 1; this happens at each level. When not wearing armor, your AC is 13 + DEX.</Feature>
+      <Feature Name="Elemental Affinity" StartLevel="6">When you cast a spell that deals damage of the type associated with your ancestor, you can add CHA to one damage roll. You can spend 1 sorcery point to gain resistance to that damage type for 1 hour.</Feature>
+      <Feature Name="Dragon Wings" StartLevel="14">As a bonus action, you gain a fly speed equal to your current speed. This is disabled while wearing standard armor.</Feature>
+      <Feature Name="Draconic Presence" StartLevel="18">As an action, spend 5 sorcery points to exude an aura of awe or fear out to 60 feet. For one minute (or concentration) each hostile creature in the aura must make a WIS save or be charmed (awe) or feared (fear) until the aura ends. Creatures that succeed are immune to your aura for 24 hours.</Feature>
+    </Subclass>
+  </PCClass>
+  <PCClass Name="Warlock">
+    <Feature Name="Hit Dice">d8</Feature>
+    <Feature Name="Hit Points">8 + CON; 1d8 (5) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Wisdom, Charisma</Feature>
+    <Feature Name="Armor Proficiencies">Light armor</Feature>
+    <Feature Name="Weapon Proficiencies">Simple weapons</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Otherworldly Patron">Choose a patron as described in the PHB at level 1.</Feature>
+    <Feature Name="Pact Magic">Warlocks cast spells differently than others. They do not contribute to multi-class casting slots.</Feature>
+    <Feature Name="Spellcasting">
+      <CastingType>Warlock</CastingType>
+      <IsPreparedCaster>False</IsPreparedCaster>
+      <CastingAbility>Charisma</CastingAbility>
+      <Cantrips>2 2 2 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>2 3 4 5 6 7 8 9 10 10 11 11 12 12 13 13 14 14 15 15</Spells>
+    </Feature>
+    <Feature Name="Spellcasting Focus">You can use an arcane focus.</Feature>
+    <Feature Name="Eldritch Invocations" StartLevel="2">See PHB for list of invocations known/level (2 at 2nd level). You can replace an invocation at each level-up. The list of invocations and their prerequisites are in the PHB and SRD.</Feature>
+    <Feature Name="Pact Boon" StartLevel="3">You gain one of the following features: Pact of the Chain, Pact of the Blade, or Pact of the Tome. Details are in the PHB.</Feature>
+    <Feature Name="Mystic Arcanum" StartLevel="11">Choose one spell of appropriate level (every odd level) from the warlock list. You can cast this spell once per long rest without using a spell slot.</Feature>
+    <Feature Name="Eldritch Master" StartLevel="20">Once per long rest, you can spend a minute to regain all pact magic spell slots.</Feature>
+    <Subclass Name="Fiend Patron">
+      <Feature Name="Expanded Spell List" StartLevel="1" xml:space="preserve">The following are added to your spell list. They are NOT bonus spells.
+      Spell Level : Spells
+      1st         : burning hands, command
+      2nd         : blindness/deafness, scorching ray
+      3rd         : fireball, stinking cloud
+      4th         : fire shield, wall of fire
+      5th         : flame strike, hallow</Feature>
+      <Feature Name="Dark One's Blessing" StartLevel="1">Gain THP = CHA + class level when you reduced a hostile creature to 0 HP.</Feature>
+      <Feature Name="Dark One's Own Luck" StartLevel="6">Add 1d10 to a saving throw or ability check before the effects occur 1x/rest.</Feature>
+      <Feature Name="Fiendish Resilience" StartLevel="10">Gain resistance to a damage type (except magical weapons or silver weapons). You can change this damage type after a long or short rest.</Feature>
+      <Feature Name="Hurl through Hell" StartLevel="14">When you hit a creature with an attack, you can use this feature to remove the creature until the end of your next turn. If the creature is not a fiend, it takes 10d10 psychich damage when it returns.</Feature>
+    </Subclass>
+  </PCClass>
+  <PCClass Name="Wizard">
+    <Feature Name="Hit Dice">d6</Feature>
+    <Feature Name="Hit Points">6 + CON; 1d6 (4) + CON after 1st.</Feature>
+    <Feature Name="Saving Throw Proficiencies">Intelligence, Wisdom</Feature>
+    <Feature Name="Armor Proficiencies">None</Feature>
+    <Feature Name="Weapon Proficiencies">Daggers, darts, slings, quarterstaffs, light crossbows</Feature>
+    <Feature Name="Tool Proficiencies">None</Feature>
+    <Feature Name="Spellcasting" StartLevel="1">
+      <CastingType>True</CastingType>
+      <IsPreparedCaster>True</IsPreparedCaster>
+      <CastingAbility>Intelligence</CastingAbility>
+      <Cantrips>3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5</Cantrips>
+      <BonusSpells>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</BonusSpells>
+      <Spells>4 5 6 7 8 9 10 11 12 14 15 15 16 18 19 19 20 22 22 22</Spells>
+      <!--meaningless-->
+    </Feature>
+    <Feature Name="Spellbook">Your spells (except cantrips) are stored in a spellbook.</Feature>
+    <Feature Name="Ritual Casting">You can cast wizard (ritual) spells. You do not have to have them prepared, but they must be in your spellbook.</Feature>
+    <Feature Name="Spellcasting Focus">You can use an arcane focus.</Feature>
+    <Feature Name="Arcane Recovery">Once per day when you finish a short rest you can regain up to level/2 (rounded up) spell levels of slots. None of the recovered slots can be 6th level or higher.</Feature>
+    <Feature Name="Arcane Tradition" StartLevel="2">Choose an arcane tradition as outlined in the PHB.</Feature>
+    <Feature Name="Spell Mastery" StartLevel="18">Choose a 1st and a 2nd level wizard spell in your book--you can cast them at their lowest level without expending a slot.</Feature>
+    <Feature Name="Signature Spells" StartLevel="20">Choose 2 3rd level spells. You always have them prepared and they don't count against the number of spells you can prepare. You can cast them each without expending a spell slot once per short or long rest.</Feature>
+    <Subclass Name="School of Evocation">
+      <Feature Name="Evocation Savant" StartLevel="2">Gold and time you spend to copy an evocation spell into your spellbook are halved.</Feature>
+      <Feature Name="Sculpt Spells" StartLevel="2">You can exclude 1 + spell level creatures from an evocation spell that requires a save. They take no damage and automatically succeed on any saving throws due to the spell.</Feature>
+      <Feature Name="Potent Cantrip" StartLevel="6">Cantrips that allow a saving throw now do half damage (but nothing else) on a successful save.</Feature>
+      <Feature Name="Empowered Evocation" StartLevel="10">Add INT to the damage of any wizard evocation spell you cast.</Feature>
+      <Feature Name="Overchannel" StartLevel="14">When you cast an evocation spell of levels 1-5, you deal can deal maximum damage. This does (uses - 1)d12 necrotic damage to you. The damage done resets (to zero) on a long rest and ignores resistance and immunity.</Feature>
+    </Subclass>
+  </PCClass>
+</ClassFeatures>

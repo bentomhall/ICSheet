@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BasicWeapons>
+  <Weapon Name="Club" Category="SimpleMelee">
+    <Cost>0.1</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>2</Weight>
+    <Properties>Light</Properties>
+  </Weapon>
+  <Weapon Name="Dagger" Category="SimpleMelee">
+    <Cost>2</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>1</Weight>
+    <Properties>Finesse, Light, thrown (20/60)</Properties>
+  </Weapon>
+  <Weapon Name="Greatclub" Category="SimpleMelee">
+    <Cost>0.2</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>10</Weight>
+    <Properties>Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Handaxe" Category="SimpleMelee">
+    <Cost>5</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>2</Weight>
+    <Properties>Light, Thrown (20/60)</Properties>
+  </Weapon>
+  <Weapon Name="Javelin" Category="SimpleMelee">
+    <Cost>0.5</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>2</Weight>
+    <Properties>Thrown (30/120)</Properties>
+  </Weapon>
+  <Weapon Name="Light hammer" Category="SimpleMelee">
+    <Cost>2</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>2</Weight>
+    <Properties>Light, Thrown (20/60)</Properties>
+  </Weapon>
+  <Weapon Name="Mace" Category="SimpleMelee">
+    <Cost>5</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>4</Weight>
+    <Properties></Properties>
+  </Weapon>
+  <Weapon Name="Quarterstaff" Category="SimpleMelee">
+    <Cost>0.2</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>4</Weight>
+    <Properties>Versatile (1d8)</Properties>
+  </Weapon>
+  <Weapon Name="Sickle" Category="SimpleMelee">
+    <Cost>1</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>2</Weight>
+    <Properties>Light</Properties>
+  </Weapon>
+  <Weapon Name="Spear" Category="SimpleMelee">
+    <Cost>1</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>3</Weight>
+    <Properties>Thrown (20/60), Versatile (1d8)</Properties>
+  </Weapon>
+  <Weapon Name="Light Crossbow" Category="SimpleRanged">
+    <Cost>25</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>5</Weight>
+    <Properties>Ammunition (80/320), Loading, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Dart" Category="SimpleRanged">
+    <Cost>0.05</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>0.25</Weight>
+    <Properties>Finesse, Thrown (20/60)</Properties>
+  </Weapon>
+  <Weapon Name="Shortbow" Category="SimpleRanged">
+    <Cost>25</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>2</Weight>
+    <Properties>Ammunition (80/320), Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Sling" Category="SimpleRanged">
+    <Cost>0.1</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>0</Weight>
+    <Properties>Ammunition (80/120)</Properties>
+  </Weapon>
+  <Weapon Name="Battleaxe" Category="MartialMelee">
+    <Cost>10</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>4</Weight>
+    <Properties>Versatile (1d10)</Properties>
+  </Weapon>
+  <Weapon Name="Flail" Category="MartialMelee">
+    <Cost>10</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>2</Weight>
+    <Properties></Properties>
+  </Weapon>
+  <Weapon Name="Glaive" Category="MartialMelee">
+    <Cost>20</Cost>
+    <Damage>1d10</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>6</Weight>
+    <Properties>Heavy, Reach, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Greataxe" Category="MartialMelee">
+    <Cost>30</Cost>
+    <Damage>1d12</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>7</Weight>
+    <Properties>Heavy, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Greatsword" Category="MartialMelee">
+    <Cost>50</Cost>
+    <Damage>2d6</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>6</Weight>
+    <Properties>Heavy, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Halberd" Category="MartialMelee">
+    <Cost>20</Cost>
+    <Damage>1d10</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>6</Weight>
+    <Properties>Heavy, Reach, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Lance" Category="MartialMelee">
+    <Cost>10</Cost>
+    <Damage>1d12</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>6</Weight>
+    <Properties>Reach, Special</Properties>
+  </Weapon>
+  <Weapon Name="Longsword" Category="MartialMelee">
+    <Cost>15</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>3</Weight>
+    <Properties>Versatile (1d10)</Properties>
+  </Weapon>
+  <Weapon Name="Maul" Category="MartialMelee">
+    <Cost>10</Cost>
+    <Damage>2d6</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>10</Weight>
+    <Properties>Heavy, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Morningstar" Category="MartialMelee">
+    <Cost>15</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>4</Weight>
+    <Properties></Properties>
+  </Weapon>
+  <Weapon Name="Pike" Category="MartialMelee">
+    <Cost>5</Cost>
+    <Damage>1d10</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>18</Weight>
+    <Properties>Heavy, Reach, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Rapier" Category="MartialMelee">
+    <Cost>25</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>2</Weight>
+    <Properties>Finesse</Properties>
+  </Weapon>
+  <Weapon Name="Scimitar" Category="MartialMelee">
+    <Cost>25</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>3</Weight>
+    <Properties>Finesse, Light</Properties>
+  </Weapon>
+  <Weapon Name="Shortsword" Category="MartialMelee">
+    <Cost>10</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>4</Weight>
+    <Properties>Finesse, Light</Properties>
+  </Weapon>
+  <Weapon Name="Trident" Category="MartialMelee">
+    <Cost>5</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>4</Weight>
+    <Properties>Thrown (20/60), Versatile (1d8)</Properties>
+  </Weapon>
+  <Weapon Name="War pick" Category="MartialMelee">
+    <Cost>5</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>2</Weight>
+    <Properties></Properties>
+  </Weapon>
+  <Weapon Name="Warhammer" Category="MartialMelee">
+    <Cost>15</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Bludgeoning</DamageType>
+    <Weight>2</Weight>
+    <Properties>Versatile (1d10)</Properties>
+  </Weapon>
+  <Weapon Name="Whip" Category="MartialMelee">
+    <Cost>2</Cost>
+    <Damage>1d4</Damage>
+    <DamageType>Slashing</DamageType>
+    <Weight>3</Weight>
+    <Properties>Finesse, Reach</Properties>
+  </Weapon>
+  <Weapon Name="Blowgun" Category="MartialRanged">
+    <Cost>10</Cost>
+    <Damage>1</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>1</Weight>
+    <Properties>Ammunition (25/100), Loading</Properties>
+  </Weapon>
+  <Weapon Name="Hand Crossbow" Category="MartialRanged">
+    <Cost>75</Cost>
+    <Damage>1d6</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>3</Weight>
+    <Properties>Ammunition (30/120), Light, Loading</Properties>
+  </Weapon>
+  <Weapon Name="Heavy Crossbow" Category="MartialRanged">
+    <Cost>50</Cost>
+    <Damage>1d10</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>18</Weight>
+    <Properties>Ammunition (100/400), Heavy, Loading, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Longbow" Category="MartialRanged">
+    <Cost>50</Cost>
+    <Damage>1d8</Damage>
+    <DamageType>Piercing</DamageType>
+    <Weight>2</Weight>
+    <Properties>Ammunition (150/600), Heavy, Two-handed</Properties>
+  </Weapon>
+  <Weapon Name="Net" Category="MartialRanged">
+    <Cost>1</Cost>
+    <Damage>0</Damage>
+    <DamageType>None</DamageType>
+    <Weight>3</Weight>
+    <Properties>Special, Thrown (5/15)</Properties>
+  </Weapon>
+  
+</BasicWeapons>

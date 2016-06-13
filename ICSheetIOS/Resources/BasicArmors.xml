@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BasicArmors>
+  <Armor Name="Padded" ArmorType="Light">
+    <Cost>5</Cost>
+    <ArmorClass>11</ArmorClass>
+    <Weight>8</Weight>
+    <Properties>Disadvantage on Stealth checks.</Properties>
+  </Armor>
+  <Armor Name="Leather" ArmorType="Light">
+    <Cost>10</Cost>
+    <ArmorClass>11</ArmorClass>
+    <Weight>10</Weight>
+    <Properties></Properties>
+  </Armor>
+  <Armor Name="Studded leather" ArmorType="Light">
+    <Cost>45</Cost>
+    <ArmorClass>12</ArmorClass>
+    <Weight>13</Weight>
+    <Properties></Properties>
+  </Armor>
+  <Armor Name="Hide" ArmorType="Medium">
+    <Cost>10</Cost>
+    <ArmorClass>12</ArmorClass>
+    <Weight>12</Weight>
+    <Properties></Properties>
+  </Armor>
+  <Armor Name="Chain shirt" ArmorType="Medium">
+    <Cost>50</Cost>
+    <ArmorClass>13</ArmorClass>
+    <Weight>20</Weight>
+    <Properties></Properties>
+  </Armor>
+  <Armor Name="Scale mail" ArmorType="Medium">
+    <Cost>50</Cost>
+    <ArmorClass>14</ArmorClass>
+    <Weight>45</Weight>
+    <Properties>Disadvantage on Stealth checks.</Properties>
+  </Armor>
+  <Armor Name="Breastplate" ArmorType="Medium">
+    <Cost>400</Cost>
+    <ArmorClass>14</ArmorClass>
+    <Weight>20</Weight>
+    <Properties></Properties>
+  </Armor>
+  <Armor Name="Half plate" ArmorType="Medium">
+    <Cost>750</Cost>
+    <ArmorClass>15</ArmorClass>
+    <Weight>40</Weight>
+    <Properties>Disadvantage on Stealth checks.</Properties>
+  </Armor>
+  <Armor Name="Ring mail" ArmorType="Heavy">
+    <Cost>30</Cost>
+    <ArmorClass>14</ArmorClass>
+    <Weight>40</Weight>
+    <Properties>Disadvantage on Stealth checks.</Properties>
+  </Armor>
+  <Armor Name="Chain mail" ArmorType="Heavy">
+    <Cost>75</Cost>
+    <ArmorClass>16</ArmorClass>
+    <Weight>40</Weight>
+    <Properties>Disadvantage on Stealth checks. Requires 13 STR.</Properties>
+  </Armor>
+  <Armor Name="Splint" ArmorType="Heavy">
+    <Cost>200</Cost>
+    <ArmorClass>17</ArmorClass>
+    <Weight>60</Weight>
+    <Properties>Disadvantage on Stealth checks. Requires 15 STR.</Properties>
+  </Armor>
+  <Armor Name="Plate" ArmorType="Heavy">
+    <Cost>1500</Cost>
+    <ArmorClass>18</ArmorClass>
+    <Weight>65</Weight>
+    <Properties>Disadvantage on Stealth checks. Requires 15 STR.</Properties>
+  </Armor>
+  <Armor Name="Shield" ArmorType="Shield">
+    <Cost>10</Cost>
+    <ArmorClass>2</ArmorClass>
+    <Weight>6</Weight>
+    <Properties></Properties>
+  </Armor>
+</BasicArmors>

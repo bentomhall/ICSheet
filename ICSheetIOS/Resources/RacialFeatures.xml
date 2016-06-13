@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FeatureSet>
+  <Race Name="Dwarf">
+    <Feature Name="Ability Bonus">+2 CON</Feature>
+    <Feature Name="Speed">25</Feature>
+    <Feature Name="Stability">Your speed is not reduced by heavy armor.</Feature>
+    <Feature Name="Vision">Darkvision: 60ft</Feature>
+    <Feature Name="Dwarven Resilience">Advantage on saves vs poison and resistance to poison damage.</Feature>
+    <Feature Name="Dwarven Combat Training">You have proficiency with battleaxe, handaxe, light hammer, and warhammer.</Feature>
+    <Feature Name="Tool Proficiency">Proficiency with smith's tools, brewer's supplies, or mason's tools.</Feature>
+    <Feature Name="Stonecunning">Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in History and add doubly your normal proficiency bonus instead of your regular proficiency.</Feature>
+    <Feature Name="Languages">Common and Dwarvish</Feature>
+    <Subrace Name="Hill Dwarf">
+      <Feature Name="Ability Bonus">+1 WIS</Feature>
+      <Feature Name="Dwarven Toughness">+1 HP at each level (including first).</Feature>
+    </Subrace>
+    <Subrace Name="Mountain Dwarf">
+      <Feature Name="Ability Bonus">+2 STR</Feature>
+      <Feature Name="Dwarven Armor Training">Proficiency with light and medium armor.</Feature>
+    </Subrace>
+  </Race>
+
+  <Race Name="Elf">
+    <Feature Name="Ability Bonus">+2 DEX</Feature>
+    <Feature Name="Speed">30</Feature>
+    <Feature Name="Vision">Darkvision: 60ft.</Feature>
+    <Feature Name="Keen Senses">Proficiency in Perception.</Feature>
+    <Feature Name="Fey Ancestry">Advantage on save vs charm and immunity to magical sleep.</Feature>
+    <Feature Name="Trance">4hrs of trance instead of 8hrs sleep.</Feature>
+    <Feature Name="Languages">Common and Elvish</Feature>
+    <Subrace Name="High Elf">
+      <Feature Name="Ability Bonus">+1 INT</Feature>
+      <Feature Name="Elf Weapon Training">Proficiency in longsword, shortsword, shortbow, and longbow.</Feature>
+      <Feature Name="Cantrips">You know one cantrip from the wizard list. INT is your casting ability for it.</Feature>
+      <Feature Name="Extra Language">You know (read/write/speak) one extra language of your choice.</Feature>
+    </Subrace>
+    <Subrace Name="Wood Elf">
+      <Feature Name="Ability Bonus">+1 WIS</Feature>
+      <Feature Name="Elf Weapon Training">Proficiency in longsword, shortsword, shortbow, and longbow.</Feature>
+      <Feature Name="Speed">35</Feature>
+      <Feature Name="Mask of the Wild">You can attempt to hide when lightly obscured by natural phenomena.</Feature>
+    </Subrace>
+    <Subrace Name="Dark Elf">
+      <Feature Name="Ability Bonus">+1 CHA</Feature>
+      <Feature Name="Superior Darkvision">Darkvision: 120ft.</Feature>
+      <Feature Name="Sunlight Sensitivity">Disadvantage on attack rolls and perception when you, your target, or the thing you are trying to percieve is in direct sunlight.</Feature>
+      <Feature Name="Drow Magic" HasLimitedUse="True">You know Dancing Lights. At 3rd level: Faerie Fire 1x/day. At 5th level: Darkness 1x/day. Use CHA.</Feature>
+      <Feature Name="Drow Weapon Training">Proficiency with rapiers, shortswords, and hand crossbows.</Feature>
+    </Subrace>
+  </Race>
+  <Race Name="Halfling">
+    <Feature Name="Ability Bonus">+2 DEX</Feature>
+    <Feature Name="Size">Small</Feature>
+    <Feature Name="Speed">25</Feature>
+    <Feature Name="Lucky">When you roll a 1 on the d20 for an attack roll, ability check or saving throw you can reroll and must use the new value.</Feature>
+    <Feature Name="Brave">Advantage on save vs fear.</Feature>
+    <Feature Name="Halfling Nimbleness">You can move through the space of any creature that has a size larger than yours.</Feature>
+    <Feature Name="Languages">Common and Halfling.</Feature>
+    <Subrace Name="Lightfoot Halfling">
+      <Feature Name="Ability Bonus">+1 CHA</Feature>
+      <Feature Name="Naturally Stealthy">Can attempt to hide when obscured by a creature larger than you.</Feature>
+    </Subrace>
+    <Subrace Name="Stout Halfling">
+      <Feature Name="Ability Bonus">+1 CON</Feature>
+      <Feature Name="Stout Resilience">Advantage on saves vs poison and resistance to poison damage.</Feature>
+    </Subrace>
+  </Race>
+  <Race Name="Human">
+    <Feature Name="Ability Bonus">+1 to all.</Feature>
+    <Feature Name="Speed">30</Feature>
+    <Feature Name="Languages">Common and one extra of your choice.</Feature>
+    <Subrace Name="Variant Human" Replaces="Ability Bonus">
+      <Feature Name="Ability Bonus">+1 to two of your choice.</Feature>
+      <Feature Name="Skills">Proficiency in 1 skill of your choice.</Feature>
+      <Feature Name="Feat">You gain one feat of your choice.</Feature>
+    </Subrace>
+  </Race>
+  <Race Name="Dragonborn">
+    <Feature Name="Ability Bonus">+2 STR, +1 CHA</Feature>
+    <Feature Name="Speed">30</Feature>
+    <Feature Name="Draconic Ancestry">You have draconic ancestry. See table on PHB 34 for color--type mapping and details on breath weapon.</Feature>
+    <Feature Name="Breath Weapon" HasLimitedUse="True">See table on PHB 34 for shape/size. DC is 8 + proficiency + CON. Damage is 2d6 (1st)/3d6 (6th)/4d6 (11th)/5d6 (16th). Recharges on short/long rest.</Feature>
+    <Feature Name="Damage Resistance">Resistance to damage type from table on PHB 34.</Feature>
+    <Feature Name="Languages">Common and Draconic.</Feature>
+  </Race>
+  <Race Name="Gnome">
+    <Feature Name="Ability Bonus">+2 INT</Feature>
+    <Feature Name="Size">Small.</Feature>
+    <Feature Name="Speed">25</Feature>
+    <Feature Name="Vision">Darkvision: 60ft</Feature>
+    <Feature Name="Gnome Cunning">Advantage on INT, WIS, and CHA saves vs magic.</Feature>
+    <Feature Name="Languages">Common and Gnomish.</Feature>
+    <Subrace Name="Forest Gnome">
+      <Feature Name="Ability Bonus">+1 DEX.</Feature>
+      <Feature Name="Natural Illusionist">You know Minor Illusion. Use INT.</Feature>
+      <Feature Name="Speak with Small Beasts">You can communicate simple ideas with Small or smaller beasts.</Feature>
+    </Subrace>
+    <Subrace Name="Rock Gnome">
+      <Feature Name="Ability Bonus">+1 CON</Feature>
+      <Feature Name="Artificer's Lore">Whenever you make an INT (History) check related to magic items, alchemical objects or technological devices use 2 x Proficiency instead of regular proficiency.</Feature>
+      <Feature Name="Tinker">Proficiency with Tinker's Tools. See PHB 37 for details on uses/cost/etc.</Feature>
+    </Subrace>
+  </Race>
+  <Race Name="Half-Elf">
+    <Feature Name="Ability Bonus">+2 CHA, +1 to two others of your choice.</Feature>
+    <Feature Name="Speed">30</Feature>
+    <Feature Name="Vision">Darkvision: 60 ft.</Feature>
+    <Feature Name="Fey Ancestry">Advantage on save vs charm and immunity to magical sleep.</Feature>
+    <Feature Name="Skill Versatility">You gain proficiency in two skills of your choice</Feature>
+    <Feature Name="Languages">Common, Elvish, +1 of your choice.</Feature>
+  </Race>
+  <Race Name="Half-Orc">
+    <Feature Name="Ability Bonus">+2 STR, +1 CON</Feature>
+    <Feature Name="Vision">Darkvision: 60 ft.</Feature>
+    <Feature Name="Speed">30</Feature>
+    <Feature Name="Menacing">Proficiency in Intimidate</Feature>
+    <Feature Name="Relentless Endurance" HasLimitedUse="True">When you are reduced to 0 HP but not killed outright, you drop to 1 HP instead. Use 1x/Day</Feature>
+    <Feature Name="Savage Attacks">Add +1 weapon damage dice on crit.</Feature>
+    <Feature Name="Languages">Common and Orc.</Feature>
+  </Race>
+  <Race Name="Tiefling">
+    <Feature Name="Ability Bonus">+1 INT, +2 CHA</Feature>
+    <Feature Name="Vision">Darkvision: 60 ft.</Feature>
+    <Feature Name="Speed">30</Feature>
+    <Feature Name="Hellish Resistance">Resistance to Fire.</Feature>
+    <Feature Name="Infernal Legacy" HasLimitedUse="True">You know Thaumaturgy. At 3rd level: Hellish Rebuke (as 2nd level, 1x/day). At 5th level: Darkness 1x/day. Use CHA.</Feature>
+    <Feature Name="Languages">Common and Infernal.</Feature>
+  </Race>
+</FeatureSet>

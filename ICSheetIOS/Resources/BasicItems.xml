@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<BasicItems>
+  <Item Name="Abacus">
+    <Cost>2.0</Cost>
+    <Weight>2.0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Acid (vial)">
+    <Cost>25.0</Cost>
+    <Weight>1.0</Weight>
+    <Count>1</Count>
+    <Properties>Splash (range 5) or throw (range 20); ranged attack as improvised weapon. 2d6 acid damage on hit.</Properties>
+  </Item>
+  <Item Name="Alchemist's fire (flask)">
+    <Cost>50.0</Cost>
+    <Weight>1.0</Weight>
+    <Count>1</Count>
+    <Properties>Throw (range 20); ranged attack as improvised weapon. 1d4 fire damage per turn. DC 10 DEX check to extinguish.</Properties>
+  </Item>
+  <Item Name="Antitoxin (vial)">
+    <Cost>50</Cost>
+    <Weight>0.0</Weight>
+    <Count>1</Count>
+    <Properties>Drinking this gives advantage on saves vs poison for 1 hour.</Properties>
+  </Item>
+  <Item Name="Arrows">
+    <Cost>1</Cost>
+    <Weight>0.05</Weight>
+    <Count>20</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Blowgun Needles">
+    <Cost>1</Cost>
+    <Weight>0.02</Weight>
+    <Count>50</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Crossbow bolts">
+    <Cost>1</Cost>
+    <Weight>0.075</Weight>
+    <Count>20</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Sling bullets">
+    <Cost>0.04</Cost>
+    <Weight>0.075</Weight>
+    <Count>20</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Crystal (Arcane focus)">
+    <Cost>10</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Orb (Arcane focus)">
+    <Cost>20</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Rod (Arcane focus)">
+    <Cost>10</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Staff (Arcane focus)">
+    <Cost>5</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Wand (Arcane focus)">
+    <Cost>10</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Arcane Focus</Properties>
+  </Item>
+  <Item Name="Backpack">
+    <Cost>2</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties>Holds 1 cu. ft. and 30 lbs of gear.</Properties>
+  </Item>
+  <Item Name="Ball Bearings (bag)">
+    <Cost>1</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>As action, cover a square 10ft on a side. DEX save vs DC10 or fall prone. Half-speed negates.</Properties>
+  </Item>
+  <Item Name="Barrel">
+    <Cost>2</Cost>
+    <Weight>70</Weight>
+    <Count>1</Count>
+    <Properties>Holds 40 gallons liquid or 4 cu. ft. solid.</Properties>
+  </Item>
+  <Item Name="Basket">
+    <Cost>0.4</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Holds 2 cu. ft. or 40 lbs of gear.</Properties>
+  </Item>
+  <Item Name="Bedroll">
+    <Cost>1</Cost>
+    <Weight>7</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Bell">
+    <Cost>1</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Blanket">
+    <Cost>0.5</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Block and Tackle">
+    <Cost>1</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties>Allows hoisting of up to 4x normal capacity</Properties>
+  </Item>
+  <Item Name="Book">
+    <Cost>25</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Bottle, glass">
+    <Cost>2</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>1.5 pints liquid</Properties>
+  </Item>
+  <Item Name="Bucket">
+    <Cost>0.05</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>3 gallons liquid or 0.5 cu ft solid</Properties>
+  </Item>
+  <Item Name="Caltrops">
+    <Cost>1</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Can cover a 5ft x 5ft square. DC 15 DEX or stop moving and take 1 piercing. This damage reduces speed by 10ft until the creature regains at least 1 HP. Half-speed negates the need to save.</Properties>
+  </Item>
+  <Item Name="Candle">
+    <Cost>0.01</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>5/5 light for 1 hr</Properties>
+  </Item>
+  <Item Name="Case, crossbow bolt">
+    <Cost>1</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Can hold up to 20 bolts.</Properties>
+  </Item>
+  <Item Name="Case, map or scroll">
+    <Cost>1</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Can hold up to 5 rolled up sheets of paper or 5 rolled-up parchments.</Properties>
+  </Item>
+  <Item Name="Chain (10 feet)">
+    <Cost>5</Cost>
+    <Weight>10</Weight>
+    <Count>1</Count>
+    <Properties>10 HP; burst with DC 20 STR check.</Properties>
+  </Item>
+  <Item Name="Chalk">
+    <Cost>0.01</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Chest">
+    <Cost>5</Cost>
+    <Weight>25</Weight>
+    <Count>1</Count>
+    <Properties>12 cu ft or 300 lbs of gear</Properties>
+  </Item>
+  <Item Name="Climber's Kit">
+    <Cost>25</Cost>
+    <Weight>12</Weight>
+    <Count>1</Count>
+    <Properties>Can anchor to within 25 feet of a location (can't climb higher or fall lower without removing the anchor).</Properties>
+  </Item>
+  <Item Name="Clothes, Common">
+    <Cost>0.5</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Clothes, Costume">
+    <Cost>5</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Clothes, Fine">
+    <Cost>15</Cost>
+    <Weight>6</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Clothes, traveler's">
+    <Cost>2</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Component Pouch">
+    <Cost>25</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Holds all material components for spells (infinite amount except those with specific costs listed--those are not included).</Properties>
+  </Item>
+  <Item Name="Crowbar">
+    <Cost>0.5</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties>Grants advantage on STR where the crowbar's leverage can be applied.</Properties>
+  </Item>
+  <Item Name="Druidic Focus: Mistletoe">
+    <Cost>1</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Druidic Focus</Properties>
+  </Item>
+  <Item Name="Druidic Focus: Totem">
+    <Cost>1</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Druidic Focus</Properties>
+  </Item>
+  <Item Name="Druidic Focus: Wooden Staff">
+    <Cost>5</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties>Druidic Focus</Properties>
+  </Item>
+  <Item Name="Druidic Focus: Yew Wand">
+    <Cost>10</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Druidic Focus</Properties>
+  </Item>
+  <Item Name="Fishing Tackle">
+    <Cost>1</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties>Everything needed for fishing.</Properties>
+  </Item>
+  <Item Name="Flask or Tankard">
+    <Cost>1</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties>1 pint of liquid</Properties>
+  </Item>
+  <Item Name="Grappling Hook">
+    <Cost>2</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Hammer">
+    <Cost>1</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Hammer, sledge">
+    <Cost>2</Cost>
+    <Weight>10</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Healer's Kit">
+    <Cost>5</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties>10 charges; Can stabilize creature without needing a Wisdom (medicine) check.</Properties>
+  </Item>
+  <Item Name="Holy Symbol: Amulet">
+    <Cost>5</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Holy Symbol</Properties>
+  </Item>
+  <Item Name="Holy Symbol: Emblem">
+    <Cost>5</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Holy Symbol</Properties>
+  </Item>
+  <Item Name="Holy Symbol: Reliquary">
+    <Cost>5</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Holy Symbol</Properties>
+  </Item>
+  <Item Name="Holy Water (flask)">
+    <Cost>25</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Splash on enemy within 5 or throw up to 20 ft. Ranged attack (improvised). On hit, fiends and undead take 2d6 radiant damage. Creatable as a ritual that takes 1 hr and expends 25gp of powdered silver and a first-level spell slot.</Properties>
+  </Item>
+  <Item Name="Hourglass">
+    <Cost>25</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Hunting Trap">
+    <Cost>5</Cost>
+    <Weight>25</Weight>
+    <Count>1</Count>
+    <Properties>Set as action. Stepping on it requires a DC 13 DEX save or stop moving and take 1d4 piercing. Until broken, can't move more than 3 ft. DC 13 STR to free yourself or another creature. Failed checks deal 1 piercing damage to trapped creature.</Properties>
+  </Item>
+  <Item Name="Ink (1 oz bottle)">
+    <Cost>10</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Ink Pen">
+    <Cost>0.02</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Jug or pitcher">
+    <Cost>0.02</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties>1 gallon liquid</Properties>
+  </Item>
+  <Item Name="Ladder (10 ft)">
+    <Cost>0.1</Cost>
+    <Weight>25</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Lamp">
+    <Cost>0.5</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>15/30 light for 6 hr (fuel is 1 bottle of oil)</Properties>
+  </Item>
+  <Item Name="Lantern, bullseye">
+    <Cost>10</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>60/60 cone light for 6 hours (fuel is 1 bottle of oil)</Properties>
+  </Item>
+  <Item Name="Lantern, hooded">
+    <Cost>5</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>30/30 light for 6 hours (fuel is 1 bottle of oil). Can be reduced to 0/5 as an action.</Properties>
+  </Item>
+  <Item Name="Lock">
+    <Cost>10</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Standard DC to pick is 15 DEX.</Properties>
+  </Item>
+  <Item Name="Magnifying glass">
+    <Cost>100</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Advantage on appraisal or inspection of detailed objects. Can ignite tinder with light as bright as sunlight and 5 minutes.</Properties>
+  </Item>
+  <Item Name="Manacles">
+    <Cost>2</Cost>
+    <Weight>6</Weight>
+    <Count>1</Count>
+    <Properties>DC 20 DEX to escape, DC 20 STR to break. Pickable at DC 15. 15 HP.</Properties>
+  </Item>
+  <Item Name="Mess Kit">
+    <Cost>0.2</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Everything needed for eating.</Properties>
+  </Item>
+  <Item Name="Mirror, steel">
+    <Cost>5</Cost>
+    <Weight>0.5</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Oil (flask)">
+    <Cost>0.1</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Ranged (5 or 20 range) attack (improvised). On hit, target is coverd with oil. Any source of fire damage within 1 minute makes creature take 5 fire damage additionally. Can burn a 5x5 square (2 rounds, 5 fire damage on entry or turn end).</Properties>
+  </Item>
+  <Item Name="Paper">
+    <Cost>0.2</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Per sheet</Properties>
+  </Item>
+  <Item Name="Parchment">
+    <Cost>0.1</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Per sheet</Properties>
+  </Item>
+  <Item Name="Perfume (vial)">
+    <Cost>5</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Pick, miner's">
+    <Cost>2</Cost>
+    <Weight>10</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Piton">
+    <Cost>0.05</Cost>
+    <Weight>0.25</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Poison, basic (vial)">
+    <Cost>100</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>Apply as action--next hit deals 1d4 poison on failed (DC 10) CON save. Lasts a minute before drying.</Properties>
+  </Item>
+  <Item Name="Pole">
+    <Cost>0.05</Cost>
+    <Weight>7</Weight>
+    <Count>1</Count>
+    <Properties>10 ft</Properties>
+  </Item>
+  <Item Name="Pot, iron">
+    <Cost>2</Cost>
+    <Weight>10</Weight>
+    <Count>1</Count>
+    <Properties>1 gallon liquid</Properties>
+  </Item>
+  <Item Name="Potion of Healing">
+    <Cost>50</Cost>
+    <Weight>0.5</Weight>
+    <Count>1</Count>
+    <Properties>Heals 2d4 + 2 as action.</Properties>
+  </Item>
+  <Item Name="Pouch">
+    <Cost>0.5</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>0.2 cu ft or 6 lbs gear, 20 sling bullets or 50 blowgun needles</Properties>
+  </Item>
+  <Item Name="Quiver">
+    <Cost>1</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>20 arrows</Properties>
+  </Item>
+  <Item Name="Ram, portable">
+    <Cost>4</Cost>
+    <Weight>35</Weight>
+    <Count>1</Count>
+    <Properties>+4 to STR for breaking down doors. Can be assisted by others for advantage.</Properties>
+  </Item>
+  <Item Name="Rations">
+    <Cost>0.5</Cost>
+    <Weight>2</Weight>
+    <Count>1</Count>
+    <Properties>Per day</Properties>
+  </Item>
+  <Item Name="Robes">
+    <Cost>1</Cost>
+    <Weight>4</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Rope, hempen">
+    <Cost>1</Cost>
+    <Weight>10</Weight>
+    <Count>1</Count>
+    <Properties>50 ft</Properties>
+  </Item>
+  <Item Name="Rope, silk">
+    <Cost>10</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties>50 ft</Properties>
+  </Item>
+  <Item Name="Sack">
+    <Cost>0.1</Cost>
+    <Weight>0.5</Weight>
+    <Count>1</Count>
+    <Properties>1 cu ft or 30 lbs gear.</Properties>
+  </Item>
+  <Item Name="Scale, merchant's">
+    <Cost>5</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties>Can measure exact weights of small objects.</Properties>
+  </Item>
+  <Item Name="Sealing Wax">
+    <Cost>0.5</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Shovel">
+    <Cost>2</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Signal whistle">
+    <Cost>0.05</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Signet Ring">
+    <Cost>5</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Soap">
+    <Cost>0.02</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Spellbook">
+    <Cost>50</Cost>
+    <Weight>3</Weight>
+    <Count>1</Count>
+    <Properties>Holds wizard spells</Properties>
+  </Item>
+  <Item Name="Spikes, iron">
+    <Cost>0.1</Cost>
+    <Weight>0.5</Weight>
+    <Count>10</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Spyglass">
+    <Cost>1000</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>2x magnification</Properties>
+  </Item>
+  <Item Name="Tent, two-person">
+    <Cost>2</Cost>
+    <Weight>20</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+  <Item Name="Tinderbox">
+    <Cost>0.5</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>Lighting torch (or similar) is an action. Anything else is 1 minute.</Properties>
+  </Item>
+  <Item Name="Torch">
+    <Cost>0.01</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties>20/20 light for 1 hour. Melee attacks with burning torches deal 1 fire damage.</Properties>
+  </Item>
+  <Item Name="Vial">
+    <Cost>1</Cost>
+    <Weight>0</Weight>
+    <Count>1</Count>
+    <Properties>4 oz liquid</Properties>
+  </Item>
+  <Item Name="Waterskin">
+    <Cost>0.2</Cost>
+    <Weight>5</Weight>
+    <Count>1</Count>
+    <Properties>4 pints, weight is full</Properties>
+  </Item>
+  <Item Name="Whetstone">
+    <Cost>0.01</Cost>
+    <Weight>1</Weight>
+    <Count>1</Count>
+    <Properties></Properties>
+  </Item>
+</BasicItems>
