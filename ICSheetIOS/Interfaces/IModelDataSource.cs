@@ -6,7 +6,7 @@ namespace ICSheetIOS.Interfaces
 {
     interface IModelDataSource
     {
-        event EventHandler ModelChanged;
+        event EventHandler<ModelChangedEventArgs> ModelChanged;
         Models.OverviewModel OverviewViewModel { get; set; }
         Models.InformationModel InformationViewModel {get;set;}
         Models.InventoryModel InventoryViewModel {get;set;}

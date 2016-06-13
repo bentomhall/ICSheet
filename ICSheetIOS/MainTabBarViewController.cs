@@ -26,7 +26,7 @@ namespace ICSheetIOS
         {
         }
 
-        public event EventHandler ModelChanged;
+        public event EventHandler<Interfaces.ModelChangedEventArgs> ModelChanged;
 
         public override void DidReceiveMemoryWarning()
         {
@@ -40,6 +40,7 @@ namespace ICSheetIOS
         {
             base.ViewDidLoad();
             _setTabBarItemStatus(false);
+            _attachModelEvents();
             // Perform any additional setup after loading the view
         }
 
@@ -51,7 +52,7 @@ namespace ICSheetIOS
             SpellsViewModel = new SpellsModel(c);
             OnModelChanged(new Interfaces.ModelChangedEventArgs(Interfaces.ModelType.All));
             _setTabBarItemStatus(true);
-            //TabBar.SelectedItem = TabBar.Items[1];
+            SelectedIndex = 1;
         }
 
         private void OnModelChanged(Interfaces.ModelChangedEventArgs e)
@@ -74,6 +75,11 @@ namespace ICSheetIOS
         {
             var character = characterManager.CreateCharacter(characterData);
             SetCharacter(character);
+        }
+
+        private void _attachModelEvents()
+        {
+            ModelChanged += (ViewControllers[1] as OverviewViewController).OnModelChanged;
         }
     }
 }

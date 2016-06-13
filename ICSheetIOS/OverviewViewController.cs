@@ -22,6 +22,14 @@ namespace ICSheetIOS
             }
         }
 
+        public void OnModelChanged(object sender, Interfaces.ModelChangedEventArgs e)
+        {
+            if (e.ModelChangedType == Interfaces.ModelType.All || e.ModelChangedType == Interfaces.ModelType.Overview)
+            {
+                Model = (TabBarController as MainTabBarViewController).OverviewViewModel;
+            }
+        }
+
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
