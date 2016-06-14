@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ICSheetIOS
@@ -39,6 +40,21 @@ namespace ICSheetIOS
         private void loadFromModel()
         {
             NameLabel.Text = Model.Name;
+            AbilityScoreButton.SetTitle(formatAbilities(), UIControlState.Normal);
+            HealthButton.SetTitle(Model.Health, UIControlState.Normal);
+            DefenseButton.SetTitle(formatDefenses(), UIControlState.Normal);
+        }
+
+        private string formatDefenses()
+        {
+            var defenseNames = new List<string> { "AC", "STR", "DEX", "CON", "INT", "WIS", "CHA" };
+            return string.Join(" / ", defenseNames.Select(x => Model.DefenseStringFor(x)));
+        }
+
+        private string formatAbilities()
+        {
+            var abilityNames = new List<string> { "STR", "DEX", "CON", "INT", "WIS", "CHA" };
+            return string.Join(" / ", abilityNames.Select(x => Model.AbilityStringFor(x)));
         }
     }
 }
