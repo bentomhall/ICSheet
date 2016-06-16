@@ -102,7 +102,7 @@ namespace ICSheetCore
         }
 
 
-        internal void ChangeACFromArmor(ArmorItem item, IAbilityDataSource abilities, int baseAC)
+        internal void ChangeACFromArmor(ArmorItem item, ArmorItem shield, IAbilityDataSource abilities, int baseAC)
         {
             int ac = 10;
             switch(item.ArmorClassType)
@@ -119,10 +119,10 @@ namespace ICSheetCore
                 case ArmorType.Heavy:
                     ac = item.ArmorBonus + item.EnhancementBonus;
                     break;
-                case ArmorType.Shield:
-                    ac = ArmorClass + item.ArmorBonus + item.EnhancementBonus;
+                default:
                     break;
             }
+            if (shield != null) { ac += shield.ArmorBonus + shield.EnhancementBonus; }
             ModifyAC(ac);
         }
 

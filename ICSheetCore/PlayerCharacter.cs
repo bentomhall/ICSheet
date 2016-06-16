@@ -222,9 +222,7 @@ namespace ICSheetCore
             var a = item as ArmorItem;
             if (a != null)
             {
-                var hasShield = _inventory.ItemEquippedIn(ItemSlot.Offhand) is ArmorItem;
-                var baseAC = _classAggregate.BaseACWith(_abilityAggregate, a.ArmorClassType, hasShield);
-                _defenseAggregate.ChangeACFromArmor(a, _abilityAggregate, baseAC);
+                _changeAC(a);
             }
         }
 
@@ -238,11 +236,16 @@ namespace ICSheetCore
             var a = item as ArmorItem;
             if (a != null)
             {
-                var hasShield = _inventory.ItemEquippedIn(ItemSlot.Offhand) is ArmorItem;
                 var armor = _inventory.ItemEquippedIn(ItemSlot.Armor) as ArmorItem;
-                var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, hasShield);
-                _defenseAggregate.ChangeACFromArmor(armor, _abilityAggregate, baseAC);
+                _changeAC(armor);
             }
+        }
+
+        private void _changeAC(ArmorItem armor)
+        {
+            var shield = _inventory.ItemEquippedIn(ItemSlot.Offhand) as ArmorItem;
+            var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, shield != null);
+            _defenseAggregate.ChangeACFromArmor(armor, shield, _abilityAggregate, baseAC);
         }
         #endregion
 
@@ -541,10 +544,8 @@ namespace ICSheetCore
         public void ModifyAbilityScore(AbilityType ability, int value)
         {
             _abilityAggregate.Modify(ability, value);
-            var hasShield = _inventory.ItemEquippedIn(ItemSlot.Offhand) is ArmorItem;
             var armor = _inventory.ItemEquippedIn(ItemSlot.Armor) as ArmorItem;
-            var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, hasShield);
-            _defenseAggregate.ChangeACFromArmor(armor, _abilityAggregate, baseAC);
+            _changeAC(armor);
         }
 
         /// <summary>
