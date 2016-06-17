@@ -228,11 +228,11 @@ namespace ICSheet5e.ViewModels
         {
             if (obj == "Pay")
             {
-                currentCharacter.DoGoldTransaction(-1 * transactionAmount);
+                currentCharacter.DoGoldTransaction(-1 * Math.Abs(transactionAmount));
             }
             else if (obj == "Gain")
             {
-                currentCharacter.DoGoldTransaction(transactionAmount);
+                currentCharacter.DoGoldTransaction(Math.Abs(transactionAmount));
             }
             NotifyPropertyChanged("Gold");
         }
