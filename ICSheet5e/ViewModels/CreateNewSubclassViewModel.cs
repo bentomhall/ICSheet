@@ -15,11 +15,6 @@ namespace ICSheet5e.ViewModels
         private string _featureName;
         private int _featureStartingLevel = 1;
         private string _featureText;
-        private string _cantripsKnown;
-        private string _spellsKnown;
-        private string _bonusSpells;
-        private string _spellbook;
-        private bool _isPreparedCaster;
         private string _subclassName;
 
         public string WindowTitle { get { return _windowTitle; } set { _windowTitle = value;  NotifyPropertyChanged(); } }

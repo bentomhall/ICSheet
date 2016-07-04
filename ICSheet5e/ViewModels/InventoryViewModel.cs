@@ -249,6 +249,7 @@ namespace ICSheet5e.ViewModels
 
         private void ModifyItemCountExecuted(string obj)
         {
+            if (SelectedItem == null) { return; }
             if (obj == "+") 
             { 
                 currentCharacter.AddItemToInventory(SelectedItem.Item);

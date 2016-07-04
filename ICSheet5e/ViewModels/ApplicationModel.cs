@@ -367,7 +367,7 @@ namespace ICSheet5e.ViewModels
             LevelUpViewModel = new LevelUpViewModel(currentCharacter.Levels, featureFactory, OnLevelUpCompleted);
         }
 
-        private bool _isOverlayOpen;
+        //private bool _isOverlayOpen;
         private bool _isSettingsOverlayOpen;
         private UserPreferencesViewModel _userPreferencesModel;
 

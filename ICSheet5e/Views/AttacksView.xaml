@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="117" d:DesignWidth="198">
     <Grid>
-        <ListView ItemsSource="{Binding Attacks}">
+        <ListView ItemsSource="{Binding Attacks}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Weapon" Width="100" DisplayMemberBinding="{Binding Name}"/>
