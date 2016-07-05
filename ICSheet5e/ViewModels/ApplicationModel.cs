@@ -116,10 +116,11 @@ namespace ICSheet5e.ViewModels
 
         private void loadSpellResources()
         {
-            
+            _serializer = new ResourceModifiers.CustomSpellSerializer(_fileManager.SpelllistPath, _fileManager.SpellDetailsPath);
+            _serializer.Save(); //merges changes to built-in list upward (if any exist)
             spellBookData = File.ReadAllText(_fileManager.SpelllistPath);
             spellListData = File.ReadAllText(_fileManager.SpellDetailsPath);
-            _serializer = new ResourceModifiers.CustomSpellSerializer(_fileManager.SpelllistPath, _fileManager.SpellDetailsPath);
+            
             return;
         }
 

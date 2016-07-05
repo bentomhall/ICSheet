@@ -61,12 +61,23 @@ namespace ICSheet5e.ResourceModifiers
             return element;
         }
 
+        private void mergeSpellDetails(ResourceFileManager manager)
+        {
+            var defaultPath = manager.DefaultPathFor("SpellList5e.json");
+            var defaultSpells = parseDetails(defaultPath);
+            var newSpells = defaultSpells.Where(x => !_spellDetails.Any(y => y.name == x.name));
+            _spellDetails.AddRange(newSpells);
+        }
+
         public void Save()
         {
             var fileManager = new ResourceFileManager();
             _spellListPath = fileManager.CreatePathForResource("spell_list.xml");
             _spellDetailPath = fileManager.CreatePathForResource("SpellList5e.json");
-        
+            if (fileManager.ShouldMergeResources("SpellList5e.json"))
+            {
+                mergeSpellDetails(fileManager);
+            }
             _spellLists.Save(_spellListPath);
             var output = JsonConvert.SerializeObject(_spellDetails);
             File.WriteAllText(_spellDetailPath, output);

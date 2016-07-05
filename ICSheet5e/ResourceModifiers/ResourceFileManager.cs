@@ -10,19 +10,39 @@ namespace ICSheet5e.ResourceModifiers
     public class ResourceFileManager
     {
         private string appName = "ICSheet5e";
+        private string appDataPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private string getResourcePath(string forResource)
         {
-            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var combinedPath = Path.Combine(appData, appName, forResource);
+            var combinedPath = Path.Combine(appDataPath, appName, forResource);
             if (File.Exists(combinedPath)) { return combinedPath; }
             else { return Path.Combine("Resources", forResource); }
         }
 
         public string CreatePathForResource(string resource)
         {
-            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(Path.Combine(appData, appName)); //only creates if it doesn't exist already
-            return Path.Combine(appData, appName, resource);
+            Directory.CreateDirectory(Path.Combine(appDataPath, appName)); //only creates if it doesn't exist already
+            return Path.Combine(appDataPath, appName, resource);
+        }
+
+        public string DefaultPathFor(string resource)
+        {
+            return Path.Combine("Resources", resource);
+        }
+
+        public bool ShouldMergeResources(string forResource)
+        {
+            var customPath = Path.Combine(appDataPath, appName, forResource);
+            DateTime customModificationTime;
+            DateTime defaultModificationTime = File.GetLastWriteTime(Path.Combine("Resources", forResource));
+            try
+            {
+                customModificationTime = File.GetLastWriteTime(customPath);
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
+            }
+            return defaultModificationTime.CompareTo(customModificationTime) > 0;
         }
 
         public string ArmorListPath
