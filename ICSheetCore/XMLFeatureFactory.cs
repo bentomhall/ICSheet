@@ -8,7 +8,7 @@ namespace ICSheetCore
     /// <summary>
     /// Parses XML features into feature objects.
     /// </summary>
-    public class XMLFeatureFactory
+    public class XMLFeatureFactory : IFeatureFactory
     {
         private string _raceFeaturesXML;
         private string _classFeaturesXML;

@@ -19,5 +19,10 @@ namespace ICCoreTest
             Assert.AreEqual(rce2.BaseMovement, 30);
         }
 
+
+        public void TestACOnChangingAttributes()
+        {
+            
+        }
     }
 }

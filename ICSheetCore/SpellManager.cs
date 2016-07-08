@@ -9,7 +9,7 @@ namespace ICSheetCore
     /// Data source for spell information from XML
     /// </summary>
     [DataContract]
-    public class SpellManager
+    public class SpellManager : ISpellManager
     {
         private bool hasSpellDetails(string spellName)
         {

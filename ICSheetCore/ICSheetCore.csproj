@@ -54,12 +54,14 @@
     <Compile Include="IAbilityDataSource.cs" />
     <Compile Include="IDefense.cs" />
     <Compile Include="IFeature.cs" />
+    <Compile Include="IFeatureFactory.cs" />
     <Compile Include="IInventoryDataSource.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="InventoryAggregate.cs" />
     <Compile Include="IRace.cs" />
     <Compile Include="ISpellcastingFeature.cs" />
     <Compile Include="ISpellHandler.cs" />
+    <Compile Include="ISpellManager.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemDataBase.cs" />
     <Compile Include="PCRace.cs" />

@@ -12,8 +12,8 @@ namespace ICSheetCore
     {
         private string _characterName;
 
-        private SpellManager _spellDB;
-        private XMLFeatureFactory _featureFactory;
+        private ISpellManager _spellDB;
+        private IFeatureFactory _featureFactory;
         private PCRace _race;
         private PlayerClassAggregate _classes;
         private string _alignment;
@@ -28,7 +28,7 @@ namespace ICSheetCore
         /// <param name="name"></param>
         /// <param name="spellDB"></param>
         /// <param name="featureFactory"></param>
-        public CharacterFactory(string name, SpellManager spellDB, XMLFeatureFactory featureFactory)
+        public CharacterFactory(string name, ISpellManager spellDB, IFeatureFactory featureFactory)
         {
             _characterName = name;
             _spellDB = spellDB;
