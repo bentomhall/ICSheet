@@ -245,7 +245,17 @@ namespace ICSheetCore
         {
             var shield = _inventory.ItemEquippedIn(ItemSlot.Offhand) as ArmorItem;
             var baseAC = _classAggregate.BaseACWith(_abilityAggregate, armor.ArmorClassType, shield != null);
-            _defenseAggregate.ChangeACFromArmor(armor, shield, _abilityAggregate, baseAC);
+            if (armor.Slot == ItemSlot.Offhand)
+            {
+                var a = _inventory.ItemEquippedIn(ItemSlot.Armor) as ArmorItem;
+                _defenseAggregate.ChangeACFromArmor(a, shield, _abilityAggregate, baseAC);
+            }
+            else
+            {
+                _defenseAggregate.ChangeACFromArmor(armor, shield, _abilityAggregate, baseAC);
+            }
+            
+            
         }
         #endregion
 

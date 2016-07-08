@@ -32,7 +32,7 @@ namespace ICCoreTest
 
         public IEnumerable<IFeature> ExtractRacialFeatures(string race, string subrace)
         {
-            return new List<IFeature> { new RaceFeature("test race feature", "test"), new RaceFeature("Speed", "30") };
+            return new List<IFeature> { new RaceFeature("test race feature", "test") };
         }
 
         public IEnumerable<string> ExtractSubclassesFor(string _selectedClass)

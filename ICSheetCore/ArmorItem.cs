@@ -57,6 +57,10 @@ namespace ICSheetCore
                     MaxDexBonus = 0;
                     BaseEffect = "14";
                     break;
+                case ArmorType.Shield:
+                    BaseEffect = "2";
+                    Slot = ItemSlot.Offhand;
+                    break;
                 default:
                     break;
             }
