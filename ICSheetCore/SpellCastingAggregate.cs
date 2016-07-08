@@ -10,10 +10,10 @@ namespace ICSheetCore
         private List<int> _totalSpellSlots;
         private List<int> _availableSpellSlots;
         private Dictionary<string, SpellBook> _spellBooks;
-        private SpellManager _spellDB;
+        private ISpellManager _spellDB;
         private List<int> _levels;
         
-        internal SpellCastingAggregate(IEnumerable<ISpellcastingFeature> spellcastingFeatures, IEnumerable<int> levels, SpellManager spellDB)
+        internal SpellCastingAggregate(IEnumerable<ISpellcastingFeature> spellcastingFeatures, IEnumerable<int> levels, ISpellManager spellDB)
         {
 
             _features = spellcastingFeatures.ToList();

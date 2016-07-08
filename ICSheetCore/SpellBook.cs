@@ -11,7 +11,7 @@ namespace ICSheetCore
     public class SpellBook
     {
         [DataMember]
-        private SpellManager dB;
+        private ISpellManager dB;
         [DataMember]
         private List<Spell> _allSpells = new List<Spell>();
         [DataMember]
@@ -25,7 +25,7 @@ namespace ICSheetCore
         /// <param name="spellDB"></param>
         /// <param name="className"></param>
         /// <param name="isPreparedCaster"></param>
-        public SpellBook(SpellManager spellDB, string className, bool isPreparedCaster)
+        public SpellBook(ISpellManager spellDB, string className, bool isPreparedCaster)
         {
             dB = spellDB;
             _name = className;

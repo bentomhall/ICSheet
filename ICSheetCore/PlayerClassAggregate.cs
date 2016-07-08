@@ -27,7 +27,7 @@ namespace ICSheetCore
         }
 
 
-        internal PlayerClassAggregate(IEnumerable<PlayerCharacterClassDetail> classesAndLevels, SpellManager spellDB)
+        internal PlayerClassAggregate(IEnumerable<PlayerCharacterClassDetail> classesAndLevels, ISpellManager spellDB)
         {
             _playerClasses = classesAndLevels.ToList();
             _totalLevel = _playerClasses.Sum(x => x.Level);
@@ -57,7 +57,7 @@ namespace ICSheetCore
             return _spellcastingAggregate.PreparedSpellUtilization(abilities, spellcastingLevels);
         }
 
-        private SpellCastingAggregate createSpellcastingAggregate(SpellManager db)
+        private SpellCastingAggregate createSpellcastingAggregate(ISpellManager db)
         {
             var castingFeatures = new List<ISpellcastingFeature>();
             var levels = new List<int>();

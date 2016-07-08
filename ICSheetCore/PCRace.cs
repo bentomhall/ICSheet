@@ -17,6 +17,7 @@ namespace ICSheetCore
         private int calculateMovement()
         {
             var movementFeature = _features.SingleOrDefault(x => x.Name == "Speed");
+            if (movementFeature == null) { return 30; }
             _features.Remove(movementFeature);
             var movement = 30;
             try
