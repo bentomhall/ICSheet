@@ -56,7 +56,7 @@
                 </DockPanel>
                 <DockPanel>
                     <Label DockPanel.Dock="Top">XP:</Label>
-                    <TextBox DockPanel.Dock="Top" Text="{Binding Experience, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="100" Margin="0,0,10,0"/>
+                    <xctk:CalculatorUpDown DockPanel.Dock="Top" Value="{Binding Experience, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=CanEdit}" FontSize="36" VerticalAlignment="Stretch" VerticalContentAlignment="Center" MinWidth="150" Margin="0,0,10,0"/>
                 </DockPanel>
             </StackPanel>
         </Border>
